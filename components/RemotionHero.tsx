@@ -42,22 +42,21 @@ const TitleSequence = () => {
         {/* 회사 뱃지 */}
         <div style={{
           display: 'inline-flex', alignItems: 'center', gap: 12,
-          padding: '10px 28px', background: 'rgba(255,255,255,0.08)',
-          backdropFilter: 'blur(30px)', borderRadius: 40,
-          border: '1px solid rgba(255,255,255,0.25)',
-          marginBottom: 44, boxShadow: '0 12px 40px rgba(0,0,0,0.5)',
+          padding: '10px 28px', background: 'rgba(255,255,255,0.8)',
+          backdropFilter: 'blur(12px)', borderRadius: 40,
+          border: '1px solid rgba(15,23,42,0.1)',
+          marginBottom: 44, boxShadow: '0 8px 30px rgba(0,0,0,0.05)',
           opacity: phase1, 
           transform: `translateY(${translateY(phase1)}px) scale(${scale1}) translateZ(0)`,
         }}>
-          <span style={{ fontSize: 13, fontWeight: 900, color: '#38bdf8', letterSpacing: 2 }}>(주)와이앤케이</span>
-          <span style={{ width: 4, height: 4, borderRadius: '50%', background: 'rgba(56,189,248,0.6)' }} />
-          <span style={{ fontSize: 12, fontWeight: 800, color: '#ffffff', letterSpacing: 1.5 }}>GLOBAL LED TRADE PARTNER</span>
+          <span style={{ fontSize: 13, fontWeight: 900, color: '#0284c7', letterSpacing: 2 }}>(주)와이앤케이</span>
+          <span style={{ width: 4, height: 4, borderRadius: '50%', background: 'rgba(2,132,199,0.2)' }} />
+          <span style={{ fontSize: 12, fontWeight: 800, color: '#334155', letterSpacing: 1.5 }}>GLOBAL LED TRADE PARTNER</span>
         </div>
 
         <h1 style={{
           fontSize: 'clamp(44px, 6.5vw, 96px)', fontWeight: 900,
-          color: '#ffffff', letterSpacing: '-0.03em', lineHeight: 1.15,
-          textShadow: '0 4px 12px rgba(0,0,0,1)',
+          color: '#0f172a', letterSpacing: '-0.03em', lineHeight: 1.15,
           opacity: phase2, 
           transform: `translateY(${translateY(phase2)}px) scale(${scale2}) translateZ(0)`,
           marginBottom: 0,
@@ -65,16 +64,14 @@ const TitleSequence = () => {
         }}>
           검증된 제품,<br />
           <span style={{
-            color: '#7dd3fc', // 훨씬 밝은 하늘색으로 교체하여 대비 극대화
-            textShadow: '0 0 20px rgba(125,211,252,0.3), 0 4px 12px rgba(0,0,0,1)',
+            color: '#0284c7', // 밝은 배경에서 선명하게 보이는 Deep Blue
           }}>신뢰할 수 있는 공급</span>
         </h1>
 
         {/* 서브카피 */}
         <p style={{
-          fontSize: 'clamp(17px, 1.6vw, 22px)', color: '#f8fafc', fontWeight: 600,
+          fontSize: 'clamp(17px, 1.6vw, 22px)', color: '#475569', fontWeight: 500,
           maxWidth: 760, margin: '40px auto 0', lineHeight: 1.8,
-          textShadow: '0 2px 8px rgba(0,0,0,1)',
           opacity: phase3, 
           transform: `translateY(${translateY(phase3)}px) scale(${scale3}) translateZ(0)`,
           WebkitFontSmoothing: 'antialiased',
@@ -116,15 +113,15 @@ function BackgroundVideo() {
   const currentYoutubeId = YOUTUBE_CLIPS[clipIndex];
 
   return (
-    <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', background: '#060d1a' }}>
+    <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', background: '#ffffff' }}>
       {/* 영상 유닛 (로컬/유튜브 공용) */}
       <div style={{
         position: 'absolute',
         inset: 0,
-        opacity: fadeout ? 0 : 0.22, // 배경을 훨씬 더 어둡게 깔아 텍스트를 확실히 살림
-        transition: 'opacity 1.2s ease-in-out',
+        opacity: fadeout ? 0 : 0.15, // 영상을 아주 연하게 처리
+        transition: 'opacity 1.5s ease-in-out',
         zIndex: 1,
-        filter: 'brightness(0.7) contrast(1.3) saturate(1.1)',
+        filter: 'grayscale(0.3) brightness(1.1) contrast(1.1)',
       }}>
         {useLocal ? (
           <video
@@ -159,10 +156,10 @@ function BackgroundVideo() {
         )}
       </div>
 
-      {/* 배경 오버레이 (대비 극대화를 위해 훨씬 어둡게 조정) */}
+      {/* 배경 오버레이 (화이트 테마에 맞게 밝은 그라데이션으로 교체) */}
       <div style={{
         position: 'absolute', inset: 0,
-        background: 'linear-gradient(to bottom, rgba(2,6,23,0.4) 0%, rgba(2,6,23,0.85) 50%, rgba(2,6,23,0.95) 100%)',
+        background: 'linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0.95) 100%)',
         zIndex: 2,
       }} />
     </div>
@@ -185,7 +182,7 @@ export default function RemotionHero() {
   if (!mounted) return <div style={{ width: '100%', height: '100vh', background: '#060d1a' }} />;
 
   return (
-    <div style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden', background: '#060d1a' }}>
+    <div style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden', background: '#ffffff' }}>
       {/* ① 배경 영상 */}
       <BackgroundVideo />
 
