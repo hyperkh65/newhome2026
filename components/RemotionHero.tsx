@@ -4,32 +4,19 @@ import { AbsoluteFill, useCurrentFrame, interpolate, Sequence, Easing } from 're
 import React, { useState, useEffect } from 'react';
 
 /**
- * 배경 영상 전략:
- * 1순위: /public/hero-bg.mp4 (직접 업로드한 파일이 있으면 사용)
- * 2순위: YouTube iframe embed (항상 작동, CORS 없음)
- *
- * YouTube 영상 변경 방법: YOUTUBE_VIDEO_ID 상수를 바꾸면 됩니다.
- * 추천 검색어: "4K night city timelapse free" YouTube → 영상 ID 복사
+ * 전용 로컬 영상 베이스 히로 섹션
+ * - 유튜브 로딩 지연 및 저화질 현상을 해결하기 위해 /public/hero-bg.mp4를 직접 사용합니다.
+ * - 텍스트의 번짐(blur/bur) 현상을 제거하여 날카로운 가독성을 확보했습니다.
  */
-const YOUTUBE_CLIPS = [
-  'mdbn70EMxH0', // Clip 1: Cityscape At Night ( 전문가급 고화질 야경)
-  'vqlOpSQWk5Y', // Clip 2: Aerial View Of Cityscape (드론 항공 촬영)
-  'weT2sgFARPg', // Clip 3: Night Traffic (역동적인 도시 도로)
-];
-const LOCAL_VIDEO_PATH = '/hero-bg.mp4';  // /public/hero-bg.mp4 파일 넣으면 자동 우선 적용
 
-// ─── 타이틀 시퀀스 (Remotion: 텍스트 애니메이션만 담당) ─────────────────────
+// ─── 타이틀 시퀀스 (Remotion: 텍스트 애니메이션 담당) ─────────────────────
 const TitleSequence = () => {
   const frame = useCurrentFrame();
 
-  // 1단계: 0-1200프레임 (0-20초), 2단계: 1200-2400프레임 (20-40초), 3단계...
-  // 텍스트는 계속 유지되거나 서서히 페이드 됨. 여기서는 초기 진입 애니메이션 위주.
   const phase1 = interpolate(frame, [20, 80],  [0, 1], { easing: Easing.bezier(0.2, 0.8, 0.4, 1), extrapolateRight: 'clamp' });
   const phase2 = interpolate(frame, [60, 140], [0, 1], { easing: Easing.bezier(0.2, 0.8, 0.4, 1), extrapolateRight: 'clamp' });
   const phase3 = interpolate(frame, [100, 190],[0, 1], { easing: Easing.bezier(0.2, 0.8, 0.4, 1), extrapolateRight: 'clamp' });
 
-  // 흐릿함의 원인인 블러 처리를 완전히 제거 (0으로 고정)
-  const blurValue = 0;
   const scale1 = interpolate(phase1, [0, 1], [1.02, 1], { easing: Easing.out(Easing.quad) });
   const scale2 = interpolate(phase2, [0, 1], [1.02, 1], { easing: Easing.out(Easing.quad) });
   const scale3 = interpolate(phase3, [0, 1], [1.01, 1], { easing: Easing.out(Easing.quad) });
@@ -42,10 +29,10 @@ const TitleSequence = () => {
         {/* 회사 뱃지 */}
         <div style={{
           display: 'inline-flex', alignItems: 'center', gap: 12,
-          padding: '10px 28px', background: 'rgba(255,255,255,0.8)',
+          padding: '10px 28px', background: 'rgba(255,255,255,0.85)',
           backdropFilter: 'blur(12px)', borderRadius: 40,
           border: '1px solid rgba(15,23,42,0.1)',
-          marginBottom: 44, boxShadow: '0 8px 30px rgba(0,0,0,0.05)',
+          marginBottom: 44, boxShadow: '0 8px 30px rgba(0,0,0,0.1)',
           opacity: phase1, 
           transform: `translateY(${translateY(phase1)}px) scale(${scale1}) translateZ(0)`,
         }}>
@@ -57,7 +44,7 @@ const TitleSequence = () => {
         <h1 style={{
           fontSize: 'clamp(46px, 6.8vw, 100px)', fontWeight: 900,
           color: '#ffffff', letterSpacing: '-0.04em', lineHeight: 1.15,
-          textShadow: '0 4px 12px rgba(0,0,0,0.8), 0 0 30px rgba(0,0,0,0.4)',
+          textShadow: '0 4px 12px rgba(0,0,0,0.8)', // 깔끔한 섀도우로 변경 (bur 현상 방지)
           opacity: phase2, 
           transform: `translateY(${translateY(phase2)}px) scale(${scale2}) translateZ(0)`,
           marginBottom: 0,
@@ -65,15 +52,15 @@ const TitleSequence = () => {
         }}>
           검증된 제품,<br />
           <span style={{
-            background: 'linear-gradient(90deg, #38bdf8 0%, #818cf8 100%)',
+            background: 'linear-gradient(90deg, #60a5fa 0%, #3b82f6 100%)', // 번짐 없는 선명한 블루
             WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-            filter: 'drop-shadow(0 0 15px rgba(56,189,248,0.4))',
+            fontWeight: 900,
           }}>신뢰할 수 있는 공급</span>
         </h1>
 
         {/* 서브카피 */}
         <p style={{
-          fontSize: 'clamp(18px, 1.7vw, 23px)', color: '#e2e8f0', fontWeight: 600,
+          fontSize: 'clamp(18px, 1.7vw, 23px)', color: '#f1f5f9', fontWeight: 600,
           maxWidth: 780, margin: '44px auto 0', lineHeight: 1.8,
           textShadow: '0 2px 8px rgba(0,0,0,0.8)',
           opacity: phase3, 
@@ -94,77 +81,31 @@ export const LuminaComposition: React.FC = () => (
   </AbsoluteFill>
 );
 
-// ─── 배경 영상 컴포넌트 ─────────────────────────────────────────────────────────
+// ─── 배경 영상 컴포넌트 (로컬 전용) ─────────────────────────────────────────────
 function BackgroundVideo() {
-  const [useLocal, setUseLocal] = useState(true); // 로컬 파일 시도 후 실패 시 YouTube로
-  const [clipIndex, setClipIndex] = useState(0);
-  const [fadeout, setFadeout] = useState(false);
-
-  // 20초마다 클립 전환 (전환 1.2초 전부터 페이드 시작하여 부드러운 교체)
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setFadeout(true);
-      setTimeout(() => {
-        setClipIndex((prev) => (prev + 1) % YOUTUBE_CLIPS.length);
-        setFadeout(false);
-      }, 1200); 
-    }, 20000); 
-    return () => clearInterval(timer);
-  }, []);
-
-  const handleVideoError = () => setUseLocal(false);
-
-  const currentYoutubeId = YOUTUBE_CLIPS[clipIndex];
-
   return (
     <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', background: '#020617' }}>
-      {/* 영상 유닛 (로컬/유튜브 공용) */}
-      <div style={{
-        position: 'absolute',
-        inset: 0,
-        opacity: fadeout ? 0 : 1.0, // 영상 선명도 100% (완전 복구)
-        transition: 'opacity 1.5s ease-in-out',
-        zIndex: 1,
-        // 어떠한 화이트닝 필터도 제거하여 원본 블랙 대비 유지
-        filter: 'contrast(1.2) saturate(1.1)', 
-      }}>
-        {useLocal ? (
-          <video
-            autoPlay muted loop playsInline
-            onError={handleVideoError}
-            style={{
-              position: 'absolute', inset: 0, width: '100%', height: '100%',
-              objectFit: 'cover',
-              filter: 'grayscale(0.1) contrast(1.1)',
-            }}
-          >
-            <source src={LOCAL_VIDEO_PATH} type="video/mp4" />
-          </video>
-        ) : (
-          <div style={{
-            position: 'absolute',
-            top: '50%', left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: 'max(100%, 177.78vh)',
-            height: 'max(100%, 56.25vw)',
-            filter: 'grayscale(0.15) contrast(1.1)',
-            pointerEvents: 'none',
-          }}>
-            <iframe
-              key={currentYoutubeId}
-              src={`https://www.youtube.com/embed/${currentYoutubeId}?autoplay=1&mute=1&loop=1&playlist=${currentYoutubeId}&controls=0&showinfo=0&rel=0&iv_load_policy=3&disablekb=1&modestbranding=1&bg=060d1a`}
-              style={{ width: '100%', height: '100%', border: 'none' }}
-              allow="autoplay; encrypted-media"
-              title="background video"
-            />
-          </div>
-        )}
-      </div>
-
-      {/* "하얗게 보이는" 원인이었던 화이트 그라데이션 오버레이를 완전히 제거 */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        style={{
+          position: 'absolute',
+          inset: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          opacity: 1,
+          filter: 'contrast(1.1) brightness(0.9)', 
+        }}
+      >
+        <source src="/hero-bg.mp4" type="video/mp4" />
+      </video>
+      {/* 텍스트 대비를 위한 미세한 하단 그라데이션만 남김 (화이트워싱 없음) */}
       <div style={{
         position: 'absolute', inset: 0,
-        background: 'transparent',
+        background: 'linear-gradient(180deg, rgba(2,6,23,0.3) 0%, rgba(2,6,23,0.5) 100%)',
         zIndex: 2,
       }} />
     </div>
@@ -179,19 +120,19 @@ export default function RemotionHero() {
   useEffect(() => {
     setMounted(true);
     const update = () => setDim({ w: window.innerWidth, h: Math.max(window.innerHeight, 700) });
-    update();
     window.addEventListener('resize', update);
+    update();
     return () => window.removeEventListener('resize', update);
   }, []);
 
-  if (!mounted) return <div style={{ width: '100%', height: '100vh', background: '#060d1a' }} />;
+  if (!mounted) return <div style={{ width: '100%', height: '100vh', background: '#020617' }} />;
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden', background: '#020617' }}>
-      {/* ① 배경 영상 */}
+      {/* ① 배경 영상 (로컬 소스) */}
       <BackgroundVideo />
 
-      {/* ② 텍스트 애니메이션 (Remotion, 투명 배경) */}
+      {/* ② 텍스트 엔진 (Remotion Player) */}
       <Player
         component={LuminaComposition}
         durationInFrames={3600}
@@ -203,12 +144,26 @@ export default function RemotionHero() {
         loop
       />
 
-      {/* 하단 페이드는 부모(page.tsx)에서 관리하므로 여기서는 제거하거나 아주 살짝만 유지 */}
+      {/* ③ 스크롤 유도 UI */}
       <div style={{
-        position: 'absolute', bottom: 0, left: 0, right: 0, height: 100,
-        background: 'linear-gradient(to top, rgba(15,23,42,0.4) 0%, transparent 100%)',
-        zIndex: 30,
-      }} />
+        position: 'absolute',
+        bottom: 40,
+        left: '50%',
+        transform: 'translateX(-50%)',
+        zIndex: 20,
+        color: 'white',
+        fontSize: 12,
+        fontWeight: 700,
+        letterSpacing: 4,
+        opacity: 0.6,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 12
+      }}>
+        SCROLL
+        <div style={{ width: 1, height: 40, background: 'linear-gradient(180deg, white, transparent)' }} />
+      </div>
     </div>
   );
 }
