@@ -181,8 +181,9 @@ export default function Home() {
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
                 {/* Y&K Logo Box */}
                 <div style={{ width: 32, height: 32, borderRadius: 8, background: 'linear-gradient(135deg, #0284c7, #38bdf8)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <span style={{ color: '#fff', fontWeight: 900, fontSize: 14 }}>Y&K</span>
+                  <span style={{ color: '#fff', fontWeight: 900, fontSize: 13 }}>YnK</span>
                 </div>
+
                 <span style={{ fontSize: 20, fontWeight: 900, color: '#0f172a', letterSpacing: '-0.02em' }}>(주)와이앤케이</span>
               </div>
               <p style={{ fontSize: 15, color: '#64748b', lineHeight: 1.7, marginBottom: 16 }}>
@@ -190,9 +191,10 @@ export default function Home() {
               </p>
               <div style={{ fontSize: 14, color: '#475569', lineHeight: 1.6 }}>
                 <strong>주소:</strong> 인천광역시 미추홀구 경인로112 4층 <br />
-                <strong>Tel:</strong> 032-123-4567<br />
-                <strong>Email:</strong> contact@ynktrade.com
+                <strong>Tel:</strong> 032-862-1350 | <strong>Fax:</strong> 032-863-1351<br />
+                <strong>Email:</strong> contact@ynk2014.com
               </div>
+
             </div>
             {[
               { title: '제품 및 인증 조회', links: [{ label: '스마트조명', href: '/shop' }, { label: '실내조명', href: '/shop' }, { label: '산업/실외조명', href: '/shop' }] },
@@ -211,7 +213,8 @@ export default function Home() {
           </div>
           <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: 32, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
             <p style={{ fontSize: 14, color: '#94a3b8', fontWeight: 500 }}>© 2026 (주)와이앤케이. All rights reserved.</p>
-            <p style={{ fontSize: 14, color: '#94a3b8', fontWeight: 500 }}>사업자등록번호: 123-45-78900 · 무역업 등록번호: 987654</p>
+            <p style={{ fontSize: 14, color: '#94a3b8', fontWeight: 500 }}>사업자등록번호: 131-86-67779 · 무역업 등록번호: 987654</p>
+
           </div>
         </div>
       </footer>

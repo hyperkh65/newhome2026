@@ -22,7 +22,8 @@ const TitleSequence = () => {
   const phase4 = interpolate(frame, [100, 180],[0, 1], { easing: Easing.bezier(0.2, 0.8, 0.4, 1), extrapolateRight: 'clamp' });
 
   const translateY = (p: number) => interpolate(p, [0, 1], [30, 0]);
-  const certifications = ['KC', 'KS', 'EMC', 'HEE'];
+  const certifications = ['KC', 'KS', 'EMC', 'HEE', 'ECO-FRIENDLY'];
+
 
   return (
     <AbsoluteFill style={{ 
@@ -58,9 +59,10 @@ const TitleSequence = () => {
             border: '1px solid rgba(255,255,255,0.15)',
             boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
           }}>
-            <span style={{ fontSize: 'clamp(12px, 1.2vw, 14px)', fontWeight: 900, color: '#38bdf8', letterSpacing: 2.5 }}>(주)와이앤케이</span>
+            <span style={{ fontSize: 'clamp(12px, 1.2vw, 14px)', fontWeight: 900, color: '#38bdf8', letterSpacing: 2.5 }}>YnK</span>
             <div style={{ width: 1, height: 14, background: 'rgba(255,255,255,0.2)' }} />
-            <span style={{ fontSize: 'clamp(10px, 1vw, 12px)', fontWeight: 700, color: 'rgba(255,255,255,0.7)', letterSpacing: 1.5 }}>PREMIUM B2B PARTNER</span>
+            <span style={{ fontSize: 'clamp(10px, 1vw, 12px)', fontWeight: 700, color: '#38bdf8', letterSpacing: 1.5 }}>(주)와이앤케이</span>
+
           </div>
         </div>
 
@@ -112,8 +114,9 @@ const TitleSequence = () => {
               borderRadius: 12, border: '1px solid rgba(14,165,233,0.4)',
               color: '#7dd3fc', fontSize: 13, fontWeight: 800
             }}>
-              HEE 인증 제품
+              글로벌 인증 제품
             </div>
+
           </div>
 
           <p style={{
@@ -178,23 +181,25 @@ const TitleSequence = () => {
       {/* 5. 스크롤 유도 UI (독립적인 하단 브랜딩) */}
       <div style={{
         position: 'absolute',
-        bottom: 30,
+        bottom: 20, // 위치를 조금 더 하단으로 조정하여 겹침 방지
         left: '50%',
         transform: 'translateX(-50%)',
         color: 'white',
-        fontSize: 10,
+        fontSize: 9,
         fontWeight: 800,
         letterSpacing: 4,
         opacity: phase4 * 0.4,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: 10,
-        pointerEvents: 'none'
+        gap: 6,
+        pointerEvents: 'none',
+        zIndex: 5
       }}>
         SCROLL
-        <div style={{ width: 1.5, height: 40, background: 'linear-gradient(180deg, white, transparent)' }} />
+        <div style={{ width: 1.2, height: 36, background: 'linear-gradient(180deg, white, transparent)' }} />
       </div>
+
     </AbsoluteFill>
   );
 };

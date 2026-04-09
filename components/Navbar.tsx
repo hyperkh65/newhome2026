@@ -12,6 +12,12 @@ const PRODUCT_CATEGORIES = [
   { href: '/shop?cat=special', label: '특수조명', icon: '🔬', desc: '의료·클린룸·방폭·살균' },
 ];
 
+const EXTRA_LINKS = [
+  { href: '/board', label: '제품 게시판' },
+  { href: '/blog', label: '블로그' },
+];
+
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -72,23 +78,25 @@ export default function Navbar() {
           {/* Logo Section */}
           <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0 }}>
             <div style={{
-              width: 42, height: 42, borderRadius: '12px',
+              width: 44, height: 44, borderRadius: '12px',
               background: 'linear-gradient(135deg, #0284c7, #38bdf8)',
               boxShadow: '0 8px 20px rgba(2, 132, 199, 0.3)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              transform: scrolled ? 'scale(0.95)' : 'scale(1)',
+              transform: scrolled ? 'scale(0.92)' : 'scale(1)',
               transition: 'transform 0.3s'
             }}>
-              <span style={{ color: '#fff', fontWeight: 950, fontSize: 16 }}>YK</span>
+              <span style={{ color: '#fff', fontWeight: 950, fontSize: 16 }}>YnK</span>
             </div>
+
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <span style={{ 
                 fontSize: 22, fontWeight: 900, letterSpacing: '-0.04em', 
                 color: scrolled ? '#0f172a' : '#ffffff',
                 lineHeight: 1
               }}>
-                (주)<span style={{ color: scrolled ? '#0284c7' : '#38bdf8' }}>와이앤케이</span>
+                <span style={{ color: scrolled ? '#0284c7' : '#38bdf8' }}>(주)와이앤케이</span>
               </span>
+
               <span style={{ fontSize: 9, fontWeight: 800, color: scrolled ? '#64748b' : 'rgba(255,255,255,0.6)', letterSpacing: 1.5, marginTop: 4 }}>GLOBAL LED TRADING</span>
             </div>
           </Link>
@@ -145,6 +153,13 @@ export default function Navbar() {
 
             <Link href="/trade-info" style={navItemStyle()} onMouseEnter={e => { (e.currentTarget as any).style.background = scrolled ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.1)'; }}>무역/인증</Link>
             <Link href="/tracking" style={navItemStyle()} onMouseEnter={e => { (e.currentTarget as any).style.background = scrolled ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.1)'; }}>물류조회</Link>
+            
+            {EXTRA_LINKS.map(link => (
+              <Link key={link.href} href={link.href} style={navItemStyle()} onMouseEnter={e => { (e.currentTarget as any).style.background = scrolled ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.1)'; }}>
+                {link.label}
+              </Link>
+            ))}
+
           </div>
 
           {/* Icon Actions */}
@@ -185,6 +200,9 @@ export default function Navbar() {
              <Link href="/shop" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: '#f8fafc', color: '#0f172a', textDecoration: 'none', fontWeight: 700 }}>제품소개</Link>
              <Link href="/trade-info" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: '#f8fafc', color: '#0f172a', textDecoration: 'none', fontWeight: 700 }}>무역/인증 안내</Link>
              <Link href="/tracking" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: '#f8fafc', color: '#0f172a', textDecoration: 'none', fontWeight: 700 }}>물류조회</Link>
+             <Link href="/board" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: '#f8fafc', color: '#0f172a', textDecoration: 'none', fontWeight: 700 }}>제품 게시판</Link>
+             <Link href="/blog" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: '#f8fafc', color: '#0f172a', textDecoration: 'none', fontWeight: 700 }}>블로그</Link>
+
           </div>
         )}
       </nav>
