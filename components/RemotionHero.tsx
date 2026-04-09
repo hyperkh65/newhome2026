@@ -91,67 +91,75 @@ export const LuminaComposition: React.FC = () => (
 
 // ─── 배경 영상 컴포넌트 ─────────────────────────────────────────────────────────
 function BackgroundVideo() {
-  const [useLocal, setUseLocal] = useState(false); // 로컬 파일이 없으면 바로 YouTube로
+  const [useLocal, setUseLocal] = useState(true); // 로컬 파일 시도 후 실패 시 YouTube로
   const [clipIndex, setClipIndex] = useState(0);
+  const [fadeout, setFadeout] = useState(false);
 
-  // 20초마다 클립 전환
+  // 20초마다 클립 전환 (전환 1.2초 전부터 페이드 시작하여 부드러운 교체)
   useEffect(() => {
     const timer = setInterval(() => {
-      setClipIndex((prev) => (prev + 1) % YOUTUBE_CLIPS.length);
-    }, 20000); // 20초
+      setFadeout(true);
+      setTimeout(() => {
+        setClipIndex((prev) => (prev + 1) % YOUTUBE_CLIPS.length);
+        setFadeout(false);
+      }, 1200); 
+    }, 20000); 
     return () => clearInterval(timer);
   }, []);
 
   const handleVideoError = () => setUseLocal(false);
 
-  const overlayStyle: React.CSSProperties = {
-    position: 'absolute', inset: 0,
-    background: 'radial-gradient(ellipse at 60% 40%, rgba(2,132,199,0.12) 0%, rgba(6,13,26,0.88) 75%)',
-    zIndex: 2,
-  };
-
   const currentYoutubeId = YOUTUBE_CLIPS[clipIndex];
 
   return (
     <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', background: '#060d1a' }}>
+      {/* 영상 유닛 (로컬/유튜브 공용) */}
+      <div style={{
+        position: 'absolute',
+        inset: 0,
+        opacity: fadeout ? 0 : 0.45,
+        transition: 'opacity 1s ease-in-out',
+        zIndex: 1,
+      }}>
+        {useLocal ? (
+          <video
+            autoPlay muted loop playsInline
+            onError={handleVideoError}
+            style={{
+              position: 'absolute', inset: 0, width: '100%', height: '100%',
+              objectFit: 'cover',
+              filter: 'grayscale(0.1) contrast(1.1)',
+            }}
+          >
+            <source src={LOCAL_VIDEO_PATH} type="video/mp4" />
+          </video>
+        ) : (
+          <div style={{
+            position: 'absolute',
+            top: '50%', left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 'max(100%, 177.78vh)',
+            height: 'max(100%, 56.25vw)',
+            filter: 'grayscale(0.15) contrast(1.1)',
+            pointerEvents: 'none',
+          }}>
+            <iframe
+              key={currentYoutubeId}
+              src={`https://www.youtube-nocookie.com/embed/${currentYoutubeId}?autoplay=1&mute=1&loop=1&playlist=${currentYoutubeId}&controls=0&showinfo=0&rel=0&iv_load_policy=3&disablekb=1&modestbranding=1&bg=060d1a`}
+              style={{ width: '100%', height: '100%', border: 'none' }}
+              allow="autoplay; encrypted-media"
+              title="background video"
+            />
+          </div>
+        )}
+      </div>
 
-      {useLocal ? (
-        <video
-          autoPlay muted loop playsInline
-          onError={handleVideoError}
-          style={{
-            position: 'absolute', inset: 0, width: '100%', height: '100%',
-            objectFit: 'cover', opacity: 0.5,
-            filter: 'grayscale(0.1) contrast(1.1)',
-            zIndex: 1,
-          }}
-        >
-          <source src={LOCAL_VIDEO_PATH} type="video/mp4" />
-        </video>
-      ) : (
-        <div key={currentYoutubeId} style={{
-          position: 'absolute',
-          top: '50%', left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: 'max(100%, 177.78vh)',
-          height: 'max(100%, 56.25vw)',
-          opacity: 0.45,
-          filter: 'grayscale(0.15) contrast(1.1)',
-          pointerEvents: 'none',
-          zIndex: 1,
-          transition: 'opacity 1s ease-in-out',
-        }}>
-          <iframe
-            src={`https://www.youtube-nocookie.com/embed/${currentYoutubeId}?autoplay=1&mute=1&loop=1&playlist=${currentYoutubeId}&controls=0&showinfo=0&rel=0&iv_load_policy=3&disablekb=1&modestbranding=1`}
-            style={{ width: '100%', height: '100%', border: 'none' }}
-            allow="autoplay; encrypted-media"
-            title="background video"
-          />
-        </div>
-      )}
-
-      {/* 코퍼레이트 오버레이 */}
-      <div style={overlayStyle} />
+      {/* 코퍼레이트 오버레이 (영상 위에 덮어씌움) */}
+      <div style={{
+        position: 'absolute', inset: 0,
+        background: 'radial-gradient(ellipse at 60% 40%, rgba(2,132,199,0.12) 0%, rgba(6,13,26,0.88) 75%)',
+        zIndex: 2,
+      }} />
     </div>
   );
 }
@@ -188,10 +196,10 @@ export default function RemotionHero() {
         loop
       />
 
-      {/* 하단 자연스러운 페이드 */}
+      {/* 하단 페이드는 부모(page.tsx)에서 관리하므로 여기서는 제거하거나 아주 살짝만 유지 */}
       <div style={{
-        position: 'absolute', bottom: 0, left: 0, right: 0, height: 180,
-        background: 'linear-gradient(to top, rgba(255,255,255,0.75) 0%, transparent 100%)',
+        position: 'absolute', bottom: 0, left: 0, right: 0, height: 100,
+        background: 'linear-gradient(to top, rgba(15,23,42,0.4) 0%, transparent 100%)',
         zIndex: 30,
       }} />
     </div>
