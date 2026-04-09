@@ -1,94 +1,52 @@
 'use client';
 import { Player } from '@remotion/player';
-import { AbsoluteFill, useVideoConfig, useCurrentFrame, spring, interpolate, Sequence, Img, Easing } from 'remotion';
+import { AbsoluteFill, useVideoConfig, useCurrentFrame, interpolate, Sequence, Easing, Video } from 'remotion';
 import React, { useState, useEffect } from 'react';
 
-const ParticleLayer = () => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-  
-  const orbs = Array.from({ length: 4 }).map((_, i) => {
-    const startOffset = i * 20;
-    const progress = Math.max(0, frame - startOffset) / fps;
-    const y = interpolate(Math.sin(progress * 0.4 + i), [-1, 1], [10, 90]);
-    const x = interpolate(Math.cos(progress * 0.3 + i), [-1, 1], [10, 90]);
-    const scale = interpolate(Math.sin(progress * 0.2 + i), [-1, 1], [1, 2]);
-    const opacity = interpolate(Math.sin(progress * 0.5 + i), [-1, 1], [0.1, 0.4]);
-    
-    const colors = ['#bae6fd', '#e0f2fe', '#7dd3fc', '#f0f9ff'];
-    const color = colors[i % colors.length];
-    
-    return (
-      <div key={i} style={{
-        position: 'absolute',
-        left: `${x}%`,
-        top: `${y}%`,
-        width: 800 + (i * 100),
-        height: 800 + (i * 100),
-        backgroundColor: color,
-        borderRadius: '50%',
-        opacity: opacity,
-        filter: 'blur(150px)',
-        transform: `scale(${scale}) translate(-50%, -50%)`,
-        mixBlendMode: 'normal'
-      }} />
-    );
-  });
-
-  return <AbsoluteFill style={{ overflow: 'hidden' }}>{orbs}</AbsoluteFill>;
-};
-
-const ImageMarqueeLayer = () => {
-  const frame = useCurrentFrame();
-  
-  const images = [
-    'https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=600&q=80',
-    'https://images.unsplash.com/photo-1540932239986-30128078f3c5?w=600&q=80',
-    'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80',
-    'https://images.unsplash.com/photo-1556379092-dca659792591?w=600&q=80',
-    'https://images.unsplash.com/photo-1588607593683-16a7384ec6f5?w=600&q=80',
-  ];
-
-  // Slow continuous horizontal movement
-  const xOffset1 = interpolate(frame % 1200, [0, 1200], [0, -2000]);
-  const xOffset2 = interpolate(frame % 1500, [0, 1500], [0, -2000]);
-
+const CinematicVideoLayer = () => {
   return (
-    <AbsoluteFill style={{ display: 'flex', flexDirection: 'column', gap: '50px', justifyContent: 'center', opacity: 0.15, transform: 'rotate(-5deg) scale(1.2)', filter: 'blur(1px)', pointerEvents: 'none' }}>
-      {/* Row 1 moving left */}
-      <div style={{ display: 'flex', gap: '30px', transform: `translateX(${xOffset1}px)` }}>
-        {[...images, ...images, ...images].map((src, i) => (
-          <Img key={`r1-${i}`} src={src} style={{ width: 400, height: 260, objectFit: 'cover', borderRadius: 24, boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }} />
-        ))}
-      </div>
-      {/* Row 2 moving left at different speed with offset */}
-      <div style={{ display: 'flex', gap: '30px', transform: `translateX(${xOffset2 - 500}px)` }}>
-        {[...images, ...images, ...images].reverse().map((src, i) => (
-          <Img key={`r2-${i}`} src={src} style={{ width: 400, height: 260, objectFit: 'cover', borderRadius: 24, boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }} />
-        ))}
-      </div>
+    <AbsoluteFill style={{ overflow: 'hidden', background: '#0f172a' }}>
+      {/* 
+        A majestic, breathtaking placeholder video representing global infrastructure/lighting.
+        (City traffic at night with illuminated buildings - perfectly captures LED impact & scale)
+      */}
+      <Video 
+        src="https://assets.mixkit.co/videos/preview/mixkit-night-city-with-traffic-and-illuminated-buildings-33827-large.mp4"
+        style={{
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          opacity: 0.35, /* 희미한 처리 (Faint) */
+          mixBlendMode: 'screen',
+          filter: 'grayscale(0.4) contrast(1.2)'
+        }}
+        muted
+        loop
+      />
+      {/* Deep blue majestic overlay for corporate trust and blending */}
+      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at center, rgba(2,132,199,0.2) 0%, #0f172a 100%)' }} />
     </AbsoluteFill>
   );
 };
 
 const TitleSequence = () => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const { fps } = useVideoConfig(); // default 60fps
   
-  // Cinematic Impactful Animation: Blur + Scale down
-  const phase1 = interpolate(frame, [0, 30], [0, 1], { easing: Easing.bezier(0.1, 0.9, 0.2, 1), extrapolateRight: 'clamp' });
-  const phase2 = interpolate(frame, [15, 45], [0, 1], { easing: Easing.bezier(0.1, 0.9, 0.2, 1), extrapolateRight: 'clamp' });
-  const phase3 = interpolate(frame, [30, 60], [0, 1], { easing: Easing.bezier(0.1, 0.9, 0.2, 1), extrapolateRight: 'clamp' });
+  // 가슴 벅찬, 아주 느리고 장엄한 시네마틱 페이드인 (Breathtaking, slow cinematic fade)
+  const phase1 = interpolate(frame, [30, 90], [0, 1], { easing: Easing.bezier(0.2, 0.8, 0.4, 1), extrapolateRight: 'clamp' });
+  const phase2 = interpolate(frame, [70, 150], [0, 1], { easing: Easing.bezier(0.2, 0.8, 0.4, 1), extrapolateRight: 'clamp' });
+  const phase3 = interpolate(frame, [110, 200], [0, 1], { easing: Easing.bezier(0.2, 0.8, 0.4, 1), extrapolateRight: 'clamp' });
 
-  // Blur values
-  const blur1 = interpolate(phase1, [0, 1], [30, 0]);
-  const blur2 = interpolate(phase2, [0, 1], [30, 0]);
-  const blur3 = interpolate(phase3, [0, 1], [20, 0]);
+  // Blur values (아주 부드럽게 초점이 맞춰지는 효과)
+  const blur1 = interpolate(phase1, [0, 1], [40, 0]);
+  const blur2 = interpolate(phase2, [0, 1], [40, 0]);
+  const blur3 = interpolate(phase3, [0, 1], [30, 0]);
 
-  // Scale values (large to small)
-  const scale1 = interpolate(phase1, [0, 1], [1.3, 1]);
-  const scale2 = interpolate(phase2, [0, 1], [1.3, 1]);
-  const scale3 = interpolate(phase3, [0, 1], [1.1, 1]);
+  // 살짝만 앞으로 다가오는 은은한 줌인 (Subtle dramatic depth)
+  const scale1 = interpolate(phase1, [0, 1], [1.1, 1]);
+  const scale2 = interpolate(phase2, [0, 1], [1.1, 1]);
+  const scale3 = interpolate(phase3, [0, 1], [1.05, 1]);
 
   return (
     <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -99,55 +57,57 @@ const TitleSequence = () => {
           display: 'inline-flex', 
           alignItems: 'center', 
           gap: 12, 
-          padding: '8px 20px', 
-          background: 'rgba(255,255,255,0.7)', 
-          backdropFilter: 'blur(20px)', 
+          padding: '8px 24px', 
+          background: 'rgba(255,255,255,0.05)', 
+          backdropFilter: 'blur(24px)', 
           borderRadius: 40, 
-          border: '1px solid rgba(255,255,255,0.8)',
-          marginBottom: 32,
-          boxShadow: '0 4px 30px rgba(0, 0, 0, 0.05)',
+          border: '1px solid rgba(255,255,255,0.1)',
+          marginBottom: 36,
+          boxShadow: '0 10px 40px rgba(0, 0, 0, 0.2)',
           opacity: phase1,
           filter: `blur(${blur1}px)`,
           transform: `scale(${scale1})`
         }}>
-           <span style={{ fontSize: 13, fontWeight: 800, color: '#0369a1', letterSpacing: 1 }}>(주)와이앤케이</span>
-           <span style={{ width: 4, height: 4, borderRadius: '50%', background: '#0284c7' }} />
-           <span style={{ fontSize: 13, fontWeight: 600, color: '#64748b', letterSpacing: 1 }}>GLOBAL B2B LED NETWORK</span>
+           <span style={{ fontSize: 13, fontWeight: 800, color: '#38bdf8', letterSpacing: 2 }}>(주)와이앤케이</span>
+           <span style={{ width: 4, height: 4, borderRadius: '50%', background: '#f8fafc' }} />
+           <span style={{ fontSize: 13, fontWeight: 600, color: '#e2e8f0', letterSpacing: 1 }}>PRECISION ENGINEERING</span>
         </div>
 
-        {/* Sophisticated & Impactful Typography */}
+        {/* Breathtaking Typography */}
         <h1 style={{
-          fontSize: 'clamp(44px, 5vw, 88px)',
+          fontSize: 'clamp(44px, 5vw, 92px)',
           fontWeight: 900,
-          color: '#0f172a',
+          color: '#ffffff',
           letterSpacing: '-0.04em',
           lineHeight: 1.15,
+          textShadow: '0 20px 40px rgba(0,0,0,0.5)',
           opacity: phase2,
           filter: `blur(${blur2}px)`,
           transform: `scale(${scale2})`
         }}>
-          지속 가능한 미래를 밝히는<br />
+          어둠을 가르고 빛어내는 <br />
           <span style={{ 
-            color: '#0284c7',
+            color: '#38bdf8',
             display: 'inline-block',
-          }}>글로벌 파트너스</span>
+          }}>위대한 혁신</span>
         </h1>
         
         {/* Minimalist Subtext */}
         <p style={{
-          marginTop: 32,
-          fontSize: 'clamp(17px, 1.5vw, 22px)',
-          color: '#475569',
-          fontWeight: 500,
-          maxWidth: 700,
-          margin: '32px auto 0',
-          lineHeight: 1.7,
+          marginTop: 36,
+          fontSize: 'clamp(18px, 1.5vw, 24px)',
+          color: '#cbd5e1',
+          fontWeight: 400,
+          maxWidth: 750,
+          margin: '36px auto 0',
+          lineHeight: 1.8,
+          textShadow: '0 10px 20px rgba(0,0,0,0.5)',
           opacity: phase3,
           filter: `blur(${blur3}px)`,
           transform: `scale(${scale3})`
         }}>
-          혁신적인 품질의 프리미엄 LED 시스템과 무역 인프라로 <br className="hidden md:block"/>
-          가장 안정적이고 투명한 B2B 솔루션을 제공합니다.
+          설계부터 완공에 이르기까지 땀과 기술로 이루어낸 인프라.<br className="hidden md:block"/>
+          우리는 가장 찬란하고 경이로운 LED의 역사를 쓰고 있습니다.
         </p>
       </div>
     </AbsoluteFill>
@@ -157,14 +117,11 @@ const TitleSequence = () => {
 export const LuminaComposition: React.FC = () => {
   return (
     <AbsoluteFill style={{ 
-      background: '#ffffff',
+      background: '#0f172a', /* Dark background bridging to cinematic */
       overflow: 'hidden' 
     }}>
-      <ParticleLayer />
+      <CinematicVideoLayer />
       <Sequence from={0}>
-        <ImageMarqueeLayer />
-      </Sequence>
-      <Sequence from={15}>
         <TitleSequence />
       </Sequence>
     </AbsoluteFill>
@@ -183,13 +140,13 @@ export default function RemotionHero() {
     return () => window.removeEventListener('resize', updateDim);
   }, []);
 
-  if (!mounted) return <div style={{ width: '100%', height: '100vh', background: '#ffffff' }} />;
+  if (!mounted) return <div style={{ width: '100%', height: '100vh', background: '#0f172a' }} />;
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden' }}>
       <Player
         component={LuminaComposition}
-        durationInFrames={1200}
+        durationInFrames={1800} /* 30 seconds at 60fps */
         compositionWidth={dim.w}
         compositionHeight={dim.h}
         fps={60}
@@ -203,9 +160,9 @@ export default function RemotionHero() {
         loop
       />
       {/* Sleek bottom gradient to blend seamlessly into content */}
-      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 200, background: 'linear-gradient(to top, #ffffff, transparent)', zIndex: 20 }} />
+      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 250, background: 'linear-gradient(to top, #ffffff, transparent)', zIndex: 20 }} />
       {/* Top gradient for navbar blending */}
-      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 120, background: 'linear-gradient(to bottom, #ffffff, transparent)', zIndex: 20 }} />
+      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 160, background: 'linear-gradient(to bottom, #ffffff, transparent)', zIndex: 20 }} />
     </div>
   );
 }
