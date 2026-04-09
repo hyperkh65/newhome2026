@@ -41,18 +41,18 @@ export default function Navbar() {
           <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
             <div style={{
               width: 36, height: 36, borderRadius: '8px',
-              background: 'linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%)',
-              boxShadow: '0 4px 12px rgba(14, 165, 233, 0.3)',
+              background: 'linear-gradient(135deg, #0284c7, #38bdf8)',
+              boxShadow: '0 4px 12px rgba(2, 132, 199, 0.3)',
               display: 'flex', alignItems: 'center', justifyContent: 'center'
             }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              <span style={{ color: '#fff', fontWeight: 900, fontSize: 16 }}>Y&K</span>
             </div>
-            <span style={{ fontSize: 22, fontWeight: 800, letterSpacing: '-0.03em', color: scrolled ? 'var(--gray-900)' : 'var(--gray-900)' }}>GLOBAL <span style={{ color: 'var(--primary)' }}>TRADE</span></span>
+            <span style={{ fontSize: 22, fontWeight: 800, letterSpacing: '-0.03em', color: scrolled ? '#0f172a' : '#0f172a' }}>(주)<span style={{ color: '#0284c7' }}>와이앤케이</span></span>
           </Link>
 
           {/* Desktop Nav */}
           <div style={{ display: 'flex', gap: 16, flex: 1, alignItems: 'center' }} className="desktop-nav">
-            <Link href="/about" className="nav-link" style={{ fontSize: 15, fontWeight: 600, color: 'var(--gray-700)', textDecoration: 'none', padding: '8px 12px' }}>회사소개</Link>
+            <Link href="/about" className="nav-link" style={{ fontSize: 15, fontWeight: 600, color: 'var(--gray-700)', textDecoration: 'none', padding: '8px 12px' }}>회사안내/오시는길</Link>
             
             <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
               <Link href="/shop" className="nav-link" style={{ fontSize: 15, fontWeight: 600, color: 'var(--gray-700)', textDecoration: 'none', padding: '8px 12px', display: 'flex', alignItems: 'center', gap: 4 }}>

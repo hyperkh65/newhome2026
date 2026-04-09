@@ -1,74 +1,82 @@
 'use client';
 import Navbar from '@/components/Navbar';
 import { ScrollReveal } from '@/components/LuminaAnimation';
-import Link from 'next/link';
 
 export default function AboutPage() {
   return (
-    <main style={{ background: '#050505', minHeight: '100vh', color: '#fff' }}>
+    <main style={{ minHeight: '100vh', background: 'var(--white)' }}>
       <Navbar />
-
-      <section style={{ paddingTop: 160, paddingBottom: 80, paddingLeft: 24, paddingRight: 24, textAlign: 'center' }}>
-        <div className="container" style={{ maxWidth: 800 }}>
-          <ScrollReveal>
-             <h1 style={{ fontSize: 'clamp(42px, 6vw, 72px)', fontWeight: 800, letterSpacing: '-0.04em', marginBottom: 32, lineHeight: 1.1 }}>
-               세상의 모든 공간을<br />
-               <span className="text-gradient">새롭게 정의하다</span>
-             </h1>
-             <p style={{ fontSize: 20, color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, fontWeight: 300, marginBottom: 48 }}>
-               LUMINA는 글로벌 최고 수준의 프리미엄 LED 조명을 직수입하여 고객의 공간을 가장 완벽하게 밝혀주는 조명 전문 기업입니다.
-             </p>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      <section style={{ padding: '80px 24px' }}>
-        <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 40 }}>
-          <ScrollReveal delay={0}>
-             <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', padding: 48, borderRadius: 24, height: '100%' }}>
-               <div style={{ fontSize: 48, marginBottom: 24 }}>🌍</div>
-               <h3 style={{ fontSize: 24, fontWeight: 700, marginBottom: 16 }}>글로벌 직수입</h3>
-               <p style={{ color: 'rgba(255,255,255,0.5)', lineHeight: 1.7 }}>
-                 해외 우수 LED 제조사와 직접 파트너십을 맺어, 중간 유통 과정 없이 고품질의 조명을 합리적인 가격에 직수입하여 고객에게 제공합니다.
-               </p>
-             </div>
-          </ScrollReveal>
-          <ScrollReveal delay={150}>
-             <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', padding: 48, borderRadius: 24, height: '100%' }}>
-               <div style={{ fontSize: 48, marginBottom: 24 }}>🛡️</div>
-               <h3 style={{ fontSize: 24, fontWeight: 700, marginBottom: 16 }}>철저한 품질 및 인증제도</h3>
-               <p style={{ color: 'rgba(255,255,255,0.5)', lineHeight: 1.7 }}>
-                 KC 인증, KS 인증 및 국제 전기안전규격을 모두 통과한 제품만을 취급합니다. 투명한 경영철학 아래 모든 인증서를 사이트에 공개합니다.
-               </p>
-             </div>
-          </ScrollReveal>
-          <ScrollReveal delay={300}>
-             <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', padding: 48, borderRadius: 24, height: '100%' }}>
-               <div style={{ fontSize: 48, marginBottom: 24 }}>🤝</div>
-               <h3 style={{ fontSize: 24, fontWeight: 700, marginBottom: 16 }}>고객 맞춤 컨설팅</h3>
-               <p style={{ color: 'rgba(255,255,255,0.5)', lineHeight: 1.7 }}>
-                 단순한 판매를 넘어, 공간의 용도, 조도, 색온도에 맞는 최적의 조명 솔루션을 제안합니다. 사무실, 상업시설, 주거공간의 완벽한 빛을 약속합니다.
-               </p>
-             </div>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      <section style={{ padding: '120px 24px', textAlign: 'center' }}>
-        <ScrollReveal>
-          <h2 style={{ fontSize: 36, fontWeight: 800, marginBottom: 40 }}>인증 및 규격 현황</h2>
-          <div style={{ display: 'flex', gap: 20, justifyContent: 'center', flexWrap: 'wrap' }}>
-            {['KC 전기안전', 'KS 인증', 'ISO 9001', '고효율에너지기자재', '환경표지지증'].map((cert) => (
-              <div key={cert} style={{ padding: '16px 32px', background: 'rgba(255,255,255,0.05)', borderRadius: 50, color: 'rgba(255,255,255,0.8)', fontSize: 15, fontWeight: 500 }}>
-                ✓ {cert}
-              </div>
-            ))}
+      
+      <div style={{ paddingTop: 100 }}>
+        {/* Header Section */}
+        <section style={{ padding: '80px 24px', background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)' }}>
+          <div className="container" style={{ textAlign: 'center' }}>
+            <ScrollReveal>
+              <h1 style={{ fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 800, color: 'var(--gray-900)', marginBottom: 20 }}>
+                (주)와이앤케이
+              </h1>
+              <p style={{ fontSize: 20, color: 'var(--primary-dark)', fontWeight: 700, marginBottom: 16 }}>
+                글로벌 LED 조명 무역회사
+              </p>
+              <p style={{ fontSize: 16, color: 'var(--gray-600)', maxWidth: 700, margin: '0 auto', lineHeight: 1.7 }}>
+                (주)와이앤케이는 전 세계의 고품질 LED 조명 시스템을 발굴하고, 국내외 B2B 파트너들에게 안전하고 신속하게 공급하는 빛의 무역 허브입니다.
+              </p>
+            </ScrollReveal>
           </div>
-          <div style={{ marginTop: 60 }}>
-            <Link href="/shop" className="btn-primary" style={{ padding: '16px 40px', fontSize: 16 }}>제품 보러가기</Link>
+        </section>
+
+        {/* Info Cards */}
+        <section style={{ padding: '80px 24px' }}>
+          <div className="container" style={{ maxWidth: 1000 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 32 }}>
+              
+              <ScrollReveal delay={100}>
+                <div style={{ background: 'var(--gray-50)', padding: 40, borderRadius: 24, border: '1px solid var(--gray-200)', height: '100%' }}>
+                  <div style={{ fontSize: 40, marginBottom: 24 }}>🏢</div>
+                  <h3 style={{ fontSize: 24, fontWeight: 800, marginBottom: 16, color: 'var(--gray-900)' }}>회사 소개</h3>
+                  <p style={{ fontSize: 16, color: 'var(--gray-600)', lineHeight: 1.7 }}>
+                    우리는 단순한 제품 공급을 넘어, 공간의 가치를 높이는 빛을 전달합니다. 수년 간의 글로벌 소싱 경험과 국제 무역 및 인증 노하우를 바탕으로 가장 혁신적이고 안정적인 LED 조명 솔루션을 제안합니다. 스마트 조명부터 산업용 특수 조명까지, (주)와이앤케이가 귀사의 든든한 파트너가 무역 파트너가 되겠습니다.
+                  </p>
+                </div>
+              </ScrollReveal>
+
+              <ScrollReveal delay={200}>
+                <div style={{ background: 'var(--gray-50)', padding: 40, borderRadius: 24, border: '1px solid var(--gray-200)', height: '100%' }}>
+                  <div style={{ fontSize: 40, marginBottom: 24 }}>📍</div>
+                  <h3 style={{ fontSize: 24, fontWeight: 800, marginBottom: 16, color: 'var(--gray-900)' }}>회사 위치 / 오시는 길</h3>
+                  <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
+                    <li style={{ display: 'flex', gap: 12 }}>
+                      <span style={{ color: 'var(--primary)' }}>•</span>
+                      <span><strong>주소:</strong> 인천광역시 미추홀구 경인로112 4층 (주)와이앤케이</span>
+                    </li>
+                    <li style={{ display: 'flex', gap: 12 }}>
+                      <span style={{ color: 'var(--primary)' }}>•</span>
+                      <span><strong>지하철:</strong> 제물포역(1호선) 1번 출구 도보 5분 거리</span>
+                    </li>
+                    <li style={{ display: 'flex', gap: 12 }}>
+                      <span style={{ color: 'var(--primary)' }}>•</span>
+                      <span><strong>차량/주차:</strong> 본 건물 후면 지정 주차장 이용 및 주변 공영 주차장 이용 가능</span>
+                    </li>
+                    <li style={{ display: 'flex', gap: 12 }}>
+                      <span style={{ color: 'var(--primary)' }}>•</span>
+                      <span><strong>운영시간:</strong> 평일 09:00 - 18:00 (주말/공휴일 휴무)</span>
+                    </li>
+                  </ul>
+                  
+                  {/* Fake Map Box */}
+                  <div style={{ marginTop: 24, width: '100%', height: 200, background: '#e5e7eb', borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9ca3af', border: '1px solid #d1d5db' }}>
+                    <div style={{ textAlign: 'center' }}>
+                      <div style={{ fontSize: 32, marginBottom: 8 }}>🗺️</div>
+                      <div style={{ fontSize: 13, fontWeight: 600 }}>지도 API 연동 영역</div>
+                    </div>
+                  </div>
+                </div>
+              </ScrollReveal>
+
+            </div>
           </div>
-        </ScrollReveal>
-      </section>
+        </section>
+      </div>
     </main>
   );
 }

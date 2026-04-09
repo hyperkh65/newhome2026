@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import ProductCard from '@/components/ProductCard';
 import { AnimatedCounter, ScrollReveal } from '@/components/LuminaAnimation';
+import RemotionHero from '@/components/RemotionHero';
 import { useAdminStore } from '@/lib/store';
 
 const CATEGORIES = [
@@ -25,48 +26,25 @@ export default function Home() {
       {/* HERO SECTION */}
       <section style={{ 
         position: 'relative', height: '100vh', minHeight: 700, 
-        display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden',
-        background: 'linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%)'
+        overflow: 'hidden'
       }}>
-        {/* Background Decorative Elements */}
-        <div style={{ position: 'absolute', top: '10%', right: '5%', width: 600, height: 600, background: 'radial-gradient(circle, rgba(14,165,233,0.06) 0%, transparent 70%)', borderRadius: '50%', zIndex: 0 }} />
-        <div style={{ position: 'absolute', bottom: '10%', left: '0%', width: 500, height: 500, background: 'radial-gradient(circle, rgba(59,130,246,0.05) 0%, transparent 70%)', borderRadius: '50%', zIndex: 0 }} />
+        {/* Absolute Remotion Hero */}
+        <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+          <RemotionHero />
+        </div>
         
-        <div style={{ position: 'relative', zIndex: 10, textAlign: 'center', padding: '0 24px', maxWidth: 900 }}>
-          <div style={{ animation: 'fadeInUp 0.8s ease forwards' }}>
-            <span style={{ 
-              display: 'inline-block', padding: '6px 16px', borderRadius: 20, 
-              background: 'rgba(14,165,233,0.1)', color: 'var(--primary-dark)',
-              fontSize: 14, fontWeight: 700, marginBottom: 24, letterSpacing: 1
-            }}>
-              GLOBAL B2B LED TRADING PARTNER
-            </span>
-            <h1 style={{ 
-              fontSize: 'clamp(48px, 6vw, 84px)', fontWeight: 900, 
-              lineHeight: 1.15, letterSpacing: '-0.03em', marginBottom: 24,
-              color: 'var(--gray-900)'
-            }}>
-              전 세계를 밝히는<br />
-              <span className="text-gradient">혁신적 LED 조명 솔루션</span>
-            </h1>
-            <p style={{ 
-              fontSize: 'clamp(18px, 2vw, 22px)', color: 'var(--gray-600)', 
-              lineHeight: 1.6, marginBottom: 48, fontWeight: 500
-            }}>
-              글로벌 공급망을 통한 고품질 LED 조명, 빠르고 안전한 무역 및 물류망.<br />
-              필요한 모든 인증서와 물류 추적 시스템을 한번에 제공합니다.
-            </p>
-            <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
-              <Link href="/shop" className="btn-primary" style={{ padding: '16px 36px', fontSize: 18 }}>제품 및 인증서 보기 →</Link>
-              <Link href="/trade-info" className="btn-secondary" style={{ padding: '16px 36px', fontSize: 18 }}>무역 절차 안내</Link>
-            </div>
+        {/* Overlay Content */}
+        <div style={{ position: 'relative', zIndex: 10, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none' }}>
+          <div style={{ marginTop: 'auto', marginBottom: 120, pointerEvents: 'auto', display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap', animation: 'fadeInUp 1s ease 1.5s forwards', opacity: 0 }}>
+            <Link href="/shop" className="btn-primary" style={{ padding: '16px 36px', fontSize: 18, background: '#0284c7', color: '#fff', border: 'none', boxShadow: '0 10px 25px -5px rgba(2, 132, 199, 0.4)' }}>제품 및 인증서 보기 →</Link>
+            <Link href="/trade-info" className="btn-secondary" style={{ padding: '16px 36px', fontSize: 18, background: 'rgba(255,255,255,0.9)', color: '#0369a1', border: 'none', backdropFilter: 'blur(10px)', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)' }}>무역 절차 안내</Link>
           </div>
         </div>
 
         {/* Scroll indicator */}
-        <div style={{ position: 'absolute', bottom: 40, left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, opacity: 0.6 }}>
-          <span style={{ fontSize: 11, letterSpacing: 2, textTransform: 'uppercase', color: 'var(--primary)', fontWeight: 700 }}>Scroll</span>
-          <div style={{ width: 2, height: 40, background: 'linear-gradient(to bottom, var(--primary), transparent)', animation: 'float 2s ease-in-out infinite' }} />
+        <div style={{ position: 'absolute', bottom: 40, left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, zIndex: 10 }}>
+          <span style={{ fontSize: 11, letterSpacing: 2, textTransform: 'uppercase', color: '#6b7280', fontWeight: 700 }}>Scroll</span>
+          <div style={{ width: 2, height: 40, background: 'linear-gradient(to bottom, #9ca3af, transparent)', animation: 'float 2s ease-in-out infinite' }} />
         </div>
       </section>
 
@@ -195,38 +173,45 @@ export default function Home() {
       </section>
 
       {/* FOOTER */}
-      <footer style={{ background: 'var(--white)', borderTop: '1px solid var(--gray-200)', padding: '80px 24px 40px' }}>
+      {/* FOOTER */}
+      <footer style={{ background: '#f8fafc', borderTop: '1px solid #e2e8f0', padding: '80px 24px 40px' }}>
         <div className="container">
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 48, marginBottom: 60 }}>
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
-                <div style={{ width: 28, height: 28, borderRadius: 6, background: 'linear-gradient(135deg, var(--primary), var(--accent))', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
+                {/* Y&K Logo Box */}
+                <div style={{ width: 32, height: 32, borderRadius: 8, background: 'linear-gradient(135deg, #0284c7, #38bdf8)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <span style={{ color: '#fff', fontWeight: 900, fontSize: 14 }}>Y&K</span>
                 </div>
-                <span style={{ fontSize: 18, fontWeight: 800, color: 'var(--gray-900)' }}>GLOBAL TRADE</span>
+                <span style={{ fontSize: 20, fontWeight: 900, color: '#0f172a', letterSpacing: '-0.02em' }}>(주)와이앤케이</span>
               </div>
-              <p style={{ fontSize: 14, color: 'var(--gray-500)', lineHeight: 1.7 }}>
+              <p style={{ fontSize: 15, color: '#64748b', lineHeight: 1.7, marginBottom: 16 }}>
                 글로벌 LED 스탠다드를 주도하는<br />신뢰할 수 있는 무역 파트너
               </p>
+              <div style={{ fontSize: 14, color: '#475569', lineHeight: 1.6 }}>
+                <strong>주소:</strong> 인천광역시 미추홀구 경인로112 4층 <br />
+                <strong>Tel:</strong> 032-123-4567<br />
+                <strong>Email:</strong> contact@ynktrade.com
+              </div>
             </div>
             {[
-              { title: '제품 및 인증 조회', links: ['스마트조명', '실내조명', '산업/실외조명', '특수조명'] },
-              { title: '무역 파트너스', links: ['수입/수출 절차 안내', '필수 인증서 정보', '운송/물류 트래킹'] },
-              { title: '고객지원', links: ['공지사항', 'B2B 견적 문의', '기업 제휴 안내'] },
+              { title: '제품 및 인증 조회', links: [{ label: '스마트조명', href: '/shop' }, { label: '실내조명', href: '/shop' }, { label: '산업/실외조명', href: '/shop' }] },
+              { title: '무역 파트너스', links: [{ label: '수입/수출 절차 안내', href: '/trade-info' }, { label: '필수 인증서 정보', href: '/trade-info' }, { label: '운송/물류 트래킹', href: '/tracking' }] },
+              { title: '고객지원', links: [{ label: '회사 소개 및 오시는 길', href: '/about' }, { label: '공지사항', href: '#' }, { label: 'B2B 견적 문의', href: '#' }] },
             ].map((col) => (
               <div key={col.title}>
-                <h4 style={{ fontSize: 14, fontWeight: 700, marginBottom: 20, color: 'var(--gray-900)' }}>{col.title}</h4>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                <h4 style={{ fontSize: 15, fontWeight: 800, marginBottom: 20, color: '#0f172a' }}>{col.title}</h4>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                   {col.links.map((l) => (
-                     <a key={l} href="#" style={{ fontSize: 14, color: 'var(--gray-500)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = 'var(--primary)'; }} onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = 'var(--gray-500)'; }}>{l}</a>
+                     <Link key={l.label} href={l.href} style={{ fontSize: 15, color: '#64748b', textDecoration: 'none', transition: 'color 0.2s', fontWeight: 500 }} onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = '#0284c7'; }} onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = '#64748b'; }}>{l.label}</Link>
                   ))}
                 </div>
               </div>
             ))}
           </div>
-          <div style={{ borderTop: '1px solid var(--gray-200)', paddingTop: 32, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
-            <p style={{ fontSize: 13, color: 'var(--gray-400)' }}>© 2026 GLOBAL TRADE B2B LED. All rights reserved.</p>
-            <p style={{ fontSize: 13, color: 'var(--gray-400)' }}>무역업 등록번호: 123-45-78900 · 대표: 글로벌무역상사</p>
+          <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: 32, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
+            <p style={{ fontSize: 14, color: '#94a3b8', fontWeight: 500 }}>© 2026 (주)와이앤케이. All rights reserved.</p>
+            <p style={{ fontSize: 14, color: '#94a3b8', fontWeight: 500 }}>사업자등록번호: 123-45-78900 · 무역업 등록번호: 987654</p>
           </div>
         </div>
       </footer>
