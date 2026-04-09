@@ -12,9 +12,9 @@ import React, { useState, useEffect } from 'react';
  * 추천 검색어: "4K night city timelapse free" YouTube → 영상 ID 복사
  */
 const YOUTUBE_CLIPS = [
-  'g5qZABzOT7A', // Clip 1: 야경 도시 (Night City)
-  'unq8_ZzK330', // Clip 2: 물류/창고 (Logistics/Warehouse)
-  'Wj_l-M09qQA', // Clip 3: 빌딩/항만 (Building/Port)
+  'mdbn70EMxH0', // Clip 1: Cityscape At Night ( 전문가급 고화질 야경)
+  'vqlOpSQWk5Y', // Clip 2: Aerial View Of Cityscape (드론 항공 촬영)
+  'weT2sgFARPg', // Clip 3: Night Traffic (역동적인 도시 도로)
 ];
 const LOCAL_VIDEO_PATH = '/hero-bg.mp4';  // /public/hero-bg.mp4 파일 넣으면 자동 우선 적용
 
@@ -145,7 +145,7 @@ function BackgroundVideo() {
           }}>
             <iframe
               key={currentYoutubeId}
-              src={`https://www.youtube-nocookie.com/embed/${currentYoutubeId}?autoplay=1&mute=1&loop=1&playlist=${currentYoutubeId}&controls=0&showinfo=0&rel=0&iv_load_policy=3&disablekb=1&modestbranding=1&bg=060d1a`}
+              src={`https://www.youtube.com/embed/${currentYoutubeId}?autoplay=1&mute=1&loop=1&playlist=${currentYoutubeId}&controls=0&showinfo=0&rel=0&iv_load_policy=3&disablekb=1&modestbranding=1&bg=060d1a`}
               style={{ width: '100%', height: '100%', border: 'none' }}
               allow="autoplay; encrypted-media"
               title="background video"
