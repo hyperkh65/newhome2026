@@ -60,19 +60,19 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
     : null;
 
   return (
-    <main style={{ background: 'var(--bg-dark)', minHeight: '100vh', color: '#ffffff', paddingTop: 64 }}>
+    <main style={{ background: '#f9fafb', minHeight: '100vh', color: '#111827', paddingTop: 64 }}>
       <Navbar />
 
       {/* Breadcrumb */}
-      <div style={{ padding: '24px', borderBottom: '1px solid rgba(255,255,255,0.06)', maxWidth: 1200, margin: '0 auto' }}>
-        <div style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 14, color: 'rgba(255,255,255,0.5)', fontWeight: 500 }}>
+      <div style={{ padding: '24px', borderBottom: '1px solid #e5e7eb', maxWidth: 1200, margin: '0 auto' }}>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 14, color: '#6b7280', fontWeight: 500 }}>
           <Link href="/" style={{ color: 'inherit', textDecoration: 'none' }}>{t('home')}</Link>
           <span>›</span>
           <Link href="/shop" style={{ color: 'inherit', textDecoration: 'none' }}>{t('shop')}</Link>
           <span>›</span>
           <Link href={`/shop?cat=${product.category}`} style={{ color: 'inherit', textDecoration: 'none' }}>{t(product.category)}</Link>
           <span>›</span>
-          <span style={{ color: 'var(--primary)', fontWeight: 700 }}>{product.name}</span>
+          <span style={{ color: '#111827', fontWeight: 700 }}>{product.name}</span>
         </div>
       </div>
 
@@ -103,30 +103,30 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
               </div>
             </div>
 
-            <h1 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 20, lineHeight: 1.2, color: '#ffffff' }}>
+            <h1 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 20, lineHeight: 1.2, color: '#111827' }}>
               {product.name}
             </h1>
 
-            <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.6)', lineHeight: 1.8, marginBottom: 32 }}>
+            <p style={{ fontSize: 16, color: '#4b5563', lineHeight: 1.8, marginBottom: 32 }}>
               {product.description}
             </p>
 
             {/* Price */}
-            <div style={{ marginBottom: 36, padding: '24px', background: 'rgba(255,255,255,0.03)', borderRadius: 16, border: '1px solid rgba(255,255,255,0.06)', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)' }}>
+            <div style={{ marginBottom: 36, padding: '24px', background: '#fff', borderRadius: 16, border: '1px solid #e5e7eb', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)' }}>
               {originalPrice && (
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
                   <span style={{ fontSize: 16, color: '#9ca3af', textDecoration: 'line-through' }}>{originalPrice.toLocaleString()}원</span>
                   {discount && <span style={{ fontSize: 13, fontWeight: 700, color: '#0369a1', background: '#e0f2fe', padding: '2px 8px', borderRadius: 4 }}>-{discount}% B2B 할인가</span>}
                 </div>
               )}
-              <div style={{ fontSize: 40, fontWeight: 800, letterSpacing: '-0.02em', color: '#ffffff' }}>{(product.price || 0).toLocaleString()}원</div>
+              <div style={{ fontSize: 40, fontWeight: 800, letterSpacing: '-0.02em', color: '#111827' }}>{(product.price || 0).toLocaleString()}원</div>
               <div style={{ fontSize: 14, color: '#6b7280', marginTop: 8, fontWeight: 600 }}>재고: {product.stock}개</div>
             </div>
 
             {/* Specs */}
             <div style={{ marginBottom: 36 }}>
-              <h3 style={{ fontSize: 14, fontWeight: 700, letterSpacing: 1, textTransform: 'uppercase', color: 'var(--primary)', marginBottom: 16 }}>SPECIFICATION</h3>
-              <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: 12 }}>
+              <h3 style={{ fontSize: 14, fontWeight: 700, letterSpacing: 1, textTransform: 'uppercase', color: '#4b5563', marginBottom: 16 }}>SPECIFICATION</h3>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
                 {[
                   { label: 'power', value: product.specs_power || product.specs?.power },
                   { label: 'color_temp', value: product.specs_temp || product.specs?.color_temp },
@@ -135,9 +135,9 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
                   { label: 'ip_rating', value: product.specs_ip || product.specs?.ip_rating },
                   { label: 'size', value: product.specs_size || product.specs?.size },
                 ].filter(s => s.value).map((s) => (
-                  <div key={s.label} style={{ padding: '16px', background: 'rgba(255,255,255,0.03)', borderRadius: 14, border: '1px solid rgba(255,255,255,0.06)' }}>
-                    <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', marginBottom: 6, fontWeight: 600, textTransform: 'uppercase' }}>{t(s.label)}</div>
-                    <div style={{ fontSize: 15, fontWeight: 700, color: '#ffffff' }}>{s.value}</div>
+                  <div key={s.label} style={{ padding: '12px 14px', background: '#fff', borderRadius: 10, border: '1px solid #e5e7eb' }}>
+                    <div style={{ fontSize: 12, color: '#6b7280', marginBottom: 4, fontWeight: 600 }}>{t(s.label)}</div>
+                    <div style={{ fontSize: 14, fontWeight: 700, color: '#111827' }}>{s.value}</div>
                   </div>
                 ))}
               </div>

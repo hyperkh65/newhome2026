@@ -11,10 +11,8 @@ const CATS = [
   { id: 'all' },
   { id: 'smart' },
   { id: 'indoor' },
-  { id: 'home_lighting' },
   { id: 'commercial' },
   { id: 'outdoor' },
-  { id: 'industrial' },
   { id: 'landscape' },
   { id: 'special' },
 ];
@@ -58,30 +56,30 @@ export default function ShopContent() {
     });
 
   return (
-    <main style={{ background: '#111827', minHeight: '100vh', color: '#ffffff', paddingTop: 64 }}>
+    <main style={{ background: '#f9fafb', minHeight: '100vh', color: '#111827', paddingTop: 64 }}>
       <Navbar />
-      <div style={{ padding: '60px 24px 40px', borderBottom: '1px solid #374151', background: '#1f2937' }}>
+      <div style={{ padding: '60px 24px 40px', borderBottom: '1px solid #e5e7eb', background: '#fff' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-          <p style={{ fontSize: 13, letterSpacing: 2, fontWeight: 700, color: '#38bdf8', marginBottom: 12 }}>SHOP LOGISTICS</p>
+          <p style={{ fontSize: 13, letterSpacing: 2, fontWeight: 700, color: 'var(--primary)', marginBottom: 12 }}>SHOP LOGISTICS</p>
           <h1 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: 20 }}>{t('allModels')}</h1>
-          <p style={{ fontSize: 15, color: '#9ca3af', fontWeight: 500 }}>{filtered.length} {t('modelsListed')}</p>
+          <p style={{ fontSize: 15, color: '#6b7280', fontWeight: 500 }}>{filtered.length} {t('modelsListed')}</p>
         </div>
       </div>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '40px 24px 80px', display: 'flex', gap: 40, alignItems: 'flex-start' }}>
         <aside style={{ width: 220, flexShrink: 0, position: 'sticky', top: 84 }}>
           <div style={{ marginBottom: 32 }}>
-            <label style={{ fontSize: 13, fontWeight: 700, color: '#9ca3af', display: 'block', marginBottom: 12 }}>{t('searchPlaceholder')}</label>
+            <label style={{ fontSize: 13, fontWeight: 700, color: '#374151', display: 'block', marginBottom: 12 }}>{t('searchPlaceholder')}</label>
             <div style={{ position: 'relative' }}>
-              <input type="text" placeholder={t('search_hint')} value={search} onChange={(e) => setSearch(e.target.value)} style={{ width: '100%', padding: '12px 12px 12px 36px', borderRadius: 8, border: '1px solid #374151', outline: 'none', background: '#1f2937', color: '#fff' }} />
-              <svg style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: '#6b7280' }} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              <input type="text" placeholder={t('search_hint')} value={search} onChange={(e) => setSearch(e.target.value)} style={{ width: '100%', padding: '12px 12px 12px 36px', borderRadius: 8, border: '1px solid #d1d5db', outline: 'none', background: '#fff' }} />
+              <svg style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: '#9ca3af' }} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
             </div>
           </div>
           <div style={{ marginBottom: 32 }}>
-            <label style={{ fontSize: 13, fontWeight: 700, color: '#9ca3af', display: 'block', marginBottom: 12 }}>{t('category')}</label>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+            <label style={{ fontSize: 13, fontWeight: 700, color: '#374151', display: 'block', marginBottom: 12 }}>{t('category')}</label>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
               {CATS.map((c) => (
-                <button key={c.id} onClick={() => setCat(c.id)} style={{ background: cat === c.id ? '#0369a1' : '#1f2937', border: '1px solid #374151', borderRadius: 8, color: cat === c.id ? '#fff' : '#d1d5db', padding: '10px 14px', textAlign: 'left', cursor: 'pointer', fontSize: 14, fontWeight: cat === c.id ? 700 : 500, fontFamily: 'inherit', transition: 'all 0.2s' }}>
-                  {t(c.id)} <span style={{ float: 'right', fontSize: 12, color: cat === c.id ? '#bae6fd' : '#6b7280', fontWeight: 600 }}>{c.id === 'all' ? products.length : products.filter((p) => p.category === c.id).length}</span>
+                <button key={c.id} onClick={() => setCat(c.id)} style={{ background: cat === c.id ? '#e0f2fe' : 'transparent', border: 'none', borderRadius: 8, color: cat === c.id ? '#0369a1' : '#4b5563', padding: '10px 14px', textAlign: 'left', cursor: 'pointer', fontSize: 14, fontWeight: cat === c.id ? 700 : 500, fontFamily: 'inherit', transition: 'all 0.2s' }}>
+                  {t(c.id)} <span style={{ float: 'right', fontSize: 12, color: cat === c.id ? '#0284c7' : '#9ca3af', fontWeight: 600 }}>{c.id === 'all' ? products.length : products.filter((p) => p.category === c.id).length}</span>
                 </button>
               ))}
             </div>

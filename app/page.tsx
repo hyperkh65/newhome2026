@@ -12,10 +12,8 @@ import { supabase } from '@/lib/supabase';
 const CATEGORIES = [
   { id: 'smart', labelKey: 'smart', icon: '☁️', descKey: 'desc_smart' },
   { id: 'indoor', labelKey: 'indoor', icon: '🏢', descKey: 'desc_indoor' },
-  { id: 'home_lighting', labelKey: 'home_lighting', icon: '🏠', descKey: 'desc_home' },
   { id: 'commercial', labelKey: 'commercial', icon: '🏪', descKey: 'desc_commercial' },
   { id: 'outdoor', labelKey: 'outdoor', icon: '🏭', descKey: 'desc_outdoor' },
-  { id: 'industrial', labelKey: 'industrial', icon: '🏗️', descKey: 'desc_industrial' },
   { id: 'landscape', labelKey: 'landscape', icon: '🌉', descKey: 'desc_landscape' },
   { id: 'special', labelKey: 'special', icon: '🔬', descKey: 'desc_special' },
 ];
@@ -63,7 +61,7 @@ export default function Home() {
       </section>
 
       {/* STATS SECTION */}
-      <section style={{ padding: '80px 24px', background: 'var(--black)', borderBottom: '1px solid rgba(255,255,255,0.05)', position: 'relative', zIndex: 5 }}>
+      <section style={{ padding: '80px 24px', background: 'var(--white)', borderBottom: '1px solid var(--gray-100)', position: 'relative', zIndex: 5 }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 40, textAlign: 'center' }}>
           {[
             { value: 100, suffix: '+', label: t('stat_partners') },
@@ -73,7 +71,7 @@ export default function Home() {
           ].map((stat) => (
             <ScrollReveal key={stat.label}>
               <div>
-                <div style={{ fontSize: 44, fontWeight: 900, color: '#d4af37', marginBottom: 8, letterSpacing: '-0.02em' }}>
+                <div style={{ fontSize: 'clamp(36px, 4vw, 56px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 8, color: 'var(--primary)' }}>
                   <AnimatedCounter target={stat.value} suffix={stat.suffix} />
                 </div>
                 <div style={{ fontSize: 15, color: 'var(--gray-600)', fontWeight: 600 }}>{stat.label}</div>
@@ -95,18 +93,19 @@ export default function Home() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 24 }}>
             {CATEGORIES.map((cat, i) => (
               <ScrollReveal key={cat.id} delay={i * 100}>
-                <Link key={cat.id} href={`/shop?cat=${cat.id}`} style={{ textDecoration: 'none' }}>
-                  <div style={{ 
-                    padding: 40, borderRadius: 28, background: 'var(--bg-card)', 
-                    border: '1px solid rgba(255,255,255,0.05)', height: '100%', transition: 'all 0.4s',
-                    boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
+                <Link href={`/shop?cat=${cat.id}`} style={{ textDecoration: 'none' }}>
+                  <div className="glass-panel" style={{
+                    padding: '40px 32px', textAlign: 'center',
+                    background: 'var(--white)', border: '1px solid var(--gray-200)',
+                    transition: 'all 0.3s ease', cursor: 'pointer', height: '100%',
+                    boxShadow: '0 10px 30px rgba(0,0,0,0.03)'
                   }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-10px)'; (e.currentTarget as HTMLDivElement).style.borderColor = 'var(--primary)'; (e.currentTarget as HTMLDivElement).style.boxShadow = '0 20px 40px rgba(0,0,0,0.4)'; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.transform = 'none'; (e.currentTarget as HTMLDivElement).style.borderColor = 'rgba(255,255,255,0.05)'; (e.currentTarget as HTMLDivElement).style.boxShadow = '0 10px 30px rgba(0,0,0,0.2)'; }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-8px)'; (e.currentTarget as HTMLDivElement).style.boxShadow = '0 20px 40px rgba(14,165,233,0.1)'; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.transform = 'none'; (e.currentTarget as HTMLDivElement).style.boxShadow = '0 10px 30px rgba(0,0,0,0.03)'; }}
                   >
                     <div style={{ fontSize: 48, marginBottom: 20 }}>{cat.icon}</div>
-                    <div style={{ fontSize: 20, fontWeight: 700, marginBottom: 12, color: '#ffffff' }}>{t(cat.labelKey)}</div>
-                    <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.5)', lineHeight: 1.5 }}>{t(cat.descKey)}</div>
+                    <div style={{ fontSize: 20, fontWeight: 700, marginBottom: 12, color: 'var(--gray-900)' }}>{t(cat.labelKey)}</div>
+                    <div style={{ fontSize: 14, color: 'var(--gray-500)', lineHeight: 1.5 }}>{t(cat.descKey)}</div>
                   </div>
                 </Link>
               </ScrollReveal>
