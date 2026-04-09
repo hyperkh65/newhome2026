@@ -1,7 +1,7 @@
 'use client';
 import { Player } from '@remotion/player';
 import { AbsoluteFill, useVideoConfig, useCurrentFrame, spring, interpolate, Sequence, Img } from 'remotion';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const ParticleLayer = () => {
   const frame = useCurrentFrame();
@@ -133,20 +133,32 @@ export const LuminaComposition: React.FC = () => {
 };
 
 export default function RemotionHero() {
+  const [dim, setDim] = useState({ w: 1920, h: 1080 });
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    const updateDim = () => setDim({ w: window.innerWidth, h: Math.max(window.innerHeight, 700) });
+    updateDim();
+    window.addEventListener('resize', updateDim);
+    return () => window.removeEventListener('resize', updateDim);
+  }, []);
+
+  if (!mounted) return <div style={{ width: '100%', height: '100vh', background: '#ffffff' }} />;
+
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden' }}>
       <Player
         component={LuminaComposition}
         durationInFrames={300}
-        compositionWidth={1920}
-        compositionHeight={1080}
+        compositionWidth={dim.w}
+        compositionHeight={dim.h}
         fps={60}
         style={{
           width: '100%',
           height: '100%',
           position: 'absolute',
           inset: 0,
-          objectFit: 'cover'
         }}
         autoPlay
         loop
