@@ -9,7 +9,9 @@ const CATS = [
   { id: 'all', label: '전체' },
   { id: 'smart', label: '스마트조명시스템' },
   { id: 'indoor', label: '실내조명' },
+  { id: 'commercial', label: '상업조명' },
   { id: 'outdoor', label: '산업/실외조명' },
+  { id: 'landscape', label: '경관조명' },
   { id: 'special', label: '특수조명' },
 ];
 

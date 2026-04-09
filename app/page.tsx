@@ -10,7 +10,9 @@ import { useAdminStore } from '@/lib/store';
 const CATEGORIES = [
   { id: 'smart', label: '스마트조명시스템', icon: '☁️', desc: 'IoT 기반 무선 자동제어 솔루션' },
   { id: 'indoor', label: '실내조명', icon: '🏢', desc: '고효율 사무/상업용 LED 평판조명' },
+  { id: 'commercial', label: '상업조명', icon: '🏪', desc: '쇼핑몰, 매장용 프리미엄 라인업' },
   { id: 'outdoor', label: '산업/실외조명', icon: '🏭', desc: '공장등, 가로등 등 내구성 특화' },
+  { id: 'landscape', label: '경관조명', icon: '🌉', desc: '건축물 및 랜드마크 특화 조명' },
   { id: 'special', label: '특수조명', icon: '🔬', desc: '의료/클린룸 방폭 살균등' },
 ];
 
