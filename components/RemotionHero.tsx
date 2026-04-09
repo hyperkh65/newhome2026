@@ -1,89 +1,24 @@
 'use client';
 import { Player } from '@remotion/player';
-import { AbsoluteFill, useVideoConfig, useCurrentFrame, interpolate, Sequence, Easing, Video } from 'remotion';
-import React, { useState, useEffect } from 'react';
+import { AbsoluteFill, useCurrentFrame, interpolate, Sequence, Easing } from 'remotion';
+import React, { useState, useEffect, useRef } from 'react';
 
 /**
  * 배경 영상 목록 — 무역/LED/글로벌 물류 분위기
- * mixkit.co 무료 영상 (상업 이용 가능)
- *
- * 1. 밤 도심 항공뷰 — 글로벌 무역 도시 규모
- * 2. 공장·창고 물류 — 안전한 소싱·공급망
- * 3. 빛나는 LED 조명 시설 — 제품의 실제 적용
+ * HTML <video> 태그로 직접 재생 (Remotion Video 컴포넌트 X → CORS 이슈 방지)
  */
 const VIDEO_CLIPS = [
-  // 항공뷰 야경 도시 (글로벌 무역 스케일)
-  'https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-city-at-night-4714-large.mp4',
-  // 산업 창고/물류 (소싱·공급망)
-  'https://assets.mixkit.co/videos/preview/mixkit-warehouse-workers-moving-boxes-19760-large.mp4',
-  // 도심 빌딩 야경 (LED 조명 실적용)
   'https://assets.mixkit.co/videos/preview/mixkit-night-city-with-traffic-and-illuminated-buildings-33827-large.mp4',
+  'https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-city-at-night-4714-large.mp4',
+  'https://assets.mixkit.co/videos/preview/mixkit-city-traffic-from-above-at-night-4714-large.mp4',
 ];
 
 /**
- * 배경 비디오 레이어
- * - 60fps 기준 0~60초 재생
- * - 20초마다 영상 클립 전환 (fade cross)
- */
-const CinematicVideoLayer = () => {
-  const frame = useCurrentFrame();
-  const framesPerClip = 1200; // 20초 @ 60fps
-
-  // 현재 영상 인덱스
-  const clipIndex = Math.floor(frame / framesPerClip) % VIDEO_CLIPS.length;
-  // 다음 영상 인덱스
-  const nextIndex = (clipIndex + 1) % VIDEO_CLIPS.length;
-
-  // 클립 내 위치 (0 ~ framesPerClip)
-  const frameInClip = frame % framesPerClip;
-
-  // 크로스페이드: 마지막 1.5초(90프레임) 동안 전환
-  const fadeOut = interpolate(frameInClip, [framesPerClip - 90, framesPerClip], [1, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
-  const fadeIn = interpolate(frameInClip, [framesPerClip - 90, framesPerClip], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
-
-  return (
-    <AbsoluteFill style={{ overflow: 'hidden', background: '#060d1a' }}>
-      {/* 현재 클립 */}
-      <Video
-        src={VIDEO_CLIPS[clipIndex]}
-        style={{
-          position: 'absolute', inset: 0,
-          width: '100%', height: '100%',
-          objectFit: 'cover',
-          opacity: fadeOut * 0.45,
-          filter: 'grayscale(0.2) contrast(1.15) saturate(1.1)',
-        }}
-        muted
-      />
-      {/* 다음 클립 (크로스페이드용) */}
-      <Video
-        src={VIDEO_CLIPS[nextIndex]}
-        style={{
-          position: 'absolute', inset: 0,
-          width: '100%', height: '100%',
-          objectFit: 'cover',
-          opacity: fadeIn * 0.45,
-          filter: 'grayscale(0.2) contrast(1.15) saturate(1.1)',
-        }}
-        muted
-      />
-      {/* 딥 블루 코퍼레이트 오버레이 */}
-      <div style={{
-        position: 'absolute', inset: 0,
-        background: 'radial-gradient(ellipse at 60% 40%, rgba(2,132,199,0.18) 0%, rgba(6,13,26,0.85) 70%)',
-      }} />
-    </AbsoluteFill>
-  );
-};
-
-/**
  * 타이틀 시퀀스 — 무역회사 정체성을 담은 카피
- * "검증된 제품, 신뢰할 수 있는 공급"
  */
 const TitleSequence = () => {
   const frame = useCurrentFrame();
 
-  // 단계별 장엄한 시네마틱 페이드인
   const phase1 = interpolate(frame, [20, 80], [0, 1], { easing: Easing.bezier(0.2, 0.8, 0.4, 1), extrapolateRight: 'clamp' });
   const phase2 = interpolate(frame, [60, 140], [0, 1], { easing: Easing.bezier(0.2, 0.8, 0.4, 1), extrapolateRight: 'clamp' });
   const phase3 = interpolate(frame, [100, 190], [0, 1], { easing: Easing.bezier(0.2, 0.8, 0.4, 1), extrapolateRight: 'clamp' });
@@ -145,7 +80,7 @@ const TitleSequence = () => {
 
         {/* 서브카피 */}
         <p style={{
-          fontSize: 'clamp(16px, 1.4vw, 21px)',
+          fontSize: 'clamp(15px, 1.4vw, 20px)',
           color: '#94a3b8',
           fontWeight: 400,
           maxWidth: 680,
@@ -156,7 +91,7 @@ const TitleSequence = () => {
           filter: `blur(${blur3}px)`,
           transform: `scale(${scale3})`,
         }}>
-          글로벌 제조사로부터 직접 소싱한 KC·CE·RoHS 인증 완료 제품.<br />
+          글로벌 제조사로부터 직접 소싱한 KC · CE · RoHS 인증 완료 제품.<br />
           까다로운 검수와 안전한 물류로 귀사의 비즈니스를 지원합니다.
         </p>
       </div>
@@ -164,10 +99,10 @@ const TitleSequence = () => {
   );
 };
 
+// Remotion 컴포지션: 텍스트 애니메이션만 담당 (배경은 외부 video 태그)
 export const LuminaComposition: React.FC = () => {
   return (
-    <AbsoluteFill style={{ background: '#060d1a', overflow: 'hidden' }}>
-      <CinematicVideoLayer />
+    <AbsoluteFill style={{ background: 'transparent', overflow: 'hidden' }}>
       <Sequence from={0}>
         <TitleSequence />
       </Sequence>
@@ -175,6 +110,66 @@ export const LuminaComposition: React.FC = () => {
   );
 };
 
+// ─── 배경 비디오 컴포넌트 (순수 HTML <video>, 크로스페이드 전환) ───────────────
+function BackgroundVideo() {
+  const [currentIdx, setCurrentIdx] = useState(0);
+  const [nextIdx, setNextIdx] = useState(1);
+  const [isFading, setIsFading] = useState(false);
+  const currentRef = useRef<HTMLVideoElement>(null);
+  const nextRef = useRef<HTMLVideoElement>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>();
+
+  // 20초마다 다음 클립으로 크로스페이드 전환
+  useEffect(() => {
+    const switchClip = () => {
+      setIsFading(true);
+      setTimeout(() => {
+        setCurrentIdx(nextIdx);
+        setNextIdx((nextIdx + 1) % VIDEO_CLIPS.length);
+        setIsFading(false);
+      }, 1500); // 1.5초 전환
+    };
+
+    timerRef.current = setTimeout(switchClip, 20000);
+    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
+  }, [currentIdx, nextIdx]);
+
+  const videoStyle: React.CSSProperties = {
+    position: 'absolute', inset: 0,
+    width: '100%', height: '100%',
+    objectFit: 'cover',
+    filter: 'grayscale(0.2) contrast(1.1)',
+    transition: 'opacity 1.5s ease',
+  };
+
+  return (
+    <div style={{ position: 'absolute', inset: 0, overflow: 'hidden' }}>
+      {/* 현재 영상 */}
+      <video
+        ref={currentRef}
+        key={`curr-${currentIdx}`}
+        src={VIDEO_CLIPS[currentIdx]}
+        autoPlay muted loop playsInline
+        style={{ ...videoStyle, opacity: isFading ? 0 : 0.45 }}
+      />
+      {/* 다음 영상 (미리 로드 후 페이드인) */}
+      <video
+        ref={nextRef}
+        key={`next-${nextIdx}`}
+        src={VIDEO_CLIPS[nextIdx]}
+        autoPlay muted loop playsInline
+        style={{ ...videoStyle, opacity: isFading ? 0.45 : 0 }}
+      />
+      {/* 코퍼레이트 오버레이 */}
+      <div style={{
+        position: 'absolute', inset: 0,
+        background: 'radial-gradient(ellipse at 60% 40%, rgba(2,132,199,0.15) 0%, rgba(6,13,26,0.82) 70%)',
+      }} />
+    </div>
+  );
+}
+
+// ─── 메인 Export ────────────────────────────────────────────────────────────────
 export default function RemotionHero() {
   const [dim, setDim] = useState({ w: 1920, h: 1080 });
   const [mounted, setMounted] = useState(false);
@@ -190,7 +185,11 @@ export default function RemotionHero() {
   if (!mounted) return <div style={{ width: '100%', height: '100vh', background: '#060d1a' }} />;
 
   return (
-    <div style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden' }}>
+    <div style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden', background: '#060d1a' }}>
+      {/* ① 배경 영상: 일반 HTML video 태그 (Remotion 외부) */}
+      <BackgroundVideo />
+
+      {/* ② 텍스트 애니메이션: Remotion Player (투명 배경) */}
       <Player
         component={LuminaComposition}
         durationInFrames={3600} /* 60초 @ 60fps */
@@ -198,16 +197,20 @@ export default function RemotionHero() {
         compositionHeight={dim.h}
         fps={60}
         style={{
-          width: '100%',
-          height: '100%',
-          position: 'absolute',
-          inset: 0,
+          position: 'absolute', inset: 0,
+          width: '100%', height: '100%',
+          background: 'transparent',
         }}
         autoPlay
         loop
       />
-      {/* 섹션 하단 자연스러운 페이드 */}
-      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 180, background: 'linear-gradient(to top, rgba(255,255,255,0.7) 0%, transparent 100%)', zIndex: 20 }} />
+
+      {/* 하단 페이드 */}
+      <div style={{
+        position: 'absolute', bottom: 0, left: 0, right: 0, height: 180,
+        background: 'linear-gradient(to top, rgba(255,255,255,0.75) 0%, transparent 100%)',
+        zIndex: 30,
+      }} />
     </div>
   );
 }
