@@ -49,58 +49,64 @@ export interface ShopState {
 // Demo products
 const DEMO_PRODUCTS: Product[] = [
   {
-    id: '1', name: 'Lumina Ring Pro', category: 'pendant',
-    price: 289000, originalPrice: 350000,
-    description: '직경 60cm 프리미엄 원형 LED 펜던트. 3000K-6500K 색온도 조절, 디밍 가능. 최대 50W, 4500 lm 광속.',
-    specs: { '크기': 'Ø600mm', '전력': '50W', '색온도': '3000K~6500K', '광속': '4500lm', 'CRI': '>95', '수명': '50,000hr' },
-    images: ['/hero-main.png'],
-    badge: 'BEST', stock: 24, rating: 4.9, reviews: 128, featured: true,
-    createdAt: '2024-01-01'
-  },
-  {
-    id: '2', name: 'NeoStrip COB 10m', category: 'strip',
-    price: 89000, originalPrice: 120000,
-    description: 'COB 기술의 균일한 빛. 끊김 없는 선형 조명. IP65 방수, 실내외 모두 사용 가능.',
-    specs: { '길이': '10m', '전력': '18W/m', 'IP등급': 'IP65', '색온도': '2700K~6500K', 'CRI': '>90', '컷팅': '10cm 단위' },
-    images: ['/strip-glow.png'],
-    badge: 'NEW', stock: 56, rating: 4.8, reviews: 89, featured: true,
-    createdAt: '2024-01-15'
-  },
-  {
-    id: '3', name: 'Panel Pro 60x60', category: 'panel',
-    price: 145000,
-    description: '사무용 LED 매입 패널. UGR<19 저눈부심 설계. 균일한 면발광으로 눈의 피로 최소화.',
-    specs: { '크기': '600×600mm', '전력': '40W', '광속': '4800lm', 'CRI': '>85', 'UGR': '<19', '수명': '50,000hr' },
+    id: '1', name: 'SmartMesh 게이트웨이 Pro', category: '스마트조명시스템',
+    price: 350000,
+    description: '공장 및 대형 빌딩을 위한 무선 스마트 조명 제어 허브. 1000개 이상의 노드 동시 제어 가능.',
+    specs: { '통신': 'Zigbee 3.0 / Matter', '최대노드': '1000+', '전원': 'AC 100-240V', '크기': '200x150x45mm' },
     images: ['/panel-interior.png'],
-    stock: 30, rating: 4.7, reviews: 64, featured: false,
-    createdAt: '2024-02-01'
+    certificates: ['https://example.com/cert-kc.pdf', 'https://example.com/cert-ce.pdf'],
+    badge: 'NEW', stock: 100, rating: 5.0, reviews: 12, featured: true,
+    createdAt: '2025-01-01'
   },
   {
-    id: '4', name: 'SpotX Track GU10', category: 'track',
-    price: 56000,
-    description: '3선식 트랙 레일용 스팟 조명. 360도 회전, 90도 틸팅. 인테리어 포인트 조명에 최적.',
-    specs: { '소켓': 'GU10', '전력': '7W', '빔각도': '24°/36°', '색온도': '3000K', 'CRI': '>92', '회전': '360°' },
-    images: ['/hero-main.png'],
-    stock: 80, rating: 4.6, reviews: 45, featured: false,
-    createdAt: '2024-02-10'
-  },
-  {
-    id: '5', name: 'Outdoor Wall Duo', category: 'outdoor',
-    price: 125000, originalPrice: 155000,
-    description: '방수 IP67 외부 벽부등. 상하 빛 분산으로 건축적 미감 극대화. 소금물 부식 방지 코팅.',
-    specs: { '크기': '300×120×80mm', '전력': '24W', 'IP등급': 'IP67', '색온도': '3000K', 'CRI': '>80', '소재': '다이캐스팅 알루미늄' },
-    images: ['/panel-interior.png'],
-    badge: 'SALE', stock: 15, rating: 4.8, reviews: 37, featured: true,
-    createdAt: '2024-03-01'
-  },
-  {
-    id: '6', name: 'SmartDim Controller', category: 'accessory',
-    price: 48000,
-    description: 'Zigbee 3.0 기반 스마트 디밍 컨트롤러. 앱 제어, 스마트홈 연동 (SmartThings, HomeKit 지원).',
-    specs: { '통신': 'Zigbee 3.0', '입력': '0-10V / PWM', '최대전류': '30A', '호환': 'SmartThings / HomeKit', '크기': '86×86mm' },
+    id: '2', name: 'SmartMesh 모션 센서', category: '스마트조명시스템',
+    price: 45000, originalPrice: 60000,
+    description: '주차장 및 복도용 고감도 마이크로웨이브 모션 센서. 게이트웨이와 무선 연동.',
+    specs: { '감지범위': '반경 8m', '감지방식': '5.8GHz Microwave', '보호등급': 'IP44', '배터리': 'CR123A (최대 3년)' },
     images: ['/strip-glow.png'],
-    stock: 45, rating: 4.5, reviews: 28, featured: false,
-    createdAt: '2024-03-10'
+    certificates: ['https://example.com/kc.pdf'],
+    badge: 'BEST', stock: 500, rating: 4.8, reviews: 89, featured: true,
+    createdAt: '2025-01-15'
+  },
+  {
+    id: '3', name: '울트라 씬 엣지 평판 1200x300', category: '실내조명',
+    price: 85000,
+    description: '사무실용 초박형 LED 평판 조명. 플리커프리 및 눈부심 방지 설계. 높은 에너지 효율.',
+    specs: { '크기': '1200x300mm', '전력': '40W', '광효율': '130lm/W', 'CRI': '>90', 'UGR': '<19' },
+    images: ['/panel-interior.png'],
+    certificates: ['https://example.com/ks.pdf', 'https://example.com/energy.pdf'],
+    stock: 300, rating: 4.7, reviews: 64, featured: false,
+    createdAt: '2025-02-01'
+  },
+  {
+    id: '4', name: '하이베이 공장등 150W', category: '산업용조명',
+    price: 185000,
+    description: '대형 공장 및 물류 창고용 고천장등. 다이캐스팅 알루미늄 방열 설계로 긴 수명 보장.',
+    specs: { '전력': '150W', '광속': '21000lm', '광효율': '140lm/W', '방수방진': 'IP65', '수명': '50,000hr' },
+    images: ['/hero-main.png'],
+    certificates: ['https://example.com/iso9001.pdf', 'https://example.com/ce.pdf'],
+    stock: 120, rating: 4.9, reviews: 45, featured: false,
+    createdAt: '2025-02-10'
+  },
+  {
+    id: '5', name: '스마트 LED 가로등 100W', category: '실외조명',
+    price: 320000, originalPrice: 380000,
+    description: '도로 및 산업단지용 고효율 LED 가로등. NEMA 소켓 적용으로 스마트 제어기 결합 가능.',
+    specs: { '전력': '100W', '광속': '15000lm', 'IP등급': 'IP66', 'IK등급': 'IK08', '스마트': 'NEMA 7Pin' },
+    images: ['/strip-glow.png'],
+    certificates: ['https://example.com/ks.pdf'],
+    badge: 'SALE', stock: 80, rating: 4.8, reviews: 37, featured: true,
+    createdAt: '2025-03-01'
+  },
+  {
+    id: '6', name: '의료/클린룸용 무진등', category: '특수조명',
+    price: 155000,
+    description: '반도체 공장, 병원, 제약회사용 클린룸 조명. 먼지 쌓임 방지 및 완벽 밀폐형 구조.',
+    specs: { '전력': '50W', '크기': '1200x300mm', '방수방진': 'IP65', '재질': '항균강판/PC', '무게': '3.2kg' },
+    images: ['/panel-interior.png'],
+    certificates: ['https://example.com/haccp.pdf'],
+    stock: 45, rating: 4.6, reviews: 28, featured: false,
+    createdAt: '2025-03-10'
   },
 ];
 
