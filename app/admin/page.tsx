@@ -7,7 +7,7 @@ import RichEditor from '@/components/RichEditor';
 import { supabase } from '@/lib/supabase';
 
 interface Post {
-  id?: string; type: 'board' | 'blog'; title: string; content: string;
+  id?: string; type: 'board' | 'blog' | 'report'; title: string; content: string;
   author: string; attachments: { name: string; url: string }[]; created_at?: string;
   is_locked?: boolean; password?: string; cover_image?: string;
 }
@@ -840,3 +840,4 @@ export default function AdminPage() {
     </main>
   );
 }
+
