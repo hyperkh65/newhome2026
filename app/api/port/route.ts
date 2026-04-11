@@ -51,8 +51,8 @@ async function fetchPortVessels() {
     etd: it.schDepDt ? formatTime(String(it.schDepDt)) : undefined,
   }));
 
-  const berthed = vessels.filter(v => v.status === '접안').length;
-  const waiting = vessels.filter(v => v.status === '대기').length;
+  const berthed = vessels.filter((v: {status: string}) => v.status === '접안').length;
+  const waiting = vessels.filter((v: {status: string}) => v.status === '대기').length;
   const berthRate = tCnt > 0 ? Math.min(Math.round(berthed / Math.max(tCnt, 10) * 100), 100) : 50;
 
   return { tCnt, vessels, berthed, waiting, berthRate };
@@ -102,7 +102,7 @@ function fallbackData() {
 export async function GET() {
   try {
     const { tCnt, vessels, berthed, waiting, berthRate } = await fetchPortVessels();
-    const departed = vessels.filter(v => v.status === '출항').length;
+    const departed = vessels.filter((v: {status: string}) => v.status === '출항').length;
 
     return NextResponse.json({
       level: getLevel(waiting, berthRate),
