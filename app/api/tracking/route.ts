@@ -54,31 +54,35 @@ export async function GET(req: NextRequest) {
       }
     }
 
-    // 수출 조회
-    const expUrl =
-      `https://unipass.customs.go.kr:38010/ext/rest/expDclrNoPrExpFfmnBrkdQry/retrieveExpDclrNoPrExpFfmnBrkd` +
-      `?crkyCn=${CRKY_CN}&blNo=${blNo}`;
+    // 수출 조회 (인증키 권한이 있을 경우에만)
+    try {
+      const expUrl =
+        `https://unipass.customs.go.kr:38010/ext/rest/expDclrNoPrExpFfmnBrkdQry/retrieveExpDclrNoPrExpFfmnBrkd` +
+        `?crkyCn=${CRKY_CN}&blNo=${blNo}`;
 
-    const expRes = await fetch(expUrl, { cache: 'no-store' });
-    const expXml = await expRes.text();
-    const expParsed = parser.parse(expXml);
+      const expRes = await fetch(expUrl, { cache: 'no-store' });
+      const expXml = await expRes.text();
+      const expParsed = parser.parse(expXml);
 
-    const expRoot = expParsed?.expDclrNoPrExpFfmnBrkdQryRtnVo;
-    const expResult = expRoot?.expDclrNoPrExpFfmnBrkdBlNoQryRsltVo;
-    const expTotal = parseInt(String(expRoot?.tCnt ?? '0'));
+      const expRoot = expParsed?.expDclrNoPrExpFfmnBrkdQryRtnVo;
+      const expResult = expRoot?.expDclrNoPrExpFfmnBrkdBlNoQryRsltVo;
+      const expTotal = parseInt(String(expRoot?.tCnt ?? '0'));
 
-    if (expTotal > 0 && expResult) {
-      return NextResponse.json({
-        success: true,
-        type: 'EXPORT',
-        data: Array.isArray(expResult) ? expResult[0] : expResult,
-        details: [],
-      });
+      if (expTotal > 0 && expResult) {
+        return NextResponse.json({
+          success: true,
+          type: 'EXPORT',
+          data: Array.isArray(expResult) ? expResult[0] : expResult,
+          details: [],
+        });
+      }
+    } catch {
+      // 수출 API 권한 없는 경우 무시
     }
 
     return NextResponse.json({
       success: false,
-      error: `'${blNo}' B/L 번호로 조회된 화물이 없습니다. (수입/수출 ${searchYears.join(', ')}년도 모두 확인)`,
+      error: `'${blNo}' B/L 번호로 조회된 화물이 없습니다.\n수입(HBL/MBL) ${searchYears.join(', ')}년도를 모두 확인했습니다.\n정확한 B/L 번호를 입력했는지 확인해주세요.`,
     });
   } catch (e) {
     return NextResponse.json(
