@@ -639,7 +639,12 @@ export default function AdminPage() {
                     <label style={labelStyle}>첨부파일 ({editPost.attachments.length}/5)</label>
                     {editPost.attachments.length < 5 && (
                       <CloudinaryUpload label="파일 추가" folder="led-attachments"
-                        onSuccess={url => setEditPost({ ...editPost, attachments: [...editPost.attachments, { name: url.split('/').pop() || 'file', url }] })} />
+                        accept="image/*,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/zip,*/*"
+                        onSuccess={url => {
+                          const raw = url.split('/').pop() || 'file';
+                          const name = decodeURIComponent(raw.split('?')[0]);
+                          setEditPost({ ...editPost, attachments: [...editPost.attachments, { name, url }] });
+                        }} />
                     )}
                   </div>
                   {editPost.attachments.map((f, i) => (
