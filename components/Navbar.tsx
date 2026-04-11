@@ -155,6 +155,7 @@ export default function Navbar() {
             <Link href="/hscode" style={navItemStyle(pathname==='/hscode')}>HS코드</Link>
             <Link href="/trade-info" style={navItemStyle()}>{t('trade')}</Link>
             <Link href="/tracking" style={navItemStyle()}>{t('logistics')}</Link>
+            <Link href="/market-report" style={navItemStyle(pathname==='/market-report')}>시장보고서</Link>
             <Link href="/board" style={navItemStyle()}>{t('board')}</Link>
             <Link href="/blog" style={navItemStyle()}>{t('blog')}</Link>
           </div>
@@ -228,6 +229,7 @@ export default function Navbar() {
              <Link href="/market" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', color: '#ffffff', textDecoration: 'none', fontWeight: 700 }}>시장현황</Link>
              <Link href="/trade-info" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', color: '#ffffff', textDecoration: 'none', fontWeight: 700 }}>{t('trade')}</Link>
              <Link href="/tracking" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', color: '#ffffff', textDecoration: 'none', fontWeight: 700 }}>{t('logistics')}</Link>
+             <Link href="/market-report" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', color: '#ffffff', textDecoration: 'none', fontWeight: 700 }}>시장보고서</Link>
              <Link href="/board" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', color: '#ffffff', textDecoration: 'none', fontWeight: 700 }}>{t('board')}</Link>
              <Link href="/blog" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', color: '#ffffff', textDecoration: 'none', fontWeight: 700 }}>{t('blog')}</Link>
           </div>
