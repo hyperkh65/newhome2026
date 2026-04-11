@@ -151,6 +151,7 @@ export default function Navbar() {
               )}
             </div>
 
+            <Link href="/#market" style={navItemStyle()}>시장현황</Link>
             <Link href="/trade-info" style={navItemStyle()}>{t('trade')}</Link>
             <Link href="/tracking" style={navItemStyle()}>{t('logistics')}</Link>
             <Link href="/board" style={navItemStyle()}>{t('board')}</Link>
@@ -222,6 +223,7 @@ export default function Navbar() {
           <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, background: 'var(--bg-dark)', padding: '24px', borderTop: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 20px 40px rgba(0,0,0,0.5)', display: 'flex', flexDirection: 'column', gap: 10 }}>
              <Link href="/about" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', color: '#ffffff', textDecoration: 'none', fontWeight: 700 }}>{t('company')}</Link>
              <Link href="/shop" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', color: '#ffffff', textDecoration: 'none', fontWeight: 700 }}>{t('products')}</Link>
+             <Link href="/market" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', color: '#ffffff', textDecoration: 'none', fontWeight: 700 }}>시장현황</Link>
              <Link href="/trade-info" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', color: '#ffffff', textDecoration: 'none', fontWeight: 700 }}>{t('trade')}</Link>
              <Link href="/tracking" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', color: '#ffffff', textDecoration: 'none', fontWeight: 700 }}>{t('logistics')}</Link>
              <Link href="/board" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', color: '#ffffff', textDecoration: 'none', fontWeight: 700 }}>{t('board')}</Link>
