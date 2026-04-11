@@ -15,7 +15,7 @@ export default function BlogPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    supabase.from('posts').select('id, title, content, author, created_at, cover_image, attachments')
+    supabase.from('posts').select('*')
       .eq('type', 'blog').order('created_at', { ascending: false })
       .then(({ data }) => { if (data) setPosts(data as BlogPost[]); setLoading(false); });
   }, []);
