@@ -112,7 +112,7 @@ export default function AdminPage() {
   const isLoggedIn = useAdminStore(s => s.isLoggedIn);
   const logout     = useAdminStore(s => s.logout);
 
-  const [tab, setTab]   = useState<'dashboard' | 'products' | 'board' | 'blog' | 'settings'>('dashboard');
+  const [tab, setTab]   = useState<'dashboard' | 'products' | 'report' | 'board' | 'blog' | 'settings'>('dashboard');
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState<Post[]>([]);
   const [editPost, setEditPost] = useState<Post | null>(null);
@@ -245,6 +245,7 @@ export default function AdminPage() {
   const NAV_ITEMS = [
     { key: 'dashboard', label: '대시보드',   icon: '📊', badge: null },
     { key: 'products',  label: '제품 관리',  icon: '💡', badge: dbProducts.length },
+    { key: 'report',    label: '시장보고서', icon: '📈', badge: posts.filter(p=>p.type==='report').length },
     { key: 'board',     label: '게시판',     icon: '📝', badge: posts.filter(p=>p.type==='board').length },
     { key: 'blog',      label: '블로그',     icon: '✍️', badge: posts.filter(p=>p.type==='blog').length },
     { key: 'settings',  label: '사이트 설정', icon: '⚙️', badge: null },
@@ -561,11 +562,11 @@ export default function AdminPage() {
         )}
 
         {/* ─────── 게시판 / 블로그 ─────── */}
-        {(tab === 'board' || tab === 'blog') && (
+        {(tab === 'report' || tab === 'board' || tab === 'blog') && (
           <div style={{ padding: '40px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 28 }}>
-              <h1 style={{ fontSize: 26, fontWeight: 900 }}>{tab === 'board' ? '📝 게시판 관리' : '✍️ 블로그 관리'}</h1>
-              <button onClick={() => setEditPost({ ...EMPTY_POST, type: tab })}
+              <h1 style={{ fontSize: 26, fontWeight: 900 }}>{tab === 'report' ? '📈 시장보고서 관리' : tab === 'board' ? '📝 게시판 관리' : '✍️ 블로그 관리'}</h1>
+              <button onClick={() => setEditPost({ ...EMPTY_POST, type: tab as any })}
                 style={{ padding: '10px 20px', background: '#3b82f6', color: '#fff', border: 'none', borderRadius: 10, fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
                 + 새 글 작성
               </button>
@@ -607,8 +608,8 @@ export default function AdminPage() {
                   />
                 </div>
 
-                {/* 게시판 전용: 잠금 설정 */}
-                {tab === 'board' && (
+                {/* 게시판/시장보고서 전용: 잠금 설정 */}
+                {(tab === 'board' || tab === 'report') && (
                   <div style={{ marginBottom: 20, padding: '16px 18px', background: 'rgba(239,68,68,0.05)', borderRadius: 12, border: '1px solid rgba(239,68,68,0.12)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: editPost.is_locked ? 14 : 0 }}>
                       <input type="checkbox" id="is_locked" checked={!!editPost.is_locked}
