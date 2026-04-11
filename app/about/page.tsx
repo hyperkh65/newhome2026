@@ -63,12 +63,18 @@ export default function AboutPage() {
                     </li>
                   </ul>
                   
-                  {/* Fake Map Box */}
-                  <div style={{ marginTop: 24, width: '100%', height: 200, background: '#e5e7eb', borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9ca3af', border: '1px solid #d1d5db' }}>
-                    <div style={{ textAlign: 'center' }}>
-                      <div style={{ fontSize: 32, marginBottom: 8 }}>🗺️</div>
-                      <div style={{ fontSize: 13, fontWeight: 600 }}>지도 API 연동 영역</div>
-                    </div>
+                  {/* Google Maps Embed */}
+                  <div style={{ marginTop: 24, width: '100%', borderRadius: 16, overflow: 'hidden', border: '1px solid #d1d5db', boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}>
+                    <iframe
+                      src="https://maps.google.com/maps?q=인천광역시+미추홀구+경인로+112,+와이앤케이&t=&z=17&ie=UTF8&iwloc=&output=embed"
+                      width="100%"
+                      height="300"
+                      style={{ border: 0, display: 'block' }}
+                      allowFullScreen
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      title="와이앤케이 위치"
+                    />
                   </div>
                 </div>
               </ScrollReveal>
