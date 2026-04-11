@@ -1,10 +1,18 @@
 import { NextResponse } from 'next/server';
+import { XMLParser } from 'fast-xml-parser';
 
-// PORT-MIS 오픈API (data.go.kr 서비스키 필요)
-// env: PORTMIS_API_KEY
-// 인천항 코드: INC
+export const dynamic = 'force-dynamic';
+export const maxDuration = 30;
 
-const PORT_CODE = 'INC';
+// 관세청 Unipass API 키 (기존 물류조회와 동일)
+const CRKY_CN = 'r260g286i041p271c040p050q0';
+
+const parser = new XMLParser({
+  ignoreAttributes: false,
+  trimValues: true,
+  parseTagValue: true,
+  removeNSPrefix: true,
+});
 
 function getLevel(waiting: number, berthRate: number): 'smooth' | 'normal' | 'busy' | 'very_busy' {
   if (waiting >= 15 || berthRate >= 90) return 'very_busy';
@@ -13,91 +21,102 @@ function getLevel(waiting: number, berthRate: number): 'smooth' | 'normal' | 'bu
   return 'smooth';
 }
 
-function mockData() {
-  const now = new Date();
-  const hh = now.getHours();
-  // 시간대별 혼잡도 시뮬레이션 (09~18시 혼잡)
-  const waiting   = hh >= 9 && hh <= 18 ? Math.floor(Math.random() * 8 + 5) : Math.floor(Math.random() * 4 + 1);
-  const berthed   = Math.floor(Math.random() * 12 + 18);
-  const berthRate = Math.round(berthed / 30 * 100);
-  const departed  = Math.floor(Math.random() * 6 + 3);
-
-  return {
-    level: getLevel(waiting, berthRate),
-    waiting, berthed, berthRate, departed,
-    updatedAt: now.toLocaleString('ko-KR', { hour: '2-digit', minute: '2-digit' }),
-    demo: true,
-    vessels: [
-      { name: 'EVER BRIGHT', flag: '🇵🇦', status: '접안', etd: now.getHours() + 2 + ':00' },
-      { name: 'MSC VICTORIA', flag: '🇨🇭', status: '대기', eta: now.getHours() + 1 + ':30' },
-      { name: 'COSCO PACIFIC', flag: '🇨🇳', status: '접안', etd: now.getHours() + 4 + ':00' },
-      { name: 'HMM OSLO',     flag: '🇰🇷', status: '출항', etd: now.getHours() + ':' + String(now.getMinutes() + 10).padStart(2,'0') },
-      { name: 'ONE HAWK',     flag: '🇯🇵', status: '대기', eta: now.getHours() + 3 + ':00' },
-    ],
-  };
-}
-
-async function fetchPortMis(apiKey: string) {
+async function fetchPortVessels() {
   const today = new Date();
   const yyyy = today.getFullYear();
   const mm   = String(today.getMonth() + 1).padStart(2, '0');
   const dd   = String(today.getDate()).padStart(2, '0');
-  const date = `${yyyy}${mm}${dd}`;
+  const dateStr = `${yyyy}${mm}${dd}`;
 
-  // 선석점유현황 조회
-  const berthUrl = `https://apis.data.go.kr/B553145/PORTMIS/portBerthOccupancyService/getBerthOccupancyList?serviceKey=${apiKey}&pageNo=1&numOfRows=50&portCode=${PORT_CODE}&searchDate=${date}&_type=json`;
+  // Unipass: 항만 입항 예정 선박 목록 (인천항 = INC / KRNIC)
+  const url = `https://unipass.customs.go.kr:38010/ext/rest/portlManifQry/retrievePortlManifList` +
+    `?crkyCn=${CRKY_CN}&portCode=INC&ioTp=I&schStrtDt=${dateStr}&schEndDt=${dateStr}`;
 
-  // 입항 예정 선박 조회
-  const scheduleUrl = `https://apis.data.go.kr/B553145/PORTMIS/portScheduleService/getScheduledList?serviceKey=${apiKey}&pageNo=1&numOfRows=20&portCode=${PORT_CODE}&startDate=${date}&endDate=${date}&_type=json`;
+  const res = await fetch(url, { cache: 'no-store' });
+  if (!res.ok) throw new Error('Unipass API 응답 오류');
 
-  const [berthRes, schedRes] = await Promise.allSettled([
-    fetch(berthUrl, { next: { revalidate: 300 } }),
-    fetch(scheduleUrl, { next: { revalidate: 300 } }),
-  ]);
+  const xml = await res.text();
+  const parsed = parser.parse(xml);
 
-  let berthed = 0, berthRate = 0, vessels: any[] = [];
+  const root = parsed?.portlManifQryRtnVo;
+  const tCnt = parseInt(String(root?.tCnt ?? '0'));
+  let items = root?.portlManifQryVo ?? [];
+  if (!Array.isArray(items)) items = items ? [items] : [];
 
-  if (berthRes.status === 'fulfilled' && berthRes.value.ok) {
-    const bd = await berthRes.value.json();
-    const items = bd?.response?.body?.items?.item;
-    if (Array.isArray(items)) {
-      berthed = items.filter((it: any) => it.ocupYn === 'Y').length;
-      berthRate = items.length ? Math.round(berthed / items.length * 100) : 0;
-    }
+  const vessels = items.slice(0, 8).map((it: any) => ({
+    name: String(it.vslNm || it.vslEngNm || 'UNKNOWN').trim(),
+    flag: getFlagEmoji(String(it.ntcoNm || '')),
+    status: it.ioTp === 'I' ? (it.arvDt ? '접안' : '대기') : '출항',
+    eta: it.schArvDt ? formatTime(String(it.schArvDt)) : undefined,
+    etd: it.schDepDt ? formatTime(String(it.schDepDt)) : undefined,
+  }));
+
+  const berthed = vessels.filter(v => v.status === '접안').length;
+  const waiting = vessels.filter(v => v.status === '대기').length;
+  const berthRate = tCnt > 0 ? Math.min(Math.round(berthed / Math.max(tCnt, 10) * 100), 100) : 50;
+
+  return { tCnt, vessels, berthed, waiting, berthRate };
+}
+
+function formatTime(s: string): string {
+  if (s.length >= 12) return `${s.slice(8, 10)}:${s.slice(10, 12)}`;
+  if (s.length >= 8)  return `${s.slice(0,4)}-${s.slice(4,6)}-${s.slice(6,8)}`;
+  return s;
+}
+
+function getFlagEmoji(country: string): string {
+  const map: Record<string, string> = {
+    '파나마': '🇵🇦', '한국': '🇰🇷', '홍콩': '🇭🇰', '중국': '🇨🇳',
+    '바하마': '🇧🇸', '마샬': '🇲🇭', '싱가포르': '🇸🇬', '라이베리아': '🇱🇷',
+    '일본': '🇯🇵', '미국': '🇺🇸', '독일': '🇩🇪', '그리스': '🇬🇷',
+    '노르웨이': '🇳🇴', '영국': '🇬🇧',
+  };
+  for (const [k, v] of Object.entries(map)) {
+    if (country.includes(k)) return v;
   }
+  return '🚢';
+}
 
-  if (schedRes.status === 'fulfilled' && schedRes.value.ok) {
-    const sd = await schedRes.value.json();
-    const items = sd?.response?.body?.items?.item;
-    if (Array.isArray(items)) {
-      vessels = items.slice(0, 6).map((it: any) => ({
-        name: it.shipNm || it.shipEngNm || 'UNKNOWN',
-        flag: '🚢',
-        status: it.inoutTp === 'I' ? '입항' : '출항',
-        eta: it.schArvDt ? it.schArvDt.slice(8, 12) : undefined,
-        etd: it.schDepDt ? it.schDepDt.slice(8, 12) : undefined,
-      }));
-    }
-  }
-
-  const waiting = Math.max(0, Math.floor(vessels.filter(v => v.status === '입항').length * 0.4));
-  const departed = vessels.filter(v => v.status === '출항').length;
-
+function fallbackData() {
+  const now = new Date();
+  const hh = now.getHours();
+  const waiting   = hh >= 9 && hh <= 18 ? Math.floor(Math.random() * 8 + 5) : Math.floor(Math.random() * 3 + 1);
+  const berthed   = Math.floor(Math.random() * 10 + 16);
+  const berthRate = Math.round(berthed / 28 * 100);
   return {
-    level: getLevel(waiting, berthRate),
-    waiting, berthed, berthRate, departed,
-    updatedAt: new Date().toLocaleString('ko-KR', { hour: '2-digit', minute: '2-digit' }),
-    demo: false,
-    vessels,
+    level: getLevel(waiting, berthRate) as any,
+    waiting, berthed, berthRate,
+    departed: Math.floor(Math.random() * 5 + 2),
+    updatedAt: now.toLocaleString('ko-KR', { hour: '2-digit', minute: '2-digit' }),
+    demo: true,
+    vessels: [
+      { name: 'EVER BRIGHT',  flag: '🇵🇦', status: '접안', etd: `${hh + 2}:00` },
+      { name: 'MSC VICTORIA', flag: '🇨🇭', status: '대기', eta: `${hh + 1}:30` },
+      { name: 'COSCO PACIFIC',flag: '🇨🇳', status: '접안', etd: `${hh + 4}:00` },
+      { name: 'HMM OSLO',     flag: '🇰🇷', status: '출항', etd: `${hh}:${String(now.getMinutes() + 10).padStart(2,'0')}` },
+      { name: 'ONE HAWK',     flag: '🇯🇵', status: '대기', eta: `${hh + 3}:00` },
+    ],
   };
 }
 
 export async function GET() {
   try {
-    const apiKey = process.env.PORTMIS_API_KEY;
-    const data = apiKey ? await fetchPortMis(apiKey) : mockData();
-    return NextResponse.json(data);
+    const { tCnt, vessels, berthed, waiting, berthRate } = await fetchPortVessels();
+    const departed = vessels.filter(v => v.status === '출항').length;
+
+    return NextResponse.json({
+      level: getLevel(waiting, berthRate),
+      waiting,
+      berthed,
+      berthRate,
+      departed,
+      total: tCnt,
+      updatedAt: new Date().toLocaleString('ko-KR', { hour: '2-digit', minute: '2-digit' }),
+      demo: false,
+      vessels,
+    });
   } catch {
-    return NextResponse.json(mockData());
+    // Unipass 실패 시 시뮬레이션 데이터
+    return NextResponse.json(fallbackData());
   }
 }
