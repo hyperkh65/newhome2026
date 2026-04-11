@@ -207,15 +207,22 @@ function CostCalculator() {
   const [taxRate,   setTaxRate]   = useState('8');         // %
   const [margin,    setMargin]    = useState('20');        // % (markup on DDP)
   const [envFee,    setEnvFee]    = useState('0');         // USD/unit
+  const [freightOverride, setFreightOverride] = useState('');   // USD, 빈값이면 테이블 자동값
+  const [portOverride,    setPortOverride]    = useState('');   // KRW, 빈값이면 테이블 자동값
   const [rows, setRows] = useState<CostRow[]>([emptyRow()]);
+
+  // 경로/컨테이너 변경시 자동값으로 리셋
+  useEffect(() => { setFreightOverride(''); setPortOverride(''); }, [ct, from, to]);
 
   const updRow = (i: number, k: keyof CostRow, v: string) => {
     const next = [...rows]; (next[i] as any)[k] = v; setRows(next);
   };
 
-  const freight   = findFreight(ct, from, to);
-  const portCharge = PORT_CHARGE[to]?.[ct] ?? 0;
-  const rate      = n(exRate) || 1380;
+  const freightDefault = findFreight(ct, from, to);
+  const portDefault    = PORT_CHARGE[to]?.[ct] ?? 0;
+  const freight        = freightOverride !== '' ? n(freightOverride) : freightDefault;
+  const portCharge     = portOverride    !== '' ? n(portOverride)    : portDefault;
+  const rate           = n(exRate) || 1380;
   const maxCbm    = CONT_CBM[ct];
 
   const computeQty = (row: CostRow) => {
@@ -284,14 +291,28 @@ function CostCalculator() {
             </select>
           </div>
         </div>
-        <div style={{ display: 'flex', gap: 12, fontSize: 12 }}>
-          <div style={{ flex: 1, background: 'rgba(96,165,250,0.08)', borderRadius: 8, padding: '8px 12px', border: '1px solid rgba(96,165,250,0.15)' }}>
-            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: 10, marginBottom: 2 }}>해상운임 (컨)</div>
-            <div style={{ color: '#60a5fa', fontWeight: 800, fontSize: 16 }}>${freight.toLocaleString()}</div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginTop: 2 }}>
+          <div>
+            <label style={{ ...LBL, display: 'flex', justifyContent: 'space-between' }}>
+              <span>해상운임 (USD/컨)</span>
+              {freightOverride === '' && <span style={{ color: '#60a5fa', fontWeight: 400 }}>기준: ${freightDefault}</span>}
+            </label>
+            <input
+              value={freightOverride !== '' ? freightOverride : freightDefault.toString()}
+              onChange={e => setFreightOverride(e.target.value)}
+              onFocus={e => { if (freightOverride === '') setFreightOverride(freightDefault.toString()); e.target.select(); }}
+              style={{ ...INP, borderColor: freightOverride !== '' ? 'rgba(96,165,250,0.5)' : 'rgba(255,255,255,0.12)' }} />
           </div>
-          <div style={{ flex: 1, background: 'rgba(245,158,11,0.08)', borderRadius: 8, padding: '8px 12px', border: '1px solid rgba(245,158,11,0.15)' }}>
-            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: 10, marginBottom: 2 }}>항만요금 (컨)</div>
-            <div style={{ color: '#f59e0b', fontWeight: 800, fontSize: 16 }}>{(portCharge / 10000).toFixed(1)}만원</div>
+          <div>
+            <label style={{ ...LBL, display: 'flex', justifyContent: 'space-between' }}>
+              <span>항만요금 (KRW/컨)</span>
+              {portOverride === '' && <span style={{ color: '#f59e0b', fontWeight: 400 }}>기준: {portDefault.toLocaleString()}</span>}
+            </label>
+            <input
+              value={portOverride !== '' ? portOverride : portDefault.toString()}
+              onChange={e => setPortOverride(e.target.value)}
+              onFocus={e => { if (portOverride === '') setPortOverride(portDefault.toString()); e.target.select(); }}
+              style={{ ...INP, borderColor: portOverride !== '' ? 'rgba(245,158,11,0.5)' : 'rgba(255,255,255,0.12)' }} />
           </div>
         </div>
       </div>
