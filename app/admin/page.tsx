@@ -191,15 +191,22 @@ export default function AdminPage() {
   const handleSavePost = async () => {
     if (!editPost) return;
     setLoading(true);
+    // 기본 필드만 포함 (항상 존재하는 컬럼)
     const payload: any = {
       type: editPost.type, title: editPost.title, content: editPost.content,
       author: editPost.author, attachments: editPost.attachments,
-      is_locked: editPost.is_locked || false,
-      cover_image: editPost.cover_image || null,
     };
-    if (editPost.is_locked && editPost.password) payload.password = editPost.password;
-    if (editPost.id) payload.id = editPost.id;
-    const { error } = await supabase.from('posts').upsert(payload);
+    // 선택 컬럼은 값이 있을 때만 포함 (schema cache 오류 방지)
+    if (editPost.is_locked)                          payload.is_locked    = true;
+    if (editPost.cover_image)                        payload.cover_image  = editPost.cover_image;
+    if (editPost.is_locked && editPost.password)     payload.password     = editPost.password;
+
+    let error;
+    if (editPost.id) {
+      ({ error } = await supabase.from('posts').update(payload).eq('id', editPost.id));
+    } else {
+      ({ error } = await supabase.from('posts').insert(payload));
+    }
     if (error) alert('저장 실패: ' + error.message);
     else { setEditPost(null); fetchPosts(); }
     setLoading(false);
