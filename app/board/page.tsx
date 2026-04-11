@@ -37,7 +37,7 @@ export default function BoardPage() {
   const [unlocked, setUnlocked] = useState<Set<string>>(new Set());
 
   useEffect(() => {
-    supabase.from('posts').select('id, type, title, author, created_at, attachments, is_locked, cover_image')
+    supabase.from('posts').select('*')
       .eq('type', 'board').order('created_at', { ascending: false })
       .then(({ data }) => { if (data) setPosts(data as Post[]); setLoading(false); });
   }, []);
