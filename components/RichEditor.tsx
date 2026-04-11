@@ -129,6 +129,17 @@ export default function RichEditor({ value, onChange, placeholder = '내용을 �
       ) : (
         <div ref={editorRef} contentEditable suppressContentEditableWarning
           onInput={sync}
+          onPaste={e => {
+            e.preventDefault();
+            const text = e.clipboardData.getData('text/plain');
+            const html = text
+              .split('\n')
+              .map(line => line === ''
+                ? '<br>'
+                : `<span>${line.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</span>`)
+              .join('<br>');
+            document.execCommand('insertHTML', false, html);
+          }}
           data-placeholder={placeholder}
           style={{ minHeight, padding: '20px 24px', color: '#e2e8f0', outline: 'none', lineHeight: 1.85, fontSize: 15, wordBreak: 'break-word' }} />
       )}
