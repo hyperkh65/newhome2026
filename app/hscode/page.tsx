@@ -213,7 +213,7 @@ export default function HsCodePage() {
                     </span>
                     {result.dataSource === 'static' && (
                       <span style={{ fontSize: 11, padding: '3px 8px', background: '#fef3c7', color: '#92400e', borderRadius: 6, fontWeight: 700 }}>
-                        📊 내장 데이터 (2024년 기준)
+                        📊 내장 데이터 (2026년 기준)
                       </span>
                     )}
                     {result.apiKeyRequired && (
@@ -285,7 +285,7 @@ export default function HsCodePage() {
               <div style={{ ...CARD, padding: '14px 20px', background: '#f0fdf4', borderColor: '#bbf7d0' }}>
                 <div style={{ fontSize: 12, color: '#166534', display: 'flex', alignItems: 'center', gap: 8 }}>
                   <span>📊</span>
-                  <span><strong>참고 데이터</strong> — 2024년 기준 내장 데이터입니다. 실제 통관 세율은 위 버튼에서 관세청 공식 세율표를 반드시 확인하세요.</span>
+                  <span><strong>참고 데이터</strong> — 2026년 기준 내장 데이터입니다. 실제 통관 세율은 위 버튼에서 관세청 공식 세율표를 반드시 확인하세요.</span>
                 </div>
               </div>
             )}
