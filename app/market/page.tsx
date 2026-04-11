@@ -129,7 +129,7 @@ export default function MarketPage() {
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
                     {RATE_META.map(m => {
                       const val = data.rates[m.key as keyof typeof data.rates];
-                      const prevArr = hist.map(h => Number((h as Record<string,number>)[m.key])).filter(v => v > 0);
+                      const prevArr = hist.map(h => Number((h as unknown as Record<string,number>)[m.key])).filter(v => v > 0);
                       const prev = prevArr.length > 1 ? prevArr[prevArr.length - 2] : val;
                       const chg = val - prev;
                       const chgPct = prev ? (chg / prev) * 100 : 0;
@@ -165,7 +165,7 @@ export default function MarketPage() {
                       <tbody>
                         {RATE_META.map((m, i) => {
                           const val = data.rates[m.key as keyof typeof data.rates];
-                          const prevArr = hist.map(h => Number((h as Record<string,number>)[m.key])).filter(v => v > 0);
+                          const prevArr = hist.map(h => Number((h as unknown as Record<string,number>)[m.key])).filter(v => v > 0);
                           const prev = prevArr.length > 1 ? prevArr[prevArr.length - 2] : val;
                           const chg = val - prev;
                           const chgPct = prev ? (chg / prev) * 100 : 0;
@@ -195,7 +195,7 @@ export default function MarketPage() {
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 14 }}>
                     {METAL_META.map(m => {
                       const metal = data.metals[m.key];
-                      const prevArr = hist.map(h => Number((h as Record<string,number>)[m.key])).filter(v => v > 0);
+                      const prevArr = hist.map(h => Number((h as unknown as Record<string,number>)[m.key])).filter(v => v > 0);
                       if (!metal) return (
                         <div key={m.key} style={{ background: '#fff', borderRadius: 14, padding: 20, border: '1px solid #e2e8f0', opacity: 0.5 }}>
                           <div style={{ fontSize: 13, color: '#94a3b8', marginBottom: 8 }}>{m.label}</div>
