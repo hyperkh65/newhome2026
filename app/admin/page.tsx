@@ -3,11 +3,13 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAdminStore } from '@/lib/store';
 import CloudinaryUpload from '@/components/CloudinaryUpload';
+import RichEditor from '@/components/RichEditor';
 import { supabase } from '@/lib/supabase';
 
 interface Post {
   id?: string; type: 'board' | 'blog'; title: string; content: string;
   author: string; attachments: { name: string; url: string }[]; created_at?: string;
+  is_locked?: boolean; password?: string; cover_image?: string;
 }
 interface SiteSettings {
   company: { name: string; address: string; tel: string; fax: string; email: string; business_id: string; about_text: string };
@@ -24,7 +26,7 @@ const EMPTY_PRODUCT: EditableProduct = {
   name: '', category: 'indoor', manufacturer: '', badge: '', description: '',
   image: '', images: [], specs: {}, documents: [], featured: false,
 };
-const EMPTY_POST: Post = { type: 'board', title: '', content: '', author: 'YNK Admin', attachments: [] };
+const EMPTY_POST: Post = { type: 'board', title: '', content: '', author: 'YNK Admin', attachments: [], is_locked: false, password: '', cover_image: '' };
 
 const CATEGORIES = [
   { value: 'smart', label: '스마트조명', icon: '☁️' }, { value: 'indoor', label: '실내조명', icon: '🏢' },
@@ -187,8 +189,17 @@ export default function AdminPage() {
   const handleSavePost = async () => {
     if (!editPost) return;
     setLoading(true);
-    await supabase.from('posts').upsert({ ...editPost, id: editPost.id || undefined });
-    setEditPost(null); fetchPosts();
+    const payload: any = {
+      type: editPost.type, title: editPost.title, content: editPost.content,
+      author: editPost.author, attachments: editPost.attachments,
+      is_locked: editPost.is_locked || false,
+      cover_image: editPost.cover_image || null,
+    };
+    if (editPost.is_locked && editPost.password) payload.password = editPost.password;
+    if (editPost.id) payload.id = editPost.id;
+    const { error } = await supabase.from('posts').upsert(payload);
+    if (error) alert('저장 실패: ' + error.message);
+    else { setEditPost(null); fetchPosts(); }
     setLoading(false);
   };
 
@@ -268,7 +279,7 @@ export default function AdminPage() {
               }}>
               <span>{item.icon}</span>
               <span style={{ flex: 1, textAlign: 'left' }}>{item.label}</span>
-              {item.badge !== null && item.badge > 0 && (
+              {item.badge !== null && (item.badge as number) > 0 && (
                 <span style={{ fontSize: 10, background: tab === item.key ? '#3b82f6' : 'rgba(255,255,255,0.1)', color: tab === item.key ? '#fff' : 'rgba(255,255,255,0.5)', padding: '1px 6px', borderRadius: 10, fontWeight: 700 }}>{item.badge}</span>
               )}
             </button>
@@ -415,7 +426,6 @@ export default function AdminPage() {
         {/* ─────── 제품 편집 폼 ─────── */}
         {tab === 'products' && editProduct && (
           <div style={{ padding: '40px' }}>
-            {/* 헤더 */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 32 }}>
               <button onClick={() => setEditProduct(null)} style={{ padding: '8px 16px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, color: '#fff', cursor: 'pointer', fontSize: 13 }}>← 목록으로</button>
               <div>
@@ -427,7 +437,6 @@ export default function AdminPage() {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: 20, alignItems: 'flex-start' }}>
               {/* 왼쪽 컬럼 */}
               <div>
-                {/* 기본 정보 */}
                 <div style={sectionCard}>
                   <h3 style={{ fontSize: 13, fontWeight: 800, color: '#60a5fa', marginBottom: 18, textTransform: 'uppercase', letterSpacing: 0.5 }}>📋 기본 정보</h3>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
@@ -453,7 +462,6 @@ export default function AdminPage() {
                   </div>
                 </div>
 
-                {/* 상세 스펙 */}
                 <div style={sectionCard}>
                   <h3 style={{ fontSize: 13, fontWeight: 800, color: '#10b981', marginBottom: 6, textTransform: 'uppercase', letterSpacing: 0.5 }}>⚡ 상세 스펙</h3>
                   <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)', marginBottom: 18 }}>각 항목별로 값 입력 / 해당없음 / 별도확인 을 선택하세요</p>
@@ -469,12 +477,9 @@ export default function AdminPage() {
 
               {/* 오른쪽 컬럼 */}
               <div>
-                {/* 제품 이미지 */}
                 <div style={sectionCard}>
                   <h3 style={{ fontSize: 13, fontWeight: 800, color: '#f59e0b', marginBottom: 4, textTransform: 'uppercase', letterSpacing: 0.5 }}>📸 제품 이미지</h3>
                   <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', marginBottom: 16 }}>첫 번째 이미지가 대표 이미지로 사용됩니다</p>
-
-                  {/* 이미지 목록 */}
                   {editProduct.images.length > 0 && (
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8, marginBottom: 14 }}>
                       {editProduct.images.map((url, i) => (
@@ -491,11 +496,9 @@ export default function AdminPage() {
                     onSuccess={url => setEditProduct({ ...editProduct, images: [...editProduct.images, url], image: editProduct.images[0] || url })} />
                 </div>
 
-                {/* 다운로드 자료 */}
                 <div style={sectionCard}>
                   <h3 style={{ fontSize: 13, fontWeight: 800, color: '#a855f7', marginBottom: 4, textTransform: 'uppercase', letterSpacing: 0.5 }}>📁 자료 다운로드</h3>
                   <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', marginBottom: 14 }}>데이터시트, 설치매뉴얼, 인증서 등 업로드</p>
-
                   {editProduct.documents.map((doc, i) => (
                     <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', background: 'rgba(255,255,255,0.03)', borderRadius: 8, marginBottom: 8, border: '1px solid rgba(255,255,255,0.06)' }}>
                       <span style={{ fontSize: 14 }}>{DOC_TYPES.find(t => t.value === doc.type)?.icon || '📄'}</span>
@@ -515,7 +518,6 @@ export default function AdminPage() {
                         style={{ color: '#f87171', background: 'none', border: 'none', cursor: 'pointer', fontSize: 16 }}>×</button>
                     </div>
                   ))}
-
                   <CloudinaryUpload label="+ 파일 업로드" folder="led-documents"
                     onSuccess={url => {
                       const name = decodeURIComponent(url.split('/').pop()?.split('?')[0] || '문서');
@@ -523,7 +525,6 @@ export default function AdminPage() {
                     }} />
                 </div>
 
-                {/* 저장 버튼 */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                   <button onClick={handleSaveProduct} disabled={loading || !editProduct.name}
                     style={{ padding: '14px', background: loading ? '#1e3a5f' : '#3b82f6', color: '#fff', border: 'none', borderRadius: 12, fontWeight: 800, fontSize: 15, cursor: loading ? 'not-allowed' : 'pointer', transition: 'all 0.2s' }}>
@@ -552,16 +553,69 @@ export default function AdminPage() {
 
             {editPost ? (
               <div style={sectionCard}>
+                {/* 제목 */}
                 <div style={{ marginBottom: 16 }}>
                   <label style={labelStyle}>제목</label>
-                  <input value={editPost.title} onChange={e => setEditPost({ ...editPost, title: e.target.value })} style={inputStyle} placeholder="제목을 입력하세요" />
+                  <input value={editPost.title} onChange={e => setEditPost({ ...editPost, title: e.target.value })}
+                    style={inputStyle} placeholder="제목을 입력하세요" />
                 </div>
+
+                {/* 커버 이미지 */}
                 <div style={{ marginBottom: 16 }}>
-                  <label style={labelStyle}>내용</label>
-                  <textarea value={editPost.content} onChange={e => setEditPost({ ...editPost, content: e.target.value })} rows={10} style={{ ...inputStyle, resize: 'vertical' }} />
+                  <label style={labelStyle}>커버 이미지 (선택)</label>
+                  <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+                    {editPost.cover_image && (
+                      <div style={{ position: 'relative', width: 80, height: 56, borderRadius: 8, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)' }}>
+                        <img src={editPost.cover_image} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="" />
+                        <button onClick={() => setEditPost({ ...editPost, cover_image: '' })}
+                          style={{ position: 'absolute', top: 2, right: 2, background: 'rgba(239,68,68,0.85)', color: '#fff', border: 'none', borderRadius: '50%', width: 18, height: 18, cursor: 'pointer', fontSize: 11, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>×</button>
+                      </div>
+                    )}
+                    <CloudinaryUpload label="🖼 이미지 업로드" folder="led-blog"
+                      onSuccess={url => setEditPost({ ...editPost, cover_image: url })} />
+                  </div>
                 </div>
+
+                {/* 내용 - 게시판은 RichEditor, 블로그도 RichEditor */}
                 <div style={{ marginBottom: 20 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 10 }}>
+                  <label style={labelStyle}>내용</label>
+                  <RichEditor
+                    key={editPost.id || 'new'}
+                    value={editPost.content}
+                    onChange={html => setEditPost(prev => prev ? { ...prev, content: html } : prev)}
+                    minHeight={tab === 'blog' ? 500 : 320}
+                  />
+                </div>
+
+                {/* 게시판 전용: 잠금 설정 */}
+                {tab === 'board' && (
+                  <div style={{ marginBottom: 20, padding: '16px 18px', background: 'rgba(239,68,68,0.05)', borderRadius: 12, border: '1px solid rgba(239,68,68,0.12)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: editPost.is_locked ? 14 : 0 }}>
+                      <input type="checkbox" id="is_locked" checked={!!editPost.is_locked}
+                        onChange={e => setEditPost({ ...editPost, is_locked: e.target.checked, password: e.target.checked ? editPost.password : '' })}
+                        style={{ width: 16, height: 16, cursor: 'pointer', accentColor: '#ef4444' }} />
+                      <label htmlFor="is_locked" style={{ cursor: 'pointer', fontSize: 13, fontWeight: 700, color: '#f87171' }}>
+                        🔒 게시글 암호 잠금
+                      </label>
+                    </div>
+                    {editPost.is_locked && (
+                      <div>
+                        <label style={{ ...labelStyle, marginTop: 2 }}>열람 암호</label>
+                        <input type="text" value={editPost.password || ''}
+                          onChange={e => setEditPost({ ...editPost, password: e.target.value })}
+                          placeholder="열람 시 사용할 암호를 입력하세요"
+                          style={{ ...inputStyle, border: '1px solid rgba(239,68,68,0.3)' }} />
+                        <p style={{ fontSize: 11, color: 'rgba(239,68,68,0.6)', marginTop: 6 }}>
+                          ⚠️ 암호는 안전하게 보관하세요. 암호 없이는 열람할 수 없습니다.
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* 첨부파일 */}
+                <div style={{ marginBottom: 20 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
                     <label style={labelStyle}>첨부파일 ({editPost.attachments.length}/5)</label>
                     {editPost.attachments.length < 5 && (
                       <CloudinaryUpload label="파일 추가" folder="led-attachments"
@@ -571,24 +625,39 @@ export default function AdminPage() {
                   {editPost.attachments.map((f, i) => (
                     <div key={i} style={{ display: 'flex', justifyContent: 'space-between', background: 'rgba(255,255,255,0.04)', padding: '8px 14px', borderRadius: 8, marginBottom: 6 }}>
                       <span style={{ fontSize: 13 }}>📎 {f.name}</span>
-                      <button onClick={() => { const a = [...editPost.attachments]; a.splice(i, 1); setEditPost({ ...editPost, attachments: a }); }} style={{ color: '#f87171', background: 'none', border: 'none', cursor: 'pointer' }}>삭제</button>
+                      <button onClick={() => { const a = [...editPost.attachments]; a.splice(i, 1); setEditPost({ ...editPost, attachments: a }); }}
+                        style={{ color: '#f87171', background: 'none', border: 'none', cursor: 'pointer' }}>삭제</button>
                     </div>
                   ))}
                 </div>
+
                 <div style={{ display: 'flex', gap: 10 }}>
-                  <button onClick={handleSavePost} disabled={loading} style={{ padding: '11px 24px', background: '#3b82f6', color: '#fff', border: 'none', borderRadius: 10, fontWeight: 700, cursor: 'pointer' }}>{loading ? '저장 중...' : '저장하기'}</button>
-                  <button onClick={() => setEditPost(null)} style={{ padding: '11px 24px', background: 'transparent', color: 'rgba(255,255,255,0.4)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, cursor: 'pointer' }}>취소</button>
+                  <button onClick={handleSavePost} disabled={loading}
+                    style={{ padding: '11px 24px', background: '#3b82f6', color: '#fff', border: 'none', borderRadius: 10, fontWeight: 700, cursor: 'pointer' }}>
+                    {loading ? '저장 중...' : '💾 저장하기'}
+                  </button>
+                  <button onClick={() => setEditPost(null)}
+                    style={{ padding: '11px 24px', background: 'transparent', color: 'rgba(255,255,255,0.4)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, cursor: 'pointer' }}>취소</button>
                 </div>
               </div>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {posts.filter(p => p.type === tab).map(post => (
                   <div key={post.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '18px 22px', background: 'rgba(255,255,255,0.025)', borderRadius: 14, border: '1px solid rgba(255,255,255,0.06)' }}>
-                    <div>
-                      <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 4 }}>{post.title}</div>
-                      <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.35)' }}>{new Date(post.created_at!).toLocaleDateString('ko-KR')} · {post.author} {post.attachments?.length > 0 && `· 첨부 ${post.attachments.length}개`}</div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12, flex: 1, minWidth: 0 }}>
+                      {post.cover_image && <img src={post.cover_image} style={{ width: 44, height: 32, objectFit: 'cover', borderRadius: 6, flexShrink: 0 }} alt="" />}
+                      <div style={{ minWidth: 0 }}>
+                        <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 4, display: 'flex', alignItems: 'center', gap: 6 }}>
+                          {post.is_locked && <span style={{ fontSize: 13 }}>🔒</span>}
+                          <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{post.title}</span>
+                        </div>
+                        <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.35)' }}>
+                          {new Date(post.created_at!).toLocaleDateString('ko-KR')} · {post.author}
+                          {post.attachments?.length > 0 && ` · 첨부 ${post.attachments.length}개`}
+                        </div>
+                      </div>
                     </div>
-                    <div style={{ display: 'flex', gap: 8 }}>
+                    <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
                       <button onClick={() => setEditPost(post)} style={{ padding: '7px 14px', background: 'rgba(59,130,246,0.12)', color: '#60a5fa', border: '1px solid rgba(59,130,246,0.2)', borderRadius: 8, fontSize: 12, fontWeight: 600, cursor: 'pointer' }}>수정</button>
                       <button onClick={() => handleDeletePost(post.id!)} style={{ padding: '7px 12px', background: 'rgba(239,68,68,0.08)', color: '#f87171', border: '1px solid rgba(239,68,68,0.15)', borderRadius: 8, fontSize: 12, cursor: 'pointer' }}>삭제</button>
                     </div>
