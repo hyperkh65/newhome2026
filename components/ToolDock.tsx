@@ -1,7 +1,8 @@
 'use client';
 import { useState, useEffect, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 
-type Tool = 'port' | 'cbm' | 'cost' | null;
+type Tool = 'port' | 'cbm' | 'cost' | 'catalog' | null;
 
 // ── 스타일 ──────────────────────────────────────────────────────────
 const INP: React.CSSProperties = {
@@ -554,12 +555,63 @@ const TOOLS = [
   { id: 'port' as Tool, icon: '🚢', label: '항만혼잡도', color: '#0ea5e9' },
   { id: 'cbm'  as Tool, icon: '📦', label: 'CBM계산기',  color: '#10b981' },
   { id: 'cost' as Tool, icon: '💰', label: '원가계산기',  color: '#f59e0b' },
+  { id: 'catalog' as Tool, icon: '📚', label: '전자카탈로그', color: '#a855f7' },
 ];
 const TITLES: Record<string, string> = {
   port: '🚢 인천항 혼잡도',
   cbm:  '📦 CBM 계산기',
   cost: '💰 FOB → DDP 원가계산기',
+  catalog: '📚 전자카탈로그',
 };
+
+
+// ── 전자카탈로그 패널 ──────────────────────────────────────────────
+function CatalogPanel() {
+  const router = useRouter();
+  const [catalogs, setCatalogs] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState('');
+
+  useEffect(() => {
+    fetch('/api/catalogs').then(r => r.json()).then(d => { setCatalogs(Array.isArray(d) ? d : []); setLoading(false); }).catch(() => setLoading(false));
+  }, []);
+
+  const filtered = catalogs.filter(c => !search || c.title.toLowerCase().includes(search.toLowerCase()));
+
+  return (
+    <div>
+      <input value={search} onChange={e => setSearch(e.target.value)} placeholder="🔍 카탈로그 검색..."
+        style={{ ...INP, marginBottom: 14 }} />
+      {loading && <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: 13, textAlign: 'center', padding: '20px 0' }}>불러오는 중...</div>}
+      {!loading && filtered.length === 0 && (
+        <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: 13, textAlign: 'center', padding: '30px 0' }}>
+          <div style={{ fontSize: 32, marginBottom: 8 }}>📭</div>
+          등록된 카탈로그가 없습니다
+        </div>
+      )}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        {filtered.map(cat => (
+          <button key={cat.id} onClick={() => router.push(`/catalog/${cat.id}`)}
+            style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 12px', background: 'rgba(168,85,247,0.06)', border: '1px solid rgba(168,85,247,0.15)', borderRadius: 10, cursor: 'pointer', textAlign: 'left', width: '100%', color: '#fff' }}>
+            <div style={{ width: 44, height: 44, flexShrink: 0, borderRadius: 8, background: '#1e293b', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              {cat.thumbnail ? <img src={cat.thumbnail} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : <span style={{ fontSize: 22 }}>📄</span>}
+            </div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: 13, fontWeight: 700, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{cat.title}</div>
+              <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', marginTop: 2 }}>{cat.category} · {cat.page_count}p{cat.password ? ' 🔒' : ''}</div>
+            </div>
+          </button>
+        ))}
+      </div>
+      {filtered.length > 0 && (
+        <button onClick={() => router.push('/catalog')}
+          style={{ width: '100%', marginTop: 12, padding: '10px', background: 'rgba(168,85,247,0.15)', border: '1px solid rgba(168,85,247,0.3)', borderRadius: 10, color: '#c084fc', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}>
+          📚 전체 카탈로그 보기 ({catalogs.length}개)
+        </button>
+      )}
+    </div>
+  );
+}
 
 export default function ToolDock() {
   const [active, setActive] = useState<Tool>(null);
@@ -592,6 +644,7 @@ export default function ToolDock() {
               {active === 'port' && <PortCongestion />}
               {active === 'cbm'  && <CbmCalculator />}
               {active === 'cost' && <CostCalculator />}
+              {active === 'catalog' && <CatalogPanel />}
             </div>
           </div>
         </div>
