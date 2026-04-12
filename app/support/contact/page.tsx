@@ -25,12 +25,12 @@ export default function ContactPage() {
     e.preventDefault();
     if (!form.name || !form.content || !form.password) { alert('이름, 문의내용, 비밀번호는 필수입니다.'); return; }
     setSubmitting(true);
-    const { data, error } = await supabase.from('inquiries').insert({
-      type: 'contact', name: form.name, email: form.email, phone: form.phone,
-      content: form.content, attachments, password: form.password, status: 'pending',
-    }).select('id').single();
+    const { data, error } = await supabase.rpc('submit_inquiry', {
+      p_type: 'contact', p_name: form.name, p_email: form.email, p_phone: form.phone,
+      p_content: form.content, p_attachments: attachments, p_password: form.password,
+    });
     if (error) alert('제출 오류: ' + error.message);
-    else setSubmitted(data.id);
+    else setSubmitted(data as string);
     setSubmitting(false);
   };
 
@@ -165,3 +165,4 @@ export default function ContactPage() {
     </>
   );
 }
+
