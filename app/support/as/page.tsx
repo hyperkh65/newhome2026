@@ -28,12 +28,12 @@ export default function AsPage() {
     if (!form.name || !form.phone || !form.content || !form.password) { alert('이름, 연락처, 증상/내용, 비밀번호는 필수입니다.'); return; }
     setSubmitting(true);
     const fullContent = `[제품명] ${form.product_name || '미입력'}\n[증상유형] ${form.issue_type}\n\n${form.content}`;
-    const { data, error } = await supabase.from('inquiries').insert({
-      type: 'as', name: form.name, phone: form.phone, email: form.email,
-      content: fullContent, attachments, password: form.password, status: 'pending',
-    }).select('id').single();
+    const { data, error } = await supabase.rpc('submit_inquiry', {
+      p_type: 'as', p_name: form.name, p_email: form.email, p_phone: form.phone,
+      p_content: fullContent, p_attachments: attachments, p_password: form.password,
+    });
     if (error) alert('제출 오류: ' + error.message);
-    else setSubmitted(data.id);
+    else setSubmitted(data as string);
     setSubmitting(false);
   };
 
@@ -177,3 +177,4 @@ export default function AsPage() {
     </>
   );
 }
+
