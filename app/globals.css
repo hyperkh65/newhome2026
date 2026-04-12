@@ -42,6 +42,10 @@ html {
   background-color: var(--gray-50);
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   font-family: var(--font);
   background: var(--white);
