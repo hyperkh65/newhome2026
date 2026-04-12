@@ -17,6 +17,13 @@ interface SiteSettings {
   site: { site_name: string; logo_url: string; description: string };
 }
 interface DocFile { name: string; url: string; type: 'datasheet' | 'manual' | 'cert' | 'drawing' | 'other' }
+interface FaqItem { id?: string; question: string; answer: string; order_num: number; is_active: boolean; }
+interface Inquiry {
+  id: string; type: 'contact' | 'as'; name: string; email?: string; phone?: string;
+  content: string; attachments: { name: string; url: string }[];
+  admin_reply?: string; replied_at?: string; status: 'pending' | 'replied' | 'closed'; created_at: string;
+}
+interface InstallGuide { id?: string; title: string; video_url: string; thumbnail: string; description: string; order_num: number; }
 interface EditableProduct {
   id?: string; name: string; category: string; manufacturer: string; badge: string;
   description: string; image: string; images: string[]; specs: Record<string, string>;
@@ -112,7 +119,7 @@ export default function AdminPage() {
   const isLoggedIn = useAdminStore(s => s.isLoggedIn);
   const logout     = useAdminStore(s => s.logout);
 
-  const [tab, setTab]   = useState<'dashboard' | 'products' | 'report' | 'board' | 'blog' | 'settings'>('dashboard');
+  const [tab, setTab]   = useState<'dashboard' | 'products' | 'report' | 'board' | 'blog' | 'settings' | 'faq' | 'contact_mgr' | 'install' | 'as_mgr'>('dashboard');
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState<Post[]>([]);
   const [editPost, setEditPost] = useState<Post | null>(null);
@@ -124,10 +131,17 @@ export default function AdminPage() {
   const [apiKeyCopied, setApiKeyCopied] = useState(false);
   const [prodSearch, setProdSearch] = useState('');
   const [prodCatFilter, setProdCatFilter] = useState('all');
+  const [faqItems, setFaqItems] = useState<FaqItem[]>([]);
+  const [editFaq, setEditFaq] = useState<FaqItem | null>(null);
+  const [inquiries, setInquiries] = useState<Inquiry[]>([]);
+  const [selectedInquiry, setSelectedInquiry] = useState<Inquiry | null>(null);
+  const [replyText, setReplyText] = useState('');
+  const [installGuides, setInstallGuides] = useState<InstallGuide[]>([]);
+  const [editGuide, setEditGuide] = useState<InstallGuide | null>(null);
 
   useEffect(() => {
     if (!isLoggedIn) router.push('/admin/login');
-    else { fetchPosts(); fetchSettings(); fetchProducts(); }
+    else { fetchPosts(); fetchSettings(); fetchProducts(); fetchFaq(); fetchInquiries(); fetchGuides(); }
   }, [isLoggedIn]);
 
   async function fetchProducts() {
@@ -137,6 +151,18 @@ export default function AdminPage() {
   async function fetchPosts() {
     const { data } = await supabase.from('posts').select('*').order('created_at', { ascending: false });
     if (data) setPosts(data);
+  }
+  async function fetchFaq() {
+    const { data } = await supabase.from('faq').select('*').order('order_num');
+    if (data) setFaqItems(data);
+  }
+  async function fetchInquiries() {
+    const { data } = await supabase.from('inquiries').select('*').order('created_at', { ascending: false });
+    if (data) setInquiries(data);
+  }
+  async function fetchGuides() {
+    const { data } = await supabase.from('install_guides').select('*').order('order_num');
+    if (data) setInstallGuides(data);
   }
   async function fetchSettings() {
     const { data } = await supabase.from('site_settings').select('*');
@@ -228,6 +254,54 @@ export default function AdminPage() {
     fetchPosts();
   };
 
+  const handleSaveFaq = async () => {
+    if (!editFaq) return;
+    setLoading(true);
+    const payload = { question: editFaq.question, answer: editFaq.answer, order_num: editFaq.order_num, is_active: editFaq.is_active };
+    const { error } = editFaq.id
+      ? await supabase.from('faq').update(payload).eq('id', editFaq.id)
+      : await supabase.from('faq').insert(payload);
+    if (error) alert('오류: ' + error.message);
+    else { setEditFaq(null); fetchFaq(); }
+    setLoading(false);
+  };
+  const handleDeleteFaq = async (id: string) => {
+    if (!confirm('삭제하시겠습니까?')) return;
+    await supabase.from('faq').delete().eq('id', id);
+    fetchFaq();
+  };
+  const handleSaveGuide = async () => {
+    if (!editGuide) return;
+    setLoading(true);
+    const payload = { title: editGuide.title, video_url: editGuide.video_url, thumbnail: editGuide.thumbnail, description: editGuide.description, order_num: editGuide.order_num };
+    const { error } = editGuide.id
+      ? await supabase.from('install_guides').update(payload).eq('id', editGuide.id)
+      : await supabase.from('install_guides').insert(payload);
+    if (error) alert('오류: ' + error.message);
+    else { setEditGuide(null); fetchGuides(); }
+    setLoading(false);
+  };
+  const handleDeleteGuide = async (id: string) => {
+    if (!confirm('삭제하시겠습니까?')) return;
+    await supabase.from('install_guides').delete().eq('id', id);
+    fetchGuides();
+  };
+  const handleReply = async () => {
+    if (!selectedInquiry || !replyText.trim()) return;
+    setLoading(true);
+    const { error } = await supabase.from('inquiries').update({
+      admin_reply: replyText, replied_at: new Date().toISOString(), status: 'replied',
+    }).eq('id', selectedInquiry.id);
+    if (error) alert('오류: ' + error.message);
+    else { setSelectedInquiry(null); setReplyText(''); fetchInquiries(); }
+    setLoading(false);
+  };
+  const handleCloseInquiry = async (id: string) => {
+    await supabase.from('inquiries').update({ status: 'closed' }).eq('id', id);
+    fetchInquiries();
+    if (selectedInquiry?.id === id) setSelectedInquiry(null);
+  };
+
   const handleSaveSettings = async () => {
     if (!settings) return;
     setLoading(true);
@@ -249,6 +323,10 @@ export default function AdminPage() {
     { key: 'board',     label: '게시판',     icon: '📝', badge: posts.filter(p=>p.type==='board').length },
     { key: 'blog',      label: '블로그',     icon: '✍️', badge: posts.filter(p=>p.type==='blog').length },
     { key: 'settings',  label: '사이트 설정', icon: '⚙️', badge: null },
+    { key: 'faq',        label: 'FAQ 관리',   icon: '❓', badge: faqItems.length },
+    { key: 'contact_mgr', label: '고객문의',  icon: '📧', badge: inquiries.filter(i=>i.type==='contact' && i.status==='pending').length },
+    { key: 'install',    label: '설치가이드', icon: '🎬', badge: installGuides.length },
+    { key: 'as_mgr',     label: 'A/S 관리',  icon: '🔧', badge: inquiries.filter(i=>i.type==='as' && i.status==='pending').length },
   ];
 
   const filteredProducts = dbProducts.filter(p => {
@@ -700,6 +778,227 @@ export default function AdminPage() {
           </div>
         )}
 
+        {/* ─────── FAQ 관리 ─────── */}
+        {tab === 'faq' && (
+          <div style={{ padding: '40px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 28 }}>
+              <h1 style={{ fontSize: 26, fontWeight: 900 }}>❓ FAQ 관리</h1>
+              <button onClick={() => setEditFaq({ question: '', answer: '', order_num: faqItems.length, is_active: true })}
+                style={{ padding: '10px 20px', background: '#3b82f6', color: '#fff', border: 'none', borderRadius: 10, fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
+                + 새 질문 추가
+              </button>
+            </div>
+            {editFaq && (
+              <div style={sectionCard}>
+                <h3 style={{ fontSize: 14, fontWeight: 800, color: '#60a5fa', marginBottom: 16 }}>{editFaq.id ? '✏️ 질문 수정' : '➕ 새 질문'}</h3>
+                <div style={{ marginBottom: 14 }}>
+                  <label style={labelStyle}>질문</label>
+                  <input value={editFaq.question} onChange={e => setEditFaq({ ...editFaq, question: e.target.value })} placeholder="자주 묻는 질문을 입력하세요" style={inputStyle}/>
+                </div>
+                <div style={{ marginBottom: 14 }}>
+                  <label style={labelStyle}>답변</label>
+                  <textarea value={editFaq.answer} onChange={e => setEditFaq({ ...editFaq, answer: e.target.value })} rows={5} placeholder="답변을 입력하세요" style={{ ...inputStyle, resize: 'vertical' }}/>
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 16 }}>
+                  <div>
+                    <label style={labelStyle}>순서 번호</label>
+                    <input type="number" value={editFaq.order_num} onChange={e => setEditFaq({ ...editFaq, order_num: Number(e.target.value) })} style={inputStyle}/>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, paddingTop: 24 }}>
+                    <input type="checkbox" id="faq_active" checked={editFaq.is_active} onChange={e => setEditFaq({ ...editFaq, is_active: e.target.checked })} style={{ width: 16, height: 16, accentColor: '#3b82f6' }}/>
+                    <label htmlFor="faq_active" style={{ fontSize: 13, cursor: 'pointer' }}>공개 (활성화)</label>
+                  </div>
+                </div>
+                <div style={{ display: 'flex', gap: 10 }}>
+                  <button onClick={handleSaveFaq} disabled={loading} style={{ padding: '10px 22px', background: '#3b82f6', color: '#fff', border: 'none', borderRadius: 10, fontWeight: 700, cursor: 'pointer' }}>💾 저장</button>
+                  <button onClick={() => setEditFaq(null)} style={{ padding: '10px 22px', background: 'transparent', color: 'rgba(255,255,255,0.4)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, cursor: 'pointer' }}>취소</button>
+                </div>
+              </div>
+            )}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {faqItems.map((faq, idx) => (
+                <div key={faq.id} style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '18px 20px', background: 'rgba(255,255,255,0.025)', borderRadius: 12, border: '1px solid rgba(255,255,255,0.06)' }}>
+                  <span style={{ fontSize: 11, color: '#60a5fa', fontWeight: 700, marginTop: 2, minWidth: 20 }}>#{idx+1}</span>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 4, display: 'flex', alignItems: 'center', gap: 8 }}>
+                      Q. {faq.question}
+                      {!faq.is_active && <span style={{ fontSize: 10, background: 'rgba(239,68,68,0.15)', color: '#f87171', padding: '2px 6px', borderRadius: 4 }}>비공개</span>}
+                    </div>
+                    <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', lineHeight: 1.5, whiteSpace: 'pre-wrap' }}>A. {faq.answer.slice(0, 100)}{faq.answer.length > 100 ? '...' : ''}</div>
+                  </div>
+                  <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
+                    <button onClick={() => setEditFaq(faq as any)} style={{ padding: '6px 12px', background: 'rgba(59,130,246,0.12)', color: '#60a5fa', border: '1px solid rgba(59,130,246,0.2)', borderRadius: 8, fontSize: 12, cursor: 'pointer' }}>수정</button>
+                    <button onClick={() => handleDeleteFaq(faq.id!)} style={{ padding: '6px 10px', background: 'rgba(239,68,68,0.08)', color: '#f87171', border: '1px solid rgba(239,68,68,0.15)', borderRadius: 8, fontSize: 12, cursor: 'pointer' }}>삭제</button>
+                  </div>
+                </div>
+              ))}
+              {faqItems.length === 0 && <div style={{ textAlign: 'center', padding: '60px', color: 'rgba(255,255,255,0.2)', fontSize: 14 }}><div style={{ fontSize: 36, marginBottom: 12 }}>❓</div>등록된 FAQ가 없습니다</div>}
+            </div>
+          </div>
+        )}
+
+        {/* ─────── 고객문의 / A/S 관리 ─────── */}
+        {(tab === 'contact_mgr' || tab === 'as_mgr') && (
+          <div style={{ padding: '40px' }}>
+            <h1 style={{ fontSize: 26, fontWeight: 900, marginBottom: 6 }}>{tab === 'contact_mgr' ? '📧 고객문의 관리' : '🔧 A/S 신청 관리'}</h1>
+            <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.35)', marginBottom: 28 }}>관리자는 비밀번호 없이 모든 문의를 열람할 수 있습니다</p>
+
+            {selectedInquiry ? (
+              <div>
+                <button onClick={() => { setSelectedInquiry(null); setReplyText(''); }} style={{ padding: '8px 16px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, color: '#fff', cursor: 'pointer', fontSize: 13, marginBottom: 20 }}>← 목록으로</button>
+                <div style={sectionCard}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 }}>
+                    <div>
+                      <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.35)', marginBottom: 4 }}>{new Date(selectedInquiry.created_at).toLocaleString('ko-KR')}</div>
+                      <div style={{ fontSize: 18, fontWeight: 800 }}>{selectedInquiry.name}</div>
+                      {selectedInquiry.email && <div style={{ fontSize: 13, color: '#60a5fa', marginTop: 2 }}>📧 {selectedInquiry.email}</div>}
+                      {selectedInquiry.phone && <div style={{ fontSize: 13, color: '#60a5fa', marginTop: 2 }}>📱 {selectedInquiry.phone}</div>}
+                    </div>
+                    <div style={{ display: 'flex', gap: 8 }}>
+                      <span style={{ fontSize: 12, padding: '4px 10px', borderRadius: 20, fontWeight: 700,
+                        background: selectedInquiry.status === 'replied' ? 'rgba(16,185,129,0.1)' : selectedInquiry.status === 'closed' ? 'rgba(59,130,246,0.1)' : 'rgba(245,158,11,0.1)',
+                        color: selectedInquiry.status === 'replied' ? '#10b981' : selectedInquiry.status === 'closed' ? '#60a5fa' : '#f59e0b' }}>
+                        {selectedInquiry.status === 'replied' ? '✅ 답변완료' : selectedInquiry.status === 'closed' ? '🔒 처리완료' : '⏳ 대기중'}
+                      </span>
+                      {selectedInquiry.status !== 'closed' && (
+                        <button onClick={() => handleCloseInquiry(selectedInquiry.id)} style={{ padding: '4px 10px', background: 'rgba(59,130,246,0.1)', border: '1px solid rgba(59,130,246,0.2)', borderRadius: 20, color: '#60a5fa', fontSize: 12, cursor: 'pointer' }}>처리완료 처리</button>
+                      )}
+                    </div>
+                  </div>
+                  <div style={{ background: 'rgba(255,255,255,0.03)', borderRadius: 12, padding: '16px 18px', marginBottom: 16, fontSize: 14, lineHeight: 1.8, color: 'rgba(255,255,255,0.7)', whiteSpace: 'pre-wrap' }}>
+                    {selectedInquiry.content}
+                  </div>
+                  {selectedInquiry.attachments?.length > 0 && (
+                    <div style={{ marginBottom: 16 }}>
+                      <label style={labelStyle}>첨부파일</label>
+                      {selectedInquiry.attachments.map((a, i) => (
+                        <a key={i} href={a.url} target="_blank" rel="noopener noreferrer"
+                          style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', background: 'rgba(255,255,255,0.04)', borderRadius: 8, marginBottom: 6, color: '#60a5fa', textDecoration: 'none', fontSize: 13 }}>
+                          📎 {a.name}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                  {selectedInquiry.admin_reply && (
+                    <div style={{ background: 'rgba(16,185,129,0.06)', borderRadius: 12, padding: '16px', border: '1px solid rgba(16,185,129,0.15)', marginBottom: 16 }}>
+                      <div style={{ fontSize: 12, color: '#10b981', fontWeight: 700, marginBottom: 8 }}>📩 기존 답변 ({new Date(selectedInquiry.replied_at!).toLocaleDateString('ko-KR')})</div>
+                      <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.7)', whiteSpace: 'pre-wrap', lineHeight: 1.7 }}>{selectedInquiry.admin_reply}</div>
+                    </div>
+                  )}
+                  <div style={{ marginTop: 20 }}>
+                    <label style={{ ...labelStyle, color: '#10b981' }}>📝 {selectedInquiry.admin_reply ? '답변 수정' : '답변 작성'}</label>
+                    <textarea value={replyText} onChange={e => setReplyText(e.target.value)} rows={5} placeholder="고객에게 전달될 답변을 입력하세요..."
+                      style={{ ...inputStyle, resize: 'vertical', marginBottom: 12 }}/>
+                    <button onClick={handleReply} disabled={loading || !replyText.trim()}
+                      style={{ padding: '11px 24px', background: replyText.trim() ? '#10b981' : 'rgba(255,255,255,0.1)', color: '#fff', border: 'none', borderRadius: 10, fontWeight: 700, cursor: replyText.trim() ? 'pointer' : 'not-allowed', fontSize: 14 }}>
+                      {loading ? '전송 중...' : '📩 답변 전송'}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {inquiries.filter(i => i.type === (tab === 'contact_mgr' ? 'contact' : 'as')).map(inq => (
+                  <div key={inq.id} onClick={() => { setSelectedInquiry(inq); setReplyText(inq.admin_reply || ''); }}
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', background: 'rgba(255,255,255,0.025)', borderRadius: 12, border: '1px solid rgba(255,255,255,0.06)', cursor: 'pointer', transition: 'all 0.15s' }}
+                    onMouseEnter={e => (e.currentTarget as HTMLDivElement).style.border = '1px solid rgba(59,130,246,0.3)'}
+                    onMouseLeave={e => (e.currentTarget as HTMLDivElement).style.border = '1px solid rgba(255,255,255,0.06)'}>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 3 }}>{inq.name}
+                        {inq.phone && <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.35)', marginLeft: 10 }}>📱 {inq.phone}</span>}
+                      </div>
+                      <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.35)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                        {new Date(inq.created_at).toLocaleDateString('ko-KR')} · {inq.content.slice(0, 60)}...
+                      </div>
+                    </div>
+                    <span style={{ fontSize: 11, padding: '3px 10px', borderRadius: 20, fontWeight: 700, marginLeft: 12, flexShrink: 0,
+                      background: inq.status === 'replied' ? 'rgba(16,185,129,0.1)' : inq.status === 'closed' ? 'rgba(59,130,246,0.1)' : 'rgba(245,158,11,0.1)',
+                      color: inq.status === 'replied' ? '#10b981' : inq.status === 'closed' ? '#60a5fa' : '#f59e0b' }}>
+                      {inq.status === 'replied' ? '✅ 답변완료' : inq.status === 'closed' ? '🔒 처리완료' : '⏳ 대기중'}
+                    </span>
+                  </div>
+                ))}
+                {inquiries.filter(i => i.type === (tab === 'contact_mgr' ? 'contact' : 'as')).length === 0 && (
+                  <div style={{ textAlign: 'center', padding: '60px', color: 'rgba(255,255,255,0.2)', fontSize: 14 }}>
+                    <div style={{ fontSize: 36, marginBottom: 12 }}>{tab === 'contact_mgr' ? '📧' : '🔧'}</div>
+                    접수된 {tab === 'contact_mgr' ? '문의' : 'A/S 신청'}가 없습니다
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ─────── 설치가이드 관리 ─────── */}
+        {tab === 'install' && (
+          <div style={{ padding: '40px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 28 }}>
+              <h1 style={{ fontSize: 26, fontWeight: 900 }}>🎬 설치가이드 관리</h1>
+              <button onClick={() => setEditGuide({ title: '', video_url: '', thumbnail: '', description: '', order_num: installGuides.length })}
+                style={{ padding: '10px 20px', background: '#3b82f6', color: '#fff', border: 'none', borderRadius: 10, fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
+                + 새 영상 추가
+              </button>
+            </div>
+            {editGuide && (
+              <div style={sectionCard}>
+                <h3 style={{ fontSize: 14, fontWeight: 800, color: '#60a5fa', marginBottom: 16 }}>{editGuide.id ? '✏️ 영상 수정' : '➕ 새 영상'}</h3>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 14 }}>
+                  <div>
+                    <label style={labelStyle}>제목</label>
+                    <input value={editGuide.title} onChange={e => setEditGuide({ ...editGuide, title: e.target.value })} placeholder="예: LED 패널 설치 가이드" style={inputStyle}/>
+                  </div>
+                  <div>
+                    <label style={labelStyle}>순서 번호</label>
+                    <input type="number" value={editGuide.order_num} onChange={e => setEditGuide({ ...editGuide, order_num: Number(e.target.value) })} style={inputStyle}/>
+                  </div>
+                </div>
+                <div style={{ marginBottom: 14 }}>
+                  <label style={labelStyle}>영상 URL (YouTube 또는 직접 링크)</label>
+                  <input value={editGuide.video_url} onChange={e => setEditGuide({ ...editGuide, video_url: e.target.value })} placeholder="https://www.youtube.com/watch?v=..." style={inputStyle}/>
+                  <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', marginTop: 4 }}>YouTube URL 입력 시 썸네일이 자동 설정됩니다</p>
+                </div>
+                <div style={{ marginBottom: 14 }}>
+                  <label style={labelStyle}>썸네일 이미지 (선택 - 미입력 시 YouTube 자동)</label>
+                  <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+                    <input value={editGuide.thumbnail} onChange={e => setEditGuide({ ...editGuide, thumbnail: e.target.value })} placeholder="https://..." style={{ ...inputStyle, flex: 1 }}/>
+                    <CloudinaryUpload label="업로드" folder="install-guides" accept="image/*" onSuccess={url => setEditGuide({ ...editGuide, thumbnail: url })}/>
+                  </div>
+                </div>
+                <div style={{ marginBottom: 16 }}>
+                  <label style={labelStyle}>설명 (선택)</label>
+                  <textarea value={editGuide.description} onChange={e => setEditGuide({ ...editGuide, description: e.target.value })} rows={3} placeholder="영상에 대한 간단한 설명" style={{ ...inputStyle, resize: 'vertical' }}/>
+                </div>
+                <div style={{ display: 'flex', gap: 10 }}>
+                  <button onClick={handleSaveGuide} disabled={loading} style={{ padding: '10px 22px', background: '#3b82f6', color: '#fff', border: 'none', borderRadius: 10, fontWeight: 700, cursor: 'pointer' }}>💾 저장</button>
+                  <button onClick={() => setEditGuide(null)} style={{ padding: '10px 22px', background: 'transparent', color: 'rgba(255,255,255,0.4)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, cursor: 'pointer' }}>취소</button>
+                </div>
+              </div>
+            )}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: 16 }}>
+              {installGuides.map(g => {
+                const ytId = g.video_url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/)?.[1];
+                const thumb = g.thumbnail || (ytId ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` : null);
+                return (
+                  <div key={g.id} style={{ background: 'rgba(255,255,255,0.03)', borderRadius: 14, border: '1px solid rgba(255,255,255,0.07)', overflow: 'hidden' }}>
+                    <div style={{ position: 'relative', paddingTop: '56.25%', background: '#0f1623' }}>
+                      {thumb ? <img src={thumb} alt={g.title} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}/> : <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 32 }}>🎬</div>}
+                    </div>
+                    <div style={{ padding: '14px 16px' }}>
+                      <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 4 }}>{g.title}</div>
+                      {g.description && <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)', marginBottom: 10 }}>{g.description}</div>}
+                      <div style={{ display: 'flex', gap: 8 }}>
+                        <button onClick={() => setEditGuide(g as any)} style={{ flex: 1, padding: '6px', background: 'rgba(59,130,246,0.12)', color: '#60a5fa', border: '1px solid rgba(59,130,246,0.2)', borderRadius: 8, fontSize: 12, cursor: 'pointer' }}>✏️ 수정</button>
+                        <button onClick={() => handleDeleteGuide(g.id!)} style={{ padding: '6px 10px', background: 'rgba(239,68,68,0.08)', color: '#f87171', border: '1px solid rgba(239,68,68,0.15)', borderRadius: 8, fontSize: 12, cursor: 'pointer' }}>🗑</button>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+              {installGuides.length === 0 && <div style={{ gridColumn: '1/-1', textAlign: 'center', padding: '60px', color: 'rgba(255,255,255,0.2)', fontSize: 14 }}><div style={{ fontSize: 36, marginBottom: 12 }}>🎬</div>등록된 영상이 없습니다</div>}
+            </div>
+          </div>
+        )}
+
         {/* ─────── 사이트 설정 ─────── */}
         {tab === 'settings' && settings && (
           <div style={{ padding: '40px' }}>
@@ -840,4 +1139,5 @@ export default function AdminPage() {
     </main>
   );
 }
+
 
