@@ -1157,6 +1157,21 @@ export default function AdminPage() {
               </div>
             </div>
 
+
+            <div style={sectionCard}>
+              <h3 style={{ fontSize: 13, fontWeight: 800, color: '#f59e0b', marginBottom: 20, textTransform: 'uppercase' }}>🗺️ 메뉴 이름</h3>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+                {settings.menus?.map((menu, i) => (
+                  <div key={i}>
+                    <label style={{ ...labelStyle, color: 'rgba(255,255,255,0.25)' }}>{menu.href}</label>
+                    <input value={menu.label} onChange={e => { const m = [...settings.menus]; m[i] = { ...m[i], label: e.target.value }; setSettings({ ...settings, menus: m }); }} style={inputStyle} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* ─────── 전자카탈로그 관리 ─────── */}
         {tab === 'catalog' && !editCatalog && (
           <div style={{ padding: '40px' }}>
@@ -1283,19 +1298,6 @@ export default function AdminPage() {
           </div>
         )}
 
-            <div style={sectionCard}>
-              <h3 style={{ fontSize: 13, fontWeight: 800, color: '#f59e0b', marginBottom: 20, textTransform: 'uppercase' }}>🗺️ 메뉴 이름</h3>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
-                {settings.menus?.map((menu, i) => (
-                  <div key={i}>
-                    <label style={{ ...labelStyle, color: 'rgba(255,255,255,0.25)' }}>{menu.href}</label>
-                    <input value={menu.label} onChange={e => { const m = [...settings.menus]; m[i] = { ...m[i], label: e.target.value }; setSettings({ ...settings, menus: m }); }} style={inputStyle} />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
       </div>
 
       <style jsx>{`
