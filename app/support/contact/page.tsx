@@ -20,10 +20,6 @@ export default function ContactPage() {
   const [attachments, setAttachments] = useState<{ name: string; url: string }[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState<string | null>(null);
-  const [checkId, setCheckId] = useState('');
-  const [checkPw, setCheckPw] = useState('');
-  const [found, setFound] = useState<any | null>(null);
-  const [checkError, setCheckError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,15 +34,6 @@ export default function ContactPage() {
     setSubmitting(false);
   };
 
-  const handleCheck = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setCheckError(''); setFound(null);
-    const { data } = await supabase.from('inquiries').select('*')
-      .eq('id', checkId.trim()).eq('password', checkPw).eq('type', 'contact').single();
-    if (data) setFound(data);
-    else setCheckError('조회 번호 또는 비밀번호가 올바르지 않습니다.');
-  };
-
   if (submitted) return (
     <>
       <Navbar />
@@ -54,11 +41,7 @@ export default function ContactPage() {
         <div style={{ maxWidth: 500, width: '100%', padding: '0 24px', textAlign: 'center' }}>
           <div style={{ fontSize: 64, marginBottom: 20 }}>✅</div>
           <h2 style={{ fontSize: 26, fontWeight: 900, color: '#0f172a', marginBottom: 12 }}>문의가 접수되었습니다</h2>
-          <p style={{ color: '#64748b', marginBottom: 28, lineHeight: 1.7 }}>빠른 시일 내에 답변드리겠습니다.<br/>아래 조회번호와 비밀번호를 꼭 보관해 주세요.</p>
-          <div style={{ background: '#fff', borderRadius: 16, border: '2px solid #e2e8f0', padding: '24px', marginBottom: 24 }}>
-            <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 6 }}>조회 번호 (문의 ID)</div>
-            <div style={{ fontSize: 12, fontWeight: 700, color: '#0f172a', wordBreak: 'break-all', fontFamily: 'monospace', background: '#f8fafc', padding: '10px', borderRadius: 8 }}>{submitted}</div>
-          </div>
+          <p style={{ color: '#64748b', marginBottom: 28, lineHeight: 1.7 }}>빠른 시일 내에 답변드리겠습니다.<br/>담당자가 이메일 또는 연락처로 답변드릴 예정입니다.</p>
           <button onClick={() => { setSubmitted(null); setForm({ name:'',email:'',phone:'',content:'',password:'' }); setAttachments([]); }}
             style={{ padding: '12px 24px', background: '#0ea5e9', color: '#fff', border: 'none', borderRadius: 10, fontWeight: 700, cursor: 'pointer', fontSize: 14, fontFamily: 'inherit' }}>
             추가 문의하기
@@ -79,11 +62,12 @@ export default function ContactPage() {
             <h1 style={{ fontSize: 40, fontWeight: 900, color: '#0f172a', marginBottom: 14, letterSpacing: -0.5 }}>고객 문의</h1>
             <p style={{ color: '#64748b', fontSize: 15, lineHeight: 1.7 }}>
               제품 문의, 견적 요청, 기타 문의를 남겨주세요.<br/>
-              <span style={{ color: '#ef4444', fontWeight: 600 }}>비밀번호는 문의 내용 조회 시 필요하니 반드시 기억해 주세요.</span>
+              담당자가 이메일 또는 연락처로 빠르게 답변드리겠습니다.
             </p>
           </header>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: 24, alignItems: 'flex-start' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: 24, alignItems: 'flex-start' }}>
+            {/* 문의 폼 */}
             <div style={{ background: '#fff', borderRadius: 20, border: '1px solid #e2e8f0', padding: '32px' }}>
               <h2 style={{ fontSize: 18, fontWeight: 800, color: '#0f172a', marginBottom: 24 }}>📧 문의 작성</h2>
               <form onSubmit={handleSubmit}>
@@ -125,7 +109,7 @@ export default function ContactPage() {
                   </label>
                   <input type="password" value={form.password} onChange={e=>setForm({...form,password:e.target.value})} required
                     placeholder="문의 조회 시 사용할 비밀번호" style={{ ...inputBase, border:'2px solid #fde68a', background:'#fffbeb' }}/>
-                  <p style={{ fontSize:11, color:'#92400e', marginTop:6 }}>개인정보 보호를 위해 비밀번호를 설정합니다. 반드시 기억해 주세요.</p>
+                  <p style={{ fontSize:11, color:'#92400e', marginTop:6 }}>개인정보 보호를 위해 비밀번호를 설정합니다. 담당자만 내용을 확인할 수 있습니다.</p>
                 </div>
                 <button type="submit" disabled={submitting}
                   style={{ width:'100%', padding:'14px', background:'#0ea5e9', color:'#fff', border:'none', borderRadius:12, fontWeight:800, fontSize:15, cursor:submitting?'not-allowed':'pointer', opacity:submitting?0.7:1, fontFamily:'inherit' }}>
@@ -134,67 +118,44 @@ export default function ContactPage() {
               </form>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-              <div style={{ background: '#fff', borderRadius: 20, border: '1px solid #e2e8f0', padding: '28px' }}>
-                <h2 style={{ fontSize: 16, fontWeight: 800, color: '#0f172a', marginBottom: 16 }}>🔍 문의 조회</h2>
-                <form onSubmit={handleCheck}>
-                  <div style={{ marginBottom: 12 }}>
-                    <label style={{ display:'block', fontSize:12, fontWeight:700, color:'#475569', marginBottom:6 }}>조회 번호</label>
-                    <input value={checkId} onChange={e=>setCheckId(e.target.value)} required placeholder="접수 번호 입력"
-                      style={{ ...inputBase, padding:'10px 12px', fontSize:13 }}/>
-                  </div>
-                  <div style={{ marginBottom: 14 }}>
-                    <label style={{ display:'block', fontSize:12, fontWeight:700, color:'#475569', marginBottom:6 }}>비밀번호</label>
-                    <input type="password" value={checkPw} onChange={e=>setCheckPw(e.target.value)} required
-                      style={{ ...inputBase, padding:'10px 12px', fontSize:13 }}/>
-                  </div>
-                  {checkError && <p style={{ fontSize:12, color:'#ef4444', marginBottom:10 }}>{checkError}</p>}
-                  <button type="submit" style={{ width:'100%', padding:'11px', background:'#0f172a', color:'#fff', border:'none', borderRadius:8, fontWeight:700, cursor:'pointer', fontFamily:'inherit' }}>
-                    조회하기
-                  </button>
-                </form>
-                {found && (
-                  <div style={{ marginTop:20, paddingTop:20, borderTop:'1px solid #f1f5f9' }}>
-                    <div style={{ fontSize:12, color:'#94a3b8', marginBottom:4 }}>{new Date(found.created_at).toLocaleDateString('ko-KR')} · {found.name}</div>
-                    <div style={{ fontSize:13, color:'#475569', marginBottom:12, lineHeight:1.6, whiteSpace:'pre-wrap', background:'#f8fafc', padding:12, borderRadius:8 }}>{found.content}</div>
-                    {found.attachments?.length > 0 && (
-                      <div style={{ marginBottom:12 }}>
-                        {found.attachments.map((a: any, i: number) => (
-                          <a key={i} href={a.url} target="_blank" rel="noopener noreferrer"
-                            style={{ display:'flex', alignItems:'center', gap:6, fontSize:13, color:'#0ea5e9', textDecoration:'none', marginBottom:4 }}>
-                            📎 {a.name}
-                          </a>
-                        ))}
-                      </div>
-                    )}
-                    {found.admin_reply ? (
-                      <div style={{ background:'#f0fdf4', borderRadius:10, padding:'14px', border:'1px solid #bbf7d0' }}>
-                        <div style={{ fontSize:11, fontWeight:700, color:'#166534', marginBottom:6 }}>📩 관리자 답변</div>
-                        <div style={{ fontSize:13, color:'#166534', lineHeight:1.6, whiteSpace:'pre-wrap' }}>{found.admin_reply}</div>
-                        <div style={{ fontSize:11, color:'#86efac', marginTop:6 }}>{new Date(found.replied_at).toLocaleDateString('ko-KR')}</div>
-                      </div>
-                    ) : (
-                      <div style={{ background:'#fff7ed', borderRadius:10, padding:'12px', border:'1px solid #fed7aa', fontSize:13, color:'#c2410c' }}>
-                        ⏳ 답변 대기 중입니다.
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
-              <div style={{ background: '#0f172a', borderRadius: 20, padding: '24px', color: '#fff' }}>
-                <div style={{ fontSize: 14, fontWeight: 800, marginBottom: 16 }}>📞 직접 연락</div>
+            {/* 연락처 정보 */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <div style={{ background: '#0f172a', borderRadius: 20, padding: '28px', color: '#fff' }}>
+                <div style={{ fontSize: 15, fontWeight: 800, marginBottom: 20 }}>📞 직접 연락</div>
                 {[
-                  { icon: '📧', label: '이메일', val: 'info@ynk.co.kr' },
+                  { icon: '📞', label: '전화', val: '032-862-1350' },
                   { icon: '🕘', label: '운영시간', val: '평일 09:00 ~ 18:00' },
                 ].map(c => (
-                  <div key={c.label} style={{ display:'flex', alignItems:'center', gap:10, marginBottom:12 }}>
-                    <span style={{ fontSize:18 }}>{c.icon}</span>
+                  <div key={c.label} style={{ display:'flex', alignItems:'center', gap:12, marginBottom:16 }}>
+                    <div style={{ width:40, height:40, borderRadius:10, background:'rgba(255,255,255,0.08)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:18, flexShrink:0 }}>{c.icon}</div>
                     <div>
-                      <div style={{ fontSize:10, color:'rgba(255,255,255,0.4)', marginBottom:1 }}>{c.label}</div>
-                      <div style={{ fontSize:13, fontWeight:600 }}>{c.val}</div>
+                      <div style={{ fontSize:11, color:'rgba(255,255,255,0.4)', marginBottom:2 }}>{c.label}</div>
+                      <div style={{ fontSize:14, fontWeight:700 }}>{c.val}</div>
                     </div>
                   </div>
                 ))}
+              </div>
+
+              <div style={{ background: '#fff', borderRadius: 20, border: '1px solid #e2e8f0', padding: '24px' }}>
+                <div style={{ fontSize: 14, fontWeight: 800, color: '#0f172a', marginBottom: 14 }}>💡 문의 안내</div>
+                {[
+                  '제품 사양 및 견적 문의',
+                  '납기 및 재고 확인',
+                  '기술 지원 및 설치 문의',
+                  '대량 구매 및 OEM 협의',
+                ].map(t => (
+                  <div key={t} style={{ display:'flex', alignItems:'center', gap:8, marginBottom:10, fontSize:13, color:'#475569' }}>
+                    <span style={{ color:'#0ea5e9', fontWeight:900 }}>·</span> {t}
+                  </div>
+                ))}
+              </div>
+
+              <div style={{ background: 'linear-gradient(135deg, #0ea5e9, #0284c7)', borderRadius: 20, padding: '24px', color: '#fff', textAlign: 'center' }}>
+                <div style={{ fontSize: 14, fontWeight: 800, marginBottom: 8 }}>A/S 신청</div>
+                <div style={{ fontSize: 12, opacity: 0.85, marginBottom: 16 }}>제품 불량·파손 등<br/>A/S는 별도 페이지에서 접수</div>
+                <a href="/support/as" style={{ display:'inline-block', padding:'10px 20px', background:'#fff', color:'#0284c7', borderRadius:8, fontWeight:800, fontSize:13, textDecoration:'none' }}>
+                  🔧 A/S 신청하기
+                </a>
               </div>
             </div>
           </div>
