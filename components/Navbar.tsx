@@ -156,7 +156,6 @@ export default function Navbar() {
             <Link href="/market-report" style={navItemStyle(pathname==='/market-report')}>시장보고서</Link>
             <Link href="/board" style={navItemStyle()}>{t('board')}</Link>
             <Link href="/blog" style={navItemStyle()}>{t('blog')}</Link>
-            <Link href="/catalog" style={navItemStyle(pathname==='/catalog' || pathname.startsWith('/catalog/'))}>📚 카탈로그</Link>
 
             {/* 고객센터 드롭다운 */}
             <div ref={supportMenuRef} style={{ position: 'relative' }}>
@@ -239,7 +238,6 @@ export default function Navbar() {
             <Link href="/market-report" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', color: '#ffffff', textDecoration: 'none', fontWeight: 700 }}>시장보고서</Link>
             <Link href="/board" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', color: '#ffffff', textDecoration: 'none', fontWeight: 700 }}>{t('board')}</Link>
             <Link href="/blog" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', color: '#ffffff', textDecoration: 'none', fontWeight: 700 }}>{t('blog')}</Link>
-            <Link href="/catalog" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', color: '#fff', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 12, fontSize: 15, fontWeight: 700 }}>📚 전자카탈로그</Link>
             <div style={{ padding: '8px 16px', fontSize: 11, fontWeight: 700, color: 'rgba(255,255,255,0.25)', letterSpacing: 1.5, textTransform: 'uppercase' }}>고객센터</div>
             {SUPPORT_ITEMS.map(item => (
               <Link key={item.href} href={item.href} onClick={()=>setMenuOpen(false)}
