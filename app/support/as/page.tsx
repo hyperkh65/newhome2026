@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CloudinaryUpload from '@/components/CloudinaryUpload';
-import { supabase } from '@/lib/supabase';
+
 
 const inputBase: React.CSSProperties = {
   width: '100%', padding: '11px 14px', border: '2px solid #e2e8f0', borderRadius: 10,
@@ -28,12 +28,14 @@ export default function AsPage() {
     if (!form.name || !form.phone || !form.content || !form.password) { alert('이름, 연락처, 증상/내용, 비밀번호는 필수입니다.'); return; }
     setSubmitting(true);
     const fullContent = `[제품명] ${form.product_name || '미입력'}\n[증상유형] ${form.issue_type}\n\n${form.content}`;
-    const { data, error } = await supabase.rpc('submit_inquiry', {
-      p_type: 'as', p_name: form.name, p_email: form.email, p_phone: form.phone,
-      p_content: fullContent, p_attachments: attachments, p_password: form.password,
+    const res = await fetch('/api/inquiries', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'as', name: form.name, email: form.email, phone: form.phone, content: fullContent, attachments, password: form.password }),
     });
-    if (error) alert('제출 오류: ' + error.message);
-    else setSubmitted(data as string);
+    const json = await res.json();
+    if (!res.ok) alert('제출 오류: ' + json.error);
+    else setSubmitted(json.id);
     setSubmitting(false);
   };
 
@@ -177,4 +179,5 @@ export default function AsPage() {
     </>
   );
 }
+
 
