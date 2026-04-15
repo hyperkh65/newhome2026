@@ -4,6 +4,8 @@ import Footer from '@/components/Footer';
 import SolarManualRemotion from '@/components/SolarManualRemotion';
 import { ShieldCheck, Zap, Sun, Award } from 'lucide-react';
 
+import SolarTechDeepDive from '@/components/SolarTechDeepDive';
+
 export default function SolarEducationalPage() {
   return (
     <main style={{ minHeight: '100vh', background: 'var(--gray-50)' }}>
@@ -103,6 +105,23 @@ export default function SolarEducationalPage() {
                 <li style={{ display: 'flex', gap: 8 }}><span style={{ color: 'var(--primary)' }}>•</span> 모션 센서 정상 작동 반경 테스트</li>
               </ul>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* EXPERT DEEP DIVE SECTION */}
+      <section style={{ padding: '40px 24px 120px', background: 'var(--white)' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', marginBottom: 64 }}>
+            <p className="section-label" style={{ marginBottom: 16, background: 'rgba(234, 88, 12, 0.1)', color: 'var(--warning)' }}>ADVANCED EXPERT LEVEL</p>
+            <h2 className="section-title">전문가를 위한 심화 지식 (Deep-Dive)</h2>
+            <p style={{ color: 'var(--gray-600)', marginTop: 16, maxWidth: 800, margin: '16px auto 0', lineHeight: 1.6 }}>
+              현장 설계 및 도입 검토 단계에서 필수적으로 알아야 하는 기술적 제원, 부품별 소재 차이, 기후 환경에 따른 설치 기준이 총망라된 전문 교육 시퀀스입니다. 
+            </p>
+          </div>
+
+          <div style={{ width: '100%', maxWidth: 1280, margin: '0 auto' }}>
+              <SolarTechDeepDive />
           </div>
         </div>
       </section>
