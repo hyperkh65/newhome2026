@@ -1,31 +1,42 @@
-'use client';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Cpu, Zap, Activity, Network, AlertTriangle, Settings, Lightbulb, Workflow } from 'lucide-react';
 
+
 export default function SmartSMPSManual() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <div style={{
       width: '100%',
       background: '#020617', // Very dark slate (near black)
-      borderRadius: '24px',
+      borderRadius: isMobile ? '0' : '24px',
       boxShadow: '0 30px 60px rgba(0, 0, 0, 0.4)',
       border: '1px solid rgba(255,255,255,0.08)',
-      padding: '48px',
+      padding: isMobile ? '24px 16px' : '48px',
       color: '#f8fafc',
       fontFamily: '"Pretendard", sans-serif',
       display: 'flex',
       flexDirection: 'column',
-      gap: '40px'
+      gap: isMobile ? '24px' : '40px'
     }}>
+
       
       {/* Title Area */}
       <div style={{ textAlign: 'center', marginBottom: '16px' }}>
-        <h2 style={{ fontSize: '32px', fontWeight: 800, color: '#fff', marginBottom: '16px' }}>인터랙티브 실무 기술 명세서</h2>
+        <h2 style={{ fontSize: isMobile ? '24px' : '32px', fontWeight: 800, color: '#fff', marginBottom: '16px' }}>인터랙티브 실무 기술 명세서</h2>
         <div style={{ width: '60px', height: '4px', background: 'linear-gradient(90deg, #3b82f6, #8b5cf6)', margin: '0 auto', borderRadius: '4px' }}></div>
       </div>
 
       {/* Grid Layout for the Content */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '32px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(400px, 1fr))', gap: '32px' }}>
+
         
         {/* Module 1: Converter Topology */}
         <div style={{
