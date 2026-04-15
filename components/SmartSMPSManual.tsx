@@ -1,3 +1,4 @@
+'use client';
 import React, { useState, useEffect } from 'react';
 import { Cpu, Zap, Activity, Network, AlertTriangle, Settings, Lightbulb, Workflow } from 'lucide-react';
 
