@@ -12,7 +12,14 @@ export default function SolarEducationalPage() {
       <Navbar />
 
       {/* Hero Header Section */}
-      <section style={{ padding: '160px 24px 80px', background: 'var(--white)', borderBottom: '1px solid var(--gray-200)', textAlign: 'center' }}>
+      <section style={{ padding: '160px 24px 80px', background: 'var(--white)', borderBottom: '1px solid var(--gray-200)', textAlign: 'center', position: 'relative' }}>
+        
+        {/* 우측 상단 모바일 QR 코드 유도 */}
+        <div style={{ position: 'absolute', right: '40px', top: '120px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px', background: 'var(--white)', padding: '16px', borderRadius: '16px', boxShadow: '0 10px 30px rgba(0,0,0,0.1)', border: '1px solid var(--gray-200)' }}>
+           <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://newhome2026.vercel.app/solar1" alt="Mobile QR Code" width="100" height="100" style={{ display: 'block', borderRadius: '8px' }} />
+           <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--gray-600)', whiteSpace: 'nowrap' }}>📷 모바일에서 보기 스캔</span>
+        </div>
+
         <div className="container">
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '8px 16px', background: 'var(--gray-100)', borderRadius: 50, color: 'var(--gray-700)', fontWeight: 700, fontSize: 13, marginBottom: 24, border: '1px solid var(--gray-200)' }}>
             <Sun size={16} color="var(--primary)" />

@@ -10,6 +10,7 @@ import { AnimatedCounter, ScrollReveal } from '@/components/LuminaAnimation';
 import RemotionHero from '@/components/RemotionHero';
 import { supabase } from '@/lib/supabase';
 import ToolDock from '@/components/ToolDock';
+import ManualSidebar from '@/components/ManualSidebar';
 
 const CATEGORIES = [
   { id: 'smart', labelKey: 'smart', icon: '☁️', descKey: 'desc_smart' },
@@ -245,6 +246,7 @@ export default function Home() {
 
       <Footer />
       <ToolDock />
+      <ManualSidebar />
     </main>
   );
 }
