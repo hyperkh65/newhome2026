@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import SmartSMPSManual from '@/components/SmartSMPSManual';
+import SmartDimmingInteractive from '@/components/SmartDimmingInteractive';
 import { Cpu } from 'lucide-react';
 
 export default function SmartSMPSPage() {
@@ -37,9 +38,14 @@ export default function SmartSMPSPage() {
 
       {/* Main Content Area */}
       <section style={{ padding: '80px 24px 120px', background: 'var(--gray-50)', flex: 1 }}>
-        <div className="container" style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          {/* SmartSMPSManual Component renders the extensive technical details */}
+        <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '60px' }}>
+          
+          {/* Interactive and Easy Version (For Elementary Level) */}
+          <SmartDimmingInteractive />
+
+          {/* Professional Data view */}
           <SmartSMPSManual />
+          
         </div>
       </section>
 
