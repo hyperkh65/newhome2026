@@ -246,7 +246,7 @@ export default function SolarManualRemotion() {
   if (!mounted) return <div style={{ width: '100%', aspectRatio: '16/9', background: '#020617', borderRadius: 24 }} />;
 
   return (
-    <div className="w-full flex flex-col gap-12">
+    <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '48px', color: 'white', fontFamily: 'sans-serif' }}>
       <div id="remotion-container" style={{ width: '100%', position: 'relative', overflow: 'hidden', background: '#020617', borderRadius: 24, boxShadow: '0 30px 60px rgba(0, 0, 0, 0.4)', border: '1px solid rgba(255,255,255,0.08)' }}>
         <Player
           component={SolarManualComposition}
@@ -262,102 +262,102 @@ export default function SolarManualRemotion() {
       </div>
 
       {/* Educational Content Text Section */}
-      <div className="bg-slate-900/50 rounded-3xl p-8 md:p-12 border border-slate-800 backdrop-blur-sm">
-        <div className="max-w-4xl mx-auto space-y-16">
+      <div style={{ background: 'rgba(15, 23, 42, 0.5)', borderRadius: '24px', padding: '48px', border: '1px solid rgba(30, 41, 59, 1)', backdropFilter: 'blur(4px)' }}>
+        <div style={{ maxWidth: '896px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '64px' }}>
           
           <section>
-            <div className="flex items-center gap-3 mb-6">
-              <Sun className="text-amber-400 w-8 h-8" />
-              <h3 className="text-2xl font-bold text-slate-100">태양광 패널: 종류와 효율</h3>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+              <Sun size={32} color="#fbbf24" />
+              <h3 style={{ fontSize: '24px', fontWeight: 'bold', margin: 0, color: '#f1f5f9' }}>태양광 패널: 종류와 효율</h3>
             </div>
-            <p className="text-slate-300 leading-relaxed mb-6">
+            <p style={{ color: '#cbd5e1', lineHeight: '1.6', marginBottom: '24px', margin: 0 }}>
               효율적인 발전을 위해서는 환경에 맞는 패널을 선택해야 합니다. 일반적으로 모노(단결정) 패널이 좁은 지붕이나 가로등 상단에 가장 유리합니다.
             </p>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="p-6 rounded-2xl bg-slate-800/50 border border-amber-400/20">
-                <h4 className="text-amber-400 font-bold mb-3 flex items-center gap-2">단결정 (Mono)</h4>
-                <p className="text-slate-400 text-sm">효율 18~22%. 좁은 면적에서 높은 전력 생산. 단가가 높으나 가로등에 최적화.</p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px', marginTop: '24px' }}>
+              <div style={{ padding: '24px', borderRadius: '16px', background: 'rgba(30, 41, 59, 0.5)', border: '1px solid rgba(251, 191, 36, 0.2)' }}>
+                <h4 style={{ color: '#fbbf24', fontWeight: 'bold', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px', margin: 0 }}>단결정 (Mono)</h4>
+                <p style={{ color: '#94a3b8', fontSize: '14px', margin: 0, wordBreak: 'keep-all', lineHeight: '1.6' }}>효율 18~22%. 좁은 면적에서 높은 전력 생산. 단가가 높으나 가로등에 최적화.</p>
               </div>
-              <div className="p-6 rounded-2xl bg-slate-800/50 border border-slate-700">
-                <h4 className="text-slate-200 font-bold mb-3 flex items-center gap-2">다결정 (Poly)</h4>
-                <p className="text-slate-400 text-sm">효율 15~17%. 면적이 넓은 곳에 유리하며 가성비가 좋으나 최근 사용 빈도가 줄어듦.</p>
+              <div style={{ padding: '24px', borderRadius: '16px', background: 'rgba(30, 41, 59, 0.5)', border: '1px solid #334155' }}>
+                <h4 style={{ color: '#e2e8f0', fontWeight: 'bold', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px', margin: 0 }}>다결정 (Poly)</h4>
+                <p style={{ color: '#94a3b8', fontSize: '14px', margin: 0, wordBreak: 'keep-all', lineHeight: '1.6' }}>효율 15~17%. 면적이 넓은 곳에 유리하며 가성비가 좋으나 최근 사용 빈도가 줄어듦.</p>
               </div>
             </div>
           </section>
 
           <section>
-            <div className="flex items-center gap-3 mb-6">
-              <Cpu className="text-emerald-400 w-8 h-8" />
-              <h3 className="text-2xl font-bold text-slate-100">컨트롤러 타입 및 설정법</h3>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+              <Cpu size={32} color="#34d399" />
+              <h3 style={{ fontSize: '24px', fontWeight: 'bold', margin: 0, color: '#f1f5f9' }}>컨트롤러 타입 및 설정법</h3>
             </div>
-            <div className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="p-5 rounded-2xl bg-emerald-900/20 border border-emerald-500/20">
-                  <div className="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded-lg text-sm font-bold mb-3">MPPT (추천)</div>
-                  <p className="text-slate-300 text-sm">전압을 변환하여 효율을 최대 30% 끌어올림. 가을/겨울철 심한 온도 변화 및 흐린 날씨에 필수적입니다.</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
+                <div style={{ padding: '20px', borderRadius: '16px', background: 'rgba(6, 78, 59, 0.2)', border: '1px solid rgba(16, 185, 129, 0.2)' }}>
+                  <div style={{ display: 'inline-block', padding: '4px 12px', background: 'rgba(16, 185, 129, 0.2)', color: '#34d399', borderRadius: '8px', fontSize: '14px', fontWeight: 'bold', marginBottom: '12px' }}>MPPT (추천)</div>
+                  <p style={{ color: '#cbd5e1', fontSize: '14px', margin: 0, wordBreak: 'keep-all', lineHeight: '1.6' }}>전압을 변환하여 효율을 최대 30% 끌어올림. 가을/겨울철 심한 온도 변화 및 흐린 날씨에 필수적입니다.</p>
                 </div>
-                <div className="p-5 rounded-2xl bg-slate-800/50 border border-slate-700">
-                  <div className="inline-block px-3 py-1 bg-slate-700 text-slate-300 rounded-lg text-sm font-bold mb-3">PWM</div>
-                  <p className="text-slate-400 text-sm">저비용 단순 구조. 패널 전압을 배터리 전압에 맞게 깎아내려 에너지 손실이 큽니다.</p>
+                <div style={{ padding: '20px', borderRadius: '16px', background: 'rgba(30, 41, 59, 0.5)', border: '1px solid #334155' }}>
+                  <div style={{ display: 'inline-block', padding: '4px 12px', background: '#334155', color: '#cbd5e1', borderRadius: '8px', fontSize: '14px', fontWeight: 'bold', marginBottom: '12px' }}>PWM</div>
+                  <p style={{ color: '#94a3b8', fontSize: '14px', margin: 0, wordBreak: 'keep-all', lineHeight: '1.6' }}>저비용 단순 구조. 패널 전압을 배터리 전압에 맞게 깎아내려 에너지 손실이 큽니다.</p>
                 </div>
               </div>
-              <div className="p-6 rounded-2xl bg-slate-800/30 border border-slate-700">
-                 <h4 className="flex items-center gap-2 text-slate-200 font-bold mb-4"><ListFilter className="w-5 h-5 text-slate-400"/> 컨트롤러 상태 읽기 및 세팅</h4>
-                 <ul className="space-y-3 text-slate-300 text-sm">
-                   <li className="flex items-start gap-3"><span className="text-emerald-400 font-bold">1.</span> <span><strong>LED 표시부:</strong> [Solar] 깜빡임(충전중), [Battery] 녹색(완충)/빨간색(저전압)</span></li>
-                   <li className="flex items-start gap-3"><span className="text-emerald-400 font-bold">2.</span> <span><strong>부하 설정 (Load Set):</strong> 야간 점등시간 조절 (예: 24H=상시, 1~14H=타이머, 0H=일몰~일출)</span></li>
-                   <li className="flex items-start gap-3"><span className="text-emerald-400 font-bold">3.</span> <span><strong>배터리 타입 설정(B01~03):</strong> 리튬이온/인산철/납축 전압체계가 다르므로 맞춤 셋팅 필수.</span></li>
+              <div style={{ padding: '24px', borderRadius: '16px', background: 'rgba(30, 41, 59, 0.3)', border: '1px solid #334155' }}>
+                 <h4 style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#e2e8f0', fontWeight: 'bold', marginBottom: '16px', margin: 0 }}><ListFilter size={20} color="#94a3b8" /> 컨트롤러 상태 읽기 및 세팅</h4>
+                 <ul style={{ display: 'flex', flexDirection: 'column', gap: '12px', color: '#cbd5e1', fontSize: '14px', margin: 0, padding: 0, listStyle: 'none' }}>
+                   <li style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', lineHeight: '1.6', wordBreak: 'keep-all' }}><span style={{ color: '#34d399', fontWeight: 'bold' }}>1.</span> <span><strong>LED 표시부:</strong> [Solar] 깜빡임(충전중), [Battery] 녹색(완충)/빨간색(저전압)</span></li>
+                   <li style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', lineHeight: '1.6', wordBreak: 'keep-all' }}><span style={{ color: '#34d399', fontWeight: 'bold' }}>2.</span> <span><strong>부하 설정 (Load Set):</strong> 야간 점등시간 조절 (예: 24H=상시, 1~14H=타이머, 0H=일몰~일출)</span></li>
+                   <li style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', lineHeight: '1.6', wordBreak: 'keep-all' }}><span style={{ color: '#34d399', fontWeight: 'bold' }}>3.</span> <span><strong>배터리 타입 설정(B01~03):</strong> 리튬이온/인산철/납축 전압체계가 다르므로 맞춤 셋팅 필수.</span></li>
                  </ul>
               </div>
             </div>
           </section>
 
           <section>
-             <div className="flex items-center gap-3 mb-6">
-              <Battery className="text-sky-400 w-8 h-8" />
-              <h3 className="text-2xl font-bold text-slate-100">배터리 용량 선정 방법</h3>
+             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+              <Battery size={32} color="#38bdf8" />
+              <h3 style={{ fontSize: '24px', fontWeight: 'bold', margin: 0, color: '#f1f5f9' }}>배터리 용량 선정 방법</h3>
             </div>
-            <p className="text-slate-300 mb-6">
+            <p style={{ color: '#cbd5e1', marginBottom: '24px', margin: 0, wordBreak: 'keep-all', lineHeight: '1.6' }}>
               흐린 날(불조일)을 버티기 위한 설계가 가장 중요합니다. 일반적으로 3~5일 연속 점등을 목표로 배터리를 계산합니다.
             </p>
-            <div className="p-6 rounded-2xl bg-slate-900 border border-slate-700 font-mono text-sm shadow-inner">
-              <h4 className="text-slate-400 font-sans mb-4 font-bold">배터리 산출 공식 예시</h4>
-              <div className="space-y-4 text-sky-300">
-                <p>1. 일일 소모량 = LED 전력(W) × 1일 점등시간(Hr)</p>
-                <p>2. 필요 배터리(Wh) = 일일 소모량 × 보증 일수(3일) ÷ 방전심도(0.8)</p>
-                <p>3. 배터리(Ah) = 필요 배터리(Wh) ÷ 시스템 배터리 전압(V)</p>
+            <div style={{ padding: '24px', borderRadius: '16px', background: '#0f172a', border: '1px solid #334155', fontFamily: 'monospace', fontSize: '14px', boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.3)', marginTop: '24px' }}>
+              <h4 style={{ color: '#94a3b8', fontFamily: 'sans-serif', marginBottom: '16px', fontWeight: 'bold', margin: 0 }}>배터리 산출 공식 예시</h4>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', color: '#7dd3fc', marginTop: '16px' }}>
+                <p style={{ margin: 0, wordBreak: 'keep-all', lineHeight: '1.6' }}>1. 일일 소모량 = LED 전력(W) × 1일 점등시간(Hr)</p>
+                <p style={{ margin: 0, wordBreak: 'keep-all', lineHeight: '1.6' }}>2. 필요 배터리(Wh) = 일일 소모량 × 보증 일수(3일) ÷ 방전심도(0.8)</p>
+                <p style={{ margin: 0, wordBreak: 'keep-all', lineHeight: '1.6' }}>3. 배터리(Ah) = 필요 배터리(Wh) ÷ 시스템 배터리 전압(V)</p>
               </div>
             </div>
           </section>
 
           <section>
-            <div className="flex items-center gap-3 mb-6">
-              <Cable className="text-rose-400 w-8 h-8" />
-              <h3 className="text-2xl font-bold text-slate-100">절대 지켜야 할 전선 연결 순서</h3>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+              <Cable size={32} color="#fb7185" />
+              <h3 style={{ fontSize: '24px', fontWeight: 'bold', margin: 0, color: '#f1f5f9' }}>절대 지켜야 할 전선 연결 순서</h3>
             </div>
-            <div className="bg-rose-500/10 border border-rose-500/20 text-rose-200 p-4 rounded-xl mb-6 text-sm">
+            <div style={{ background: 'rgba(244, 63, 94, 0.1)', border: '1px solid rgba(244, 63, 94, 0.2)', color: '#fecdd3', padding: '16px', borderRadius: '12px', marginBottom: '24px', fontSize: '14px', wordBreak: 'keep-all', lineHeight: '1.6' }}>
               <strong>주의:</strong> 연결 순서를 어길 경우 컨트롤러 파손의 원인이 됩니다. 반드시 배터리부터 연결하여 기준 전압을 잡아주세요.
             </div>
-            <div className="space-y-4">
-              <div className="flex items-center gap-4 p-4 rounded-xl bg-slate-800/50">
-                <div className="shrink-0 w-10 h-10 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center font-bold text-lg">1</div>
-                <div className="flex-1">
-                  <h4 className="text-slate-200 font-bold mb-1">배터리 연결</h4>
-                  <p className="text-slate-400 text-sm">가장 먼저 배터리의 (+), (-) 극을 컨트롤러에 연결. 컨트롤러 LCD가 켜집니다.</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '16px', borderRadius: '12px', background: 'rgba(30, 41, 59, 0.5)' }}>
+                <div style={{ flexShrink: 0, width: '40px', height: '40px', borderRadius: '50%', background: 'rgba(14, 165, 233, 0.2)', color: '#38bdf8', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '18px' }}>1</div>
+                <div style={{ flex: 1 }}>
+                  <h4 style={{ color: '#e2e8f0', fontWeight: 'bold', marginBottom: '4px', margin: 0 }}>배터리 연결</h4>
+                  <p style={{ color: '#94a3b8', fontSize: '14px', margin: 0, wordBreak: 'keep-all', lineHeight: '1.6' }}>가장 먼저 배터리의 (+), (-) 극을 컨트롤러에 연결. 컨트롤러 LCD가 켜집니다.</p>
                 </div>
               </div>
-              <div className="flex items-center gap-4 p-4 rounded-xl bg-slate-800/50">
-                <div className="shrink-0 w-10 h-10 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-lg">2</div>
-                <div className="flex-1">
-                  <h4 className="text-slate-200 font-bold mb-1">태양광 패널 연결</h4>
-                  <p className="text-slate-400 text-sm">두번째로 스위치를 내린 상태에서 패널을 연결. 이후 스위치 ON. (스파크 주의)</p>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '16px', borderRadius: '12px', background: 'rgba(30, 41, 59, 0.5)' }}>
+                <div style={{ flexShrink: 0, width: '40px', height: '40px', borderRadius: '50%', background: 'rgba(245, 158, 11, 0.2)', color: '#fbbf24', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '18px' }}>2</div>
+                <div style={{ flex: 1 }}>
+                  <h4 style={{ color: '#e2e8f0', fontWeight: 'bold', marginBottom: '4px', margin: 0 }}>태양광 패널 연결</h4>
+                  <p style={{ color: '#94a3b8', fontSize: '14px', margin: 0, wordBreak: 'keep-all', lineHeight: '1.6' }}>두번째로 스위치를 내린 상태에서 패널을 연결. 이후 스위치 ON. (스파크 주의)</p>
                 </div>
               </div>
-              <div className="flex items-center gap-4 p-4 rounded-xl bg-slate-800/50">
-                <div className="shrink-0 w-10 h-10 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold text-lg">3</div>
-                <div className="flex-1">
-                  <h4 className="text-slate-200 font-bold mb-1">LED 램프 연결</h4>
-                  <p className="text-slate-400 text-sm">마지막으로 조명(Load) 부하를 연결합니다. 극성에 유의하세요.</p>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '16px', borderRadius: '12px', background: 'rgba(30, 41, 59, 0.5)' }}>
+                <div style={{ flexShrink: 0, width: '40px', height: '40px', borderRadius: '50%', background: 'rgba(225, 29, 72, 0.2)', color: '#fb7185', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '18px' }}>3</div>
+                <div style={{ flex: 1 }}>
+                  <h4 style={{ color: '#e2e8f0', fontWeight: 'bold', marginBottom: '4px', margin: 0 }}>LED 램프 연결</h4>
+                  <p style={{ color: '#94a3b8', fontSize: '14px', margin: 0, wordBreak: 'keep-all', lineHeight: '1.6' }}>마지막으로 조명(Load) 부하를 연결합니다. 극성에 유의하세요.</p>
                 </div>
               </div>
             </div>
