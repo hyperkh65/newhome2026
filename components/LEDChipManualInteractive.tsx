@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { Lightbulb, Search, BookOpen, BarChart, Clock, ShieldCheck, Sun, Eye } from 'lucide-react';
+import { Lightbulb, Search, BookOpen, BarChart, Clock, ShieldCheck, Sun, Eye, CheckCircle2 } from 'lucide-react';
 
 export default function LEDChipManualInteractive() {
   const [isMobile, setIsMobile] = useState(false);
