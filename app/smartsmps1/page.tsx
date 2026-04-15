@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import ManualSidebar from '@/components/ManualSidebar';
 import SmartSMPSManual from '@/components/SmartSMPSManual';
 import SmartDimmingInteractive from '@/components/SmartDimmingInteractive';
 import { Cpu } from 'lucide-react';
@@ -9,6 +10,7 @@ export default function SmartSMPSPage() {
   return (
     <main style={{ minHeight: '100vh', background: 'var(--white)', display: 'flex', flexDirection: 'column' }}>
       <Navbar />
+      <ManualSidebar />
 
       {/* Hero Header Section */}
       <section style={{ padding: '160px 24px 80px', background: 'var(--white)', borderBottom: '1px solid var(--gray-200)', textAlign: 'center', position: 'relative' }}>

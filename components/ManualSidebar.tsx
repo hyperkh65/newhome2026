@@ -7,6 +7,7 @@ const MANUALS = [
   { id: 'smartsmps1', title: '2. 스마트 LED SMPS 및 초정밀 디밍 설계 가이드', path: '/smartsmps1' },
   { id: 'solar3', title: '3. 배터리 용량 산출 및 셀 유지보수 실무', path: '/solar3' },
   { id: 'controller1', title: '4. 지능형 컨트롤러(MPPT) 설정 및 센싱 기술', path: '/controller1' },
+  { id: 'mold1', title: '5. 정밀 금형 설계 및 사출·압출 실무 공정', path: '/mold1' },
   // ... 최소 10개 이상 추가될 예정
 ];
 
@@ -70,7 +71,7 @@ export default function ManualSidebar() {
         borderLeft: 'none'
       }}>
         <div style={{ padding: '24px', flex: 1, overflowY: 'auto' }}>
-          <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#0f172a', marginBottom: '8px' }}>📚 태양광 가로등 매뉴얼</h3>
+          <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#0f172a', marginBottom: '8px' }}>📚 실무 매뉴얼</h3>
           <p style={{ fontSize: '12px', color: '#64748b', marginBottom: '20px', wordBreak: 'keep-all' }}>
             계속해서 추가될 예정입니다. 링크를 클릭하거나 우측 QR코드를 스캔하여 모바일에서 바로 확인해보세요.
           </p>

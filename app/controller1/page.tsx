@@ -2,14 +2,18 @@
 import React from 'react';
 import ControllerManualInteractive from '@/components/ControllerManualInteractive';
 import ManualSidebar from '@/components/ManualSidebar';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 export default function ControllerManualPage() {
   const pageUrl = "https://newhome2026.vercel.app/controller1";
   const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${pageUrl}`;
 
   return (
-    <main style={{ minHeight: '100vh', background: '#0f172a', padding: '20px' }}>
+    <main style={{ minHeight: '100vh', background: '#0f172a' }}>
+      <Navbar />
       <ManualSidebar />
+      <div style={{ padding: '80px 20px' }}>
       
       {/* Header with QR Code for Mobile Access */}
       <div style={{ 
@@ -47,6 +51,8 @@ export default function ControllerManualPage() {
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         <ControllerManualInteractive />
       </div>
+      </div>
+      <Footer />
     </main>
   );
 }

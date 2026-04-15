@@ -2,6 +2,7 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import SolarManualRemotion from '@/components/SolarManualRemotion';
+import ManualSidebar from '@/components/ManualSidebar';
 import { ShieldCheck, Zap, Sun, Award } from 'lucide-react';
 
 import SolarTechDeepDive from '@/components/SolarTechDeepDive';
@@ -10,6 +11,7 @@ export default function SolarEducationalPage() {
   return (
     <main style={{ minHeight: '100vh', background: 'var(--gray-50)' }}>
       <Navbar />
+      <ManualSidebar />
 
       {/* Hero Header Section */}
       <section style={{ padding: '160px 24px 80px', background: 'var(--white)', borderBottom: '1px solid var(--gray-200)', textAlign: 'center', position: 'relative' }}>
