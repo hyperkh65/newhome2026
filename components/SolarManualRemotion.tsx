@@ -246,18 +246,125 @@ export default function SolarManualRemotion() {
   if (!mounted) return <div style={{ width: '100%', aspectRatio: '16/9', background: '#020617', borderRadius: 24 }} />;
 
   return (
-    <div id="remotion-container" style={{ width: '100%', position: 'relative', overflow: 'hidden', background: '#020617', borderRadius: 24, boxShadow: '0 30px 60px rgba(0, 0, 0, 0.4)', border: '1px solid rgba(255,255,255,0.08)' }}>
-      <Player
-        component={SolarManualComposition}
-        durationInFrames={1500}
-        compositionWidth={1920}
-        compositionHeight={1080}
-        fps={60}
-        style={{ width: '100%', height: 'auto', aspectRatio: '16/9', background: 'transparent' }}
-        controls
-        autoPlay
-        loop
-      />
+    <div className="w-full flex flex-col gap-12">
+      <div id="remotion-container" style={{ width: '100%', position: 'relative', overflow: 'hidden', background: '#020617', borderRadius: 24, boxShadow: '0 30px 60px rgba(0, 0, 0, 0.4)', border: '1px solid rgba(255,255,255,0.08)' }}>
+        <Player
+          component={SolarManualComposition}
+          durationInFrames={1500}
+          compositionWidth={1920}
+          compositionHeight={1080}
+          fps={60}
+          style={{ width: '100%', height: 'auto', aspectRatio: '16/9', background: 'transparent' }}
+          controls
+          autoPlay
+          loop
+        />
+      </div>
+
+      {/* Educational Content Text Section */}
+      <div className="bg-slate-900/50 rounded-3xl p-8 md:p-12 border border-slate-800 backdrop-blur-sm">
+        <div className="max-w-4xl mx-auto space-y-16">
+          
+          <section>
+            <div className="flex items-center gap-3 mb-6">
+              <Sun className="text-amber-400 w-8 h-8" />
+              <h3 className="text-2xl font-bold text-slate-100">태양광 패널: 종류와 효율</h3>
+            </div>
+            <p className="text-slate-300 leading-relaxed mb-6">
+              효율적인 발전을 위해서는 환경에 맞는 패널을 선택해야 합니다. 일반적으로 모노(단결정) 패널이 좁은 지붕이나 가로등 상단에 가장 유리합니다.
+            </p>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="p-6 rounded-2xl bg-slate-800/50 border border-amber-400/20">
+                <h4 className="text-amber-400 font-bold mb-3 flex items-center gap-2">단결정 (Mono)</h4>
+                <p className="text-slate-400 text-sm">효율 18~22%. 좁은 면적에서 높은 전력 생산. 단가가 높으나 가로등에 최적화.</p>
+              </div>
+              <div className="p-6 rounded-2xl bg-slate-800/50 border border-slate-700">
+                <h4 className="text-slate-200 font-bold mb-3 flex items-center gap-2">다결정 (Poly)</h4>
+                <p className="text-slate-400 text-sm">효율 15~17%. 면적이 넓은 곳에 유리하며 가성비가 좋으나 최근 사용 빈도가 줄어듦.</p>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <div className="flex items-center gap-3 mb-6">
+              <Cpu className="text-emerald-400 w-8 h-8" />
+              <h3 className="text-2xl font-bold text-slate-100">컨트롤러 타입 및 설정법</h3>
+            </div>
+            <div className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="p-5 rounded-2xl bg-emerald-900/20 border border-emerald-500/20">
+                  <div className="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded-lg text-sm font-bold mb-3">MPPT (추천)</div>
+                  <p className="text-slate-300 text-sm">전압을 변환하여 효율을 최대 30% 끌어올림. 가을/겨울철 심한 온도 변화 및 흐린 날씨에 필수적입니다.</p>
+                </div>
+                <div className="p-5 rounded-2xl bg-slate-800/50 border border-slate-700">
+                  <div className="inline-block px-3 py-1 bg-slate-700 text-slate-300 rounded-lg text-sm font-bold mb-3">PWM</div>
+                  <p className="text-slate-400 text-sm">저비용 단순 구조. 패널 전압을 배터리 전압에 맞게 깎아내려 에너지 손실이 큽니다.</p>
+                </div>
+              </div>
+              <div className="p-6 rounded-2xl bg-slate-800/30 border border-slate-700">
+                 <h4 className="flex items-center gap-2 text-slate-200 font-bold mb-4"><ListFilter className="w-5 h-5 text-slate-400"/> 컨트롤러 상태 읽기 및 세팅</h4>
+                 <ul className="space-y-3 text-slate-300 text-sm">
+                   <li className="flex items-start gap-3"><span className="text-emerald-400 font-bold">1.</span> <span><strong>LED 표시부:</strong> [Solar] 깜빡임(충전중), [Battery] 녹색(완충)/빨간색(저전압)</span></li>
+                   <li className="flex items-start gap-3"><span className="text-emerald-400 font-bold">2.</span> <span><strong>부하 설정 (Load Set):</strong> 야간 점등시간 조절 (예: 24H=상시, 1~14H=타이머, 0H=일몰~일출)</span></li>
+                   <li className="flex items-start gap-3"><span className="text-emerald-400 font-bold">3.</span> <span><strong>배터리 타입 설정(B01~03):</strong> 리튬이온/인산철/납축 전압체계가 다르므로 맞춤 셋팅 필수.</span></li>
+                 </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+             <div className="flex items-center gap-3 mb-6">
+              <Battery className="text-sky-400 w-8 h-8" />
+              <h3 className="text-2xl font-bold text-slate-100">배터리 용량 선정 방법</h3>
+            </div>
+            <p className="text-slate-300 mb-6">
+              흐린 날(불조일)을 버티기 위한 설계가 가장 중요합니다. 일반적으로 3~5일 연속 점등을 목표로 배터리를 계산합니다.
+            </p>
+            <div className="p-6 rounded-2xl bg-slate-900 border border-slate-700 font-mono text-sm shadow-inner">
+              <h4 className="text-slate-400 font-sans mb-4 font-bold">배터리 산출 공식 예시</h4>
+              <div className="space-y-4 text-sky-300">
+                <p>1. 일일 소모량 = LED 전력(W) × 1일 점등시간(Hr)</p>
+                <p>2. 필요 배터리(Wh) = 일일 소모량 × 보증 일수(3일) ÷ 방전심도(0.8)</p>
+                <p>3. 배터리(Ah) = 필요 배터리(Wh) ÷ 시스템 배터리 전압(V)</p>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <div className="flex items-center gap-3 mb-6">
+              <Cable className="text-rose-400 w-8 h-8" />
+              <h3 className="text-2xl font-bold text-slate-100">절대 지켜야 할 전선 연결 순서</h3>
+            </div>
+            <div className="bg-rose-500/10 border border-rose-500/20 text-rose-200 p-4 rounded-xl mb-6 text-sm">
+              <strong>주의:</strong> 연결 순서를 어길 경우 컨트롤러 파손의 원인이 됩니다. 반드시 배터리부터 연결하여 기준 전압을 잡아주세요.
+            </div>
+            <div className="space-y-4">
+              <div className="flex items-center gap-4 p-4 rounded-xl bg-slate-800/50">
+                <div className="shrink-0 w-10 h-10 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center font-bold text-lg">1</div>
+                <div className="flex-1">
+                  <h4 className="text-slate-200 font-bold mb-1">배터리 연결</h4>
+                  <p className="text-slate-400 text-sm">가장 먼저 배터리의 (+), (-) 극을 컨트롤러에 연결. 컨트롤러 LCD가 켜집니다.</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-4 p-4 rounded-xl bg-slate-800/50">
+                <div className="shrink-0 w-10 h-10 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-lg">2</div>
+                <div className="flex-1">
+                  <h4 className="text-slate-200 font-bold mb-1">태양광 패널 연결</h4>
+                  <p className="text-slate-400 text-sm">두번째로 스위치를 내린 상태에서 패널을 연결. 이후 스위치 ON. (스파크 주의)</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-4 p-4 rounded-xl bg-slate-800/50">
+                <div className="shrink-0 w-10 h-10 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold text-lg">3</div>
+                <div className="flex-1">
+                  <h4 className="text-slate-200 font-bold mb-1">LED 램프 연결</h4>
+                  <p className="text-slate-400 text-sm">마지막으로 조명(Load) 부하를 연결합니다. 극성에 유의하세요.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </div>
     </div>
   );
 }

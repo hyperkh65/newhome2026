@@ -39,10 +39,74 @@ export default function SolarEducationalPage() {
           <div style={{ width: '100%', maxWidth: 1280, margin: '0 auto', boxShadow: '0 30px 60px rgba(0,0,0,0.4)', borderRadius: 24 }}>
               <SolarManualRemotion />
           </div>
+
+          {/* Written Manual Section (영상 해설) */}
+          <div style={{ maxWidth: 1000, margin: '80px auto 0', color: 'rgba(255,255,255,0.8)', display: 'flex', flexDirection: 'column', gap: 32 }}>
+            <div style={{ textAlign: 'center', marginBottom: 20 }}>
+              <h3 style={{ fontSize: 24, fontWeight: 800, color: '#fff' }}>동영상 상세 리뷰 및 가이드라인</h3>
+              <p style={{ marginTop: 12, color: 'rgba(255,255,255,0.6)', fontSize: 16 }}>영상에 등장한 핵심적인 기술 요소를 텍스트로 자세히 정리했습니다.</p>
+            </div>
+
+            {/* 1. 패널 */}
+            <div style={{ background: 'rgba(255,255,255,0.03)', padding: 40, borderRadius: 24, border: '1px solid rgba(255,255,255,0.08)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 20 }}>
+                <div style={{ width: 48, height: 48, borderRadius: 12, background: 'rgba(251, 191, 36, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Sun size={24} color="#fbbf24" />
+                </div>
+                <h4 style={{ fontSize: 22, fontWeight: 800, color: '#fff', margin: 0 }}>1. 태양광 패널의 선택: 고효율 단결정 권장</h4>
+              </div>
+              <p style={{ lineHeight: 1.8, fontSize: 16, color: 'rgba(255,255,255,0.7)', marginBottom: 16, wordBreak: 'keep-all' }}>
+                가로등 시스템의 심장인 태양광 패널은 제한된 윗면 공간 안에서 최대한의 전력을 만들어내야 합니다. 따라서 효율이 <strong>18~22%</strong> 정도로 높은 <strong>단결정(Mono) 패널</strong>을 사용하는 것이 필수적입니다. 넓은 장소에 설치되는 가성비 목적의 다결정(Poly) 패널은 가로등처럼 공간이 한정된 환경에서는 적합하지 않습니다.
+              </p>
+            </div>
+
+            {/* 2. 컨트롤러 */}
+            <div style={{ background: 'rgba(255,255,255,0.03)', padding: 40, borderRadius: 24, border: '1px solid rgba(255,255,255,0.08)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 20 }}>
+                <div style={{ width: 48, height: 48, borderRadius: 12, background: 'rgba(16, 185, 129, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Zap size={24} color="#10b981" />
+                </div>
+                <h4 style={{ fontSize: 22, fontWeight: 800, color: '#fff', margin: 0 }}>2. 컨트롤러 타입 및 상태 세팅법</h4>
+              </div>
+              <p style={{ lineHeight: 1.8, fontSize: 16, color: 'rgba(255,255,255,0.7)', marginBottom: 16, wordBreak: 'keep-all' }}>
+                빛 에너지를 배터리로 가장 효율적으로 밀어넣기 위해서는 <strong>MPPT(최대전력점 추적) 컨트롤러</strong>를 쓰는 것이 좋습니다. 일반 PWM 방식보다 약 30% 정도 향상된 충전 속도를 보여줍니다.<br/><br/>
+                컨트롤러의 LED 표시등을 통해 에러를 확인하고, <strong>부하 설정(시간)</strong>과 <strong>배터리 타입 설정(보통 리튬인산철인 경우 특정 세팅값 필요)</strong>을 매뉴얼에 맞게 조작해야 합니다. 전압체계가 맞지 않으면 과충전 혹은 저전압으로 시스템이 멈춥니다.
+              </p>
+            </div>
+
+            {/* 3. 배터리 */}
+            <div style={{ background: 'rgba(255,255,255,0.03)', padding: 40, borderRadius: 24, border: '1px solid rgba(255,255,255,0.08)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 20 }}>
+                <div style={{ width: 48, height: 48, borderRadius: 12, background: 'rgba(56, 189, 248, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div style={{ transform: 'rotate(90deg)' }}><Zap size={24} color="#38bdf8" /></div>
+                </div>
+                <h4 style={{ fontSize: 22, fontWeight: 800, color: '#fff', margin: 0 }}>3. 배터리 (LiFePO4) 용량 산정</h4>
+              </div>
+              <p style={{ lineHeight: 1.8, fontSize: 16, color: 'rgba(255,255,255,0.7)', marginBottom: 16, wordBreak: 'keep-all' }}>
+                야외 환경에서 견딜 수 있으면서 화재 가능성이 거의 없는 <strong>리튬 인산철(LiFePO4)</strong> 배터리를 추천합니다. <br/><br/>
+                가장 중요한 것은 흐린 날이 이어질 때를 대비한 <strong>보증일수</strong>입니다. 보통 3일~5일 비가 와도 켜질 수 있게 설계합니다. 
+                <br/><code>(단일 점등 시간 × LED 전력) × 3일 ÷ (총 시스템 전압 × 방전심도 0.8)</code> <br/>
+                공식을 활용하면 필요한 배터리 Ah 용량을 산출할 수 있습니다.
+              </p>
+            </div>
+
+            {/* 4. 결선(Wiring) */}
+            <div style={{ background: 'rgba(255,255,255,0.03)', padding: 40, borderRadius: 24, border: '1px solid rgba(255,255,255,0.08)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 20 }}>
+                <div style={{ width: 48, height: 48, borderRadius: 12, background: 'rgba(244, 63, 94, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <ShieldCheck size={24} color="#f43f5e" />
+                </div>
+                <h4 style={{ fontSize: 22, fontWeight: 800, color: '#fff', margin: 0 }}>4. 절대 지켜야 할 구성품 연결 순서</h4>
+              </div>
+              <p style={{ lineHeight: 1.8, fontSize: 16, color: 'rgba(255,255,255,0.7)', marginBottom: 0, wordBreak: 'keep-all' }}>
+                가장 치명적인 오류는 태양광 패널을 컨트롤러에 먼저 연결하는 것입니다. 기준 전압을 컨트롤러가 알지 못한 채 센 전류가 들어오면 보드가 파손될 수 있습니다.<br/><br/>
+                아래 순서를 반드시 지켜주세요:<br/>
+                <strong style={{ color: '#38bdf8' }}>① 배터리 먼저 연결</strong> (컨트롤러 불 켜짐 확인) ➔ <strong style={{ color: '#fbbf24' }}>② 태양광 패널 연결</strong> ➔ <strong style={{ color: '#f43f5e' }}>③ 마지막으로 조명(LED 램프) 연결</strong>
+              </p>
+            </div>
+          </div>
         </div>
       </section>
-
-      {/* Detail Modules Section */}
       <section style={{ padding: '120px 24px', background: 'var(--white)' }}>
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: 64 }}>
