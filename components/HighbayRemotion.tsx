@@ -57,9 +57,9 @@ const SectionFrame: React.FC<{ title: string; subtitle: string; content: string[
          
          <div style={{ fontSize: 24, lineHeight: 1.6, color: '#f1f5f9', fontWeight: 500 }}>
            {content.map((line, i) => (
-             <motion.div key={i} style={{ marginBottom: 12, display: 'flex', alignItems: 'center', gap: 15 }}>
+             <div key={i} style={{ marginBottom: 12, display: 'flex', alignItems: 'center', gap: 15 }}>
                <span style={{ color: '#0ea5e9', fontWeight: 900 }}>[✓]</span> {line}
-             </motion.div>
+             </div>
            ))}
          </div>
        </div>
