@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import { 
   ShieldCheck, 
   Flag, 
@@ -13,28 +13,46 @@ import {
   Wrench,
   Camera,
   Activity,
-  Layers
+  Layers,
+  Maximize,
+  Wind,
+  Zap,
+  Microscope,
+  Box
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Player } from '@remotion/player';
 import { HighbaySequence } from './HighbayRemotion';
 
 const S = {
   container: { background: '#020617', color: '#f8fafc', fontFamily: '"Inter", sans-serif', overflowX: 'hidden' as const },
-  section: { maxWidth: 1400, margin: '0 auto', padding: '120px 24px' },
-  glass: { background: 'rgba(15, 23, 42, 0.4)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 32, padding: 48 }
+  section: { maxWidth: 1400, margin: '0 auto', padding: '100px 24px' },
+  glass: { background: 'rgba(15, 23, 42, 0.6)', backdropFilter: 'blur(30px)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 24, padding: 40 },
+  label: { fontSize: 12, fontWeight: 900, color: '#0ea5e9', letterSpacing: 2, marginBottom: 16, display: 'block', textTransform: 'uppercase' as const },
+  title: { fontSize: 48, fontWeight: 950, marginBottom: 24, letterSpacing: '-0.02em' },
+  grid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 24 }
 };
+
+const SpecRow = ({ label, value, detail }: { label: string, value: string, detail?: string }) => (
+  <div style={{ padding: '20px 0', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 8 }}>
+      <span style={{ fontSize: 14, color: '#64748b', fontWeight: 600 }}>{label}</span>
+      <span style={{ fontSize: 18, color: '#f8fafc', fontWeight: 800 }}>{value}</span>
+    </div>
+    {detail && <div style={{ fontSize: 12, color: '#475569', lineHeight: 1.5 }}>{detail}</div>}
+  </div>
+);
 
 export default function FactoryHighbayPromotion() {
   return (
     <div style={S.container}>
       
-      {/* 1. CINEMATIC VIDEO ANALYSIS (REMOTION) */}
-      <section style={{ background: '#000', position: 'relative' }}>
-        <div style={{ width: '100%', aspectRatio: '16/9', maxHeight: '85vh', overflow: 'hidden' }}>
+      {/* 1. CINEMATIC VIDEO ANALYSIS */}
+      <section style={{ background: '#000', position: 'relative', borderBottom: '1px solid #1e293b' }}>
+        <div style={{ width: '100%', aspectRatio: '16/9', maxHeight: '80vh', overflow: 'hidden' }}>
           <Player
             component={HighbaySequence}
-            durationInFrames={5400} // 3 minutes
+            durationInFrames={5400} 
             compositionWidth={1920}
             compositionHeight={1080}
             fps={30}
@@ -44,120 +62,168 @@ export default function FactoryHighbayPromotion() {
             loop
           />
         </div>
-        <div style={{ position: 'absolute', top: 20, right: 30, zIndex: 50, color: 'rgba(14, 165, 233, 0.6)', fontWeight: 900, fontSize: 12, letterSpacing: 2 }}>
-           [ LIVE TECHNICAL STREAMING ACTIVE ]
-        </div>
       </section>
 
-      {/* 2. DYNAMIC HERO: PRODUCT IN ACTION */}
-      <section style={{ height: '90vh', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-        <video autoPlay muted loop playsInline style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.5 }}>
-           <source src="/promotion_assets/factory-video-main.mp4" type="video/mp4" />
-        </video>
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(2,6,23,0.7), rgba(2,6,23,0.95))' }} />
-
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          style={{ position: 'relative', zIndex: 10, textAlign: 'center', padding: '0 24px' }}
-        >
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '10px 24px', background: 'rgba(14, 165, 233, 0.1)', border: '1px solid rgba(14, 165, 233, 0.3)', borderRadius: 100, color: '#38bdf8', fontSize: 14, fontWeight: 900, marginBottom: 32, letterSpacing: 4 }}>
-             BEYOND THE LIMITS
-          </div>
-          <h2 style={{ fontSize: 'clamp(40px, 7vw, 90px)', fontWeight: 950, letterSpacing: '-0.05em', lineHeight: 1, marginBottom: 24 }}>
-             지정된 높이를 넘어서는<br/><span style={{ color: '#0ea5e9' }}>18M 정밀 엔지니어링</span>
-          </h2>
-          <p style={{ fontSize: 24, color: '#94a3b8', maxWidth: 800, margin: '0 auto 48px', fontWeight: 500, lineHeight: 1.5 }}>
-             수입산 센서가 도달할 수 없는 높이.<br/>
-             국내 기술진의 독자적 알고리즘으로 완성된 K-SMART 센서를 만나보세요.
-          </p>
-          <div style={{ display: 'flex', gap: 16, justifyContent: 'center' }}>
-             <button style={{ background: '#0ea5e9', color: '#fff', padding: '20px 48px', borderRadius: 20, fontWeight: 900, fontSize: 18, border: 'none', cursor: 'pointer', boxShadow: '0 20px 40px rgba(14, 165, 233, 0.3)' }}>
-                기술 미팅 요청 <ArrowRight size={20} style={{ marginLeft: 10 }} />
-             </button>
-          </div>
-        </motion.div>
-      </section>
-
-      {/* 3. TECHNICAL CAPTURES: EXTRACTED FROM DOCS & VIDEOS */}
-      <main style={S.section}>
-        <div style={{ textAlign: 'center', marginBottom: 80 }}>
-           <h3 style={{ fontSize: 40, fontWeight: 900, marginBottom: 16 }}>Technical Analysis Gallery</h3>
-           <p style={{ color: '#64748b' }}>현장 영상과 설계 도면에서 발췌한 세부 기술 지표입니다.</p>
-        </div>
-
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: 32 }}>
-           <div style={S.glass}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24, color: '#0ea5e9' }}>
-                 <Camera size={24} /> <span style={{ fontWeight: 800, fontSize: 13, letterSpacing: 1 }}>THERMAL SCAN</span>
-              </div>
-              <h4 style={{ fontSize: 28, fontWeight: 900, marginBottom: 16 }}>ADC12 하우징 방열 가이드</h4>
-              <p style={{ color: '#94a3b8', lineHeight: 1.7, marginBottom: 32 }}>공식 하우징 CAD 도면에 근거한 최적의 공기 흐름 패턴. 고온 환경에서도 칩셋 온도를 안정적으로 유지하여 수명을 극대화합니다.</p>
-              <div style={{ fontSize: 12, color: '#475569', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: 16 }}>
-                 Reference: Housing CAD.pdf (Thermal Calculation Section)
+      {/* 2. MASTER BLUEPRINT & KEY DIMENSIONS */}
+      <section style={S.section}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center' }}>
+           <div>
+              <span style={S.label}>Mechanical Engineering</span>
+              <h2 style={S.title}>Φ260mm 초정밀 하우징<br/>압도적 방열 메커니즘</h2>
+              <p style={{ color: '#94a3b8', fontSize: 18, lineHeight: 1.8, marginBottom: 40 }}>
+                 공식 CAD 도면(Housing CAD.pdf)에 기반한 ADC12 알루미늄 다이캐스팅 설계. 
+                 상부 벤틸레이션 홀과 하부 공기 순환 핀을 통해 LED 칩셋 정크션 온도를 상시 65°C 이하로 제어합니다.
+              </p>
+              
+              <div style={S.glass}>
+                 <SpecRow label="Exterior Diameter" value="Φ 260.0 mm" detail="공차 ±0.5mm 이내 정밀 가공 (UFO-AM6 Standard)" />
+                 <SpecRow label="Standard Height" value="185.0 mm" detail="슬림형 고천장 설계로 설치 공간 제약 최소화" />
+                 <SpecRow label="Mounting Type" value="EYE BOLT / BRACKET" detail="M10 규격 아이볼트 적용으로 안전 하중 하 확보" />
+                 <SpecRow label="Material Index" value="ADC12 Aluminum" detail="내식성 및 열전도율이 우수한 산업용 특수 합금" />
               </div>
            </div>
-
-           <div style={S.glass}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24, color: '#0ea5e9' }}>
-                 <Layers size={24} /> <span style={{ fontWeight: 800, fontSize: 13, letterSpacing: 1 }}>OPTICAL ENGINE</span>
-              </div>
-              <h4 style={{ fontSize: 28, fontWeight: 900, marginBottom: 16 }}>LED 모듈 직/병렬 설계</h4>
-              <p style={{ color: '#94a3b8', lineHeight: 1.7, marginBottom: 32 }}>제공된 회로 도면상의 전압/전류 밸런싱 설계. 서울반도체 고효율 칩셋의 성능을 100% 이끌어내는 고부하 분산 알고리즘이 적용되었습니다.</p>
-              <div style={{ fontSize: 12, color: '#475569', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: 16 }}>
-                 Reference: LED Module Circuit Diagram.pdf
-              </div>
-           </div>
-
-           <div style={S.glass}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24, color: '#0ea5e9' }}>
-                 <Activity size={24} /> <span style={{ fontWeight: 800, fontSize: 13, letterSpacing: 1 }}>SENSOR LOGIC</span>
-              </div>
-              <h4 style={{ fontSize: 28, fontWeight: 900, marginBottom: 16 }}>18M 마이크로웨이브 프로파일</h4>
-              <p style={{ color: '#94a3b8', lineHeight: 1.7, marginBottom: 32 }}>현장 테스트 영상에서 입증된 18m 직경의 완전 감지 영역. 국내 환경에 최적화된 필터링으로 오작동을 차단하고 즉각적인 피드백을 제공합니다.</p>
-              <div style={{ fontSize: 12, color: '#475569', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: 16 }}>
-                 Reference: Sensor Case CAD & Field Test Video (2026-04-16)
+           
+           <div style={{ position: 'relative' }}>
+              <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at center, #0ea5e922, transparent)', filter: 'blur(100px)' }} />
+              <div style={{ border: '2px dashed rgba(14,165,233,0.2)', padding: 40, borderRadius: 1000, aspectRatio: '1/1', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+                 <div style={{ textAlign: 'center' }}>
+                    <div style={{ fontSize: 100, fontWeight: 900, color: '#0ea5e9' }}>Φ260</div>
+                    <div style={{ fontSize: 24, fontWeight: 700, opacity: 0.5 }}>DIMENSION</div>
+                 </div>
+                 {/* Decorative CAD Lines */}
+                 <div style={{ position: 'absolute', top: '50%', left: -40, width: 80, height: 2, background: '#0ea5e9' }} />
+                 <div style={{ position: 'absolute', top: '50%', right: -40, width: 80, height: 2, background: '#0ea5e9' }} />
+                 <div style={{ position: 'absolute', top: -40, left: '50%', width: 2, height: 80, background: '#0ea5e9' }} />
+                 <div style={{ position: 'absolute', bottom: -40, left: '50%', width: 2, height: 80, background: '#0ea5e9' }} />
               </div>
            </div>
         </div>
-      </main>
-
-      {/* 4. OFFICIAL DOCUMENTS ARCHIVE (LINKED) */}
-      <section style={{ ...S.section, borderTop: '1px solid #1e293b' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 20 }}>
-          {[
-            { name: 'Philips Xitanium Driver spec', file: 'Xi_RHB_150W_0.52-0.84A_1-10V_WL_AUX_132S_929003459080(1).pdf' },
-            { name: 'SSC 2835 9V LM-80 Report', file: 'SZ2200910-55786E-10-10000 MTC MKXWM-CX LM-80.pdf' },
-            { name: 'UFO-AM6 부품 리스트 & 회로도', file: '(부품리스트+회로도)요청 RQW2603-0224_05-센LED공장직부A 150W 000x0260 A57 (워드변환)(2).docx' },
-            { name: '150lmW 실측 리포트', file: '130~150lmW LFZY6290-L-REV01(24C13B).pdf' }
-          ].map((doc, i) => (
-            <div key={i} style={{ ...S.glass, padding: 24, display: 'flex', alignItems: 'center', gap: 20, cursor: 'pointer' }}
-                 onClick={() => window.open(`/promotion_assets/${doc.file}`)}>
-               <FileText color="#0ea5e9" />
-               <div style={{ fontSize: 14, fontWeight: 800 }}>{doc.name}</div>
-               <Download size={16} style={{ marginLeft: 'auto', opacity: 0.5 }} />
-            </div>
-          ))}
-        </div>
       </section>
 
-      {/* FOOTER */}
-      <footer style={{ padding: '80px 24px', textAlign: 'center', color: '#475569', borderTop: '1px solid #1e293b' }}>
-         <div style={{ display: 'flex', gap: 40, justifyContent: 'center', marginBottom: 40 }}>
-            <div style={{ textAlign: 'center' }}>
-               <div style={{ fontSize: 32, fontWeight: 900, color: '#f8fafc' }}>150W</div>
-               <div style={{ fontSize: 12 }}>SYSTEM POWER</div>
+      {/* 3. OPTICAL ENGINE DEEP DIVE */}
+      <section style={{ background: '#020617', padding: '100px 0' }}>
+         <div style={S.section}>
+            <div style={{ textAlign: 'center', marginBottom: 80 }}>
+               <span style={S.label}>Optical Performance</span>
+               <h2 style={S.title}>서울반도체 SSC 2835 9V<br/>LM-80 검증된 신뢰성</h2>
             </div>
-            <div style={{ textAlign: 'center' }}>
-               <div style={{ fontSize: 32, fontWeight: 900, color: '#f8fafc' }}>IP65</div>
-               <div style={{ fontSize: 12 }}>PROTECTION</div>
-            </div>
-            <div style={{ textAlign: 'center' }}>
-               <div style={{ fontSize: 32, fontWeight: 900, color: '#f8fafc' }}>K-SMART</div>
-               <div style={{ fontSize: 12 }}>ENGINE INSIDE</div>
+
+            <div style={S.grid}>
+               <div style={S.glass}>
+                  <Layers color="#0ea5e9" size={40} style={{ marginBottom: 24 }} />
+                  <h3 style={{ fontSize: 24, fontWeight: 800, marginBottom: 16 }}>칩셋 배열 분석</h3>
+                  <p style={{ color: '#94a3b8', fontSize: 16, lineHeight: 1.7 }}>
+                     140lm/W 고효율 구현을 위한 SSC 2835 칩셋 정밀 레이아웃. 
+                     회로도(LFZY6290-L-REV01) 기준 전력 부하 분산 설계를 통해 특정 소자의 가부하를 원천 차단했습니다.
+                  </p>
+               </div>
+               <div style={S.glass}>
+                  <Zap color="#0ea5e9" size={40} style={{ marginBottom: 24 }} />
+                  <h3 style={{ fontSize: 24, fontWeight: 800, marginBottom: 16 }}>Luminous Flux</h3>
+                  <p style={{ color: '#94a3b8', fontSize: 16, lineHeight: 1.7 }}>
+                     150W 기준 총 광속 유지율 90% 이상(L90). 
+                     IESNA2002 데이터 기준 배광 각도 120°의 광각 배광으로 그림자를 최소화하고 균일한 조도를 제공합니다.
+                  </p>
+               </div>
+               <div style={S.glass}>
+                  <Microscope color="#0ea5e9" size={40} style={{ marginBottom: 24 }} />
+                  <h3 style={{ fontSize: 24, fontWeight: 800, marginBottom: 16 }}>LM-80 Report Data</h3>
+                  <p style={{ color: '#94a3b8', fontSize: 16, lineHeight: 1.7 }}>
+                     SZ2200910-55786E 시험 성적 준수. 
+                     10,000시간 이상의 가혹 환경 테스트를 통과한 산업용 프리미엄 소자 탑재로 반영구적 수명을 보장합니다.
+                  </p>
+               </div>
             </div>
          </div>
-         <p style={{ fontSize: 13 }}>본 프로모션 데이터는 실측 서류를 바탕으로 작성됨. (주)와이앤케이 기술연구소 지원.</p>
+      </section>
+
+      {/* 4. MASTER SPEC TABLE: FACTORY 140 SERIES */}
+      <section style={{ ...S.section, background: '#0f172a', borderRadius: 48, padding: '80px' }}>
+         <div style={{ marginBottom: 60 }}>
+            <h2 style={{ fontSize: 36, fontWeight: 900 }}>Factory 140 Series Full Specification</h2>
+            <p style={{ color: '#64748b', marginTop: 10 }}>UFO-AM6-150W 모델 기준 정밀 데이터 시트</p>
+         </div>
+
+         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60 }}>
+            <div>
+               <h4 style={{ color: '#0ea5e9', fontWeight: 900, fontSize: 14, marginBottom: 24 }}>[ 전기 및 제어 사양 ]</h4>
+               <SpecRow label="Input Voltage" value="AC 220-240V" detail="50/60Hz 호환" />
+               <SpecRow label="Power Consumption" value="150W (±5%)" />
+               <SpecRow label="Power Factor" value="PF > 0.95" detail="드라이버 실측 기준 고역률 구현" />
+               <SpecRow label="Driver Brand" value="Philips Xitanium" detail="Xi RHB 150W 0.52-0.84A 전용 모델" />
+               <SpecRow label="Surge Protection" value="6kV / 10kV" detail="L-N: 6kV, L/N-GND: 10kV 대응" />
+               <SpecRow label="Control Interface" value="1-10V Dimming" detail="스마트 제어 및 센서 연동 필수 인터페이스" />
+            </div>
+            <div>
+               <h4 style={{ color: '#0ea5e9', fontWeight: 900, fontSize: 14, marginBottom: 24 }}>[ 광학 및 환경 사양 ]</h4>
+               <SpecRow label="System Efficacy" value="140-150 lm/W" detail="광원 수치가 아닌 실제 기구 효율 기준" />
+               <SpecRow label="Color Temperature" value="5,700K / 5,000K" detail="산업 현장 최적의 시안성 확보" />
+               <SpecRow label="Color Rendering" value="Ra > 80" detail="서울반도체 High CRI 칩셋 적용" />
+               <SpecRow label="IP Rating" value="IP 65" detail="완전 방진 및 고압 분사 액체 보호" />
+               <SpecRow label="Sensing Range" value="Max 18~20m" detail="K-Microwave 5.8GHz 고감도 알고리즘" />
+               <SpecRow label="Operation Temp" value="-30°C ~ +50°C" detail="냉동 창고 및 고온 생산 시설 대응" />
+            </div>
+         </div>
+      </section>
+
+      {/* 5. K-SMART SENSOR: 18M DETECTION PROWESS */}
+      <section style={S.section}>
+         <div style={{ display: 'flex', gap: 60, alignItems: 'center' }}>
+            <div style={{ flex: 1 }}>
+               <span style={S.label}>Intelligent Motion Control</span>
+               <h2 style={S.title}>국내 기술로 완성된<br/>18M 고천장 센서 엔진</h2>
+               <p style={{ color: '#94a3b8', fontSize: 18, lineHeight: 1.8, marginBottom: 32 }}>
+                  일반 Microwave 센서(6-7m)로는 불가능한 18m 이상의 극한 높이에서의 정밀 감지.
+                  국내 센서 전문 업체와 협업 개발한 독자적 펌웨어로 현장의 미세한 움직임까지 포착합니다.
+               </p>
+               <div style={{ display: 'flex', gap: 24 }}>
+                  <div style={{ ...S.glass, padding: 24, flex: 1 }}>
+                     <div style={{ fontSize: 24, fontWeight: 900, color: '#f8fafc' }}>5.8GHz</div>
+                     <div style={{ fontSize: 12, color: '#64748b' }}>TRANSMIT FREQUENCY</div>
+                  </div>
+                  <div style={{ ...S.glass, padding: 24, flex: 1 }}>
+                     <div style={{ fontSize: 24, fontWeight: 900, color: '#f8fafc' }}>18m</div>
+                     <div style={{ fontSize: 12, color: '#64748b' }}>MAX DETECTION HEIGHT</div>
+                  </div>
+               </div>
+            </div>
+            <div style={{ flex: 1, height: 400, background: 'rgba(14,165,233,0.05)', borderRadius: 40, border: '1px solid rgba(14,165,233,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+               <div style={{ textAlign: 'center' }}>
+                  <Activity size={80} color="#0ea5e9" style={{ opacity: 0.5, marginBottom: 20 }} />
+                  <div style={{ color: '#0ea5e9', fontWeight: 900, fontSize: 14 }}>WAVEFORM ANALYSIS: ACTIVE</div>
+               </div>
+            </div>
+         </div>
+      </section>
+
+      {/* 6. DOWNLOAD VERIFIED ASSETS */}
+      <section style={{ ...S.section, borderTop: '1px solid #1e293b' }}>
+         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
+            {[
+               { name: 'Housing CAD Design (PDF)', file: 'Housing CAD.pdf' },
+               { name: 'SSC 2835 LED Datasheet', file: 'LED Chip spec-sheet MK8XM-GX .pdf' },
+               { name: 'IES Photometric Data', file: 'UFO_IESNA2002.IES' },
+               { name: 'Circuit Diagram (V1.2)', file: '140lmW-LFZY6290-L-REV01(24C13B)-LED module circuit diagram.pdf' },
+               { name: 'Philips Driver Specs', file: 'Xi_RHB_150W_0.52-0.84A_1-10V_WL_AUX_132S_929003459080(1).pdf' },
+               { name: 'LM-80 Test Report', file: 'SZ2200910-55786E-10-10000 MTC MKXWM-CX LM-80.pdf' }
+            ].map((asset, i) => (
+               <a key={i} href={`/promotion_assets/${asset.file}`} download style={{ textDecoration: 'none' }}>
+                  <div style={{ ...S.glass, padding: '20px 24px', display: 'flex', alignItems: 'center', gap: 16, transition: '0.3s' }}>
+                     <FileText color="#64748b" size={20} />
+                     <span style={{ fontSize: 13, fontWeight: 700, color: '#94a3b8' }}>{asset.name}</span>
+                     <Download size={14} color="#0ea5e9" style={{ marginLeft: 'auto' }} />
+                  </div>
+               </a>
+            ))}
+         </div>
+      </section>
+
+      <footer style={{ padding: '80px 24px', textAlign: 'center', borderTop: '1px solid #1e293b' }}>
+         <p style={{ color: '#475569', fontSize: 13, maxWidth: 600, margin: '0 auto' }}>
+            본 테크니컬 리포트는 YNK 기술연구소의 실측 데이터를 바탕으로 작성되었습니다. 
+            모든 수치는 설치 환경 및 전력 조건에 따라 미세하게 변동될 수 있습니다. 
+            © 2026 YNK Engineering Team.
+         </p>
       </footer>
 
     </div>
