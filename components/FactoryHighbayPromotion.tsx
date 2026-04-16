@@ -268,7 +268,7 @@ export default function FactoryHighbayPromotion() {
                     <p style={{ color: '#94a3b8', lineHeight: 1.6, marginBottom: 24 }}>
                       글로벌 조명 솔루션의 표준, 필립스 자이타늄 드라이버를 탑재했습니다. 
                       1-10V 디밍과 보조 전원(Auxiliary Power) 출력을 지원하여 스마트 센서와 완벽하게 페어링됩니다. 
-                      서지 보호와 높은 역률(PF > 0.95)로 가혹한 산업 현장 환경을 견뎌냅니다.
+                      서지 보호와 높은 역률(PF &gt; 0.95)로 가혹한 산업 현장 환경을 견뎌냅니다.
                     </p>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 0', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
