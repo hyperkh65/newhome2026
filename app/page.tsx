@@ -1,266 +1,252 @@
 'use client';
-
-import { useEffect, useMemo, useState } from 'react';
+import React from 'react';
+import { useEffect, useState } from 'react';
+import { useI18n } from '@/lib/i18n';
 import Link from 'next/link';
-import { ArrowRight, Newspaper } from 'lucide-react';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import ProductCard from '@/components/ProductCard';
+import { AnimatedCounter, ScrollReveal } from '@/components/LuminaAnimation';
+import RemotionHero from '@/components/RemotionHero';
 import { supabase } from '@/lib/supabase';
-import { ContentCard, MetricCard, PortalHeader, PortalShell, SectionHeading, NewsletterBadge } from '@/components/EcolistShell';
-import { FALLBACK_NEWS, FALLBACK_PODCASTS, FALLBACK_WEEKLY_REPORTS, NewsBrief, PodcastEpisode, WeeklyReport, excerpt, formatCompactDate, toKRW } from '@/lib/ecolist';
+import ToolDock from '@/components/ToolDock';
+import ManualSidebar from '@/components/ManualSidebar';
 
-type MarketData = {
-  success: boolean;
-  timestamp: string;
-  rates: { usd: number; cny: number; jpy: number };
-  metals: Record<string, { price: number; prev: number; change: number; changePct: number }>;
-  history: Array<Record<string, number | string>>;
-};
+const CATEGORIES = [
+  { id: 'smart', labelKey: 'smart', icon: '☁️', descKey: 'desc_smart' },
+  { id: 'indoor', labelKey: 'indoor', icon: '🏢', descKey: 'desc_indoor' },
+  { id: 'home_lighting', labelKey: 'home_lighting', icon: '🏠', descKey: 'desc_home' },
+  { id: 'commercial', labelKey: 'commercial', icon: '🏪', descKey: 'desc_commercial' },
+  { id: 'outdoor', labelKey: 'outdoor', icon: '🏭', descKey: 'desc_outdoor' },
+  { id: 'industrial', labelKey: 'industrial', icon: '🏗️', descKey: 'desc_industrial' },
+  { id: 'landscape', labelKey: 'landscape', icon: '🌉', descKey: 'desc_landscape' },
+  { id: 'special', labelKey: 'special', icon: '🔬', descKey: 'desc_special' },
+];
 
-function pct(value?: number) {
-  if (typeof value !== 'number' || Number.isNaN(value)) return '-';
-  return `${value >= 0 ? '+' : ''}${value.toFixed(2)}%`;
-}
 
-function formatCurrency(value?: number) {
-  if (typeof value !== 'number' || Number.isNaN(value)) return '-';
-  return toKRW(value);
-}
-
-function MetricSkeleton() {
+// 홈페이지용 시장현황 미니 위젯
+function MarketPreview() {
+  const [d, setD] = React.useState<{rates?:{usd:number;cny:number;jpy:number};metals?:Record<string,{price:number;changePct:number}>} | null>(null);
+  React.useEffect(() => {
+    fetch('/api/market').then(r=>r.json()).then(setD).catch(()=>{});
+  }, []);
+  if (!d?.rates) return (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 12 }}>
+      {[...Array(6)].map((_,i) => <div key={i} style={{ height: 90, background: 'rgba(255,255,255,0.05)', borderRadius: 12, animation: 'pulse 1.5s ease-in-out infinite' }} />)}
+    </div>
+  );
+  const items = [
+    { label: '🇺🇸 USD/KRW', value: d.rates.usd.toFixed(2), unit: '원', chg: 0, color: '#3b82f6' },
+    { label: '🇨🇳 CNY/KRW', value: d.rates.cny.toFixed(2), unit: '원', chg: 0, color: '#ef4444' },
+    { label: '🇯🇵 JPY/100', value: (d.rates.jpy * 100).toFixed(2), unit: '원', chg: 0, color: '#f59e0b' },
+    { label: '⚙️ 알루미늄', value: '$' + (d.metals?.aluminum?.price ?? 0).toFixed(0), unit: 'USD/ton', chg: d.metals?.aluminum?.changePct ?? 0, color: '#6366f1' },
+    { label: '🔶 구리', value: '$' + (d.metals?.copper?.price ?? 0).toFixed(0), unit: 'USD/ton', chg: d.metals?.copper?.changePct ?? 0, color: '#f97316' },
+    { label: '🪨 니켈', value: '$' + (d.metals?.nickel?.price ?? 0).toFixed(0), unit: 'USD/ton', chg: d.metals?.nickel?.changePct ?? 0, color: '#22c55e' },
+  ];
   return (
-    <div style={{ padding: 18, borderRadius: 22, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(148,163,184,0.14)', minHeight: 118, animation: 'pulse 1.6s ease-in-out infinite' }} />
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 12 }}>
+      {items.map(item => (
+        <div key={item.label} style={{ background: 'rgba(255,255,255,0.06)', borderRadius: 14, padding: '18px 20px', border: '1px solid rgba(255,255,255,0.08)', backdropFilter: 'blur(10px)' }}>
+          <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)', marginBottom: 8, fontWeight: 600 }}>{item.label}</div>
+          <div style={{ fontSize: 22, fontWeight: 900, color: '#fff', marginBottom: 4 }}>{item.value}</div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)' }}>{item.unit}</span>
+            {item.chg !== 0 && <span style={{ fontSize: 12, fontWeight: 700, color: item.chg >= 0 ? '#4ade80' : '#f87171' }}>{item.chg >= 0 ? '+' : ''}{item.chg.toFixed(2)}%</span>}
+          </div>
+        </div>
+      ))}
+    </div>
   );
 }
 
-export default function HomePage() {
-  const [market, setMarket] = useState<MarketData | null>(null);
-  const [reports, setReports] = useState<WeeklyReport[]>([]);
-  const [news, setNews] = useState<NewsBrief[]>([]);
-  const [podcasts, setPodcasts] = useState<PodcastEpisode[]>([]);
-
+export default function Home() {
+  const [products, setProducts] = useState<any[]>([]);
+  const { t } = useI18n();
+  
   useEffect(() => {
-    let alive = true;
-
-    async function load() {
-      try {
-        const [marketRes, reportRes, newsRes, podcastRes] = await Promise.all([
-          fetch('/api/market', { cache: 'no-store' }).then((r) => r.json()),
-          supabase.from('finance_weekly_reports').select('*').order('published_at', { ascending: false }).limit(3),
-          supabase.from('finance_news_items').select('*').order('published_at', { ascending: false }).limit(4),
-          supabase.from('finance_podcast_episodes').select('*').order('published_at', { ascending: false }).limit(3),
-        ]);
-
-        if (!alive) return;
-        setMarket(marketRes);
-
-        if (reportRes.data?.length) {
-          setReports(reportRes.data as WeeklyReport[]);
-        } else {
-          setReports(FALLBACK_WEEKLY_REPORTS);
-        }
-
-        if (newsRes.data?.length) {
-          setNews(newsRes.data as NewsBrief[]);
-        } else {
-          setNews(FALLBACK_NEWS);
-        }
-
-        if (podcastRes.data?.length) {
-          setPodcasts(podcastRes.data as PodcastEpisode[]);
-        } else {
-          setPodcasts(FALLBACK_PODCASTS);
-        }
-      } catch {
-        if (!alive) return;
-        setMarket(null);
-        setReports(FALLBACK_WEEKLY_REPORTS);
-        setNews(FALLBACK_NEWS);
-        setPodcasts(FALLBACK_PODCASTS);
-      }
+    async function fetchFeatured() {
+      const { data } = await supabase.from('products').select('*').eq('featured', true).limit(8);
+      if (data) setProducts(data);
     }
-
-    load();
-    return () => {
-      alive = false;
-    };
+    fetchFeatured();
   }, []);
 
-  const metrics = useMemo(() => {
-    if (!market?.rates) return null;
-    return [
-      { label: 'USD / KRW', value: market.rates.usd.toFixed(2), sublabel: '원', change: '환율' },
-      { label: 'CNY / KRW', value: market.rates.cny.toFixed(2), sublabel: '원', change: '교역' },
-      { label: 'JPY / KRW', value: (market.rates.jpy * 100).toFixed(2), sublabel: '원 / 100엔', change: '관심' },
-      { label: '구리', value: formatCurrency(market.metals?.copper?.price), sublabel: 'USD / ton', change: pct(market.metals?.copper?.changePct) },
-    ];
-  }, [market]);
-
-  const marketUpdated = market?.timestamp ? new Date(market.timestamp).toLocaleString('ko-KR') : '실시간 데이터 로딩 중';
-  const heroRates = market?.rates;
-  const heroChange = market?.metals?.copper?.changePct ?? 0;
+  const featured = products;
+  const allProducts = products.slice(0, 6);
 
   return (
-    <PortalShell>
-      <style>{`@keyframes pulse{0%,100%{opacity:.55}50%{opacity:1}}`}</style>
-      <PortalHeader
-        title="환율, 뉴스, 리포트, 팟캐스트를 한 화면에"
-        description="Ecolist는 금융 뉴스를 스크랩해 요약하고, 주간 리포트를 자동 작성하며, 팟캐스트까지 함께 제공하는 금융 인텔리전스 포털입니다."
-        actionHref="/dashboard"
-        actionLabel="대시보드"
-      />
+    <main style={{ minHeight: '100vh' }}>
+      <Navbar />
 
-      <section style={{ padding: '0 24px 24px' }}>
-        <div className="container">
-          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center', marginBottom: 18 }}>
-            <NewsletterBadge label="매주 자동 리포트" />
-            <NewsletterBadge label="경제 뉴스 요약" />
-            <NewsletterBadge label="오디오 브리핑" />
-          </div>
+      {/* HERO SECTION */}
+      <section style={{ 
+        position: 'relative', height: '100vh', minHeight: 700, 
+        overflow: 'hidden', background: '#0f172a'
+      }}>
+        {/* Absolute Remotion Hero */}
+        <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+          <RemotionHero />
+        </div>
+        
+        {/* Overlay Content removed as it is now integrated into RemotionHero */}
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 14 }}>
-            {metrics ? metrics.map((item) => <MetricCard key={item.label} {...item} />) : [...Array(4)].map((_, i) => <MetricSkeleton key={i} />)}
-          </div>
-          <div style={{ marginTop: 10, color: '#94a3b8', fontSize: 12 }}>
-            업데이트: {marketUpdated}
-          </div>
+
+        {/* Scroll indicator */}
+        <div style={{ position: 'absolute', bottom: 36, left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, zIndex: 10 }}>
+          <span style={{ fontSize: 10, letterSpacing: 2.5, textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', fontWeight: 700 }}>Scroll</span>
+          <div style={{ width: 1.5, height: 36, background: 'linear-gradient(to bottom, rgba(255,255,255,0.4), transparent)', animation: 'float 2s ease-in-out infinite' }} />
+        </div>
+
+        {/* 섹션 전환 페이드 */}
+        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 120, background: 'linear-gradient(to top, #ffffff 0%, transparent 100%)', zIndex: 5 }} />
+      </section>
+
+      {/* STATS SECTION */}
+      <section style={{ padding: '80px 24px', background: 'var(--white)', borderBottom: '1px solid var(--gray-100)', position: 'relative', zIndex: 5 }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 40, textAlign: 'center' }}>
+          {[
+            { value: 100, suffix: '+', label: t('stat_partners') },
+            { value: 98, suffix: '%', label: t('stat_cert') },
+            { value: 5000, suffix: '+', label: t('stat_export') },
+            { value: 24, suffix: '/7', label: t('stat_tracking') },
+          ].map((stat) => (
+            <ScrollReveal key={stat.label}>
+              <div>
+                <div style={{ fontSize: 'clamp(36px, 4vw, 56px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 8, color: 'var(--primary)' }}>
+                  <AnimatedCounter target={stat.value} suffix={stat.suffix} />
+                </div>
+                <div style={{ fontSize: 15, color: 'var(--gray-600)', fontWeight: 600 }}>{stat.label}</div>
+              </div>
+            </ScrollReveal>
+          ))}
         </div>
       </section>
 
-      <section style={{ padding: '22px 24px 12px' }}>
-        <div className="container">
-          <SectionHeading
-            kicker="WEEKLY REPORT"
-            title="주간 금융 보고서"
-            description="환율, 금리 기대, 원자재 흐름을 묶어서 매주 정리하는 자동 리포트 아카이브입니다."
-            action={<Link href="/reports" className="btn-secondary" style={{ background: 'rgba(255,255,255,0.04)', color: '#fff', borderColor: 'rgba(148,163,184,0.18)' }}>전체 보기 <ArrowRight size={16} /></Link>}
-          />
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 14 }}>
-            {reports.map((report) => (
-              <ContentCard
-                key={report.id}
-                href="/reports"
-                meta={`${report.week_label} · ${formatCompactDate(report.published_at)}`}
-                title={report.title}
-                description={`${report.summary} ${report.highlight ? `\n${report.highlight}` : ''}`}
-                tone="dark"
-              />
+      {/* MARKET PREVIEW SECTION */}
+      <section id="market" style={{ padding: '80px 24px', background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)', color: 'white' }}>
+        <div className="container">
+          <ScrollReveal>
+            <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 40, flexWrap: 'wrap', gap: 16 }}>
+              <div>
+                <p className="section-label" style={{ marginBottom: 12, color: '#7dd3fc' }}>LIVE MARKET DATA</p>
+                <h2 className="section-title" style={{ color: '#fff' }}>시장 현황 · 원자재 시세</h2>
+              </div>
+              <Link href="/market" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '10px 20px', background: 'rgba(14,165,233,0.2)', borderRadius: 10, color: '#7dd3fc', textDecoration: 'none', fontSize: 14, fontWeight: 700, border: '1px solid rgba(14,165,233,0.3)' }}>
+                전체 보기 →
+              </Link>
+            </div>
+          </ScrollReveal>
+          <MarketPreview />
+        </div>
+      </section>
+
+      {/* CATEGORIES SECTION */}
+      <section style={{ padding: '120px 24px', background: 'var(--gray-50)' }}>
+        <div className="container">
+          <ScrollReveal>
+            <div style={{ textAlign: 'center', marginBottom: 64 }}>
+              <p className="section-label" style={{ marginBottom: 16 }}>PRODUCT CATEGORIES</p>
+              <h2 className="section-title">{t('home_solutions_title')}</h2>
+            </div>
+          </ScrollReveal>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 24 }}>
+            {CATEGORIES.map((cat, i) => (
+              <ScrollReveal key={cat.id} delay={i * 100}>
+                <Link href={`/shop?cat=${cat.id}`} style={{ textDecoration: 'none' }}>
+                  <div className="glass-panel" style={{
+                    padding: '40px 32px', textAlign: 'center',
+                    background: 'var(--white)', border: '1px solid var(--gray-200)',
+                    transition: 'all 0.3s ease', cursor: 'pointer', height: '100%',
+                    boxShadow: '0 10px 30px rgba(0,0,0,0.03)'
+                  }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-8px)'; (e.currentTarget as HTMLDivElement).style.boxShadow = '0 20px 40px rgba(14,165,233,0.1)'; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.transform = 'none'; (e.currentTarget as HTMLDivElement).style.boxShadow = '0 10px 30px rgba(0,0,0,0.03)'; }}
+                  >
+                    <div style={{ fontSize: 48, marginBottom: 20 }}>{cat.icon}</div>
+                    <div style={{ fontSize: 20, fontWeight: 700, marginBottom: 12, color: 'var(--gray-900)' }}>{t(cat.labelKey)}</div>
+                    <div style={{ fontSize: 14, color: 'var(--gray-500)', lineHeight: 1.5 }}>{t(cat.descKey)}</div>
+                  </div>
+                </Link>
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
 
-      <section style={{ padding: '42px 24px 12px' }}>
+      {/* FEATURED PRODUCTS */}
+      <section style={{ padding: '120px 24px', background: 'var(--white)' }}>
         <div className="container">
-          <SectionHeading
-            kicker="NEWS DESK"
-            title="경제 뉴스 스크랩 · 요약"
-            description="매일 쌓이는 경제 뉴스를 빠르게 훑고 핵심만 남기는 뉴스 데스크입니다."
-            action={<Link href="/news" className="btn-secondary" style={{ background: 'rgba(255,255,255,0.04)', color: '#fff', borderColor: 'rgba(148,163,184,0.18)' }}>뉴스룸 <ArrowRight size={16} /></Link>}
-          />
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.2fr) minmax(0, 0.8fr)', gap: 14 }}>
-            <div style={{ display: 'grid', gap: 14 }}>
-              {news.slice(0, 3).map((item) => (
-                <div key={item.id} style={{ padding: 20, borderRadius: 22, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(148,163,184,0.14)' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'start' }}>
-                    <div>
-                      <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 2.5, color: '#7dd3fc', marginBottom: 8 }}>{item.source} · {item.category}</div>
-                      <div style={{ fontSize: 20, fontWeight: 900, color: '#fff', lineHeight: 1.35, letterSpacing: '-0.04em', marginBottom: 10 }}>{item.title}</div>
-                      <p style={{ color: '#cbd5e1', lineHeight: 1.75, fontSize: 14 }}>{excerpt(item.summary, 140)}</p>
-                    </div>
-                    <Newspaper size={18} color="#7dd3fc" />
-                  </div>
-                  <div style={{ marginTop: 14, display: 'flex', justifyContent: 'space-between', gap: 10, flexWrap: 'wrap', fontSize: 12, color: '#94a3b8' }}>
-                    <span>{formatCompactDate(item.published_at)}</span>
-                    {item.url ? <a href={item.url} target="_blank" rel="noreferrer" style={{ color: '#7dd3fc', textDecoration: 'none', fontWeight: 800 }}>원문 보기</a> : null}
-                  </div>
-                </div>
-              ))}
+          <ScrollReveal>
+            <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 48, flexWrap: 'wrap', gap: 16 }}>
+              <div>
+                <p className="section-label" style={{ marginBottom: 16 }}>FEATURED</p>
+                <h2 className="section-title">{t('featured')}</h2>
+              </div>
+              <Link href="/shop" className="btn-secondary">{t('viewMore')} →</Link>
             </div>
+          </ScrollReveal>
+          <div className="products-grid">
+            {featured.map((p, i) => <ProductCard key={p.id} product={p} index={i} />)}
+          </div>
+        </div>
+      </section>
 
-            <div style={{ display: 'grid', gap: 14 }}>
-              <div style={{ padding: 22, borderRadius: 22, background: 'linear-gradient(135deg, rgba(15,23,42,0.98), rgba(30,64,175,0.92))', border: '1px solid rgba(148,163,184,0.14)' }}>
-                <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: 3, color: '#7dd3fc', marginBottom: 12 }}>MARKET SNAPSHOT</div>
-                <div style={{ fontSize: 30, fontWeight: 950, color: '#fff', lineHeight: 1.1, letterSpacing: '-0.05em', marginBottom: 12 }}>
-                  {heroRates ? `${heroRates.usd.toFixed(2)} 원` : '환율 로딩 중'}
-                </div>
-                <p style={{ color: '#cbd5e1', lineHeight: 1.8, fontSize: 14, marginBottom: 16 }}>
-                  달러, 위안, 엔화와 원자재 시세를 함께 보고 리포트와 뉴스의 문맥을 연결합니다.
+      {/* TRADE & COMPLIANCE BANNER */}
+      <section style={{ padding: '60px 24px', background: 'var(--gray-50)' }}>
+        <div className="container">
+          <ScrollReveal>
+            <div style={{
+              padding: '60px', borderRadius: 32,
+              background: 'linear-gradient(135deg, var(--gray-900) 0%, var(--gray-800) 100%)',
+              color: 'var(--white)', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+              flexWrap: 'wrap', gap: 40, position: 'relative', overflow: 'hidden'
+            }}>
+              <div style={{ position: 'absolute', top: -50, right: -50, width: 300, height: 300, background: 'radial-gradient(circle, rgba(14,165,233,0.3) 0%, transparent 70%)', borderRadius: '50%' }} />
+              
+              <div style={{ maxWidth: 640, position: 'relative', zIndex: 2 }}>
+                <p style={{ fontSize: 14, fontWeight: 700, color: 'var(--primary-light)', letterSpacing: 2, marginBottom: 16 }}>COMPLIANCE & LOGISTICS</p>
+                <h2 style={{ fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: 800, marginBottom: 24, lineHeight: 1.2, whiteSpace: 'pre-line' }}>
+                  {t('home_trade_title')}
+                </h2>
+                <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.7)', lineHeight: 1.7, marginBottom: 32 }}>
+                  {t('home_trade_desc')}
                 </p>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 10 }}>
-                  <div style={{ padding: 14, borderRadius: 18, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' }}>
-                    <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 6 }}>USD 변동</div>
-                    <div style={{ fontSize: 18, fontWeight: 900, color: '#fff' }}>{heroRates?.usd?.toFixed(2) ?? '-'}</div>
+                <div style={{ display: 'flex', gap: 16 }}>
+                  <Link href="/trade-info" className="btn-primary">{t('home_trade_btn1')}</Link>
+                  <Link href="/tracking" style={{ color: 'var(--white)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 8, fontWeight: 600 }}>{t('home_trade_btn2')}</Link>
+                </div>
+              </div>
+
+              <div style={{ flex: 1, minWidth: 300, position: 'relative', zIndex: 2 }}>
+                {/* mockup styling for logistics card */}
+                <div style={{ background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(10px)', padding: 24, borderRadius: 20, border: '1px solid rgba(255,255,255,0.2)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 20, borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: 16 }}>
+                    <div>
+                      <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.6)', marginBottom: 4 }}>SHIPMENT ID</div>
+                      <div style={{ fontSize: 16, fontWeight: 700 }}>TRK-2026-0492</div>
+                    </div>
+                    <div style={{ textAlign: 'right' }}>
+                      <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.6)', marginBottom: 4 }}>STATUS</div>
+                      <div style={{ fontSize: 14, fontWeight: 700, color: '#34d399' }}>● IN TRANSIT</div>
+                    </div>
                   </div>
-                  <div style={{ padding: 14, borderRadius: 18, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' }}>
-                    <div style={{ fontSize: 11, color: '#94a3b8', marginBottom: 6 }}>구리 변화</div>
-                    <div style={{ fontSize: 18, fontWeight: 900, color: '#fff' }}>{pct(heroChange)}</div>
+                  <div>
+                    <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.6)', marginBottom: 8 }}>CURRENT LOCATION</div>
+                    <div style={{ fontSize: 18, fontWeight: 700 }}>Incheon Port, South Korea</div>
+                    <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)', marginTop: 4 }}>ETA: 2 Days</div>
                   </div>
                 </div>
               </div>
 
-              <div style={{ padding: 20, borderRadius: 22, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(148,163,184,0.14)' }}>
-                <div style={{ fontSize: 12, color: '#7dd3fc', fontWeight: 800, letterSpacing: 2, marginBottom: 10 }}>자동화 구조</div>
-                <div style={{ display: 'grid', gap: 10, color: '#e2e8f0', lineHeight: 1.7, fontSize: 14 }}>
-                  <div>1. 뉴스 수집기: RSS/허용 소스에서 기사 수집</div>
-                  <div>2. 요약기: 핵심 문장만 남겨 짧게 정리</div>
-                  <div>3. 리포트 작성기: 환율·지표·뉴스를 묶어 주간 보고서 작성</div>
-                  <div>4. 팟캐스트: 리포트 요약을 오디오 스크립트로 변환</div>
-                </div>
-              </div>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 
-      <section style={{ padding: '42px 24px 12px' }}>
-        <div className="container">
-          <SectionHeading
-            kicker="PODCAST STUDIO"
-            title="팟캐스트 브리핑"
-            description="주간 리포트와 경제 뉴스를 오디오로 풀어내는 브리핑 존입니다."
-            action={<Link href="/podcast" className="btn-secondary" style={{ background: 'rgba(255,255,255,0.04)', color: '#fff', borderColor: 'rgba(148,163,184,0.18)' }}>에피소드 <ArrowRight size={16} /></Link>}
-          />
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 14 }}>
-            {podcasts.map((episode) => (
-              <div key={episode.id} style={{ padding: 20, borderRadius: 22, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(148,163,184,0.14)' }}>
-                <div style={{ fontSize: 11, color: '#7dd3fc', fontWeight: 800, letterSpacing: 2, marginBottom: 10 }}>{episode.host}</div>
-                <div style={{ fontSize: 18, fontWeight: 900, color: '#fff', lineHeight: 1.35, marginBottom: 10 }}>{episode.title}</div>
-                <p style={{ fontSize: 14, lineHeight: 1.75, color: '#cbd5e1', marginBottom: 16 }}>{episode.description}</p>
-                <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, color: '#94a3b8', fontSize: 12 }}>
-                  <span>{formatCompactDate(episode.published_at)}</span>
-                  <span>{episode.duration}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section style={{ padding: '48px 24px 88px' }}>
-        <div className="container">
-          <div style={{ padding: 26, borderRadius: 28, background: 'linear-gradient(135deg, rgba(8,13,22,0.98), rgba(15,118,110,0.9))', border: '1px solid rgba(148,163,184,0.14)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 20, flexWrap: 'wrap' }}>
-            <div style={{ maxWidth: 700 }}>
-              <div style={{ fontSize: 12, color: '#7dd3fc', fontWeight: 800, letterSpacing: 3, marginBottom: 12 }}>NEXT STEP</div>
-              <div style={{ fontSize: 'clamp(24px, 3vw, 42px)', fontWeight: 950, color: '#fff', lineHeight: 1.15, letterSpacing: '-0.06em', marginBottom: 12 }}>
-                자동 생성, 자동 요약, 자동 저장까지 이어지는 금융 포털로 확장합니다.
-              </div>
-              <p style={{ color: '#cbd5e1', lineHeight: 1.8, fontSize: 15 }}>
-                Supabase에 리포트·뉴스·팟캐스트를 쌓아 두고, 크론 작업이 매주 데이터를 갱신하면 운영형 금융사이트가 됩니다.
-              </p>
-            </div>
-            <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-              <Link href="/reports" className="btn-primary">
-                리포트 아카이브 <ArrowRight size={16} />
-              </Link>
-              <Link href="/news" className="btn-secondary" style={{ background: 'rgba(255,255,255,0.06)', color: '#fff', borderColor: 'rgba(148,163,184,0.18)' }}>
-                뉴스룸
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-    </PortalShell>
+      <Footer />
+      <ToolDock />
+      <ManualSidebar />
+    </main>
   );
 }
