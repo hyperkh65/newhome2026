@@ -8,7 +8,7 @@ const Player = dynamic(
   { ssr: false, loading: () => null }
 );
 
-// ─── 타이틀 시퀀스 ────────────────────────────────────────────────────────────
+// ─── 텍스트 애니메이션만 담당 ─────────────────────────────────────────────────
 const TitleSequence = () => {
   const frame = useCurrentFrame();
 
@@ -21,7 +21,7 @@ const TitleSequence = () => {
   const certifications = ['KC', 'KS', 'EMC', 'HEE', 'ECO-FRIENDLY'];
 
   return (
-    <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center', padding: '40px 24px', zIndex: 10 }}>
+    <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center', padding: '40px 24px', background: 'transparent' }}>
       <div style={{
         display: 'flex', flexDirection: 'column', alignItems: 'center',
         justifyContent: 'center', textAlign: 'center', width: '100%',
@@ -89,7 +89,7 @@ const TitleSequence = () => {
             background: 'linear-gradient(135deg, #0284c7 0%, #38bdf8 100%)',
             color: '#ffffff', borderRadius: '50px', fontSize: 16, fontWeight: 800,
             textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 12,
-            boxShadow: '0 15px 35px rgba(2,132,199,0.4)',
+            boxShadow: '0 15px 35px rgba(2,132,199,0.4)', pointerEvents: 'auto',
           }}>
             제품 및 인증서 보기
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
@@ -100,7 +100,7 @@ const TitleSequence = () => {
             padding: 'clamp(14px, 2vh, 20px) 40px',
             background: 'rgba(255,255,255,0.06)', color: '#ffffff', borderRadius: '50px',
             border: '1px solid rgba(255,255,255,0.2)', backdropFilter: 'blur(20px)',
-            fontSize: 16, fontWeight: 700, textDecoration: 'none',
+            fontSize: 16, fontWeight: 700, textDecoration: 'none', pointerEvents: 'auto',
           }}>무역 절차 안내</a>
         </div>
       </div>
@@ -109,7 +109,7 @@ const TitleSequence = () => {
         position: 'absolute', bottom: 20, left: '50%', transform: 'translateX(-50%)',
         color: 'white', fontSize: 9, fontWeight: 800, letterSpacing: 4,
         opacity: phase4 * 0.4, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6,
-        pointerEvents: 'none', zIndex: 5
+        pointerEvents: 'none',
       }}>
         SCROLL
         <div style={{ width: 1.2, height: 36, background: 'linear-gradient(180deg, white, transparent)' }} />
@@ -118,8 +118,15 @@ const TitleSequence = () => {
   );
 };
 
-// ─── 영상 + 텍스트 통합 컴포지션 ─────────────────────────────────────────────
-export const LuminaComposition: React.FC = () => {
+// 텍스트만 있는 투명 컴포지션
+export const LuminaComposition: React.FC = () => (
+  <AbsoluteFill style={{ background: 'rgba(0,0,0,0)', overflow: 'hidden' }}>
+    <Sequence from={0}><TitleSequence /></Sequence>
+  </AbsoluteFill>
+);
+
+// ─── 영상 배경 (Player 와 분리) ──────────────────────────────────────────────
+function BackgroundVideo() {
   const videoPaths = ['/hero-bg-1.mp4', '/hero-bg-2.mp4', '/hero-bg-3.mp4', '/hero-bg-4.mp4'];
   const [index, setIndex] = useState(0);
   const [fade, setFade] = useState(true);
@@ -146,8 +153,7 @@ export const LuminaComposition: React.FC = () => {
   }, [index]);
 
   return (
-    <AbsoluteFill style={{ background: '#020617', overflow: 'hidden' }}>
-      {/* 영상 배경 */}
+    <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', background: '#020617', zIndex: 0 }}>
       <video
         ref={videoRef}
         key={videoPaths[index]}
@@ -160,13 +166,11 @@ export const LuminaComposition: React.FC = () => {
       >
         <source src={videoPaths[index]} type="video/mp4" />
       </video>
-      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at center, transparent 30%, rgba(2,6,23,0.7) 100%)', zIndex: 1 }} />
-      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(2,6,23,0.3) 0%, transparent 20%, transparent 80%, rgba(2,6,23,0.5) 100%)', zIndex: 1 }} />
-      {/* 텍스트 애니메이션 */}
-      <Sequence from={0}><TitleSequence /></Sequence>
-    </AbsoluteFill>
+      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at center, transparent 30%, rgba(2,6,23,0.7) 100%)', zIndex: 1, pointerEvents: 'none' }} />
+      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(2,6,23,0.3) 0%, transparent 20%, transparent 80%, rgba(2,6,23,0.5) 100%)', zIndex: 1, pointerEvents: 'none' }} />
+    </div>
   );
-};
+}
 
 // ─── 메인 Export ─────────────────────────────────────────────────────────────
 export default function RemotionHero() {
@@ -185,13 +189,21 @@ export default function RemotionHero() {
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden', background: '#020617' }}>
+      {/* 영상 레이어 (z-index 0) */}
+      <BackgroundVideo />
+      {/* Remotion 텍스트 레이어 (z-index 10, pointerEvents none → 클릭 통과, 버튼만 auto) */}
       <Player
         component={LuminaComposition}
         durationInFrames={3600}
         compositionWidth={dim.w}
         compositionHeight={dim.h}
         fps={60}
-        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', background: '#020617', zIndex: 1 }}
+        style={{
+          position: 'absolute', inset: 0, width: '100%', height: '100%',
+          background: 'transparent', zIndex: 10,
+          pointerEvents: 'none',
+        }}
+        clickToPlay={false}
         autoPlay
         loop
       />
