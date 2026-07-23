@@ -1,7 +1,12 @@
 'use client';
-import { Player } from '@remotion/player';
+import dynamic from 'next/dynamic';
 import { AbsoluteFill, useCurrentFrame, interpolate, Sequence, Easing } from 'remotion';
 import React, { useState, useEffect, useRef } from 'react';
+
+const Player = dynamic(
+  () => import('@remotion/player').then((m) => ({ default: m.Player })),
+  { ssr: false, loading: () => null }
+);
 import Link from 'next/link';
 
 /**
