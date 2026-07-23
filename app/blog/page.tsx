@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { supabase } from '@/lib/supabase';
 interface BlogPost {
   id: string; title: string; content: string; author: string;
   created_at: string; cover_image?: string; attachments?: { name: string; url: string }[];
@@ -13,10 +14,15 @@ export default function BlogPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/posts?type=blog')
-      .then(r => r.json())
-      .then(d => { if (Array.isArray(d)) setPosts(d as BlogPost[]); })
-      .finally(() => setLoading(false));
+    (async () => {
+      try {
+        const { data } = await supabase.from('posts').select('*')
+          .eq('type', 'blog').order('created_at', { ascending: false });
+        if (data) setPosts(data as BlogPost[]);
+      } finally {
+        setLoading(false);
+      }
+    })();
   }, []);
 
   const excerpt = (html: string, len = 120) => {
