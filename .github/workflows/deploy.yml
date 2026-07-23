@@ -21,6 +21,17 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Prepare NAS directory
+        uses: appleboy/ssh-action@v1
+        with:
+          host: hy64.synology.me
+          username: urjent
+          key: ${{ secrets.NAS_SSH_PRIVATE_KEY }}
+          script_stop: false
+          script: |
+            mkdir -p /volume1/web/newhome2026
+            exit 0
+
       - name: Copy build to NAS
         uses: appleboy/scp-action@v0.1.7
         with:
