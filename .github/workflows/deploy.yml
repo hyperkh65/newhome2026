@@ -52,8 +52,11 @@ jobs:
             mkdir -p /volume1/web/newhome2026/.next/standalone/.next
             cp -r /volume1/web/newhome2026/.next/static /volume1/web/newhome2026/.next/standalone/.next/static 2>/dev/null || true
             cp -r /volume1/web/newhome2026/public /volume1/web/newhome2026/.next/standalone/public 2>/dev/null || true
-            kill $(cat /tmp/newhome.pid 2>/dev/null) 2>/dev/null || true
-            fuser -k 3102/tcp 2>/dev/null || true
+            OLD_PID=$(cat /tmp/newhome.pid 2>/dev/null)
+            [ -n "$OLD_PID" ] && kill $OLD_PID 2>/dev/null || true
+            PORT_PID=$(netstat -tlnp 2>/dev/null | grep ':3102 ' | awk '{print $NF}' | cut -d'/' -f1)
+            [ -n "$PORT_PID" ] && kill $PORT_PID 2>/dev/null || true
+            sleep 1
             PORT=3102 $NODE /volume1/web/newhome2026/.next/standalone/server.js >> /tmp/newhome.log 2>&1 &
             echo $! > /tmp/newhome.pid
             echo "Started PID=$(cat /tmp/newhome.pid) on port 3102"
