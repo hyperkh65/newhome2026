@@ -17,7 +17,8 @@ export default function BlogPage() {
   useEffect(() => {
     supabase.from('posts').select('*')
       .eq('type', 'blog').order('created_at', { ascending: false })
-      .then(({ data }) => { if (data) setPosts(data as BlogPost[]); setLoading(false); });
+      .then(({ data }) => { if (data) setPosts(data as BlogPost[]); setLoading(false); })
+      .catch(() => setLoading(false));
   }, []);
 
   const excerpt = (html: string, len = 120) => {

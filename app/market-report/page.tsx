@@ -39,7 +39,8 @@ export default function BoardPage() {
   useEffect(() => {
     supabase.from('posts').select('*')
       .eq('type', 'report').order('created_at', { ascending: false })
-      .then(({ data }) => { if (data) setPosts(data as Post[]); setLoading(false); });
+      .then(({ data }) => { if (data) setPosts(data as Post[]); setLoading(false); })
+      .catch(() => setLoading(false));
   }, []);
 
   const openPost = async (post: Post) => {
