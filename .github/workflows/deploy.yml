@@ -3,6 +3,7 @@ name: Deploy to NAS
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -27,10 +28,8 @@ jobs:
           host: hy64.synology.me
           username: urjent
           key: ${{ secrets.NAS_SSH_PRIVATE_KEY }}
-          script_stop: false
           script: |
             mkdir -p /volume1/web/newhome2026
-            exit 0
 
       - name: Copy build to NAS
         uses: appleboy/scp-action@v0.1.7
@@ -48,19 +47,13 @@ jobs:
           username: urjent
           key: ${{ secrets.NAS_SSH_PRIVATE_KEY }}
           command_timeout: 2m
-          script_stop: false
           script: |
             NODE=/volume1/homes/urjent/runtime/node-v22.16.0-linux-x64/bin/node
-
             mkdir -p /volume1/web/newhome2026/.next/standalone/.next
-
-            cp -r /volume1/web/newhome2026/.next/static /volume1/web/newhome2026/.next/standalone/.next/static 2>/dev/null
-            cp -r /volume1/web/newhome2026/public /volume1/web/newhome2026/.next/standalone/public 2>/dev/null
-
-            kill $(cat /tmp/newhome.pid 2>/dev/null) 2>/dev/null
+            cp -r /volume1/web/newhome2026/.next/static /volume1/web/newhome2026/.next/standalone/.next/static 2>/dev/null || true
+            cp -r /volume1/web/newhome2026/public /volume1/web/newhome2026/.next/standalone/public 2>/dev/null || true
+            kill $(cat /tmp/newhome.pid 2>/dev/null) 2>/dev/null || true
             fuser -k 3102/tcp 2>/dev/null || true
-
             PORT=3102 $NODE /volume1/web/newhome2026/.next/standalone/server.js >> /tmp/newhome.log 2>&1 &
             echo $! > /tmp/newhome.pid
             echo "Started PID=$(cat /tmp/newhome.pid) on port 3102"
-            exit 0
