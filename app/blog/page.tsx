@@ -15,10 +15,15 @@ export default function BlogPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    supabase.from('posts').select('*')
-      .eq('type', 'blog').order('created_at', { ascending: false })
-      .then(({ data }) => { if (data) setPosts(data as BlogPost[]); setLoading(false); })
-      .catch(() => setLoading(false));
+    (async () => {
+      try {
+        const { data } = await supabase.from('posts').select('*')
+          .eq('type', 'blog').order('created_at', { ascending: false });
+        if (data) setPosts(data as BlogPost[]);
+      } finally {
+        setLoading(false);
+      }
+    })();
   }, []);
 
   const excerpt = (html: string, len = 120) => {
