@@ -256,7 +256,7 @@ export default function Home() {
         target="_blank"
         rel="noopener noreferrer"
         style={{
-          position: 'fixed', left: 0, top: '50%', transform: 'translateY(-50%)',
+          position: 'fixed', left: 40, top: '50%', transform: 'translateY(-50%)',
           zIndex: 9000, textDecoration: 'none',
           display: 'flex', flexDirection: 'column', alignItems: 'center',
           background: 'linear-gradient(180deg, #1e40af 0%, #1d4ed8 100%)',
