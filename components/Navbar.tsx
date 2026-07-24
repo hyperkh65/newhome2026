@@ -188,6 +188,11 @@ export default function Navbar() {
                 </div>
               )}
             </div>
+
+            <a href="https://www.ynk2014.com" target="_blank" rel="noopener noreferrer"
+              style={{ ...navItemStyle(), textDecoration: 'none', background: 'rgba(139,92,246,0.15)', border: '1px solid rgba(139,92,246,0.35)', color: '#c4b5fd' }}>
+              📖 English Study
+            </a>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -212,16 +217,6 @@ export default function Navbar() {
               )}
             </div>
 
-            <a href="https://ynk2014.com/english" target="_blank" rel="noopener noreferrer"
-              style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 14px', borderRadius: 20, textDecoration: 'none', fontWeight: 700, fontSize: 13, whiteSpace: 'nowrap',
-                background: 'linear-gradient(135deg, rgba(99,102,241,0.25), rgba(139,92,246,0.25))',
-                border: '1px solid rgba(139,92,246,0.4)', color: '#c4b5fd', transition: 'all 0.2s',
-                letterSpacing: 0.3 }}
-              onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = 'linear-gradient(135deg, rgba(99,102,241,0.45), rgba(139,92,246,0.45))'; (e.currentTarget as HTMLAnchorElement).style.color = '#fff'; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = 'linear-gradient(135deg, rgba(99,102,241,0.25), rgba(139,92,246,0.25))'; (e.currentTarget as HTMLAnchorElement).style.color = '#c4b5fd'; }}
-            >
-              <span style={{ fontSize: 15 }}>📖</span> English Study
-            </a>
 
             <Link href="/cart" style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.1)', cursor: 'pointer', width: 44, height: 44, borderRadius: '50%', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', transition: '0.3s', textDecoration: 'none' }}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
