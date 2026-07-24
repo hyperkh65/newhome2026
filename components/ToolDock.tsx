@@ -2,7 +2,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 
-type Tool = 'port' | 'cbm' | 'cost' | 'catalog' | null;
+type Tool = 'port' | 'cbm' | 'cost' | 'catalog' | 'erp' | null;
 
 // ── 스타일 ──────────────────────────────────────────────────────────
 const INP: React.CSSProperties = {
@@ -556,6 +556,7 @@ const TOOLS = [
   { id: 'cbm'  as Tool, icon: '📦', label: 'CBM계산기',  color: '#10b981' },
   { id: 'cost' as Tool, icon: '💰', label: '원가계산기',  color: '#f59e0b' },
   { id: 'catalog' as Tool, icon: '📚', label: '전자카탈로그', color: '#a855f7' },
+  { id: 'erp' as Tool, icon: '📊', label: 'ERP 시스템', color: '#1d4ed8', href: 'https://erp.ynk2014.com' },
 ];
 const TITLES: Record<string, string> = {
   port: '🚢 인천항 혼잡도',
@@ -621,8 +622,12 @@ export default function ToolDock() {
       <div style={{ position:'fixed', right:0, top:'50%', transform:'translateY(-50%)', zIndex:990, display:'flex', flexDirection:'column', gap:6 }}>
         {TOOLS.map(tool => {
           const isOn = hovered === tool.id || active === tool.id;
+          const handleClick = () => {
+            if ((tool as any).href) { window.open((tool as any).href, '_blank', 'noopener,noreferrer'); return; }
+            setActive(active === tool.id ? null : tool.id);
+          };
           return (
-            <button key={tool.id!} onClick={() => setActive(active === tool.id ? null : tool.id)}
+            <button key={tool.id!} onClick={handleClick}
               onMouseEnter={() => setHovered(tool.id)} onMouseLeave={() => setHovered(null)}
               style={{ display:'flex', alignItems:'center', height:52, background: active===tool.id ? tool.color : 'rgba(10,14,26,0.88)', border:`1px solid ${isOn ? tool.color : 'rgba(255,255,255,0.13)'}`, borderRight:'none', borderRadius:'12px 0 0 12px', color: isOn ? '#fff' : 'rgba(255,255,255,0.75)', cursor:'pointer', fontFamily:'inherit', backdropFilter:'blur(12px)', transition:'all 0.22s cubic-bezier(0.34,1.56,0.64,1)', boxShadow: isOn ? `0 0 20px ${tool.color}50` : '0 4px 16px rgba(0,0,0,0.35)', overflow:'hidden', maxWidth: isOn ? 160 : 52, padding: 0 }}>
               <span style={{ width:52, flexShrink:0, display:'flex', alignItems:'center', justifyContent:'center', fontSize:21 }}>{tool.icon}</span>
