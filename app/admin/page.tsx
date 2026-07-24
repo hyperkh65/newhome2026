@@ -124,7 +124,7 @@ export default function AdminPage() {
   const isLoggedIn = useAdminStore(s => s.isLoggedIn);
   const logout     = useAdminStore(s => s.logout);
 
-  const [tab, setTab]   = useState<'dashboard' | 'products' | 'report' | 'board' | 'blog' | 'settings' | 'faq' | 'contact_mgr' | 'install' | 'as_mgr' | 'catalog' | 'banner'>('dashboard');
+  const [tab, setTab]   = useState<'dashboard' | 'products' | 'report' | 'board' | 'blog' | 'settings' | 'faq' | 'contact_mgr' | 'install' | 'as_mgr' | 'catalog' | 'banner' | 'suppliers'>('dashboard');
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState<Post[]>([]);
   const [editPost, setEditPost] = useState<Post | null>(null);
@@ -147,10 +147,16 @@ export default function AdminPage() {
   const [editCatalog, setEditCatalog] = useState<CatalogItem | null>(null);
   const [banners, setBanners] = useState<Banner[]>([]);
   const [editBanner, setEditBanner] = useState<Banner | null>(null);
+  const [supplierList, setSupplierList] = useState<any[]>([]);
+  const [selectedSupplier, setSelectedSupplier] = useState<any | null>(null);
+  const [supplierProducts, setSupplierProducts] = useState<any[]>([]);
+  const [supplierDocuments, setSupplierDocuments] = useState<any[]>([]);
+  const [adminNote, setAdminNote] = useState('');
+  const [supplierFilter, setSupplierFilter] = useState<'all' | 'pending' | 'approved' | 'rejected'>('all');
 
   useEffect(() => {
     if (!isLoggedIn) router.push('/admin/login');
-    else { fetchPosts(); fetchSettings(); fetchProducts(); fetchFaq(); fetchInquiries(); fetchGuides(); fetchCatalogs(); fetchBanners(); }
+    else { fetchPosts(); fetchSettings(); fetchProducts(); fetchFaq(); fetchInquiries(); fetchGuides(); fetchCatalogs(); fetchBanners(); fetchSupplierList(); }
   }, [isLoggedIn]);
 
   async function fetchProducts() {
@@ -184,6 +190,23 @@ export default function AdminPage() {
   async function fetchBanners() {
     const { data } = await supabase.from('banners').select('*').order('created_at', { ascending: false });
     if (data) setBanners(data as Banner[]);
+  }
+  async function fetchSupplierList() {
+    const { data } = await supabase.from('suppliers').select('*').order('created_at', { ascending: false });
+    if (data) setSupplierList(data);
+  }
+  async function openSupplier(sup: any) {
+    setSelectedSupplier(sup);
+    setAdminNote(sup.admin_notes || '');
+    const { data: p } = await supabase.from('supplier_products').select('*').eq('supplier_id', sup.id).order('created_at', { ascending: false });
+    setSupplierProducts(p || []);
+    const { data: d } = await supabase.from('supplier_documents').select('*').eq('supplier_id', sup.id).order('created_at', { ascending: false });
+    setSupplierDocuments(d || []);
+  }
+  async function updateSupplierStatus(id: string, status: string) {
+    await supabase.from('suppliers').update({ status, admin_notes: adminNote }).eq('id', id);
+    await fetchSupplierList();
+    setSelectedSupplier((prev: any) => prev ? { ...prev, status, admin_notes: adminNote } : null);
   }
   async function handleSaveBanner() {
     if (!editBanner) return;
@@ -417,6 +440,7 @@ export default function AdminPage() {
     { key: 'as_mgr',     label: 'A/S 관리',  icon: '🔧', badge: inquiries.filter(i=>i.type==='as' && i.status==='pending').length },
     { key: 'catalog',    label: '전자카탈로그', icon: '📚', badge: catalogItems.length },
     { key: 'banner',     label: '배너 관리',   icon: '🎯', badge: banners.filter(b=>b.is_active).length },
+    { key: 'suppliers',  label: '공급사 관리',  icon: '🌐', badge: supplierList.filter(s=>s.status==='pending').length },
   ];
 
   const filteredProducts = dbProducts.filter(p => {
@@ -1439,6 +1463,186 @@ create policy "Auth write" on banners for all using (true);`}
                   ))}
                 </div>
               )}
+            </div>
+          </div>
+        )}
+
+        {/* ── 공급사 관리 ── */}
+        {tab === 'suppliers' && !selectedSupplier && (
+          <div style={{ padding: '40px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 28 }}>
+              <div>
+                <h1 style={{ fontSize: 26, fontWeight: 900, marginBottom: 6 }}>🌐 공급사 관리</h1>
+                <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)' }}>해외 공급사 등록 신청을 검토하고 승인/반려합니다.</p>
+              </div>
+              <div style={{ display: 'flex', gap: 6 }}>
+                {(['all','pending','approved','rejected'] as const).map(f => (
+                  <button key={f} onClick={() => setSupplierFilter(f)}
+                    style={{ padding: '8px 14px', borderRadius: 8, border: `1px solid ${supplierFilter === f ? '#3b82f6' : 'rgba(255,255,255,0.1)'}`,
+                      background: supplierFilter === f ? 'rgba(59,130,246,0.15)' : 'transparent',
+                      color: supplierFilter === f ? '#60a5fa' : 'rgba(255,255,255,0.4)', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>
+                    {f === 'all' ? '전체' : f === 'pending' ? '⏳ 검토중' : f === 'approved' ? '✅ 승인' : '❌ 반려'}
+                    {' '}({f === 'all' ? supplierList.length : supplierList.filter(s=>s.status===f).length})
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div style={sectionCard}>
+              {supplierList.filter(s => supplierFilter === 'all' || s.status === supplierFilter).length === 0 ? (
+                <div style={{ textAlign: 'center', padding: '60px 0', color: 'rgba(255,255,255,0.3)' }}>
+                  <div style={{ fontSize: 36, marginBottom: 12 }}>🌐</div>
+                  <p style={{ fontSize: 14 }}>등록된 공급사가 없습니다.</p>
+                </div>
+              ) : (
+                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                  <thead>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+                      {['회사명','담당자','국가','이메일','가입일','상태',''].map(h => (
+                        <th key={h} style={{ textAlign: 'left', padding: '8px 12px', fontSize: 11, color: 'rgba(255,255,255,0.35)', fontWeight: 700, letterSpacing: 0.5 }}>{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {supplierList.filter(s => supplierFilter === 'all' || s.status === supplierFilter).map((s: any) => (
+                      <tr key={s.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+                        <td style={{ padding: '12px 12px', fontSize: 14, fontWeight: 700, color: '#fff' }}>{s.company_name}</td>
+                        <td style={{ padding: '12px 12px', fontSize: 13, color: 'rgba(255,255,255,0.6)' }}>{s.contact_name || '—'}</td>
+                        <td style={{ padding: '12px 12px', fontSize: 13, color: 'rgba(255,255,255,0.6)' }}>{s.country || '—'}</td>
+                        <td style={{ padding: '12px 12px', fontSize: 12, color: '#60a5fa' }}>{s.email || '—'}</td>
+                        <td style={{ padding: '12px 12px', fontSize: 11, color: 'rgba(255,255,255,0.35)' }}>{new Date(s.created_at).toLocaleDateString('ko-KR')}</td>
+                        <td style={{ padding: '12px 12px' }}>
+                          <span style={{ padding: '3px 10px', borderRadius: 6, fontSize: 11, fontWeight: 700,
+                            background: s.status === 'approved' ? 'rgba(16,185,129,0.15)' : s.status === 'rejected' ? 'rgba(239,68,68,0.12)' : 'rgba(245,158,11,0.15)',
+                            color: s.status === 'approved' ? '#4ade80' : s.status === 'rejected' ? '#f87171' : '#fbbf24' }}>
+                            {s.status === 'approved' ? '✅ 승인' : s.status === 'rejected' ? '❌ 반려' : '⏳ 검토중'}
+                          </span>
+                        </td>
+                        <td style={{ padding: '12px 12px' }}>
+                          <button onClick={() => openSupplier(s)}
+                            style={{ padding: '6px 14px', borderRadius: 7, border: '1px solid rgba(255,255,255,0.15)', background: 'transparent', color: '#94a3b8', fontSize: 12, cursor: 'pointer' }}>
+                            상세 보기
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
+          </div>
+        )}
+
+        {tab === 'suppliers' && selectedSupplier && (
+          <div style={{ padding: '40px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 28 }}>
+              <button onClick={() => setSelectedSupplier(null)}
+                style={{ padding: '8px 14px', borderRadius: 8, border: '1px solid rgba(255,255,255,0.1)', background: 'transparent', color: '#94a3b8', fontSize: 12, cursor: 'pointer' }}>
+                ← 목록
+              </button>
+              <div>
+                <h1 style={{ fontSize: 22, fontWeight: 900, marginBottom: 2 }}>{selectedSupplier.company_name}</h1>
+                <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.35)' }}>공급사 ID: {selectedSupplier.id}</span>
+              </div>
+            </div>
+
+            {/* 회사 정보 */}
+            <div style={sectionCard}>
+              <h3 style={{ fontSize: 13, fontWeight: 800, color: '#60a5fa', marginBottom: 16 }}>🏢 회사 정보</h3>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px 24px' }}>
+                {[
+                  ['회사명', selectedSupplier.company_name], ['담당자', selectedSupplier.contact_name],
+                  ['국가', selectedSupplier.country], ['전화', selectedSupplier.phone],
+                  ['주소', selectedSupplier.address], ['사업자번호', selectedSupplier.business_reg_no],
+                  ['웹사이트', selectedSupplier.website],
+                ].map(([k, v]) => v ? (
+                  <div key={k}>
+                    <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.35)', fontWeight: 700, letterSpacing: 0.5, marginBottom: 3 }}>{k}</div>
+                    <div style={{ fontSize: 13, color: '#fff' }}>{v}</div>
+                  </div>
+                ) : null)}
+              </div>
+            </div>
+
+            {/* 제품 목록 */}
+            <div style={sectionCard}>
+              <h3 style={{ fontSize: 13, fontWeight: 800, color: '#a78bfa', marginBottom: 16 }}>📦 등록 제품 ({supplierProducts.length})</h3>
+              {supplierProducts.length === 0 ? (
+                <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.3)' }}>등록된 제품이 없습니다.</p>
+              ) : (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                  {supplierProducts.map((p: any) => (
+                    <div key={p.id} style={{ background: 'rgba(255,255,255,0.025)', borderRadius: 10, padding: '14px 16px', border: '1px solid rgba(255,255,255,0.07)' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+                        <div style={{ fontSize: 14, fontWeight: 700 }}>{p.name}</div>
+                        <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 5, background: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.4)' }}>{p.category || '미분류'}</span>
+                      </div>
+                      {p.description && <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)', margin: '0 0 8px' }}>{p.description}</p>}
+                      {p.specs && Object.keys(p.specs).length > 0 && (
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                          {Object.entries(p.specs).map(([k, v]) => (
+                            <span key={k} style={{ fontSize: 11, padding: '3px 8px', borderRadius: 5, background: 'rgba(167,139,250,0.1)', color: '#c4b5fd', border: '1px solid rgba(167,139,250,0.15)' }}>
+                              {k}: {String(v)}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* 문서 목록 */}
+            <div style={sectionCard}>
+              <h3 style={{ fontSize: 13, fontWeight: 800, color: '#34d399', marginBottom: 16 }}>📄 첨부 문서 ({supplierDocuments.length})</h3>
+              {supplierDocuments.length === 0 ? (
+                <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.3)' }}>첨부된 문서가 없습니다.</p>
+              ) : (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                  {supplierDocuments.map((d: any) => (
+                    <div key={d.id} style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'rgba(255,255,255,0.025)', borderRadius: 10, padding: '12px 14px', border: '1px solid rgba(255,255,255,0.07)' }}>
+                      <span style={{ fontSize: 20 }}>📄</span>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontSize: 13, fontWeight: 700 }}>{d.name}</div>
+                        <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)' }}>{d.doc_type}</div>
+                      </div>
+                      <a href={d.url} target="_blank" rel="noopener noreferrer"
+                        style={{ padding: '6px 14px', borderRadius: 7, background: 'rgba(52,211,153,0.1)', color: '#34d399', fontSize: 12, fontWeight: 700, textDecoration: 'none', border: '1px solid rgba(52,211,153,0.2)' }}>
+                        열기
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* 관리자 처리 */}
+            <div style={sectionCard}>
+              <h3 style={{ fontSize: 13, fontWeight: 800, color: '#f59e0b', marginBottom: 16 }}>⚙️ 심사 처리</h3>
+              <div style={{ marginBottom: 14 }}>
+                <label style={{ display: 'block', fontSize: 11, color: 'rgba(255,255,255,0.45)', marginBottom: 7, fontWeight: 700, letterSpacing: 0.5 }}>관리자 메모</label>
+                <textarea value={adminNote} onChange={e => setAdminNote(e.target.value)} rows={3} placeholder="승인/반려 사유, 특이사항 등..."
+                  style={{ width: '100%', padding: '11px 14px', borderRadius: 10, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontSize: 14, fontFamily: 'inherit', resize: 'vertical', boxSizing: 'border-box' }} />
+              </div>
+              <div style={{ display: 'flex', gap: 10 }}>
+                <button onClick={() => updateSupplierStatus(selectedSupplier.id, 'approved')}
+                  style={{ flex: 1, padding: '12px', background: 'rgba(16,185,129,0.15)', color: '#4ade80', border: '1px solid rgba(16,185,129,0.3)', borderRadius: 10, fontWeight: 800, fontSize: 14, cursor: 'pointer' }}>
+                  ✅ 승인
+                </button>
+                <button onClick={() => updateSupplierStatus(selectedSupplier.id, 'pending')}
+                  style={{ flex: 1, padding: '12px', background: 'rgba(245,158,11,0.12)', color: '#fbbf24', border: '1px solid rgba(245,158,11,0.25)', borderRadius: 10, fontWeight: 800, fontSize: 14, cursor: 'pointer' }}>
+                  ⏳ 검토중
+                </button>
+                <button onClick={() => updateSupplierStatus(selectedSupplier.id, 'rejected')}
+                  style={{ flex: 1, padding: '12px', background: 'rgba(239,68,68,0.1)', color: '#f87171', border: '1px solid rgba(239,68,68,0.2)', borderRadius: 10, fontWeight: 800, fontSize: 14, cursor: 'pointer' }}>
+                  ❌ 반려
+                </button>
+              </div>
+              <div style={{ marginTop: 12, padding: '10px 14px', borderRadius: 8, background: 'rgba(255,255,255,0.03)', fontSize: 12, color: 'rgba(255,255,255,0.4)' }}>
+                현재 상태: <strong style={{ color: selectedSupplier.status === 'approved' ? '#4ade80' : selectedSupplier.status === 'rejected' ? '#f87171' : '#fbbf24' }}>
+                  {selectedSupplier.status === 'approved' ? '✅ 승인됨' : selectedSupplier.status === 'rejected' ? '❌ 반려됨' : '⏳ 검토중'}
+                </strong>
+              </div>
             </div>
           </div>
         )}
