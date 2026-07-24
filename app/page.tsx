@@ -249,6 +249,28 @@ export default function Home() {
       <Footer />
       <ToolDock />
       <ManualSidebar />
+
+      {/* ERP 좌측 고정 배너 */}
+      <a
+        href="https://erp.ynk2014.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          position: 'fixed', left: 0, top: '50%', transform: 'translateY(-50%)',
+          zIndex: 9000, textDecoration: 'none',
+          display: 'flex', flexDirection: 'column', alignItems: 'center',
+          background: 'linear-gradient(180deg, #1e40af 0%, #1d4ed8 100%)',
+          color: '#fff', borderRadius: '0 12px 12px 0',
+          padding: '14px 10px', gap: 6,
+          boxShadow: '2px 0 16px rgba(29,78,216,0.35)',
+          transition: 'padding 0.2s',
+        }}
+        onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.paddingRight = '14px'; }}
+        onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.paddingRight = '10px'; }}
+      >
+        <span style={{ fontSize: 18 }}>📊</span>
+        <span style={{ fontSize: 11, fontWeight: 800, letterSpacing: 1.5, writingMode: 'vertical-rl', textOrientation: 'mixed' }}>ERP</span>
+      </a>
     </main>
   );
 }
