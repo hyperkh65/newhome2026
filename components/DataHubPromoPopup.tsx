@@ -1,74 +1,174 @@
 'use client';
 
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { supabase } from '@/lib/supabase';
 
-const STORAGE_KEY = 'ynk-datahub-popup-hide-until';
-const HIDE_MS = 24 * 60 * 60 * 1000;
+interface Banner {
+  id: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+  link_url: string;
+  link_text: string;
+  is_active: boolean;
+  hide_hours: number;
+  stats: { value: string; label: string }[];
+  position: string;
+}
 
-function shouldShowPopup() {
-  if (typeof window === 'undefined') return false;
-  const hiddenUntil = window.localStorage.getItem(STORAGE_KEY);
-  if (!hiddenUntil) return true;
-  const expiresAt = Number(hiddenUntil);
-  if (!Number.isFinite(expiresAt)) return true;
-  return Date.now() > expiresAt;
+const FALLBACK: Omit<Banner, 'is_active' | 'position'> = {
+  id: 'datahub-fallback',
+  eyebrow: 'YnK DATA HUB',
+  title: '조달·민수 데이터 허브',
+  description: '조달 등록 제품, 업체, 가격 흐름을 한 화면에서 검색해보세요.',
+  link_url: 'https://data.ynk2014.com',
+  link_text: '데이터 허브 바로가기',
+  hide_hours: 24,
+  stats: [
+    { value: '13,062', label: '조달 제품' },
+    { value: '1,059', label: '등록 업체' },
+  ],
+};
+
+function storageKey(id: string) {
+  return `ynk-banner-hide-${id}`;
+}
+function isHidden(id: string) {
+  if (typeof window === 'undefined') return true;
+  const v = localStorage.getItem(storageKey(id));
+  return v ? Date.now() < Number(v) : false;
+}
+function hideFor(id: string, hours: number) {
+  localStorage.setItem(storageKey(id), String(Date.now() + hours * 3600 * 1000));
+}
+
+function BannerCard({ b, onClose }: { b: Omit<Banner, 'is_active' | 'position'>; onClose: () => void }) {
+  const [dismissed, setDismissed] = useState(false);
+  if (dismissed) return null;
+
+  return (
+    <div style={{
+      background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+      border: '1px solid rgba(56,189,248,0.25)',
+      borderRadius: 20,
+      padding: '24px 22px 20px',
+      width: 280,
+      boxShadow: '0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04)',
+      position: 'relative',
+      fontFamily: 'Inter, -apple-system, sans-serif',
+    }}>
+      {/* 닫기 버튼 */}
+      <button
+        onClick={() => { setDismissed(true); onClose(); }}
+        style={{
+          position: 'absolute', top: 12, right: 14,
+          background: 'rgba(255,255,255,0.06)', border: 'none',
+          color: 'rgba(255,255,255,0.4)', width: 24, height: 24,
+          borderRadius: '50%', cursor: 'pointer', fontSize: 16, lineHeight: 1,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+        }}
+        aria-label="닫기"
+      >×</button>
+
+      {/* 뱃지 */}
+      <div style={{
+        display: 'inline-flex', alignItems: 'center', gap: 6, marginBottom: 14,
+        padding: '4px 10px', background: 'rgba(56,189,248,0.12)',
+        border: '1px solid rgba(56,189,248,0.3)', borderRadius: 20,
+      }}>
+        <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#38bdf8', boxShadow: '0 0 6px #38bdf8' }} />
+        <span style={{ fontSize: 10, fontWeight: 800, color: '#38bdf8', letterSpacing: 1.5 }}>{b.eyebrow}</span>
+      </div>
+
+      {/* 제목 */}
+      <h3 style={{ margin: '0 0 8px', fontSize: 17, fontWeight: 900, color: '#fff', lineHeight: 1.3 }}>{b.title}</h3>
+
+      {/* 설명 */}
+      <p style={{ margin: '0 0 16px', fontSize: 12.5, color: 'rgba(255,255,255,0.55)', lineHeight: 1.65 }}>{b.description}</p>
+
+      {/* 통계 */}
+      {b.stats && b.stats.length > 0 && (
+        <div style={{ display: 'flex', gap: 8, marginBottom: 18 }}>
+          {b.stats.map((s, i) => (
+            <div key={i} style={{
+              flex: 1, background: 'rgba(255,255,255,0.04)', borderRadius: 10,
+              padding: '10px 8px', textAlign: 'center',
+              border: '1px solid rgba(255,255,255,0.07)',
+            }}>
+              <div style={{ fontSize: 18, fontWeight: 900, color: '#38bdf8', letterSpacing: -0.5 }}>{s.value}</div>
+              <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.35)', marginTop: 2, fontWeight: 600 }}>{s.label}</div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* CTA 버튼 */}
+      <a
+        href={b.link_url}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          display: 'block', textAlign: 'center', padding: '11px',
+          background: 'linear-gradient(135deg, #0284c7, #38bdf8)',
+          color: '#fff', borderRadius: 10, fontSize: 13, fontWeight: 800,
+          textDecoration: 'none', marginBottom: 8,
+          boxShadow: '0 4px 16px rgba(2,132,199,0.35)',
+        }}
+      >
+        {b.link_text} →
+      </a>
+
+      {/* 오늘 하루 숨기기 */}
+      <button
+        onClick={() => { hideFor(b.id, b.hide_hours); setDismissed(true); onClose(); }}
+        style={{
+          display: 'block', width: '100%', background: 'none', border: 'none',
+          color: 'rgba(255,255,255,0.25)', fontSize: 11, cursor: 'pointer',
+          textAlign: 'center', padding: '4px 0',
+        }}
+      >
+        {b.hide_hours}시간 동안 보지 않기
+      </button>
+    </div>
+  );
 }
 
 export default function DataHubPromoPopup() {
-  const [open, setOpen] = useState(false);
+  const [banners, setBanners] = useState<Banner[]>([]);
+  const [ready, setReady] = useState(false);
+  const [closedIds, setClosedIds] = useState<Set<string>>(new Set());
 
   useEffect(() => {
-    setOpen(shouldShowPopup());
+    (async () => {
+      try {
+        const { data } = await supabase.from('banners').select('*').eq('is_active', true).order('created_at', { ascending: false });
+        if (data && data.length > 0) {
+          setBanners(data as Banner[]);
+        } else {
+          setBanners([{ ...FALLBACK, is_active: true, position: 'bottom-right' }]);
+        }
+      } catch {
+        setBanners([{ ...FALLBACK, is_active: true, position: 'bottom-right' }]);
+      } finally {
+        setReady(true);
+      }
+    })();
   }, []);
 
-  const closePopup = () => setOpen(false);
+  if (!ready) return null;
 
-  const hideForToday = () => {
-    if (typeof window !== 'undefined') {
-      window.localStorage.setItem(STORAGE_KEY, String(Date.now() + HIDE_MS));
-    }
-    setOpen(false);
-  };
-
-  if (!open) return null;
+  const visible = banners.filter(b => !isHidden(b.id) && !closedIds.has(b.id));
+  if (visible.length === 0) return null;
 
   return (
-    <div className="promo-popup">
-      <button
-        type="button"
-        aria-label="팝업 닫기"
-        className="promo-popup__close"
-        onClick={closePopup}
-      >
-        ×
-      </button>
-
-      <div className="promo-popup__eyebrow">NEW DATA SERVICE</div>
-      <h3 className="promo-popup__title">조달·민수 데이터 허브 오픈</h3>
-      <p className="promo-popup__text">
-        조달 등록 제품, 업체, 가격 흐름을 한 화면에서 검색해보세요.
-      </p>
-
-      <div className="promo-popup__stats">
-        <div>
-          <strong>13,062</strong>
-          <span>조달 제품</span>
-        </div>
-        <div>
-          <strong>1,059</strong>
-          <span>등록 업체</span>
-        </div>
-      </div>
-
-      <div className="promo-popup__actions">
-        <Link href="https://data.ynk2014.com" className="promo-popup__cta">
-          데이터 허브 보기
-        </Link>
-        <button type="button" className="promo-popup__mute" onClick={hideForToday}>
-          오늘 하루 보지 않기
-        </button>
-      </div>
+    <div style={{ position: 'fixed', bottom: 24, right: 24, zIndex: 1200, display: 'flex', flexDirection: 'column', gap: 12 }}>
+      {visible.map(b => (
+        <BannerCard
+          key={b.id}
+          b={b}
+          onClose={() => setClosedIds(prev => new Set([...prev, b.id]))}
+        />
+      ))}
     </div>
   );
 }

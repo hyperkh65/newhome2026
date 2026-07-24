@@ -26,6 +26,9 @@ interface Inquiry {
 }
 interface InstallGuide { id?: string; title: string; video_url: string; thumbnail: string; description: string; order_num: number; }
 interface CatalogItem { id?: string; title: string; description: string; pdf_url: string; thumbnail: string; category: string; password: string; is_public: boolean; page_count: number; order_num: number; view_count?: number; }
+interface Banner { id?: string; eyebrow: string; title: string; description: string; link_url: string; link_text: string; is_active: boolean; hide_hours: number; stats: { value: string; label: string }[]; position: string; created_at?: string; }
+
+const EMPTY_BANNER: Banner = { eyebrow: 'NEW', title: '', description: '', link_url: '', link_text: '자세히 보기', is_active: true, hide_hours: 24, stats: [], position: 'bottom-right' };
 interface EditableProduct {
   id?: string; name: string; category: string; manufacturer: string; badge: string;
   description: string; image: string; images: string[]; specs: Record<string, string>;
@@ -121,7 +124,7 @@ export default function AdminPage() {
   const isLoggedIn = useAdminStore(s => s.isLoggedIn);
   const logout     = useAdminStore(s => s.logout);
 
-  const [tab, setTab]   = useState<'dashboard' | 'products' | 'report' | 'board' | 'blog' | 'settings' | 'faq' | 'contact_mgr' | 'install' | 'as_mgr' | 'catalog'>('dashboard');
+  const [tab, setTab]   = useState<'dashboard' | 'products' | 'report' | 'board' | 'blog' | 'settings' | 'faq' | 'contact_mgr' | 'install' | 'as_mgr' | 'catalog' | 'banner'>('dashboard');
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState<Post[]>([]);
   const [editPost, setEditPost] = useState<Post | null>(null);
@@ -142,10 +145,12 @@ export default function AdminPage() {
   const [editGuide, setEditGuide] = useState<InstallGuide | null>(null);
   const [catalogItems, setCatalogItems] = useState<CatalogItem[]>([]);
   const [editCatalog, setEditCatalog] = useState<CatalogItem | null>(null);
+  const [banners, setBanners] = useState<Banner[]>([]);
+  const [editBanner, setEditBanner] = useState<Banner | null>(null);
 
   useEffect(() => {
     if (!isLoggedIn) router.push('/admin/login');
-    else { fetchPosts(); fetchSettings(); fetchProducts(); fetchFaq(); fetchInquiries(); fetchGuides(); fetchCatalogs(); }
+    else { fetchPosts(); fetchSettings(); fetchProducts(); fetchFaq(); fetchInquiries(); fetchGuides(); fetchCatalogs(); fetchBanners(); }
   }, [isLoggedIn]);
 
   async function fetchProducts() {
@@ -175,6 +180,32 @@ export default function AdminPage() {
       const res = await fetch('/api/catalogs/admin');
       if (res.ok) { const data = await res.json(); setCatalogItems(data); }
     } catch {}
+  }
+  async function fetchBanners() {
+    const { data } = await supabase.from('banners').select('*').order('created_at', { ascending: false });
+    if (data) setBanners(data as Banner[]);
+  }
+  async function handleSaveBanner() {
+    if (!editBanner) return;
+    setLoading(true);
+    try {
+      if (editBanner.id) {
+        await supabase.from('banners').update({ ...editBanner }).eq('id', editBanner.id);
+      } else {
+        await supabase.from('banners').insert({ ...editBanner });
+      }
+      await fetchBanners();
+      setEditBanner(null);
+    } finally { setLoading(false); }
+  }
+  async function handleDeleteBanner(id: string) {
+    if (!confirm('이 배너를 삭제할까요?')) return;
+    await supabase.from('banners').delete().eq('id', id);
+    await fetchBanners();
+  }
+  async function toggleBannerActive(b: Banner) {
+    await supabase.from('banners').update({ is_active: !b.is_active }).eq('id', b.id!);
+    await fetchBanners();
   }
   async function fetchSettings() {
     const { data } = await supabase.from('site_settings').select('*');
@@ -385,6 +416,7 @@ export default function AdminPage() {
     { key: 'install',    label: '설치가이드', icon: '🎬', badge: installGuides.length },
     { key: 'as_mgr',     label: 'A/S 관리',  icon: '🔧', badge: inquiries.filter(i=>i.type==='as' && i.status==='pending').length },
     { key: 'catalog',    label: '전자카탈로그', icon: '📚', badge: catalogItems.length },
+    { key: 'banner',     label: '배너 관리',   icon: '🎯', badge: banners.filter(b=>b.is_active).length },
   ];
 
   const filteredProducts = dbProducts.filter(p => {
@@ -1335,6 +1367,136 @@ export default function AdminPage() {
                 </button>
               </div>
             </div>
+          </div>
+        )}
+
+        {/* ─────── 배너 관리 ─────── */}
+        {tab === 'banner' && !editBanner && (
+          <div style={{ padding: '40px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 28 }}>
+              <div>
+                <h1 style={{ fontSize: 26, fontWeight: 900, marginBottom: 6 }}>🎯 배너 관리</h1>
+                <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)' }}>홈페이지 하단에 표시되는 팝업 배너를 관리합니다.</p>
+              </div>
+              <button onClick={() => setEditBanner({ ...EMPTY_BANNER })}
+                style={{ padding: '10px 20px', background: '#3b82f6', color: '#fff', border: 'none', borderRadius: 10, fontWeight: 700, cursor: 'pointer', fontSize: 13 }}>
+                + 배너 추가
+              </button>
+            </div>
+            <div style={sectionCard}>
+              {banners.length === 0 ? (
+                <div style={{ textAlign: 'center', padding: '60px 0', color: 'rgba(255,255,255,0.3)' }}>
+                  <div style={{ fontSize: 36, marginBottom: 12 }}>🎯</div>
+                  <p style={{ fontSize: 14 }}>등록된 배너가 없습니다</p>
+                  <p style={{ fontSize: 12, marginTop: 8, color: 'rgba(255,255,255,0.2)' }}>
+                    ※ Supabase에 <code style={{ color: '#38bdf8' }}>banners</code> 테이블이 없으면 아래 SQL을 실행하세요.
+                  </p>
+                  <pre style={{ textAlign: 'left', background: 'rgba(255,255,255,0.04)', borderRadius: 10, padding: 16, fontSize: 11, color: '#a5f3fc', marginTop: 16, maxWidth: 600, margin: '16px auto 0', whiteSpace: 'pre-wrap' }}>
+{`create table banners (
+  id uuid primary key default gen_random_uuid(),
+  eyebrow text default 'NEW',
+  title text not null,
+  description text,
+  link_url text,
+  link_text text default '자세히 보기',
+  is_active boolean default true,
+  hide_hours int default 24,
+  stats jsonb default '[]',
+  position text default 'bottom-right',
+  created_at timestamptz default now()
+);
+alter table banners enable row level security;
+create policy "Public read" on banners for select using (true);
+create policy "Auth write" on banners for all using (true);`}
+                  </pre>
+                </div>
+              ) : (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                  {banners.map(b => (
+                    <div key={b.id} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 20px', background: 'rgba(255,255,255,0.03)', borderRadius: 12, border: '1px solid rgba(255,255,255,0.07)' }}>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                          <span style={{ fontSize: 11, fontWeight: 800, color: '#38bdf8', background: 'rgba(56,189,248,0.12)', padding: '2px 8px', borderRadius: 8 }}>{b.eyebrow}</span>
+                          <span style={{ fontSize: 14, fontWeight: 700, color: b.is_active ? '#fff' : 'rgba(255,255,255,0.4)' }}>{b.title}</span>
+                        </div>
+                        <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.35)' }}>{b.link_url}</div>
+                      </div>
+                      <button onClick={() => toggleBannerActive(b)}
+                        style={{ padding: '6px 14px', borderRadius: 8, border: 'none', fontSize: 11, fontWeight: 700, cursor: 'pointer',
+                          background: b.is_active ? 'rgba(16,185,129,0.15)' : 'rgba(255,255,255,0.05)',
+                          color: b.is_active ? '#10b981' : 'rgba(255,255,255,0.3)' }}>
+                        {b.is_active ? '● 활성' : '○ 비활성'}
+                      </button>
+                      <button onClick={() => setEditBanner(b)}
+                        style={{ padding: '6px 14px', borderRadius: 8, border: '1px solid rgba(255,255,255,0.1)', background: 'transparent', color: '#94a3b8', fontSize: 11, cursor: 'pointer' }}>
+                        편집
+                      </button>
+                      <button onClick={() => handleDeleteBanner(b.id!)}
+                        style={{ padding: '6px 14px', borderRadius: 8, border: 'none', background: 'rgba(239,68,68,0.1)', color: '#f87171', fontSize: 11, cursor: 'pointer' }}>
+                        삭제
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {tab === 'banner' && editBanner && (
+          <div style={{ padding: '40px', maxWidth: 700 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 28 }}>
+              <button onClick={() => setEditBanner(null)}
+                style={{ padding: '8px 14px', borderRadius: 8, border: '1px solid rgba(255,255,255,0.1)', background: 'transparent', color: '#94a3b8', fontSize: 12, cursor: 'pointer' }}>
+                ← 목록
+              </button>
+              <h1 style={{ fontSize: 22, fontWeight: 900 }}>{editBanner.id ? '배너 편집' : '배너 추가'}</h1>
+            </div>
+
+            <div style={sectionCard}>
+              <h3 style={{ fontSize: 13, fontWeight: 800, color: '#38bdf8', marginBottom: 20 }}>📝 배너 내용</h3>
+              {Field('뱃지 라벨 (예: YnK DATA HUB)', <input value={editBanner.eyebrow} onChange={e => setEditBanner({ ...editBanner, eyebrow: e.target.value })} placeholder="NEW" style={inputStyle} />)}
+              {Field('제목', <input value={editBanner.title} onChange={e => setEditBanner({ ...editBanner, title: e.target.value })} placeholder="배너 제목" style={inputStyle} />)}
+              {Field('설명', <textarea value={editBanner.description} onChange={e => setEditBanner({ ...editBanner, description: e.target.value })} placeholder="짧은 설명 문구" rows={3} style={{ ...inputStyle, resize: 'vertical' }} />)}
+              {Field('링크 URL', <input value={editBanner.link_url} onChange={e => setEditBanner({ ...editBanner, link_url: e.target.value })} placeholder="https://" style={inputStyle} />)}
+              {Field('버튼 텍스트', <input value={editBanner.link_text} onChange={e => setEditBanner({ ...editBanner, link_text: e.target.value })} placeholder="자세히 보기" style={inputStyle} />)}
+            </div>
+
+            <div style={sectionCard}>
+              <h3 style={{ fontSize: 13, fontWeight: 800, color: '#a78bfa', marginBottom: 20 }}>📊 통계 숫자 (선택)</h3>
+              {editBanner.stats.map((s, i) => (
+                <div key={i} style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
+                  <input value={s.value} onChange={e => { const arr = [...editBanner.stats]; arr[i] = { ...s, value: e.target.value }; setEditBanner({ ...editBanner, stats: arr }); }} placeholder="13,062" style={{ ...inputStyle, width: 120 }} />
+                  <input value={s.label} onChange={e => { const arr = [...editBanner.stats]; arr[i] = { ...s, label: e.target.value }; setEditBanner({ ...editBanner, stats: arr }); }} placeholder="조달 제품" style={inputStyle} />
+                  <button onClick={() => setEditBanner({ ...editBanner, stats: editBanner.stats.filter((_, j) => j !== i) })}
+                    style={{ padding: '0 14px', borderRadius: 8, border: 'none', background: 'rgba(239,68,68,0.1)', color: '#f87171', cursor: 'pointer' }}>×</button>
+                </div>
+              ))}
+              <button onClick={() => setEditBanner({ ...editBanner, stats: [...editBanner.stats, { value: '', label: '' }] })}
+                style={{ padding: '8px 16px', border: '1px dashed rgba(255,255,255,0.15)', borderRadius: 8, background: 'transparent', color: 'rgba(255,255,255,0.4)', fontSize: 12, cursor: 'pointer' }}>
+                + 통계 추가
+              </button>
+            </div>
+
+            <div style={sectionCard}>
+              <h3 style={{ fontSize: 13, fontWeight: 800, color: '#f59e0b', marginBottom: 20 }}>⚙️ 설정</h3>
+              <div style={{ display: 'flex', gap: 10, marginBottom: 16 }}>
+                {[{ v: true, l: '● 활성화' }, { v: false, l: '○ 비활성' }].map(o => (
+                  <button key={String(o.v)} onClick={() => setEditBanner({ ...editBanner, is_active: o.v })}
+                    style={{ flex: 1, padding: '10px', borderRadius: 8, border: `1px solid ${editBanner.is_active === o.v ? '#10b981' : 'rgba(255,255,255,0.1)'}`,
+                      background: editBanner.is_active === o.v ? 'rgba(16,185,129,0.15)' : 'transparent',
+                      color: editBanner.is_active === o.v ? '#10b981' : 'rgba(255,255,255,0.35)', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}>
+                    {o.l}
+                  </button>
+                ))}
+              </div>
+              {Field('숨기기 유지 시간 (시간 단위)', <input type="number" value={editBanner.hide_hours} onChange={e => setEditBanner({ ...editBanner, hide_hours: Number(e.target.value) })} min={1} max={720} style={inputStyle} />)}
+            </div>
+
+            <button onClick={handleSaveBanner} disabled={loading || !editBanner.title}
+              style={{ width: '100%', padding: '14px', background: '#3b82f6', color: '#fff', border: 'none', borderRadius: 12, fontWeight: 800, fontSize: 15, cursor: 'pointer', opacity: loading || !editBanner.title ? 0.5 : 1 }}>
+              {loading ? '저장 중...' : '💾 저장하기'}
+            </button>
           </div>
         )}
 
