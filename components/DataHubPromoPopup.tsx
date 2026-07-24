@@ -16,36 +16,36 @@ interface Banner {
   position: string;
 }
 
-const FALLBACK: Omit<Banner, 'is_active' | 'position'> = {
+const FALLBACK: Banner = {
   id: 'datahub-fallback',
   eyebrow: 'YnK DATA HUB',
   title: '조달·민수 데이터 허브',
   description: '조달 등록 제품, 업체, 가격 흐름을 한 화면에서 검색해보세요.',
   link_url: 'https://data.ynk2014.com',
   link_text: '데이터 허브 바로가기',
+  is_active: true,
   hide_hours: 24,
   stats: [
     { value: '13,062', label: '조달 제품' },
     { value: '1,059', label: '등록 업체' },
   ],
+  position: 'bottom-right',
 };
 
 function storageKey(id: string) {
   return `ynk-banner-hide-${id}`;
 }
 function isHidden(id: string) {
-  if (typeof window === 'undefined') return true;
-  const v = localStorage.getItem(storageKey(id));
-  return v ? Date.now() < Number(v) : false;
+  try {
+    const v = localStorage.getItem(storageKey(id));
+    return v ? Date.now() < Number(v) : false;
+  } catch { return false; }
 }
 function hideFor(id: string, hours: number) {
-  localStorage.setItem(storageKey(id), String(Date.now() + hours * 3600 * 1000));
+  try { localStorage.setItem(storageKey(id), String(Date.now() + hours * 3600 * 1000)); } catch {}
 }
 
-function BannerCard({ b, onClose }: { b: Omit<Banner, 'is_active' | 'position'>; onClose: () => void }) {
-  const [dismissed, setDismissed] = useState(false);
-  if (dismissed) return null;
-
+function BannerCard({ b, onClose }: { b: Banner; onClose: () => void }) {
   return (
     <div style={{
       background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
@@ -57,20 +57,18 @@ function BannerCard({ b, onClose }: { b: Omit<Banner, 'is_active' | 'position'>;
       position: 'relative',
       fontFamily: 'Inter, -apple-system, sans-serif',
     }}>
-      {/* 닫기 버튼 */}
       <button
-        onClick={() => { setDismissed(true); onClose(); }}
+        onClick={onClose}
         style={{
           position: 'absolute', top: 12, right: 14,
           background: 'rgba(255,255,255,0.06)', border: 'none',
-          color: 'rgba(255,255,255,0.4)', width: 24, height: 24,
-          borderRadius: '50%', cursor: 'pointer', fontSize: 16, lineHeight: 1,
+          color: 'rgba(255,255,255,0.5)', width: 24, height: 24,
+          borderRadius: '50%', cursor: 'pointer', fontSize: 15, lineHeight: '24px',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
         }}
         aria-label="닫기"
       >×</button>
 
-      {/* 뱃지 */}
       <div style={{
         display: 'inline-flex', alignItems: 'center', gap: 6, marginBottom: 14,
         padding: '4px 10px', background: 'rgba(56,189,248,0.12)',
@@ -80,13 +78,9 @@ function BannerCard({ b, onClose }: { b: Omit<Banner, 'is_active' | 'position'>;
         <span style={{ fontSize: 10, fontWeight: 800, color: '#38bdf8', letterSpacing: 1.5 }}>{b.eyebrow}</span>
       </div>
 
-      {/* 제목 */}
       <h3 style={{ margin: '0 0 8px', fontSize: 17, fontWeight: 900, color: '#fff', lineHeight: 1.3 }}>{b.title}</h3>
-
-      {/* 설명 */}
       <p style={{ margin: '0 0 16px', fontSize: 12.5, color: 'rgba(255,255,255,0.55)', lineHeight: 1.65 }}>{b.description}</p>
 
-      {/* 통계 */}
       {b.stats && b.stats.length > 0 && (
         <div style={{ display: 'flex', gap: 8, marginBottom: 18 }}>
           {b.stats.map((s, i) => (
@@ -102,7 +96,6 @@ function BannerCard({ b, onClose }: { b: Omit<Banner, 'is_active' | 'position'>;
         </div>
       )}
 
-      {/* CTA 버튼 */}
       <a
         href={b.link_url}
         target="_blank"
@@ -118,9 +111,8 @@ function BannerCard({ b, onClose }: { b: Omit<Banner, 'is_active' | 'position'>;
         {b.link_text} →
       </a>
 
-      {/* 오늘 하루 숨기기 */}
       <button
-        onClick={() => { hideFor(b.id, b.hide_hours); setDismissed(true); onClose(); }}
+        onClick={() => { hideFor(b.id, b.hide_hours); onClose(); }}
         style={{
           display: 'block', width: '100%', background: 'none', border: 'none',
           color: 'rgba(255,255,255,0.25)', fontSize: 11, cursor: 'pointer',
@@ -135,40 +127,29 @@ function BannerCard({ b, onClose }: { b: Omit<Banner, 'is_active' | 'position'>;
 
 export default function DataHubPromoPopup() {
   const [banners, setBanners] = useState<Banner[]>([]);
-  const [ready, setReady] = useState(false);
   const [closedIds, setClosedIds] = useState<Set<string>>(new Set());
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await supabase.from('banners').select('*').eq('is_active', true).order('created_at', { ascending: false });
-        if (data && data.length > 0) {
-          setBanners(data as Banner[]);
-        } else {
-          setBanners([{ ...FALLBACK, is_active: true, position: 'bottom-right' }]);
-        }
-      } catch {
-        setBanners([{ ...FALLBACK, is_active: true, position: 'bottom-right' }]);
-      } finally {
-        setReady(true);
-      }
-    })();
+    setMounted(true);
+    // 즉시 fallback 표시, DB 응답 오면 교체
+    setBanners([FALLBACK]);
+    supabase.from('banners').select('*').eq('is_active', true)
+      .order('created_at', { ascending: false })
+      .then(({ data }) => { if (data && data.length > 0) setBanners(data as Banner[]); })
+      .catch(() => {});
   }, []);
 
-  if (!ready) return null;
+  if (!mounted) return null;
 
   const visible = banners.filter(b => !isHidden(b.id) && !closedIds.has(b.id));
   if (visible.length === 0) return null;
 
+  const close = (id: string) => setClosedIds(prev => new Set([...prev, id]));
+
   return (
     <div style={{ position: 'fixed', bottom: 24, right: 24, zIndex: 1200, display: 'flex', flexDirection: 'column', gap: 12 }}>
-      {visible.map(b => (
-        <BannerCard
-          key={b.id}
-          b={b}
-          onClose={() => setClosedIds(prev => new Set([...prev, b.id]))}
-        />
-      ))}
+      {visible.map(b => <BannerCard key={b.id} b={b} onClose={() => close(b.id)} />)}
     </div>
   );
 }
