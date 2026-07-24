@@ -183,6 +183,16 @@
   padding-right: 4px;
 }
 
+.emptyState {
+  padding: 18px;
+  border-radius: 16px;
+  border: 1px dashed rgba(148, 163, 184, 0.4);
+  background: #f8fbfe;
+  color: #5b7284;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
 .entryCard {
   padding: 16px;
   border-radius: 16px;
@@ -288,6 +298,12 @@
   padding: 0 16px;
   font-weight: 800;
   cursor: pointer;
+}
+
+.primaryButton:disabled,
+.secondaryButton:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 
 .primaryButton {
@@ -463,6 +479,20 @@
   font-size: 13px;
   color: #64748b;
   line-height: 1.65;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.paginationMeta {
+  color: #516879;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
 }
 
 @media (max-width: 1180px) {

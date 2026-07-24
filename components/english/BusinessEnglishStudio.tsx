@@ -41,6 +41,7 @@ type StudyProgress = {
 
 const PROFILE_KEY = "english-study-profile-v1";
 const PROGRESS_KEY = "english-study-progress-v1";
+const PAGE_SIZE = 60;
 
 function formatNumber(value: number) {
   return new Intl.NumberFormat("en-US").format(value);
@@ -195,6 +196,7 @@ export function BusinessEnglishStudio() {
   const [category, setCategory] = useState("all");
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState(ENGLISH_ENTRIES[0]?.id ?? "");
+  const [page, setPage] = useState(1);
   const [tab, setTab] = useState<"overview" | "examples" | "practice">("overview");
   const [practiceSeed, setPracticeSeed] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
@@ -251,8 +253,16 @@ export function BusinessEnglishStudio() {
     return haystack.includes(query.trim().toLowerCase());
   });
 
+  const totalPages = Math.max(1, Math.ceil(filteredEntries.length / PAGE_SIZE));
+  const currentPage = Math.min(page, totalPages);
+  const pagedEntries = filteredEntries.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE
+  );
+
   const selectedEntry =
     filteredEntries.find((entry) => entry.id === selectedId) ??
+    pagedEntries[0] ??
     filteredEntries[0] ??
     ENGLISH_ENTRIES[0];
 
@@ -271,6 +281,24 @@ export function BusinessEnglishStudio() {
     progress.lastStudiedAt && daysBetween(progress.lastStudiedAt, new Date().toISOString()) === 0
       ? progress.studiedCards
       : progress.studiedCards;
+
+  useEffect(() => {
+    setPage(1);
+  }, [targetLevel, category, query]);
+
+  useEffect(() => {
+    if (page > totalPages) {
+      setPage(totalPages);
+    }
+  }, [page, totalPages]);
+
+  useEffect(() => {
+    if (!filteredEntries.length) return;
+    if (!filteredEntries.some((entry) => entry.id === selectedId)) {
+      setSelectedId(filteredEntries[0].id);
+      setShowAnswer(false);
+    }
+  }, [filteredEntries, selectedId]);
 
   function markEntry(type: "studied" | "mastered") {
     const now = new Date().toISOString();
@@ -424,7 +452,7 @@ export function BusinessEnglishStudio() {
             <div>
               <h2 className={styles.sectionTitle}>Study Library</h2>
               <p className={styles.profileNote}>
-                원하는 표현을 검색하고, 카테고리와 난이도별로 핵심 표현을 빠르게 찾을 수 있습니다.
+                5,000개 이상 학습 단위를 검색하고, 카테고리와 난이도별로 빠르게 좁혀 볼 수 있습니다.
               </p>
             </div>
 
@@ -450,10 +478,16 @@ export function BusinessEnglishStudio() {
 
             <div className={styles.searchMeta}>
               {formatNumber(filteredEntries.length)} expressions filtered / {formatNumber(practiceUniverseSize(filteredEntries))} drills
+              {filteredEntries.length ? (
+                <>
+                  {" "}
+                  · page {formatNumber(currentPage)} of {formatNumber(totalPages)}
+                </>
+              ) : null}
             </div>
 
             <div className={styles.entryList}>
-              {filteredEntries.map((entry) => {
+              {pagedEntries.map((entry) => {
                 const isMastered = progress.masteredEntries.includes(entry.id);
                 return (
                   <button
@@ -481,7 +515,36 @@ export function BusinessEnglishStudio() {
                   </button>
                 );
               })}
+              {!pagedEntries.length ? (
+                <div className={styles.emptyState}>
+                  검색 결과가 없습니다. 키워드나 카테고리를 바꿔서 다시 찾아보세요.
+                </div>
+              ) : null}
             </div>
+
+            {filteredEntries.length ? (
+              <div className={styles.pagination}>
+                <button
+                  className={styles.secondaryButton}
+                  onClick={() => setPage((current) => Math.max(1, current - 1))}
+                  disabled={currentPage === 1}
+                >
+                  Previous
+                </button>
+                <div className={styles.paginationMeta}>
+                  {formatNumber((currentPage - 1) * PAGE_SIZE + 1)}-
+                  {formatNumber(Math.min(currentPage * PAGE_SIZE, filteredEntries.length))} /{" "}
+                  {formatNumber(filteredEntries.length)}
+                </div>
+                <button
+                  className={styles.secondaryButton}
+                  onClick={() => setPage((current) => Math.min(totalPages, current + 1))}
+                  disabled={currentPage === totalPages}
+                >
+                  Next
+                </button>
+              </div>
+            ) : null}
           </aside>
 
           <div className={styles.content}>
