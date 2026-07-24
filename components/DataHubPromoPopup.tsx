@@ -134,10 +134,13 @@ export default function DataHubPromoPopup() {
     setMounted(true);
     // 즉시 fallback 표시, DB 응답 오면 교체
     setBanners([FALLBACK]);
-    supabase.from('banners').select('*').eq('is_active', true)
-      .order('created_at', { ascending: false })
-      .then(({ data }) => { if (data && data.length > 0) setBanners(data as Banner[]); })
-      .catch(() => {});
+    (async () => {
+      try {
+        const { data } = await supabase.from('banners').select('*').eq('is_active', true)
+          .order('created_at', { ascending: false });
+        if (data && data.length > 0) setBanners(data as Banner[]);
+      } catch {}
+    })();
   }, []);
 
   if (!mounted) return null;
