@@ -22,6 +22,17 @@ import {
 
 import styles from "./BusinessEnglishStudio.module.css";
 
+type EntryGroup = {
+  key: string;
+  expression: string;
+  korean: string;
+  level: EnglishLevel;
+  kind: EnglishEntry["kind"];
+  categories: string[];
+  grammarPattern: string;
+  variants: EnglishEntry[];
+};
+
 type StudyProfile = {
   name: string;
   email: string;
@@ -190,6 +201,33 @@ function daysBetween(a: string, b: string) {
   return Math.round((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
 }
 
+function buildGroups(entries: EnglishEntry[]) {
+  const map = new Map<string, EntryGroup>();
+
+  for (const entry of entries) {
+    const key = `${entry.level}:${entry.baseExpression}`;
+    const existing = map.get(key);
+    if (existing) {
+      existing.variants.push(entry);
+      existing.categories = Array.from(new Set([...existing.categories, ...entry.categories]));
+      continue;
+    }
+
+    map.set(key, {
+      key,
+      expression: entry.baseExpression,
+      korean: entry.korean,
+      level: entry.level,
+      kind: entry.kind,
+      categories: [...entry.categories],
+      grammarPattern: entry.grammarPattern,
+      variants: [entry],
+    });
+  }
+
+  return Array.from(map.values());
+}
+
 export function BusinessEnglishStudio() {
   const [mounted, setMounted] = useState(false);
   const [targetLevel, setTargetLevel] = useState<EnglishLevel>("intermediate");
@@ -242,9 +280,11 @@ export function BusinessEnglishStudio() {
     if (category !== "all" && !entry.categories.includes(category)) return false;
     if (!query.trim()) return true;
     const haystack = [
-      entry.expression,
+      entry.baseExpression,
       entry.korean,
       entry.grammarPattern,
+      entry.scenarioLabel,
+      entry.focusObject,
       entry.categories.join(" "),
       entry.examples.map((item) => item.en).join(" "),
     ]
@@ -253,18 +293,26 @@ export function BusinessEnglishStudio() {
     return haystack.includes(query.trim().toLowerCase());
   });
 
-  const totalPages = Math.max(1, Math.ceil(filteredEntries.length / PAGE_SIZE));
+  const groupedEntries = buildGroups(filteredEntries);
+
+  const totalPages = Math.max(1, Math.ceil(groupedEntries.length / PAGE_SIZE));
   const currentPage = Math.min(page, totalPages);
-  const pagedEntries = filteredEntries.slice(
+  const pagedGroups = groupedEntries.slice(
     (currentPage - 1) * PAGE_SIZE,
     currentPage * PAGE_SIZE
   );
 
   const selectedEntry =
     filteredEntries.find((entry) => entry.id === selectedId) ??
-    pagedEntries[0] ??
+    pagedGroups[0]?.variants[0] ??
     filteredEntries[0] ??
     ENGLISH_ENTRIES[0];
+
+  const selectedGroup =
+    groupedEntries.find(
+      (group) =>
+        group.level === selectedEntry.level && group.expression === selectedEntry.baseExpression
+    ) ?? null;
 
   const practiceCard = createPracticeCard(selectedEntry, practiceSeed);
   const intermediateStats = countByLevel("intermediate");
@@ -398,12 +446,12 @@ export function BusinessEnglishStudio() {
 
             <div className={styles.statGrid}>
               <article className={styles.statCard}>
-                <span className={styles.statLabel}>Intermediate Core</span>
+                <span className={styles.statLabel}>Intermediate Study Cards</span>
                 <strong className={styles.statValue}>{formatNumber(intermediateStats.entries)}</strong>
                 <span className={styles.statHelper}>{formatNumber(intermediateStats.drills)} generated drills</span>
               </article>
               <article className={styles.statCard}>
-                <span className={styles.statLabel}>Advanced Core</span>
+                <span className={styles.statLabel}>Advanced Study Cards</span>
                 <strong className={styles.statValue}>{formatNumber(advancedStats.entries)}</strong>
                 <span className={styles.statHelper}>{formatNumber(advancedStats.drills)} generated drills</span>
               </article>
@@ -477,8 +525,8 @@ export function BusinessEnglishStudio() {
             </select>
 
             <div className={styles.searchMeta}>
-              {formatNumber(filteredEntries.length)} expressions filtered / {formatNumber(practiceUniverseSize(filteredEntries))} drills
-              {filteredEntries.length ? (
+              {formatNumber(groupedEntries.length)} core expressions / {formatNumber(filteredEntries.length)} study cards / {formatNumber(practiceUniverseSize(filteredEntries))} drills
+              {groupedEntries.length ? (
                 <>
                   {" "}
                   · page {formatNumber(currentPage)} of {formatNumber(totalPages)}
@@ -487,42 +535,52 @@ export function BusinessEnglishStudio() {
             </div>
 
             <div className={styles.entryList}>
-              {pagedEntries.map((entry) => {
-                const isMastered = progress.masteredEntries.includes(entry.id);
+              {pagedGroups.map((group) => {
+                const preview = group.variants[0];
+                const isActive =
+                  selectedGroup?.key === group.key;
+                const isMastered = group.variants.some((entry) =>
+                  progress.masteredEntries.includes(entry.id)
+                );
                 return (
                   <button
-                    key={entry.id}
-                    className={`${styles.entryCard} ${selectedEntry.id === entry.id ? styles.entryCardActive : ""}`}
+                    key={group.key}
+                    className={`${styles.entryCard} ${isActive ? styles.entryCardActive : ""}`}
                     onClick={() => {
-                      setSelectedId(entry.id);
+                      setSelectedId(preview.id);
                       setShowAnswer(false);
                     }}
                   >
                     <div className={styles.entryTop}>
                       <div>
-                        <h3 className={styles.entryExpression}>{entry.expression}</h3>
-                        <div className={styles.entryKorean}>{entry.korean}</div>
+                        <h3 className={styles.entryExpression}>{group.expression}</h3>
+                        <div className={styles.entryKorean}>{group.korean}</div>
                       </div>
                     </div>
                     <div className={styles.badgeRow}>
-                      <span className={`${styles.badge} ${entry.level === "advanced" ? styles.badgeAdvanced : ""}`}>
-                        {entry.level}
+                      <span className={`${styles.badge} ${group.level === "advanced" ? styles.badgeAdvanced : ""}`}>
+                        {group.level}
                       </span>
-                      <span className={styles.badge}>{entry.kind}</span>
+                      <span className={styles.badge}>{group.kind}</span>
                       {isMastered ? <span className={`${styles.badge} ${styles.badgeMastered}`}>mastered</span> : null}
                     </div>
-                    <div className={styles.searchMeta}>{entry.grammarPattern}</div>
+                    <div className={styles.searchMeta}>
+                      {group.grammarPattern}
+                    </div>
+                    <div className={styles.searchMeta}>
+                      {formatNumber(group.variants.length)} study cards · {group.variants.slice(0, 3).map((item) => item.scenarioLabel).join(", ")}
+                    </div>
                   </button>
                 );
               })}
-              {!pagedEntries.length ? (
+              {!pagedGroups.length ? (
                 <div className={styles.emptyState}>
                   검색 결과가 없습니다. 키워드나 카테고리를 바꿔서 다시 찾아보세요.
                 </div>
               ) : null}
             </div>
 
-            {filteredEntries.length ? (
+            {groupedEntries.length ? (
               <div className={styles.pagination}>
                 <button
                   className={styles.secondaryButton}
@@ -533,8 +591,8 @@ export function BusinessEnglishStudio() {
                 </button>
                 <div className={styles.paginationMeta}>
                   {formatNumber((currentPage - 1) * PAGE_SIZE + 1)}-
-                  {formatNumber(Math.min(currentPage * PAGE_SIZE, filteredEntries.length))} /{" "}
-                  {formatNumber(filteredEntries.length)}
+                  {formatNumber(Math.min(currentPage * PAGE_SIZE, groupedEntries.length))} /{" "}
+                  {formatNumber(groupedEntries.length)}
                 </div>
                 <button
                   className={styles.secondaryButton}
@@ -653,7 +711,7 @@ export function BusinessEnglishStudio() {
                       </span>
                     ))}
                   </div>
-                  <h2 className={styles.detailTitle}>{selectedEntry.expression}</h2>
+                  <h2 className={styles.detailTitle}>{selectedEntry.baseExpression}</h2>
                   <p className={styles.detailSub}>
                     {selectedEntry.korean} · {selectedEntry.usageNote}
                   </p>
@@ -690,6 +748,33 @@ export function BusinessEnglishStudio() {
                 </button>
               </div>
 
+              {selectedGroup ? (
+                <div className={styles.contextPanel}>
+                  <div className={styles.contextHeader}>
+                    <div>
+                      <div className={styles.infoLabel}>Current context</div>
+                      <div className={styles.contextTitle}>{selectedEntry.scenarioLabel}</div>
+                    </div>
+                    <div className={styles.contextObject}>{selectedEntry.focusObject}</div>
+                  </div>
+                  <div className={styles.contextList}>
+                    {selectedGroup.variants.slice(0, 18).map((variant) => (
+                      <button
+                        key={variant.id}
+                        className={`${styles.contextChip} ${selectedEntry.id === variant.id ? styles.contextChipActive : ""}`}
+                        onClick={() => {
+                          setSelectedId(variant.id);
+                          setShowAnswer(false);
+                        }}
+                      >
+                        <strong>{variant.scenarioLabel}</strong>
+                        <span>{variant.focusObject}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+
               {tab === "overview" ? (
                 <div className={styles.cardGrid}>
                   <article className={styles.infoCard}>
@@ -699,6 +784,14 @@ export function BusinessEnglishStudio() {
                   <article className={styles.infoCard}>
                     <span className={styles.infoLabel}>Grammar focus</span>
                     <div className={styles.infoValue}>{selectedEntry.grammarFocus}</div>
+                  </article>
+                  <article className={styles.infoCard}>
+                    <span className={styles.infoLabel}>Business context</span>
+                    <div className={styles.infoValue}>{selectedEntry.scenarioLabel}</div>
+                  </article>
+                  <article className={styles.infoCard}>
+                    <span className={styles.infoLabel}>Focus object</span>
+                    <div className={styles.infoValue}>{selectedEntry.focusObject}</div>
                   </article>
                   <article className={styles.infoCard}>
                     <span className={styles.infoLabel}>Common collocations</span>

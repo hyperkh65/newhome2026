@@ -10,6 +10,10 @@ export interface EnglishEntry {
   id: string;
   expression: string;
   korean: string;
+  baseExpression: string;
+  scenarioLabel: string;
+  focusObject: string;
+  variantLabel: string;
   level: EnglishLevel;
   kind: EntryKind;
   grammarPattern: string;
@@ -467,16 +471,16 @@ function createBaseExpressions(): BaseExpression[] {
       answerTemplate: "{subject} {modal} " + item[1] + " {object} {time}.",
       objectTemplates: [
         "the {scenario}",
-        "the {object}",
+        "{object}",
         "the {scenario} update",
       ],
       exampleTemplates: [
         {
           en: "We need to " + item[1] + " {object} before the deadline.",
-          kr: "마감 전에 {objectKr} 관련해서 " + item[2] + " 합니다.",
+          kr: "마감 전에 {objectKr} 관련 업무를 " + item[2] + " 해야 합니다.",
         },
         {
-          en: "The team used " + toTitleCase(item[1]) + " in the {scenario} discussion.",
+          en: "The team used the expression \"" + item[1] + "\" in the {scenario} discussion.",
           kr: "{scenarioKr} 논의에서 이 표현을 실제 업무 문장으로 사용했습니다.",
         },
       ],
@@ -500,25 +504,23 @@ function replaceScenarioTokens(template: string, scenario: DomainScenario, objec
 }
 
 function buildEntry(base: BaseExpression, scenario: DomainScenario, object: string, variantIndex: number): EnglishEntry {
-  const suffix = `${scenario.productTag} ${variantIndex + 1}`.toUpperCase();
-  const expression =
-    base.kind === "phrasal-verb"
-      ? `${base.expression} · ${scenario.label} · ${suffix}`
-      : `${base.expression} · ${scenario.label} · ${suffix}`;
-
   const objectPool = base.objectTemplates.map((template) =>
     replaceScenarioTokens(template, scenario, object)
   );
 
   return {
     id: `${base.id}-${scenario.slug}-${variantIndex}`,
-    expression,
-    korean: `${base.korean} (${scenario.label} 문맥)`,
+    expression: base.expression,
+    korean: base.korean,
+    baseExpression: base.expression,
+    scenarioLabel: scenario.label,
+    focusObject: object,
+    variantLabel: `${scenario.productTag.toUpperCase()} ${variantIndex + 1}`,
     level: base.level,
     kind: base.kind,
-    grammarPattern: `${base.grammarPattern} / context: ${scenario.label}`,
-    grammarFocus: `${base.grammarFocus} ${scenario.label}처럼 실제 업무 대상을 붙여 반복 훈련하도록 확장했습니다.`,
-    usageNote: `${base.usageNote} 이 카드는 ${scenario.label} 상황으로 구체화했습니다.`,
+    grammarPattern: base.grammarPattern,
+    grammarFocus: `${base.grammarFocus} ${scenario.label} 문맥과 ${object} 같은 실제 업무 대상을 붙여 반복 훈련하도록 확장했습니다.`,
+    usageNote: `${base.usageNote} 현재 선택 문맥은 ${scenario.label} / ${object} 입니다.`,
     commonMistake: base.commonMistake,
     categories: [...new Set([...base.categories, ...scenario.categories])],
     collocations: [...new Set([...base.collocations, scenario.productTag, ...scenario.objects.map((item) => item.replace(/^the /, ""))])],
