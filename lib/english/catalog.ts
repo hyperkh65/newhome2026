@@ -1,5 +1,3 @@
-import OPEN_WORDNET_CORE from "@/data/english/open-wordnet-core.json";
-
 export type EnglishLevel = "intermediate" | "advanced";
 export type EntryKind = "phrasal-verb" | "pattern";
 
@@ -102,79 +100,6 @@ const TASK_TYPES = [
   "실수 교정",
   "콜로케이션",
 ];
-
-const PRACTICE_CONTEXTS = [
-  "견적 검토",
-  "고객 미팅",
-  "공급사 협의",
-  "생산 일정",
-  "품질 이슈",
-  "선적 안내",
-  "계약 검토",
-  "프로젝트 보고",
-  "가격 협상",
-  "샘플 승인",
-  "재고 계획",
-  "교육 안내",
-  "월간 실적 보고",
-  "분기 경영 회의",
-  "신규 고객 온보딩",
-  "기존 고객 갱신",
-  "납기 변경 안내",
-  "긴급 출하 요청",
-  "통관 서류 검토",
-  "송장 오류 확인",
-  "원가 분석",
-  "예산 검토",
-  "할인 조건 협의",
-  "계약 조항 협상",
-  "리스크 검토",
-  "규정 준수 점검",
-  "인증 갱신",
-  "공장 감사",
-  "불량 원인 분석",
-  "클레임 대응",
-  "반품 처리",
-  "신제품 출시",
-  "제품 사양 변경",
-  "라벨 검토",
-  "포장 개선",
-  "수요 예측",
-  "생산 능력 검토",
-  "창고 입고",
-  "재고 보충",
-  "운송 예약",
-  "선적 추적",
-  "협력사 선정",
-  "공급사 평가",
-  "구매 발주",
-  "결제 확인",
-  "채권 회수",
-  "회의록 작성",
-  "실행 과제 점검",
-  "프로젝트 착수",
-  "프로젝트 종료",
-  "일정 재조정",
-  "인력 배치",
-  "업무 인수인계",
-  "내부 교육",
-  "고객 피드백",
-  "시장 진입 계획",
-  "영업 제안서",
-  "입찰 응답",
-  "제품 데모",
-  "기술 검증",
-  "현장 테스트",
-  "성과 개선",
-  "운영 프로세스 개선",
-  "데이터 정리",
-  "경영진 보고",
-  "해외 파트너 협의",
-  "연간 계획 수립",
-  "사업 검토",
-  "재무 마감",
-  "고객 지원",
-] as const;
 
 const MODAL_HELPERS = [
   "should",
@@ -453,8 +378,8 @@ function fillTemplate(
     .replaceAll("{modal}", modal);
 }
 
-function capitalizeSentence(value: string) {
-  return value.charAt(0).toUpperCase() + value.slice(1);
+function toTitleCase(value: string) {
+  return value.replace(/\b[a-z]/g, (char) => char.toUpperCase());
 }
 
 function createBaseExpressions(): BaseExpression[] {
@@ -609,87 +534,20 @@ function buildEntry(base: BaseExpression, scenario: DomainScenario, object: stri
 }
 
 function buildEntries() {
-  return BASE_EXPRESSIONS.flatMap((base) =>
-    base.collocations.flatMap((object, objectIndex) =>
-      PRACTICE_CONTEXTS.map((context, contextIndex) => {
-        const expression = base.expression;
-        const sentence = expression.startsWith("be ")
-          ? `The team is ${expression.slice(3)} ${object}.`
-          : expression === "behind schedule"
-            ? "The project is behind schedule."
-            : expression.startsWith("there is") || expression.startsWith("it comes down to")
-              ? `${capitalizeSentence(expression)} ${object}.`
-              : expression.startsWith("would you mind")
-                ? `Would you mind ${object}?`
-                : expression.startsWith("as part of")
-                  ? `We updated the plan ${expression} ${object}.`
-                  : `The team should ${expression} ${object} this week.`;
+  const entries: EnglishEntry[] = [];
 
-        return {
-          id: `${base.id}-${objectIndex}-${contextIndex}`,
-          expression,
-          korean: base.korean,
-          baseExpression: `${expression} · ${object}`,
-          scenarioLabel: context,
-          focusObject: object,
-          variantLabel: `Business context ${contextIndex + 1}`,
-          level: base.level,
-          kind: base.kind,
-          grammarPattern: base.grammarPattern,
-          grammarFocus: base.grammarFocus,
-          usageNote: base.usageNote,
-          commonMistake: base.commonMistake,
-          categories: [...new Set([...base.categories, "business-english", context])],
-          collocations: base.collocations,
-          objectPool: base.collocations,
-          answerTemplate: sentence,
-          examples: [
-            { en: sentence, kr: `${context} 상황에서 ${base.korean} 의미로 쓰는 기본 업무 문장입니다.` },
-            {
-              en: `Use "${expression}" with ${base.grammarPattern.replace(`${expression} + `, "")}.`,
-              kr: `${base.grammarPattern} 문형을 그대로 유지해 사용하세요.`,
-            },
-          ],
-        };
-      })
-    )
-  );
+  for (const base of BASE_EXPRESSIONS) {
+    for (const scenario of DOMAIN_SCENARIOS) {
+      scenario.objects.forEach((object, index) => {
+        entries.push(buildEntry(base, scenario, object, index));
+      });
+    }
+  }
+
+  return entries;
 }
 
-function wordNetText(value: string | { text: string; source: string } | undefined) {
-  return typeof value === "string" ? value : value?.text ?? "";
-}
-
-const GENERAL_ENGLISH_ENTRIES: EnglishEntry[] = OPEN_WORDNET_CORE.map((item, index) => {
-  const definition = wordNetText(item.definition);
-  const example = wordNetText(item.example);
-
-  return {
-  id: `wordnet-${index}-${item.pos}`,
-  expression: item.term,
-  korean: "일반 영어 핵심 표현",
-  baseExpression: item.term,
-  scenarioLabel: "일반 영어",
-  focusObject: item.pos === "v" ? "verb" : item.pos === "n" ? "noun" : item.pos === "r" ? "adverb" : "adjective",
-  variantLabel: "Open English WordNet",
-  level: index % 2 === 0 ? "intermediate" : "advanced",
-  kind: "pattern",
-  grammarPattern: item.pos === "v" ? "verb" : item.pos === "n" ? "noun" : item.pos === "r" ? "adverb" : "adjective",
-  grammarFocus: definition,
-  usageNote: "Open English WordNet의 정의와 예문을 바탕으로 학습합니다.",
-  commonMistake: "단어의 품사와 예문 문맥을 함께 확인하세요.",
-  categories: ["general-english", "open-wordnet", item.pos],
-  collocations: [item.term],
-  objectPool: [item.term],
-  answerTemplate: example || definition,
-  examples: [
-    { en: example || definition, kr: "Open English WordNet 정의를 바탕으로 한 일반 영어 학습 항목입니다." },
-    { en: definition, kr: "영어 정의를 읽고 뜻과 쓰임을 확인하세요." },
-  ],
-  };
-});
-
-export const ENGLISH_ENTRIES: EnglishEntry[] = [...buildEntries(), ...GENERAL_ENGLISH_ENTRIES];
+export const ENGLISH_ENTRIES: EnglishEntry[] = buildEntries();
 
 export const ENGLISH_CATEGORIES = Array.from(
   new Set(ENGLISH_ENTRIES.flatMap((entry) => entry.categories))
@@ -699,10 +557,9 @@ export function createPracticeCard(entry: EnglishEntry, seed: number): PracticeC
   const subject = ROLE_SUBJECTS[seed % ROLE_SUBJECTS.length];
   const object = entry.objectPool[seed % entry.objectPool.length];
   const time = TIME_MARKERS[seed % TIME_MARKERS.length];
+  const modal = MODAL_HELPERS[seed % MODAL_HELPERS.length];
   const taskType = TASK_TYPES[seed % TASK_TYPES.length];
-  const context = PRACTICE_CONTEXTS[seed % PRACTICE_CONTEXTS.length];
-  const example = entry.examples[0];
-  const answer = example.en;
+  const answer = fillTemplate(entry.answerTemplate, subject, object, time, modal);
 
   switch (taskType) {
     case "빈칸 완성":
@@ -712,8 +569,8 @@ export function createPracticeCard(entry: EnglishEntry, seed: number): PracticeC
         expression: entry.expression,
         level: entry.level,
         taskType,
-        prompt: `[${context}]\n${example.en.replace(entry.expression, "________")}\n어떤 표현이 가장 자연스러운지 채워 보세요.`,
-        answer: entry.expression,
+        prompt: `${subject} ${modal} ________ ${object} ${time}.\n어떤 표현이 가장 자연스러운지 채워 보세요.`,
+        answer,
         explanation: `${entry.expression} 은 ${entry.grammarPattern} 구조로 쓰입니다.`,
       };
     case "업무 문장 작성":
@@ -723,7 +580,7 @@ export function createPracticeCard(entry: EnglishEntry, seed: number): PracticeC
         expression: entry.expression,
         level: entry.level,
         taskType,
-        prompt: `[${context}] 다음 조건을 만족하는 영어 문장을 직접 만들어 보세요.\n- 주어: ${subject}\n- 표현: ${entry.expression}\n- 어울리는 대상: ${object}\n- 시점: ${time}`,
+        prompt: `다음 조건을 만족하는 영어 문장을 직접 만들어 보세요.\n- 주어: ${subject}\n- 표현: ${entry.expression}\n- 대상: ${object}\n- 시점: ${time}`,
         answer,
         explanation: `${entry.korean} 의미를 유지하면서 가장 기본적인 업무 문장으로 풀어 쓴 답입니다.`,
       };
@@ -734,7 +591,7 @@ export function createPracticeCard(entry: EnglishEntry, seed: number): PracticeC
         expression: entry.expression,
         level: entry.level,
         taskType,
-        prompt: `[${context}]\n${entry.expression}\n문형: ${entry.grammarPattern}\n이 표현의 문형과 핵심 용법을 설명해 보세요.`,
+        prompt: `${entry.expression}\n문형: ${entry.grammarPattern}\n이 표현을 ${subject}, ${object} 문맥으로 적용하면 어떻게 쓰는지 말해 보세요.`,
         answer,
         explanation: entry.grammarFocus,
       };
@@ -745,7 +602,7 @@ export function createPracticeCard(entry: EnglishEntry, seed: number): PracticeC
         expression: entry.expression,
         level: entry.level,
         taskType,
-        prompt: `[${context}]\n${example.kr}\n핵심 표현을 사용해 영어로 옮겨 보세요.`,
+        prompt: `다음 문장을 영어로 옮겨 보세요.\n"${subject}은/는 ${time} ${object} 관련해서 ${entry.korean} 해야 합니다."`,
         answer,
         explanation: `${entry.korean} 에 맞는 기본 번역 패턴입니다.`,
       };
@@ -756,7 +613,7 @@ export function createPracticeCard(entry: EnglishEntry, seed: number): PracticeC
         expression: entry.expression,
         level: entry.level,
         taskType,
-        prompt: `[${context}] 다음 표현의 흔한 오류를 확인하고 올바른 문형을 말해 보세요.\n${entry.expression}`,
+        prompt: `다음 문장을 더 자연스럽게 고쳐 보세요.\n${subject} will ${entry.expression.replace(/\s+/g, " ")} about ${object} ${time}.`,
         answer,
         explanation: entry.commonMistake,
       };
@@ -767,7 +624,7 @@ export function createPracticeCard(entry: EnglishEntry, seed: number): PracticeC
         expression: entry.expression,
         level: entry.level,
         taskType,
-        prompt: `[${context}]\n${entry.expression} 와 가장 잘 어울리는 업무 대상은 무엇인지 설명해 보세요.\n추천 collocations: ${entry.collocations.slice(0, 4).join(", ")}`,
+        prompt: `${entry.expression} 와 가장 잘 어울리는 업무 대상은 무엇인지 설명해 보세요.\n추천 collocations: ${entry.collocations.slice(0, 4).join(", ")}`,
         answer,
         explanation: `이 표현은 ${entry.collocations.join(", ")} 같은 업무 명사와 자주 함께 쓰입니다.`,
       };
@@ -778,11 +635,11 @@ export function practiceUniverseSize(entries = ENGLISH_ENTRIES) {
   return entries.reduce((total, entry) => {
     return (
       total +
-      entry.objectPool.length *
+      entry.examples.length *
         ROLE_SUBJECTS.length *
         TIME_MARKERS.length *
         TASK_TYPES.length *
-        PRACTICE_CONTEXTS.length
+        MODAL_HELPERS.length
     );
   }, 0);
 }

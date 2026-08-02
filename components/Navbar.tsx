@@ -65,11 +65,11 @@ export default function Navbar() {
   }, []);
 
   const navItemStyle = (isActive: boolean = false) => ({
-    fontSize: 14, fontWeight: 700,
+    fontSize: 13, fontWeight: 700,
     color: isActive ? 'var(--primary)' : '#ffffff',
-    textDecoration: 'none', padding: '10px 18px', borderRadius: '50px',
+    textDecoration: 'none', padding: '9px 13px', borderRadius: '50px',
     transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-    display: 'flex', alignItems: 'center', gap: 6,
+    display: 'flex', alignItems: 'center', gap: 6, whiteSpace: 'nowrap' as const,
     background: isActive ? 'rgba(212, 175, 55, 0.1)' : 'transparent',
     border: '1px solid transparent',
   });
@@ -188,6 +188,7 @@ export default function Navbar() {
                 </div>
               )}
             </div>
+
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -212,12 +213,22 @@ export default function Navbar() {
               )}
             </div>
 
+
             <Link href="/cart" style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.1)', cursor: 'pointer', width: 44, height: 44, borderRadius: '50%', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', transition: '0.3s', textDecoration: 'none' }}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>
               </svg>
               {cartCount > 0 && <span style={{ position: 'absolute', top: -4, right: -4, background: '#ef4444', color: 'white', fontSize: 10, fontWeight: 900, width: 18, height: 18, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid white' }}>{cartCount}</span>}
             </Link>
+
+            <a href="https://www.ynk2014.com" target="_blank" rel="noopener noreferrer"
+              style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '9px 16px', borderRadius: 22, textDecoration: 'none', fontWeight: 700, fontSize: 13, whiteSpace: 'nowrap', flexShrink: 0,
+                background: 'rgba(139,92,246,0.18)', border: '1px solid rgba(139,92,246,0.4)', color: '#c4b5fd', transition: 'all 0.2s' }}
+              onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(139,92,246,0.35)'; (e.currentTarget as HTMLAnchorElement).style.color = '#fff'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(139,92,246,0.18)'; (e.currentTarget as HTMLAnchorElement).style.color = '#c4b5fd'; }}
+            >
+              📖 English Study
+            </a>
 
             <button onClick={() => setMenuOpen(!menuOpen)} className="mobile-menu-btn" style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#ffffff', display: 'none' }}>
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">

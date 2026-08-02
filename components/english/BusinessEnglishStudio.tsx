@@ -54,27 +54,6 @@ const PROFILE_KEY = "english-study-profile-v1";
 const PROGRESS_KEY = "english-study-progress-v1";
 const PAGE_SIZE = 60;
 
-const LESSON_VIDEOS = [
-  {
-    id: "meeting",
-    title: "업무 미팅 장면",
-    description: "회의·보고·협상 표현을 들은 뒤 상황을 떠올리며 말하기 연습을 해 보세요.",
-    src: "/promotion_assets/factory-demo.mp4",
-  },
-  {
-    id: "operations",
-    title: "생산·운영 현장",
-    description: "일정, 품질, 공급망 관련 표현을 실제 업무 장면과 함께 복습합니다.",
-    src: "/promotion_assets/factory-video-main.mp4",
-  },
-  {
-    id: "product",
-    title: "제품 데모 장면",
-    description: "제품 설명, 피드백, 출시 관련 표현을 연습할 때 활용하세요.",
-    src: "/promotion_assets/sensor-demo.mp4",
-  },
-] as const;
-
 function formatNumber(value: number) {
   return new Intl.NumberFormat("en-US").format(value);
 }
@@ -259,7 +238,6 @@ export function BusinessEnglishStudio() {
   const [tab, setTab] = useState<"overview" | "examples" | "practice">("overview");
   const [practiceSeed, setPracticeSeed] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
-  const [selectedVideoId, setSelectedVideoId] = useState<(typeof LESSON_VIDEOS)[number]["id"]>("meeting");
   const [profile, setProfile] = useState<StudyProfile | null>(null);
   const [progress, setProgress] = useState<StudyProgress>(emptyProgress);
   const [signup, setSignup] = useState({
@@ -337,8 +315,6 @@ export function BusinessEnglishStudio() {
     ) ?? null;
 
   const practiceCard = createPracticeCard(selectedEntry, practiceSeed);
-  const selectedVideo =
-    LESSON_VIDEOS.find((video) => video.id === selectedVideoId) ?? LESSON_VIDEOS[0];
   const intermediateStats = countByLevel("intermediate");
   const advancedStats = countByLevel("advanced");
   const completionRate =
@@ -449,7 +425,7 @@ export function BusinessEnglishStudio() {
             <h1 className={styles.title}>Business English Study Lab</h1>
             <p className={styles.subtitle}>
               비즈니스 구동사와 패턴을 중급·고급 단계로 나눠서 공부할 수 있도록 만들었습니다.
-              검증된 핵심 표현과 예문을 먼저 익힌 뒤, 빈칸·번역·문형·문장 작성 연습으로
+              핵심 라이브러리 표현을 먼저 익히고, 생성형 드릴로 100,000개 이상 연습 문장을 반복하면서
               이메일, 회의, 보고, 협상, 공급망 문맥까지 자연스럽게 확장할 수 있습니다.
             </p>
 
@@ -470,19 +446,19 @@ export function BusinessEnglishStudio() {
 
             <div className={styles.statGrid}>
               <article className={styles.statCard}>
-                <span className={styles.statLabel}>중급 핵심 표현</span>
+                <span className={styles.statLabel}>Intermediate Study Cards</span>
                 <strong className={styles.statValue}>{formatNumber(intermediateStats.entries)}</strong>
-                <span className={styles.statHelper}>{formatNumber(intermediateStats.drills)}가지 연습 조합</span>
+                <span className={styles.statHelper}>{formatNumber(intermediateStats.drills)} generated drills</span>
               </article>
               <article className={styles.statCard}>
-                <span className={styles.statLabel}>고급 핵심 표현</span>
+                <span className={styles.statLabel}>Advanced Study Cards</span>
                 <strong className={styles.statValue}>{formatNumber(advancedStats.entries)}</strong>
-                <span className={styles.statHelper}>{formatNumber(advancedStats.drills)}가지 연습 조합</span>
+                <span className={styles.statHelper}>{formatNumber(advancedStats.drills)} generated drills</span>
               </article>
               <article className={styles.statCard}>
-                <span className={styles.statLabel}>전체 연습 조합</span>
+                <span className={styles.statLabel}>Study Universe</span>
                 <strong className={styles.statValue}>{formatNumber(practiceUniverseSize())}</strong>
-                <span className={styles.statHelper}>구동사·패턴·예문 기반 반복 연습</span>
+                <span className={styles.statHelper}>구동사, 패턴, 예문 기반 생성형 연습 카드</span>
               </article>
               <article className={styles.statCard}>
                 <span className={styles.statLabel}>Tracked Progress</span>
@@ -524,7 +500,7 @@ export function BusinessEnglishStudio() {
             <div>
               <h2 className={styles.sectionTitle}>Study Library</h2>
               <p className={styles.profileNote}>
-                검증된 핵심 표현을 검색하고, 카테고리와 난이도별로 빠르게 찾아볼 수 있습니다.
+                5,000개 이상 학습 단위를 검색하고, 카테고리와 난이도별로 빠르게 좁혀 볼 수 있습니다.
               </p>
             </div>
 
@@ -549,7 +525,7 @@ export function BusinessEnglishStudio() {
             </select>
 
             <div className={styles.searchMeta}>
-              핵심 표현 {formatNumber(groupedEntries.length)}개 / 학습 카드 {formatNumber(filteredEntries.length)}개 / 연습 조합 {formatNumber(practiceUniverseSize(filteredEntries))}개
+              {formatNumber(groupedEntries.length)} core expressions / {formatNumber(filteredEntries.length)} study cards / {formatNumber(practiceUniverseSize(filteredEntries))} drills
               {groupedEntries.length ? (
                 <>
                   {" "}
@@ -592,7 +568,7 @@ export function BusinessEnglishStudio() {
                       {group.grammarPattern}
                     </div>
                     <div className={styles.searchMeta}>
-                      {formatNumber(group.variants.length)}개 학습 카드
+                      {formatNumber(group.variants.length)} study cards · {group.variants.slice(0, 3).map((item) => item.scenarioLabel).join(", ")}
                     </div>
                   </button>
                 );
@@ -776,7 +752,7 @@ export function BusinessEnglishStudio() {
                 <div className={styles.contextPanel}>
                   <div className={styles.contextHeader}>
                     <div>
-                      <div className={styles.infoLabel}>학습 맥락</div>
+                      <div className={styles.infoLabel}>Current context</div>
                       <div className={styles.contextTitle}>{selectedEntry.scenarioLabel}</div>
                     </div>
                     <div className={styles.contextObject}>{selectedEntry.focusObject}</div>
@@ -799,29 +775,6 @@ export function BusinessEnglishStudio() {
                 </div>
               ) : null}
 
-              <section className={styles.videoLesson} aria-label="관련 학습 영상">
-                <div>
-                  <div className={styles.infoLabel}>관련 학습 영상</div>
-                  <h3 className={styles.videoTitle}>{selectedVideo.title}</h3>
-                  <p className={styles.videoDescription}>{selectedVideo.description}</p>
-                </div>
-                <div className={styles.videoPicker}>
-                  {LESSON_VIDEOS.map((video) => (
-                    <button
-                      key={video.id}
-                      className={`${styles.videoChoice} ${selectedVideo.id === video.id ? styles.videoChoiceActive : ""}`}
-                      onClick={() => setSelectedVideoId(video.id)}
-                    >
-                      {video.title}
-                    </button>
-                  ))}
-                </div>
-                <video className={styles.lessonVideo} controls preload="metadata" key={selectedVideo.src}>
-                  <source src={selectedVideo.src} type="video/mp4" />
-                  브라우저가 동영상을 지원하지 않습니다.
-                </video>
-              </section>
-
               {tab === "overview" ? (
                 <div className={styles.cardGrid}>
                   <article className={styles.infoCard}>
@@ -833,11 +786,11 @@ export function BusinessEnglishStudio() {
                     <div className={styles.infoValue}>{selectedEntry.grammarFocus}</div>
                   </article>
                   <article className={styles.infoCard}>
-                    <span className={styles.infoLabel}>학습 맥락</span>
+                    <span className={styles.infoLabel}>Business context</span>
                     <div className={styles.infoValue}>{selectedEntry.scenarioLabel}</div>
                   </article>
                   <article className={styles.infoCard}>
-                    <span className={styles.infoLabel}>함께 쓰는 대상</span>
+                    <span className={styles.infoLabel}>Focus object</span>
                     <div className={styles.infoValue}>{selectedEntry.focusObject}</div>
                   </article>
                   <article className={styles.infoCard}>
@@ -883,10 +836,10 @@ export function BusinessEnglishStudio() {
                         {showAnswer ? "Hide answer" : "Reveal answer"}
                       </button>
                       <button className={styles.secondaryButton} onClick={() => {
-                        setPracticeSeed(() => Math.floor(Math.random() * 1_000_000_000));
+                        setPracticeSeed((current) => current + 1);
                         setShowAnswer(false);
                       }}>
-                        새 연습 카드
+                        Next card
                       </button>
                       <button className={styles.secondaryButton} onClick={() => markPracticeSolved(false)}>
                         Mark done
