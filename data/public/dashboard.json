@@ -1,0 +1,804 @@
+{
+  "generatedAt": "2026-07-24T06:44:58.410Z",
+  "demo": false,
+  "summary": {
+    "totalProducts": 13062,
+    "procurementProducts": 13062,
+    "consumerProducts": 0,
+    "companies": 1059,
+    "recentNewProducts": 5277,
+    "lastUpdatedAt": "2026-07-21T00:20:13.015Z",
+    "demo": false
+  },
+  "categoryStats": [
+    {
+      "label": "금속제울타리",
+      "value": 1031
+    },
+    {
+      "label": "아스팔트콘크리트",
+      "value": 548
+    },
+    {
+      "label": "책장",
+      "value": 331
+    },
+    {
+      "label": "지지행어",
+      "value": 278
+    },
+    {
+      "label": "석재타일및판석",
+      "value": 274
+    },
+    {
+      "label": "경관조명",
+      "value": 264
+    },
+    {
+      "label": "해상부유구조물",
+      "value": 212
+    },
+    {
+      "label": "퍼걸러",
+      "value": 209
+    },
+    {
+      "label": "회의용탁자",
+      "value": 204
+    },
+    {
+      "label": "공기조화기",
+      "value": 199
+    },
+    {
+      "label": "사물함",
+      "value": 181
+    },
+    {
+      "label": "도로안전표지판지주",
+      "value": 170
+    }
+  ],
+  "priceChanges": [
+    {
+      "productId": "25898091",
+      "displayName": "밸브실 승원 SWA-B502530 5.0x2.5x3.0m SS275",
+      "modelName": "SWA-B502530",
+      "companyName": "승원",
+      "marketType": "procurement",
+      "currentPrice": 38017000,
+      "previousPrice": null,
+      "changeRate": null,
+      "collectedAt": "2026-07-21T00:20:13.015Z"
+    },
+    {
+      "productId": "24969169",
+      "displayName": "동작분석기 Real PT 0108 Plus 리얼피티 프로 플러스 (RealPT Pro",
+      "modelName": null,
+      "companyName": "한국신체정보",
+      "marketType": "procurement",
+      "currentPrice": 38000000,
+      "previousPrice": null,
+      "changeRate": null,
+      "collectedAt": "2026-07-21T00:20:13.015Z"
+    },
+    {
+      "productId": "25517016",
+      "displayName": "아리온 드론 Q520",
+      "modelName": "Q520",
+      "companyName": "아리온",
+      "marketType": "procurement",
+      "currentPrice": 38000000,
+      "previousPrice": null,
+      "changeRate": null,
+      "collectedAt": "2026-07-21T00:20:13.015Z"
+    },
+    {
+      "productId": "25810815",
+      "displayName": "증발냉방장치 비엔씨하이텍 BCS-18 분사노즐250개",
+      "modelName": "BCS-18",
+      "companyName": "비엔씨하이텍",
+      "marketType": "procurement",
+      "currentPrice": 38000000,
+      "previousPrice": null,
+      "changeRate": null,
+      "collectedAt": "2026-07-21T00:20:13.015Z"
+    },
+    {
+      "productId": "23474212",
+      "displayName": "EM유용미생물 복합기 KBEMCD-1000",
+      "modelName": "KBEMCD-1000",
+      "companyName": "한국바이오닉스",
+      "marketType": "procurement",
+      "currentPrice": 38000000,
+      "previousPrice": null,
+      "changeRate": null,
+      "collectedAt": "2026-07-21T00:20:13.015Z"
+    },
+    {
+      "productId": "25336428",
+      "displayName": "복합형흙먼지털이기 S31",
+      "modelName": null,
+      "companyName": "한양그린파크",
+      "marketType": "procurement",
+      "currentPrice": 37930000,
+      "previousPrice": null,
+      "changeRate": null,
+      "collectedAt": "2026-07-21T00:20:13.015Z"
+    },
+    {
+      "productId": "25153267",
+      "displayName": "증발냉방장치 에이지솔루션즈 AG-P3800 5.5kW",
+      "modelName": "AG-P3800",
+      "companyName": "에이지솔루션즈",
+      "marketType": "procurement",
+      "currentPrice": 37800000,
+      "previousPrice": null,
+      "changeRate": null,
+      "collectedAt": "2026-07-21T00:20:13.015Z"
+    },
+    {
+      "productId": "24291324",
+      "displayName": "공극제어형 그물망압착식 섬유여과장치(Net3FM) Net3FM-250",
+      "modelName": "NET3FM-250",
+      "companyName": "케이이피",
+      "marketType": "procurement",
+      "currentPrice": 37700000,
+      "previousPrice": null,
+      "changeRate": null,
+      "collectedAt": "2026-07-21T00:20:13.015Z"
+    },
+    {
+      "productId": "24551373",
+      "displayName": "실시간 계측 지능형 안전 전동기 제어반 (ITS-MCC-SE-0028)",
+      "modelName": null,
+      "companyName": "아이티공간",
+      "marketType": "procurement",
+      "currentPrice": 37679757,
+      "previousPrice": null,
+      "changeRate": null,
+      "collectedAt": "2026-07-21T00:20:13.015Z"
+    },
+    {
+      "productId": "25681908",
+      "displayName": "선미관 수밀 장치 YKCS-A-500 Φ500mm 선박용",
+      "modelName": "YKCS-A-500",
+      "companyName": "유강티에스",
+      "marketType": "procurement",
+      "currentPrice": 37653000,
+      "previousPrice": null,
+      "changeRate": null,
+      "collectedAt": "2026-07-21T00:20:13.015Z"
+    },
+    {
+      "productId": "24886739",
+      "displayName": "폐쇄형배전반 케이디파워 KD-EHV 특고압반",
+      "modelName": "KD-EHV",
+      "companyName": "케이디파워",
+      "marketType": "procurement",
+      "currentPrice": 37586000,
+      "previousPrice": null,
+      "changeRate": null,
+      "collectedAt": "2026-07-21T00:20:13.015Z"
+    },
+    {
+      "productId": "24754059",
+      "displayName": "4평형 찜질방 (실외용) OOH-4311K 화장실 포함",
+      "modelName": "OOH-4311K",
+      "companyName": "온수텍",
+      "marketType": "procurement",
+      "currentPrice": 37510000,
+      "previousPrice": null,
+      "changeRate": null,
+      "collectedAt": "2026-07-21T00:20:13.015Z"
+    }
+  ],
+  "sourceHealth": [
+    {
+      "sourceName": "ProcurementAdapter",
+      "marketType": "procurement",
+      "lastCollectedAt": "2026-07-24T06:39:16.663Z",
+      "status": "success",
+      "issueCount": 0,
+      "note": "정상 수집"
+    },
+    {
+      "sourceName": "NaverShoppingAdapter",
+      "marketType": "consumer",
+      "lastCollectedAt": "2026-07-24T06:39:16.959Z",
+      "status": "success",
+      "issueCount": 0,
+      "note": "정상 수집"
+    },
+    {
+      "sourceName": "PublicDataBuilder",
+      "marketType": "analytics",
+      "lastCollectedAt": "2026-07-24T06:39:25.006Z",
+      "status": "success",
+      "issueCount": 0,
+      "note": "정상 수집"
+    },
+    {
+      "sourceName": "ChangeDetector",
+      "marketType": "analytics",
+      "lastCollectedAt": "2026-07-24T06:39:25.812Z",
+      "status": "success",
+      "issueCount": 0,
+      "note": "정상 수집"
+    },
+    {
+      "sourceName": "AnalyticsEngine",
+      "marketType": "analytics",
+      "lastCollectedAt": "2026-07-24T06:39:26.197Z",
+      "status": "success",
+      "issueCount": 0,
+      "note": "정상 수집"
+    },
+    {
+      "sourceName": "NotionSync",
+      "marketType": "analytics",
+      "lastCollectedAt": "2026-07-24T06:39:26.304Z",
+      "status": "success",
+      "issueCount": 0,
+      "note": "정상 수집"
+    }
+  ],
+  "marketComparison": [],
+  "newProducts": [
+    {
+      "id": "25898091",
+      "canonicalName": "밸브실 승원 swa b502530 5 0x2 5x3 0m ss275",
+      "displayName": "밸브실 승원 SWA-B502530 5.0x2.5x3.0m SS275",
+      "modelName": "SWA-B502530",
+      "brand": "승원",
+      "manufacturerId": "cmp-승원",
+      "supplierIds": [
+        "cmp-승원"
+      ],
+      "marketTypes": [
+        "procurement"
+      ],
+      "category": "밸브실",
+      "subcategory": null,
+      "specifications": {
+        "wattage": null,
+        "efficacy": null,
+        "colorTemperature": null,
+        "beamAngle": null,
+        "dimensions": null,
+        "ipRating": null,
+        "inputVoltage": null,
+        "installationType": null,
+        "hsCode": null,
+        "countryOfOrigin": "대한민국",
+        "luminousFlux": null,
+        "cri": null,
+        "powerFactor": null,
+        "weight": null,
+        "material": null
+      },
+      "certifications": [],
+      "images": [],
+      "sourceRecords": [
+        {
+          "sourceName": "나라장터 종합쇼핑몰",
+          "sourceType": "procurement",
+          "originalId": "25898091",
+          "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25898091",
+          "collectedAt": "2026-07-24T06:44:58.615Z",
+          "updatedAt": "2026-07-21T00:20:13.015Z",
+          "fetchStatus": "success",
+          "rawHash": "e3393dbc753768d2966208ddd434a5122f9795f6"
+        }
+      ],
+      "firstSeenAt": "2026-07-21T00:20:13.015Z",
+      "lastSeenAt": "2026-07-21T00:20:13.015Z",
+      "status": "active",
+      "dataQualityScore": 82,
+      "demo": false
+    },
+    {
+      "id": "24969169",
+      "canonicalName": "동작분석기 real pt 0108 plus 리얼피티 프로 플러스 realpt pro",
+      "displayName": "동작분석기 Real PT 0108 Plus 리얼피티 프로 플러스 (RealPT Pro",
+      "modelName": null,
+      "brand": "한국신체정보",
+      "manufacturerId": "cmp-한국신체정보",
+      "supplierIds": [
+        "cmp-한국신체정보"
+      ],
+      "marketTypes": [
+        "procurement"
+      ],
+      "category": "동작분석기",
+      "subcategory": null,
+      "specifications": {
+        "wattage": null,
+        "efficacy": null,
+        "colorTemperature": null,
+        "beamAngle": null,
+        "dimensions": null,
+        "ipRating": null,
+        "inputVoltage": null,
+        "installationType": null,
+        "hsCode": null,
+        "countryOfOrigin": "대한민국",
+        "luminousFlux": null,
+        "cri": null,
+        "powerFactor": null,
+        "weight": null,
+        "material": null
+      },
+      "certifications": [],
+      "images": [],
+      "sourceRecords": [
+        {
+          "sourceName": "나라장터 종합쇼핑몰",
+          "sourceType": "procurement",
+          "originalId": "24969169",
+          "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24969169",
+          "collectedAt": "2026-07-24T06:44:58.615Z",
+          "updatedAt": "2026-07-21T00:20:13.015Z",
+          "fetchStatus": "success",
+          "rawHash": "6ef93ed7986570490a104e0b2f18394bdd24c6d4"
+        }
+      ],
+      "firstSeenAt": "2026-07-21T00:20:13.015Z",
+      "lastSeenAt": "2026-07-21T00:20:13.015Z",
+      "status": "active",
+      "dataQualityScore": 82,
+      "demo": false
+    },
+    {
+      "id": "25517016",
+      "canonicalName": "아리온 드론 q520",
+      "displayName": "아리온 드론 Q520",
+      "modelName": "Q520",
+      "brand": "아리온",
+      "manufacturerId": "cmp-아리온",
+      "supplierIds": [
+        "cmp-아리온"
+      ],
+      "marketTypes": [
+        "procurement"
+      ],
+      "category": "드론",
+      "subcategory": null,
+      "specifications": {
+        "wattage": null,
+        "efficacy": null,
+        "colorTemperature": null,
+        "beamAngle": null,
+        "dimensions": null,
+        "ipRating": null,
+        "inputVoltage": null,
+        "installationType": null,
+        "hsCode": null,
+        "countryOfOrigin": "대한민국",
+        "luminousFlux": null,
+        "cri": null,
+        "powerFactor": null,
+        "weight": null,
+        "material": null
+      },
+      "certifications": [],
+      "images": [],
+      "sourceRecords": [
+        {
+          "sourceName": "나라장터 종합쇼핑몰",
+          "sourceType": "procurement",
+          "originalId": "25517016",
+          "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25517016",
+          "collectedAt": "2026-07-24T06:44:58.615Z",
+          "updatedAt": "2026-07-21T00:20:13.015Z",
+          "fetchStatus": "success",
+          "rawHash": "a9c384f2cc509da8f031e0d94b3ddac7897f85a2"
+        }
+      ],
+      "firstSeenAt": "2026-07-21T00:20:13.015Z",
+      "lastSeenAt": "2026-07-21T00:20:13.015Z",
+      "status": "active",
+      "dataQualityScore": 82,
+      "demo": false
+    },
+    {
+      "id": "25810815",
+      "canonicalName": "증발냉방장치 비엔씨하이텍 bcs 18 분사노즐250개",
+      "displayName": "증발냉방장치 비엔씨하이텍 BCS-18 분사노즐250개",
+      "modelName": "BCS-18",
+      "brand": "비엔씨하이텍",
+      "manufacturerId": "cmp-비엔씨하이텍",
+      "supplierIds": [
+        "cmp-비엔씨하이텍"
+      ],
+      "marketTypes": [
+        "procurement"
+      ],
+      "category": "증발냉방장치",
+      "subcategory": null,
+      "specifications": {
+        "wattage": null,
+        "efficacy": null,
+        "colorTemperature": null,
+        "beamAngle": null,
+        "dimensions": null,
+        "ipRating": null,
+        "inputVoltage": "AC380",
+        "installationType": null,
+        "hsCode": null,
+        "countryOfOrigin": "대한민국",
+        "luminousFlux": null,
+        "cri": null,
+        "powerFactor": null,
+        "weight": null,
+        "material": null
+      },
+      "certifications": [],
+      "images": [],
+      "sourceRecords": [
+        {
+          "sourceName": "나라장터 종합쇼핑몰",
+          "sourceType": "procurement",
+          "originalId": "25810815",
+          "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25810815",
+          "collectedAt": "2026-07-24T06:44:58.615Z",
+          "updatedAt": "2026-07-21T00:20:13.015Z",
+          "fetchStatus": "success",
+          "rawHash": "4e11449fd3733ca433e4f092d8e377e7fef9040b"
+        }
+      ],
+      "firstSeenAt": "2026-07-21T00:20:13.015Z",
+      "lastSeenAt": "2026-07-21T00:20:13.015Z",
+      "status": "active",
+      "dataQualityScore": 82,
+      "demo": false
+    },
+    {
+      "id": "23474212",
+      "canonicalName": "em유용미생물 복합기 kbemcd 1000",
+      "displayName": "EM유용미생물 복합기 KBEMCD-1000",
+      "modelName": "KBEMCD-1000",
+      "brand": "한국바이오닉스",
+      "manufacturerId": "cmp-한국바이오닉스",
+      "supplierIds": [
+        "cmp-한국바이오닉스"
+      ],
+      "marketTypes": [
+        "procurement"
+      ],
+      "category": "식품발효기",
+      "subcategory": null,
+      "specifications": {
+        "wattage": null,
+        "efficacy": null,
+        "colorTemperature": null,
+        "beamAngle": null,
+        "dimensions": null,
+        "ipRating": null,
+        "inputVoltage": null,
+        "installationType": null,
+        "hsCode": null,
+        "countryOfOrigin": "대한민국",
+        "luminousFlux": null,
+        "cri": null,
+        "powerFactor": null,
+        "weight": null,
+        "material": null
+      },
+      "certifications": [],
+      "images": [],
+      "sourceRecords": [
+        {
+          "sourceName": "나라장터 종합쇼핑몰",
+          "sourceType": "procurement",
+          "originalId": "23474212",
+          "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=23474212",
+          "collectedAt": "2026-07-24T06:44:58.615Z",
+          "updatedAt": "2026-07-21T00:20:13.015Z",
+          "fetchStatus": "success",
+          "rawHash": "28b3727766b400dbc6639f5c444fec6fd0addfcf"
+        }
+      ],
+      "firstSeenAt": "2026-07-21T00:20:13.015Z",
+      "lastSeenAt": "2026-07-21T00:20:13.015Z",
+      "status": "active",
+      "dataQualityScore": 82,
+      "demo": false
+    },
+    {
+      "id": "25336428",
+      "canonicalName": "복합형흙먼지털이기 s31",
+      "displayName": "복합형흙먼지털이기 S31",
+      "modelName": null,
+      "brand": "한양그린파크",
+      "manufacturerId": "cmp-한양그린파크",
+      "supplierIds": [
+        "cmp-한양그린파크"
+      ],
+      "marketTypes": [
+        "procurement"
+      ],
+      "category": "흙먼지털이기",
+      "subcategory": null,
+      "specifications": {
+        "wattage": null,
+        "efficacy": null,
+        "colorTemperature": null,
+        "beamAngle": null,
+        "dimensions": null,
+        "ipRating": null,
+        "inputVoltage": null,
+        "installationType": null,
+        "hsCode": null,
+        "countryOfOrigin": "대한민국",
+        "luminousFlux": null,
+        "cri": null,
+        "powerFactor": null,
+        "weight": null,
+        "material": null
+      },
+      "certifications": [],
+      "images": [],
+      "sourceRecords": [
+        {
+          "sourceName": "나라장터 종합쇼핑몰",
+          "sourceType": "procurement",
+          "originalId": "25336428",
+          "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25336428",
+          "collectedAt": "2026-07-24T06:44:58.616Z",
+          "updatedAt": "2026-07-21T00:20:13.015Z",
+          "fetchStatus": "success",
+          "rawHash": "77b89070214618cc8ee84c1bfa58877b8c232ade"
+        }
+      ],
+      "firstSeenAt": "2026-07-21T00:20:13.015Z",
+      "lastSeenAt": "2026-07-21T00:20:13.015Z",
+      "status": "active",
+      "dataQualityScore": 82,
+      "demo": false
+    },
+    {
+      "id": "25153267",
+      "canonicalName": "증발냉방장치 에이지솔루션즈 ag p3800 5 5kw",
+      "displayName": "증발냉방장치 에이지솔루션즈 AG-P3800 5.5kW",
+      "modelName": "AG-P3800",
+      "brand": "에이지솔루션즈",
+      "manufacturerId": "cmp-에이지솔루션즈",
+      "supplierIds": [
+        "cmp-에이지솔루션즈"
+      ],
+      "marketTypes": [
+        "procurement"
+      ],
+      "category": "증발냉방장치",
+      "subcategory": null,
+      "specifications": {
+        "wattage": null,
+        "efficacy": null,
+        "colorTemperature": null,
+        "beamAngle": null,
+        "dimensions": null,
+        "ipRating": null,
+        "inputVoltage": null,
+        "installationType": null,
+        "hsCode": null,
+        "countryOfOrigin": "대한민국",
+        "luminousFlux": null,
+        "cri": null,
+        "powerFactor": null,
+        "weight": null,
+        "material": null
+      },
+      "certifications": [],
+      "images": [],
+      "sourceRecords": [
+        {
+          "sourceName": "나라장터 종합쇼핑몰",
+          "sourceType": "procurement",
+          "originalId": "25153267",
+          "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25153267",
+          "collectedAt": "2026-07-24T06:44:58.616Z",
+          "updatedAt": "2026-07-21T00:20:13.015Z",
+          "fetchStatus": "success",
+          "rawHash": "c072818a57f87c8a0adab280528a8b0595aaa4a9"
+        }
+      ],
+      "firstSeenAt": "2026-07-21T00:20:13.015Z",
+      "lastSeenAt": "2026-07-21T00:20:13.015Z",
+      "status": "active",
+      "dataQualityScore": 82,
+      "demo": false
+    },
+    {
+      "id": "24291324",
+      "canonicalName": "공극제어형 그물망압착식 섬유여과장치 net3fm net3fm 250",
+      "displayName": "공극제어형 그물망압착식 섬유여과장치(Net3FM) Net3FM-250",
+      "modelName": "NET3FM-250",
+      "brand": "케이이피",
+      "manufacturerId": "cmp-케이이피",
+      "supplierIds": [
+        "cmp-케이이피"
+      ],
+      "marketTypes": [
+        "procurement"
+      ],
+      "category": "중력식여과장치",
+      "subcategory": null,
+      "specifications": {
+        "wattage": null,
+        "efficacy": null,
+        "colorTemperature": null,
+        "beamAngle": null,
+        "dimensions": null,
+        "ipRating": null,
+        "inputVoltage": null,
+        "installationType": null,
+        "hsCode": null,
+        "countryOfOrigin": "대한민국",
+        "luminousFlux": null,
+        "cri": null,
+        "powerFactor": null,
+        "weight": null,
+        "material": null
+      },
+      "certifications": [],
+      "images": [],
+      "sourceRecords": [
+        {
+          "sourceName": "나라장터 종합쇼핑몰",
+          "sourceType": "procurement",
+          "originalId": "24291324",
+          "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24291324",
+          "collectedAt": "2026-07-24T06:44:58.616Z",
+          "updatedAt": "2026-07-21T00:20:13.015Z",
+          "fetchStatus": "success",
+          "rawHash": "44ed09fd827d97c4161042f53b53f2ed5da375fd"
+        }
+      ],
+      "firstSeenAt": "2026-07-21T00:20:13.015Z",
+      "lastSeenAt": "2026-07-21T00:20:13.015Z",
+      "status": "active",
+      "dataQualityScore": 82,
+      "demo": false
+    }
+  ],
+  "recentChanges": {
+    "newProducts": 0,
+    "removedProducts": 0,
+    "priceIncreased": 0,
+    "priceDecreased": 0,
+    "companyChanged": 0,
+    "specificationChanged": 0
+  },
+  "topCompanies": [
+    {
+      "id": "cmp-4088204467",
+      "name": "유림가구",
+      "normalizedName": "유림가구",
+      "businessNumber": "408-82-04467",
+      "companyType": "supplier",
+      "address": "전남광주통합특별시",
+      "region": "전남광주통합특별시",
+      "website": null,
+      "productCount": 893,
+      "procurementProductCount": 893,
+      "consumerProductCount": 0,
+      "firstSeenAt": "2026-06-30T15:00:00.000Z",
+      "lastSeenAt": "2026-06-30T15:00:00.000Z",
+      "demo": false
+    },
+    {
+      "id": "cmp-1328210835",
+      "name": "사)우리들행복나눔 종합가구사업단",
+      "normalizedName": "사)우리들행복나눔 종합가구사업단",
+      "businessNumber": "132-82-10835",
+      "companyType": "supplier",
+      "address": "경기도",
+      "region": "경기도",
+      "website": null,
+      "productCount": 371,
+      "procurementProductCount": 371,
+      "consumerProductCount": 0,
+      "firstSeenAt": "2026-03-31T15:00:00.000Z",
+      "lastSeenAt": "2026-06-24T15:00:00.000Z",
+      "demo": false
+    },
+    {
+      "id": "cmp-4028177140",
+      "name": "스쿨디자인(유)",
+      "normalizedName": "스쿨디자인(유)",
+      "businessNumber": "402-81-77140",
+      "companyType": "supplier",
+      "address": "전북특별자치도",
+      "region": "전북특별자치도",
+      "website": null,
+      "productCount": 335,
+      "procurementProductCount": 335,
+      "consumerProductCount": 0,
+      "firstSeenAt": "2026-06-24T15:00:00.000Z",
+      "lastSeenAt": "2026-06-24T15:00:00.000Z",
+      "demo": false
+    },
+    {
+      "id": "cmp-4038127319",
+      "name": "미상",
+      "normalizedName": "미상",
+      "businessNumber": "403-81-27319",
+      "companyType": "supplier",
+      "address": "충청북도",
+      "region": "충청북도",
+      "website": null,
+      "productCount": 274,
+      "procurementProductCount": 274,
+      "consumerProductCount": 0,
+      "firstSeenAt": "2026-06-07T15:00:00.000Z",
+      "lastSeenAt": "2026-06-07T15:00:00.000Z",
+      "demo": false
+    },
+    {
+      "id": "cmp-3218800832",
+      "name": "에스에스팀버",
+      "normalizedName": "에스에스팀버",
+      "businessNumber": "321-88-00832",
+      "companyType": "supplier",
+      "address": "대구광역시",
+      "region": "대구광역시",
+      "website": null,
+      "productCount": 269,
+      "procurementProductCount": 269,
+      "consumerProductCount": 0,
+      "firstSeenAt": "2026-07-20T15:00:00.000Z",
+      "lastSeenAt": "2026-07-20T15:00:00.000Z",
+      "demo": false
+    },
+    {
+      "id": "cmp-진성아스타",
+      "name": "진성아스타",
+      "normalizedName": "진성아스타",
+      "businessNumber": null,
+      "companyType": "supplier",
+      "address": "경기도",
+      "region": "경기도",
+      "website": null,
+      "productCount": 248,
+      "procurementProductCount": 248,
+      "consumerProductCount": 0,
+      "firstSeenAt": "2026-07-21T00:18:58.788Z",
+      "lastSeenAt": "2026-07-21T00:18:59.388Z",
+      "demo": false
+    },
+    {
+      "id": "cmp-판테크내진",
+      "name": "판테크내진",
+      "normalizedName": "판테크내진",
+      "businessNumber": null,
+      "companyType": "supplier",
+      "address": "전남광주통합특별시",
+      "region": "전남광주통합특별시",
+      "website": null,
+      "productCount": 246,
+      "procurementProductCount": 246,
+      "consumerProductCount": 0,
+      "firstSeenAt": "2026-07-21T00:18:39.140Z",
+      "lastSeenAt": "2026-07-21T00:19:07.810Z",
+      "demo": false
+    },
+    {
+      "id": "cmp-4188205876",
+      "name": "중앙환경아스콘 유한회사",
+      "normalizedName": "중앙환경아스콘 유한회사",
+      "businessNumber": "418-82-05876",
+      "companyType": "supplier",
+      "address": "전북특별자치도",
+      "region": "전북특별자치도",
+      "website": null,
+      "productCount": 242,
+      "procurementProductCount": 242,
+      "consumerProductCount": 0,
+      "firstSeenAt": "2026-05-07T15:00:00.000Z",
+      "lastSeenAt": "2026-05-07T15:00:00.000Z",
+      "demo": false
+    }
+  ]
+}
