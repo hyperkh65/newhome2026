@@ -2,7 +2,7 @@
 import React from 'react';
 import { 
   Box, Maximize, Ruler, Settings, Cpu, Layers, 
-  Target, ShieldCheck, Factory, Zap, Tool, 
+  Target, ShieldCheck, Factory, Zap, Wrench, 
   Cog, Database, Thermometer
 } from 'lucide-react';
 import { motion } from 'framer-motion';

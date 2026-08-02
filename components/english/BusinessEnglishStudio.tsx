@@ -22,6 +22,17 @@ import {
 
 import styles from "./BusinessEnglishStudio.module.css";
 
+type EntryGroup = {
+  key: string;
+  expression: string;
+  korean: string;
+  level: EnglishLevel;
+  kind: EnglishEntry["kind"];
+  categories: string[];
+  grammarPattern: string;
+  variants: EnglishEntry[];
+};
+
 type StudyProfile = {
   name: string;
   email: string;
@@ -41,6 +52,28 @@ type StudyProgress = {
 
 const PROFILE_KEY = "english-study-profile-v1";
 const PROGRESS_KEY = "english-study-progress-v1";
+const PAGE_SIZE = 60;
+
+const LESSON_VIDEOS = [
+  {
+    id: "meeting",
+    title: "업무 미팅 장면",
+    description: "회의·보고·협상 표현을 들은 뒤 상황을 떠올리며 말하기 연습을 해 보세요.",
+    src: "/promotion_assets/factory-demo.mp4",
+  },
+  {
+    id: "operations",
+    title: "생산·운영 현장",
+    description: "일정, 품질, 공급망 관련 표현을 실제 업무 장면과 함께 복습합니다.",
+    src: "/promotion_assets/factory-video-main.mp4",
+  },
+  {
+    id: "product",
+    title: "제품 데모 장면",
+    description: "제품 설명, 피드백, 출시 관련 표현을 연습할 때 활용하세요.",
+    src: "/promotion_assets/sensor-demo.mp4",
+  },
+] as const;
 
 function formatNumber(value: number) {
   return new Intl.NumberFormat("en-US").format(value);
@@ -189,15 +222,44 @@ function daysBetween(a: string, b: string) {
   return Math.round((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
 }
 
+function buildGroups(entries: EnglishEntry[]) {
+  const map = new Map<string, EntryGroup>();
+
+  for (const entry of entries) {
+    const key = `${entry.level}:${entry.baseExpression}`;
+    const existing = map.get(key);
+    if (existing) {
+      existing.variants.push(entry);
+      existing.categories = Array.from(new Set([...existing.categories, ...entry.categories]));
+      continue;
+    }
+
+    map.set(key, {
+      key,
+      expression: entry.baseExpression,
+      korean: entry.korean,
+      level: entry.level,
+      kind: entry.kind,
+      categories: [...entry.categories],
+      grammarPattern: entry.grammarPattern,
+      variants: [entry],
+    });
+  }
+
+  return Array.from(map.values());
+}
+
 export function BusinessEnglishStudio() {
   const [mounted, setMounted] = useState(false);
   const [targetLevel, setTargetLevel] = useState<EnglishLevel>("intermediate");
   const [category, setCategory] = useState("all");
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState(ENGLISH_ENTRIES[0]?.id ?? "");
+  const [page, setPage] = useState(1);
   const [tab, setTab] = useState<"overview" | "examples" | "practice">("overview");
   const [practiceSeed, setPracticeSeed] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
+  const [selectedVideoId, setSelectedVideoId] = useState<(typeof LESSON_VIDEOS)[number]["id"]>("meeting");
   const [profile, setProfile] = useState<StudyProfile | null>(null);
   const [progress, setProgress] = useState<StudyProgress>(emptyProgress);
   const [signup, setSignup] = useState({
@@ -240,9 +302,11 @@ export function BusinessEnglishStudio() {
     if (category !== "all" && !entry.categories.includes(category)) return false;
     if (!query.trim()) return true;
     const haystack = [
-      entry.expression,
+      entry.baseExpression,
       entry.korean,
       entry.grammarPattern,
+      entry.scenarioLabel,
+      entry.focusObject,
       entry.categories.join(" "),
       entry.examples.map((item) => item.en).join(" "),
     ]
@@ -251,12 +315,30 @@ export function BusinessEnglishStudio() {
     return haystack.includes(query.trim().toLowerCase());
   });
 
+  const groupedEntries = buildGroups(filteredEntries);
+
+  const totalPages = Math.max(1, Math.ceil(groupedEntries.length / PAGE_SIZE));
+  const currentPage = Math.min(page, totalPages);
+  const pagedGroups = groupedEntries.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE
+  );
+
   const selectedEntry =
     filteredEntries.find((entry) => entry.id === selectedId) ??
+    pagedGroups[0]?.variants[0] ??
     filteredEntries[0] ??
     ENGLISH_ENTRIES[0];
 
+  const selectedGroup =
+    groupedEntries.find(
+      (group) =>
+        group.level === selectedEntry.level && group.expression === selectedEntry.baseExpression
+    ) ?? null;
+
   const practiceCard = createPracticeCard(selectedEntry, practiceSeed);
+  const selectedVideo =
+    LESSON_VIDEOS.find((video) => video.id === selectedVideoId) ?? LESSON_VIDEOS[0];
   const intermediateStats = countByLevel("intermediate");
   const advancedStats = countByLevel("advanced");
   const completionRate =
@@ -271,6 +353,24 @@ export function BusinessEnglishStudio() {
     progress.lastStudiedAt && daysBetween(progress.lastStudiedAt, new Date().toISOString()) === 0
       ? progress.studiedCards
       : progress.studiedCards;
+
+  useEffect(() => {
+    setPage(1);
+  }, [targetLevel, category, query]);
+
+  useEffect(() => {
+    if (page > totalPages) {
+      setPage(totalPages);
+    }
+  }, [page, totalPages]);
+
+  useEffect(() => {
+    if (!filteredEntries.length) return;
+    if (!filteredEntries.some((entry) => entry.id === selectedId)) {
+      setSelectedId(filteredEntries[0].id);
+      setShowAnswer(false);
+    }
+  }, [filteredEntries, selectedId]);
 
   function markEntry(type: "studied" | "mastered") {
     const now = new Date().toISOString();
@@ -349,7 +449,7 @@ export function BusinessEnglishStudio() {
             <h1 className={styles.title}>Business English Study Lab</h1>
             <p className={styles.subtitle}>
               비즈니스 구동사와 패턴을 중급·고급 단계로 나눠서 공부할 수 있도록 만들었습니다.
-              핵심 라이브러리 표현을 먼저 익히고, 생성형 드릴로 100,000개 이상 연습 문장을 반복하면서
+              검증된 핵심 표현과 예문을 먼저 익힌 뒤, 빈칸·번역·문형·문장 작성 연습으로
               이메일, 회의, 보고, 협상, 공급망 문맥까지 자연스럽게 확장할 수 있습니다.
             </p>
 
@@ -370,19 +470,19 @@ export function BusinessEnglishStudio() {
 
             <div className={styles.statGrid}>
               <article className={styles.statCard}>
-                <span className={styles.statLabel}>Intermediate Core</span>
+                <span className={styles.statLabel}>중급 핵심 표현</span>
                 <strong className={styles.statValue}>{formatNumber(intermediateStats.entries)}</strong>
-                <span className={styles.statHelper}>{formatNumber(intermediateStats.drills)} generated drills</span>
+                <span className={styles.statHelper}>{formatNumber(intermediateStats.drills)}가지 연습 조합</span>
               </article>
               <article className={styles.statCard}>
-                <span className={styles.statLabel}>Advanced Core</span>
+                <span className={styles.statLabel}>고급 핵심 표현</span>
                 <strong className={styles.statValue}>{formatNumber(advancedStats.entries)}</strong>
-                <span className={styles.statHelper}>{formatNumber(advancedStats.drills)} generated drills</span>
+                <span className={styles.statHelper}>{formatNumber(advancedStats.drills)}가지 연습 조합</span>
               </article>
               <article className={styles.statCard}>
-                <span className={styles.statLabel}>Study Universe</span>
+                <span className={styles.statLabel}>전체 연습 조합</span>
                 <strong className={styles.statValue}>{formatNumber(practiceUniverseSize())}</strong>
-                <span className={styles.statHelper}>구동사, 패턴, 예문 기반 생성형 연습 카드</span>
+                <span className={styles.statHelper}>구동사·패턴·예문 기반 반복 연습</span>
               </article>
               <article className={styles.statCard}>
                 <span className={styles.statLabel}>Tracked Progress</span>
@@ -424,7 +524,7 @@ export function BusinessEnglishStudio() {
             <div>
               <h2 className={styles.sectionTitle}>Study Library</h2>
               <p className={styles.profileNote}>
-                원하는 표현을 검색하고, 카테고리와 난이도별로 핵심 표현을 빠르게 찾을 수 있습니다.
+                검증된 핵심 표현을 검색하고, 카테고리와 난이도별로 빠르게 찾아볼 수 있습니다.
               </p>
             </div>
 
@@ -449,39 +549,84 @@ export function BusinessEnglishStudio() {
             </select>
 
             <div className={styles.searchMeta}>
-              {formatNumber(filteredEntries.length)} expressions filtered / {formatNumber(practiceUniverseSize(filteredEntries))} drills
+              핵심 표현 {formatNumber(groupedEntries.length)}개 / 학습 카드 {formatNumber(filteredEntries.length)}개 / 연습 조합 {formatNumber(practiceUniverseSize(filteredEntries))}개
+              {groupedEntries.length ? (
+                <>
+                  {" "}
+                  · page {formatNumber(currentPage)} of {formatNumber(totalPages)}
+                </>
+              ) : null}
             </div>
 
             <div className={styles.entryList}>
-              {filteredEntries.map((entry) => {
-                const isMastered = progress.masteredEntries.includes(entry.id);
+              {pagedGroups.map((group) => {
+                const preview = group.variants[0];
+                const isActive =
+                  selectedGroup?.key === group.key;
+                const isMastered = group.variants.some((entry) =>
+                  progress.masteredEntries.includes(entry.id)
+                );
                 return (
                   <button
-                    key={entry.id}
-                    className={`${styles.entryCard} ${selectedEntry.id === entry.id ? styles.entryCardActive : ""}`}
+                    key={group.key}
+                    className={`${styles.entryCard} ${isActive ? styles.entryCardActive : ""}`}
                     onClick={() => {
-                      setSelectedId(entry.id);
+                      setSelectedId(preview.id);
                       setShowAnswer(false);
                     }}
                   >
                     <div className={styles.entryTop}>
                       <div>
-                        <h3 className={styles.entryExpression}>{entry.expression}</h3>
-                        <div className={styles.entryKorean}>{entry.korean}</div>
+                        <h3 className={styles.entryExpression}>{group.expression}</h3>
+                        <div className={styles.entryKorean}>{group.korean}</div>
                       </div>
                     </div>
                     <div className={styles.badgeRow}>
-                      <span className={`${styles.badge} ${entry.level === "advanced" ? styles.badgeAdvanced : ""}`}>
-                        {entry.level}
+                      <span className={`${styles.badge} ${group.level === "advanced" ? styles.badgeAdvanced : ""}`}>
+                        {group.level}
                       </span>
-                      <span className={styles.badge}>{entry.kind}</span>
+                      <span className={styles.badge}>{group.kind}</span>
                       {isMastered ? <span className={`${styles.badge} ${styles.badgeMastered}`}>mastered</span> : null}
                     </div>
-                    <div className={styles.searchMeta}>{entry.grammarPattern}</div>
+                    <div className={styles.searchMeta}>
+                      {group.grammarPattern}
+                    </div>
+                    <div className={styles.searchMeta}>
+                      {formatNumber(group.variants.length)}개 학습 카드
+                    </div>
                   </button>
                 );
               })}
+              {!pagedGroups.length ? (
+                <div className={styles.emptyState}>
+                  검색 결과가 없습니다. 키워드나 카테고리를 바꿔서 다시 찾아보세요.
+                </div>
+              ) : null}
             </div>
+
+            {groupedEntries.length ? (
+              <div className={styles.pagination}>
+                <button
+                  className={styles.secondaryButton}
+                  onClick={() => setPage((current) => Math.max(1, current - 1))}
+                  disabled={currentPage === 1}
+                >
+                  Previous
+                </button>
+                <div className={styles.paginationMeta}>
+                  {formatNumber((currentPage - 1) * PAGE_SIZE + 1)}-
+                  {formatNumber(Math.min(currentPage * PAGE_SIZE, groupedEntries.length))} /{" "}
+                  {formatNumber(groupedEntries.length)}
+                </div>
+                <button
+                  className={styles.secondaryButton}
+                  onClick={() => setPage((current) => Math.min(totalPages, current + 1))}
+                  disabled={currentPage === totalPages}
+                >
+                  Next
+                </button>
+              </div>
+            ) : null}
           </aside>
 
           <div className={styles.content}>
@@ -590,7 +735,7 @@ export function BusinessEnglishStudio() {
                       </span>
                     ))}
                   </div>
-                  <h2 className={styles.detailTitle}>{selectedEntry.expression}</h2>
+                  <h2 className={styles.detailTitle}>{selectedEntry.baseExpression}</h2>
                   <p className={styles.detailSub}>
                     {selectedEntry.korean} · {selectedEntry.usageNote}
                   </p>
@@ -627,6 +772,56 @@ export function BusinessEnglishStudio() {
                 </button>
               </div>
 
+              {selectedGroup ? (
+                <div className={styles.contextPanel}>
+                  <div className={styles.contextHeader}>
+                    <div>
+                      <div className={styles.infoLabel}>학습 맥락</div>
+                      <div className={styles.contextTitle}>{selectedEntry.scenarioLabel}</div>
+                    </div>
+                    <div className={styles.contextObject}>{selectedEntry.focusObject}</div>
+                  </div>
+                  <div className={styles.contextList}>
+                    {selectedGroup.variants.slice(0, 18).map((variant) => (
+                      <button
+                        key={variant.id}
+                        className={`${styles.contextChip} ${selectedEntry.id === variant.id ? styles.contextChipActive : ""}`}
+                        onClick={() => {
+                          setSelectedId(variant.id);
+                          setShowAnswer(false);
+                        }}
+                      >
+                        <strong>{variant.scenarioLabel}</strong>
+                        <span>{variant.focusObject}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+
+              <section className={styles.videoLesson} aria-label="관련 학습 영상">
+                <div>
+                  <div className={styles.infoLabel}>관련 학습 영상</div>
+                  <h3 className={styles.videoTitle}>{selectedVideo.title}</h3>
+                  <p className={styles.videoDescription}>{selectedVideo.description}</p>
+                </div>
+                <div className={styles.videoPicker}>
+                  {LESSON_VIDEOS.map((video) => (
+                    <button
+                      key={video.id}
+                      className={`${styles.videoChoice} ${selectedVideo.id === video.id ? styles.videoChoiceActive : ""}`}
+                      onClick={() => setSelectedVideoId(video.id)}
+                    >
+                      {video.title}
+                    </button>
+                  ))}
+                </div>
+                <video className={styles.lessonVideo} controls preload="metadata" key={selectedVideo.src}>
+                  <source src={selectedVideo.src} type="video/mp4" />
+                  브라우저가 동영상을 지원하지 않습니다.
+                </video>
+              </section>
+
               {tab === "overview" ? (
                 <div className={styles.cardGrid}>
                   <article className={styles.infoCard}>
@@ -636,6 +831,14 @@ export function BusinessEnglishStudio() {
                   <article className={styles.infoCard}>
                     <span className={styles.infoLabel}>Grammar focus</span>
                     <div className={styles.infoValue}>{selectedEntry.grammarFocus}</div>
+                  </article>
+                  <article className={styles.infoCard}>
+                    <span className={styles.infoLabel}>학습 맥락</span>
+                    <div className={styles.infoValue}>{selectedEntry.scenarioLabel}</div>
+                  </article>
+                  <article className={styles.infoCard}>
+                    <span className={styles.infoLabel}>함께 쓰는 대상</span>
+                    <div className={styles.infoValue}>{selectedEntry.focusObject}</div>
                   </article>
                   <article className={styles.infoCard}>
                     <span className={styles.infoLabel}>Common collocations</span>
@@ -680,10 +883,10 @@ export function BusinessEnglishStudio() {
                         {showAnswer ? "Hide answer" : "Reveal answer"}
                       </button>
                       <button className={styles.secondaryButton} onClick={() => {
-                        setPracticeSeed((current) => current + 1);
+                        setPracticeSeed(() => Math.floor(Math.random() * 1_000_000_000));
                         setShowAnswer(false);
                       }}>
-                        Next card
+                        새 연습 카드
                       </button>
                       <button className={styles.secondaryButton} onClick={() => markPracticeSolved(false)}>
                         Mark done

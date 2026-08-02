@@ -1,52 +1,24 @@
-import type { Metadata } from 'next';
-import './globals.css';
-import { supabase } from '@/lib/supabase';
+import type { Metadata } from "next";
+import type { ReactNode } from "react";
 
-const DEFAULT_TITLE = '(주)와이앤케이 YNK';
-const DEFAULT_DESC  = 'YNK LED 조명 전문기업 — 고품질 LED 조명 솔루션';
-const DEFAULT_ICON  = '/ynk-icon.svg';
+import "./globals.css";
 
-export async function generateMetadata(): Promise<Metadata> {
-  let title = DEFAULT_TITLE;
-  let description = DEFAULT_DESC;
-  let iconUrl = DEFAULT_ICON;
+export const metadata: Metadata = {
+  title: "LED 제품 시장 데이터",
+  description: "조달 등록정보와 민수 판매정보를 검색하고 비교합니다.",
+  keywords: [
+    "LED",
+    "조달시장",
+    "민수시장",
+    "제품 데이터",
+    "가격 비교",
+    "조명 데이터",
+  ],
+};
 
-  try {
-    const { data } = await supabase
-      .from('site_settings')
-      .select('config')
-      .eq('category', 'site')
-      .maybeSingle();
-
-    if (data?.config) {
-      title       = data.config.site_name   || title;
-      description = data.config.description || description;
-      iconUrl     = data.config.logo_url    || iconUrl;
-    }
-  } catch { /* use defaults */ }
-
-  return {
-    title,
-    description,
-    keywords: 'LED 조명, YNK, 와이앤케이, LED 모듈, 조명기구, 실내조명, 산업조명',
-    icons: {
-      icon: [
-        { url: iconUrl, sizes: 'any' },
-      ],
-      shortcut: iconUrl,
-      apple: iconUrl,
-    },
-  };
-}
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ko">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-      </head>
       <body>{children}</body>
     </html>
   );

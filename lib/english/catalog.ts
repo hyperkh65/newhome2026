@@ -1,3 +1,5 @@
+import OPEN_WORDNET_CORE from "@/data/english/open-wordnet-core.json";
+
 export type EnglishLevel = "intermediate" | "advanced";
 export type EntryKind = "phrasal-verb" | "pattern";
 
@@ -10,6 +12,10 @@ export interface EnglishEntry {
   id: string;
   expression: string;
   korean: string;
+  baseExpression: string;
+  scenarioLabel: string;
+  focusObject: string;
+  variantLabel: string;
   level: EnglishLevel;
   kind: EntryKind;
   grammarPattern: string;
@@ -33,6 +39,34 @@ export interface PracticeCard {
   answer: string;
   explanation: string;
 }
+
+type BaseExpression = {
+  id: string;
+  expression: string;
+  korean: string;
+  level: EnglishLevel;
+  kind: EntryKind;
+  grammarPattern: string;
+  grammarFocus: string;
+  usageNote: string;
+  commonMistake: string;
+  categories: string[];
+  collocations: string[];
+  answerTemplate: string;
+  objectTemplates: string[];
+  exampleTemplates: {
+    en: string;
+    kr: string;
+  }[];
+};
+
+type DomainScenario = {
+  slug: string;
+  label: string;
+  productTag: string;
+  categories: string[];
+  objects: string[];
+};
 
 const ROLE_SUBJECTS = [
   "The sales team",
@@ -69,6 +103,79 @@ const TASK_TYPES = [
   "콜로케이션",
 ];
 
+const PRACTICE_CONTEXTS = [
+  "견적 검토",
+  "고객 미팅",
+  "공급사 협의",
+  "생산 일정",
+  "품질 이슈",
+  "선적 안내",
+  "계약 검토",
+  "프로젝트 보고",
+  "가격 협상",
+  "샘플 승인",
+  "재고 계획",
+  "교육 안내",
+  "월간 실적 보고",
+  "분기 경영 회의",
+  "신규 고객 온보딩",
+  "기존 고객 갱신",
+  "납기 변경 안내",
+  "긴급 출하 요청",
+  "통관 서류 검토",
+  "송장 오류 확인",
+  "원가 분석",
+  "예산 검토",
+  "할인 조건 협의",
+  "계약 조항 협상",
+  "리스크 검토",
+  "규정 준수 점검",
+  "인증 갱신",
+  "공장 감사",
+  "불량 원인 분석",
+  "클레임 대응",
+  "반품 처리",
+  "신제품 출시",
+  "제품 사양 변경",
+  "라벨 검토",
+  "포장 개선",
+  "수요 예측",
+  "생산 능력 검토",
+  "창고 입고",
+  "재고 보충",
+  "운송 예약",
+  "선적 추적",
+  "협력사 선정",
+  "공급사 평가",
+  "구매 발주",
+  "결제 확인",
+  "채권 회수",
+  "회의록 작성",
+  "실행 과제 점검",
+  "프로젝트 착수",
+  "프로젝트 종료",
+  "일정 재조정",
+  "인력 배치",
+  "업무 인수인계",
+  "내부 교육",
+  "고객 피드백",
+  "시장 진입 계획",
+  "영업 제안서",
+  "입찰 응답",
+  "제품 데모",
+  "기술 검증",
+  "현장 테스트",
+  "성과 개선",
+  "운영 프로세스 개선",
+  "데이터 정리",
+  "경영진 보고",
+  "해외 파트너 협의",
+  "연간 계획 수립",
+  "사업 검토",
+  "재무 마감",
+  "고객 지원",
+] as const;
+
 const MODAL_HELPERS = [
   "should",
   "needs to",
@@ -77,9 +184,260 @@ const MODAL_HELPERS = [
   "is expected to",
 ];
 
-function entry(config: EnglishEntry): EnglishEntry {
-  return config;
-}
+const DOMAIN_SCENARIOS: DomainScenario[] = [
+  {
+    slug: "sales-quotation",
+    label: "sales quotation",
+    productTag: "quotation",
+    categories: ["sales", "quotation", "pricing"],
+    objects: ["the revised quotation", "the discount sheet", "the deal summary"],
+  },
+  {
+    slug: "key-account-renewal",
+    label: "key account renewal",
+    productTag: "renewal",
+    categories: ["sales", "renewal", "client"],
+    objects: ["the renewal proposal", "the contract extension", "the account review"],
+  },
+  {
+    slug: "shipment-delay",
+    label: "shipment delay",
+    productTag: "shipment",
+    categories: ["logistics", "shipment", "operations"],
+    objects: ["the delayed shipment", "the revised ETD", "the booking status"],
+  },
+  {
+    slug: "factory-audit",
+    label: "factory audit",
+    productTag: "audit",
+    categories: ["quality", "audit", "supplier"],
+    objects: ["the audit finding", "the corrective action list", "the factory checklist"],
+  },
+  {
+    slug: "sample-approval",
+    label: "sample approval",
+    productTag: "sample",
+    categories: ["sample", "approval", "product"],
+    objects: ["the pre-production sample", "the golden sample", "the sample feedback"],
+  },
+  {
+    slug: "invoice-review",
+    label: "invoice review",
+    productTag: "invoice",
+    categories: ["finance", "documents", "invoice"],
+    objects: ["the commercial invoice", "the payment breakdown", "the tax line item"],
+  },
+  {
+    slug: "packing-list",
+    label: "packing list",
+    productTag: "packing",
+    categories: ["documents", "packing", "logistics"],
+    objects: ["the packing list", "the carton quantity", "the pallet count"],
+  },
+  {
+    slug: "co-review",
+    label: "certificate of origin review",
+    productTag: "C/O",
+    categories: ["documents", "compliance", "origin"],
+    objects: ["the C/O draft", "the exporter address", "the HS code line"],
+  },
+  {
+    slug: "customs-clearance",
+    label: "customs clearance",
+    productTag: "customs",
+    categories: ["customs", "shipping", "compliance"],
+    objects: ["the customs document", "the import entry", "the clearance issue"],
+  },
+  {
+    slug: "product-launch",
+    label: "product launch",
+    productTag: "launch",
+    categories: ["marketing", "launch", "product"],
+    objects: ["the launch calendar", "the feature summary", "the launch deck"],
+  },
+  {
+    slug: "ecommerce-listing",
+    label: "ecommerce listing",
+    productTag: "listing",
+    categories: ["ecommerce", "content", "marketing"],
+    objects: ["the product listing", "the image set", "the listing title"],
+  },
+  {
+    slug: "crm-handover",
+    label: "CRM handover",
+    productTag: "CRM",
+    categories: ["crm", "handover", "sales"],
+    objects: ["the lead history", "the handover note", "the pipeline view"],
+  },
+  {
+    slug: "supplier-onboarding",
+    label: "supplier onboarding",
+    productTag: "onboarding",
+    categories: ["supplier", "onboarding", "operations"],
+    objects: ["the onboarding checklist", "the company profile", "the compliance package"],
+  },
+  {
+    slug: "production-planning",
+    label: "production planning",
+    productTag: "planning",
+    categories: ["production", "planning", "factory"],
+    objects: ["the weekly plan", "the line capacity", "the build schedule"],
+  },
+  {
+    slug: "quality-claim",
+    label: "quality claim",
+    productTag: "claim",
+    categories: ["quality", "claim", "after-sales"],
+    objects: ["the defect claim", "the root cause report", "the 8D response"],
+  },
+  {
+    slug: "after-sales",
+    label: "after-sales support",
+    productTag: "support",
+    categories: ["support", "service", "client"],
+    objects: ["the service ticket", "the field complaint", "the replacement request"],
+  },
+  {
+    slug: "pricing-negotiation",
+    label: "pricing negotiation",
+    productTag: "negotiation",
+    categories: ["pricing", "negotiation", "sales"],
+    objects: ["the target price", "the margin request", "the rebate option"],
+  },
+  {
+    slug: "forecast-review",
+    label: "forecast review",
+    productTag: "forecast",
+    categories: ["forecast", "planning", "sales"],
+    objects: ["the monthly forecast", "the demand signal", "the forecast gap"],
+  },
+  {
+    slug: "monthly-reporting",
+    label: "monthly reporting",
+    productTag: "report",
+    categories: ["reporting", "management", "finance"],
+    objects: ["the monthly report", "the KPI summary", "the performance slide"],
+  },
+  {
+    slug: "project-rollout",
+    label: "project rollout",
+    productTag: "rollout",
+    categories: ["project", "rollout", "operations"],
+    objects: ["the rollout plan", "the milestone tracker", "the go-live checklist"],
+  },
+  {
+    slug: "training-program",
+    label: "training program",
+    productTag: "training",
+    categories: ["training", "people", "operations"],
+    objects: ["the training module", "the onboarding deck", "the workshop agenda"],
+  },
+  {
+    slug: "compliance-check",
+    label: "compliance check",
+    productTag: "compliance",
+    categories: ["compliance", "documents", "review"],
+    objects: ["the compliance checklist", "the policy exception", "the submission gap"],
+  },
+  {
+    slug: "warehouse-inbound",
+    label: "warehouse inbound",
+    productTag: "warehouse",
+    categories: ["warehouse", "inventory", "logistics"],
+    objects: ["the inbound schedule", "the stock receipt", "the unloading slot"],
+  },
+  {
+    slug: "inventory-replenishment",
+    label: "inventory replenishment",
+    productTag: "inventory",
+    categories: ["inventory", "planning", "supply"],
+    objects: ["the replenishment plan", "the safety stock", "the stock shortage"],
+  },
+  {
+    slug: "container-booking",
+    label: "container booking",
+    productTag: "booking",
+    categories: ["shipping", "booking", "forwarder"],
+    objects: ["the container booking", "the vessel option", "the booking confirmation"],
+  },
+  {
+    slug: "payment-followup",
+    label: "payment follow-up",
+    productTag: "payment",
+    categories: ["finance", "payment", "collections"],
+    objects: ["the overdue payment", "the remittance copy", "the bank charge item"],
+  },
+  {
+    slug: "engineering-change",
+    label: "engineering change",
+    productTag: "ECO",
+    categories: ["engineering", "change", "product"],
+    objects: ["the ECO notice", "the drawing revision", "the material change"],
+  },
+  {
+    slug: "certification-renewal",
+    label: "certification renewal",
+    productTag: "certificate",
+    categories: ["certification", "compliance", "renewal"],
+    objects: ["the KC certificate", "the CE file", "the validity date"],
+  },
+  {
+    slug: "label-artwork",
+    label: "label artwork",
+    productTag: "label",
+    categories: ["label", "artwork", "product"],
+    objects: ["the label artwork", "the barcode layout", "the carton mark"],
+  },
+  {
+    slug: "rfq-response",
+    label: "RFQ response",
+    productTag: "RFQ",
+    categories: ["sales", "RFQ", "pricing"],
+    objects: ["the RFQ package", "the cost breakdown", "the delivery term"],
+  },
+  {
+    slug: "meeting-minutes",
+    label: "meeting minutes",
+    productTag: "minutes",
+    categories: ["meeting", "communication", "reporting"],
+    objects: ["the meeting minutes", "the action log", "the open issue list"],
+  },
+  {
+    slug: "board-update",
+    label: "board update",
+    productTag: "board",
+    categories: ["management", "reporting", "executive"],
+    objects: ["the board update", "the risk note", "the decision memo"],
+  },
+  {
+    slug: "contract-redline",
+    label: "contract redline",
+    productTag: "contract",
+    categories: ["legal", "contract", "negotiation"],
+    objects: ["the redlined clause", "the liability point", "the payment term"],
+  },
+  {
+    slug: "return-material",
+    label: "return material authorization",
+    productTag: "RMA",
+    categories: ["returns", "quality", "support"],
+    objects: ["the RMA request", "the return note", "the return cause"],
+  },
+  {
+    slug: "field-test",
+    label: "field test",
+    productTag: "test",
+    categories: ["testing", "quality", "field"],
+    objects: ["the field test result", "the site issue", "the validation point"],
+  },
+  {
+    slug: "regional-expansion",
+    label: "regional expansion",
+    productTag: "expansion",
+    categories: ["expansion", "market", "strategy"],
+    objects: ["the regional plan", "the distributor shortlist", "the launch timing"],
+  },
+];
 
 function fillTemplate(
   template: string,
@@ -95,832 +453,338 @@ function fillTemplate(
     .replaceAll("{modal}", modal);
 }
 
-export const ENGLISH_ENTRIES: EnglishEntry[] = [
-  entry({
-    id: "follow-up-on",
-    expression: "follow up on",
-    korean: "후속 조치하다, 다시 확인하다",
-    level: "intermediate",
-    kind: "phrasal-verb",
-    grammarPattern: "follow up on + noun / issue",
-    grammarFocus: "타동사형 구동사로 전치사 on 뒤에 대상이 옵니다.",
-    usageNote: "이메일, 견적, 클레임, 일정 확인처럼 다시 챙길 일이 있을 때 가장 자주 쓰입니다.",
-    commonMistake: "follow up the issue 라고 쓰지 말고 follow up on the issue 로 씁니다.",
-    categories: ["email", "sales", "operations"],
-    collocations: ["quotation", "shipment", "approval"],
-    objectPool: ["the revised quotation", "the delayed shipment", "the approval request"],
-    answerTemplate: "{subject} {modal} follow up on {object} {time}.",
-    examples: [
-      { en: "I'll follow up on the revised quotation this afternoon.", kr: "오늘 오후에 수정 견적을 다시 확인하겠습니다." },
-      { en: "Please follow up on the supplier's test report before Friday.", kr: "금요일 전에 공급사의 시험성적서를 다시 챙겨 주세요." },
-    ],
-  }),
-  entry({
-    id: "touch-base-with",
-    expression: "touch base with",
-    korean: "간단히 연락하다, 짧게 상의하다",
-    level: "intermediate",
-    kind: "phrasal-verb",
-    grammarPattern: "touch base with + person / team",
-    grammarFocus: "사람이나 팀과 짧게 연결할 때 씁니다.",
-    usageNote: "회의를 길게 잡지 않고 가볍게 체크인하는 느낌입니다.",
-    commonMistake: "touch base to someone 보다 touch base with someone 이 자연스럽습니다.",
-    categories: ["meeting", "communication"],
-    collocations: ["the client", "the logistics team", "the supplier"],
-    objectPool: ["the client", "the logistics team", "the supplier"],
-    answerTemplate: "{subject} {modal} touch base with {object} {time}.",
-    examples: [
-      { en: "Let's touch base with the logistics team after lunch.", kr: "점심 후에 물류팀과 짧게 상의합시다." },
-      { en: "I touched base with the client before sending the draft.", kr: "초안을 보내기 전에 고객과 간단히 확인했습니다." },
-    ],
-  }),
-  entry({
-    id: "circle-back-on",
-    expression: "circle back on",
-    korean: "다시 돌아와 논의하다",
-    level: "advanced",
-    kind: "phrasal-verb",
-    grammarPattern: "circle back on + topic / point",
-    grammarFocus: "회의에서 일단 보류하고 나중에 다시 다룰 때 자주 씁니다.",
-    usageNote: "즉시 답하지 못하는 사안에 대해 후속 답변을 약속할 때 적합합니다.",
-    commonMistake: "circle back to this point 도 가능하지만 business meeting 에서는 on this point 도 많이 씁니다.",
-    categories: ["meeting", "negotiation"],
-    collocations: ["the pricing issue", "that point", "the contract clause"],
-    objectPool: ["the pricing issue", "that point", "the contract clause"],
-    answerTemplate: "{subject} {modal} circle back on {object} {time}.",
-    examples: [
-      { en: "We can circle back on the pricing issue once finance reviews it.", kr: "재무팀 검토 후 가격 이슈로 다시 돌아오겠습니다." },
-      { en: "I'll circle back on that point in tomorrow's call.", kr: "그 부분은 내일 통화에서 다시 다루겠습니다." },
-    ],
-  }),
-  entry({
-    id: "roll-out",
-    expression: "roll out",
-    korean: "출시하다, 도입하다",
-    level: "intermediate",
-    kind: "phrasal-verb",
-    grammarPattern: "roll out + product / policy / program",
-    grammarFocus: "새 제품, 정책, 캠페인을 단계적으로 시장에 내놓을 때 씁니다.",
-    usageNote: "launch 보다 운영 도입 과정까지 포함하는 뉘앙스가 있습니다.",
-    commonMistake: "roll out to market 라기보다 roll out the product 가 기본형입니다.",
-    categories: ["product", "launch", "operations"],
-    collocations: ["the new dashboard", "the training program", "the updated label"],
-    objectPool: ["the new dashboard", "the training program", "the updated label"],
-    answerTemplate: "{subject} {modal} roll out {object} {time}.",
-    examples: [
-      { en: "The team will roll out the updated label next month.", kr: "팀은 다음 달에 업데이트된 라벨을 도입할 예정입니다." },
-      { en: "We rolled out the new dashboard in phases.", kr: "새 대시보드를 단계적으로 도입했습니다." },
-    ],
-  }),
-  entry({
-    id: "scale-up",
-    expression: "scale up",
-    korean: "확대하다, 증산하다",
-    level: "intermediate",
-    kind: "phrasal-verb",
-    grammarPattern: "scale up + production / operations",
-    grammarFocus: "생산량, 인원, 운영 규모를 키울 때 사용합니다.",
-    usageNote: "성장과 운영확장을 동시에 다루는 비즈니스 표현입니다.",
-    commonMistake: "scale the production up 도 가능하지만 문서에서는 scale up production 이 더 간결합니다.",
-    categories: ["manufacturing", "operations"],
-    collocations: ["production", "capacity", "output"],
-    objectPool: ["production", "capacity", "output"],
-    answerTemplate: "{subject} {modal} scale up {object} {time}.",
-    examples: [
-      { en: "The factory needs to scale up output before peak season.", kr: "성수기 전에 공장은 생산량을 확대해야 합니다." },
-      { en: "We can scale up production once the sample is approved.", kr: "샘플 승인 후 양산을 확대할 수 있습니다." },
-    ],
-  }),
-  entry({
-    id: "wind-down",
-    expression: "wind down",
-    korean: "축소하다, 마무리하다",
-    level: "advanced",
-    kind: "phrasal-verb",
-    grammarPattern: "wind down + project / operation",
-    grammarFocus: "활동을 갑자기 끝내기보다 점진적으로 줄이는 느낌입니다.",
-    usageNote: "사업 종료, 캠페인 종료, 분기 말 정리에 자주 쓰입니다.",
-    commonMistake: "close down 과 달리 갑작스러운 폐쇄 의미가 아닙니다.",
-    categories: ["operations", "management"],
-    collocations: ["the pilot project", "the quarter-end campaign", "the old process"],
-    objectPool: ["the pilot project", "the quarter-end campaign", "the old process"],
-    answerTemplate: "{subject} {modal} wind down {object} {time}.",
-    examples: [
-      { en: "We should wind down the old process after the handover.", kr: "인수인계 후 기존 프로세스를 정리해야 합니다." },
-      { en: "The team is winding down the pilot project this week.", kr: "팀이 이번 주에 파일럿 프로젝트를 마무리하고 있습니다." },
-    ],
-  }),
-  entry({
-    id: "iron-out",
-    expression: "iron out",
-    korean: "문제를 해결하다, 세부를 조정하다",
-    level: "advanced",
-    kind: "phrasal-verb",
-    grammarPattern: "iron out + problem / detail",
-    grammarFocus: "문제의 큰 틀보다 잔문제나 세부사항 정리에 적합합니다.",
-    usageNote: "계약 문구, 테스트 오류, 운영 흐름의 작은 마찰을 다룰 때 좋습니다.",
-    commonMistake: "iron the issues out 도 가능하지만 대부분 iron out the issues 로 씁니다.",
-    categories: ["negotiation", "operations", "quality"],
-    collocations: ["the final details", "the shipping issue", "the test failure"],
-    objectPool: ["the final details", "the shipping issue", "the test failure"],
-    answerTemplate: "{subject} {modal} iron out {object} {time}.",
-    examples: [
-      { en: "Let's iron out the final details before we sign.", kr: "서명 전에 마지막 세부사항을 정리합시다." },
-      { en: "Engineering is ironing out the test failure now.", kr: "엔지니어링 팀이 지금 시험 오류를 해결 중입니다." },
-    ],
-  }),
-  entry({
-    id: "sign-off-on",
-    expression: "sign off on",
-    korean: "최종 승인하다",
-    level: "intermediate",
-    kind: "phrasal-verb",
-    grammarPattern: "sign off on + document / plan / design",
-    grammarFocus: "최종 승인 주체가 명확할 때 쓰는 표현입니다.",
-    usageNote: "도면, 견적, 계약서, 마케팅 카피 승인에 폭넓게 씁니다.",
-    commonMistake: "sign off the document 가 아니라 sign off on the document 가 기본입니다.",
-    categories: ["approval", "documents"],
-    collocations: ["the final drawing", "the quotation", "the shipment plan"],
-    objectPool: ["the final drawing", "the quotation", "the shipment plan"],
-    answerTemplate: "{subject} {modal} sign off on {object} {time}.",
-    examples: [
-      { en: "Finance has not signed off on the quotation yet.", kr: "재무팀이 아직 견적을 최종 승인하지 않았습니다." },
-      { en: "The director signed off on the final drawing yesterday.", kr: "이사가 어제 최종 도면을 승인했습니다." },
-    ],
-  }),
-  entry({
-    id: "zero-in-on",
-    expression: "zero in on",
-    korean: "핵심에 집중하다",
-    level: "advanced",
-    kind: "phrasal-verb",
-    grammarPattern: "zero in on + key issue / target",
-    grammarFocus: "여러 옵션 중 핵심 대상에 집중할 때 쓰는 표현입니다.",
-    usageNote: "문제 분석, 매출 타깃, 결함 원인 파악에 유용합니다.",
-    commonMistake: "focus in on 보다 zero in on 이 더 날카로운 뉘앙스를 줍니다.",
-    categories: ["analysis", "strategy"],
-    collocations: ["the root cause", "the main target", "the price gap"],
-    objectPool: ["the root cause", "the main target", "the price gap"],
-    answerTemplate: "{subject} {modal} zero in on {object} {time}.",
-    examples: [
-      { en: "The QA team zeroed in on the root cause within a day.", kr: "QA팀이 하루 만에 근본 원인을 짚어냈습니다." },
-      { en: "We need to zero in on the biggest cost driver.", kr: "가장 큰 원가 요인에 집중해야 합니다." },
-    ],
-  }),
-  entry({
-    id: "phase-out",
-    expression: "phase out",
-    korean: "점진적으로 중단하다",
-    level: "advanced",
-    kind: "phrasal-verb",
-    grammarPattern: "phase out + product / process",
-    grammarFocus: "갑자기 끊는 것이 아니라 단계적으로 없앨 때 씁니다.",
-    usageNote: "단종, 구형 자재 중단, 오래된 프로세스 종료에 적합합니다.",
-    commonMistake: "stop completely 보다 완만한 표현입니다.",
-    categories: ["product", "operations"],
-    collocations: ["the old model", "manual entry", "the legacy system"],
-    objectPool: ["the old model", "manual entry", "the legacy system"],
-    answerTemplate: "{subject} {modal} phase out {object} {time}.",
-    examples: [
-      { en: "We will phase out the old model by the end of the year.", kr: "올해 말까지 기존 모델을 단계적으로 중단할 예정입니다." },
-      { en: "The team is phasing out manual entry.", kr: "팀이 수기 입력을 단계적으로 없애고 있습니다." },
-    ],
-  }),
-  entry({
-    id: "phase-in",
-    expression: "phase in",
-    korean: "단계적으로 도입하다",
-    level: "advanced",
-    kind: "phrasal-verb",
-    grammarPattern: "phase in + policy / system / feature",
-    grammarFocus: "새 기능이나 정책을 한번에가 아니라 순차적으로 넣을 때 씁니다.",
-    usageNote: "사용자 적응이나 리스크 관리가 필요한 도입에 적합합니다.",
-    commonMistake: "roll out 과 비슷하지만 단계성에 더 초점이 있습니다.",
-    categories: ["product", "operations"],
-    collocations: ["the new policy", "the ERP update", "the supplier portal"],
-    objectPool: ["the new policy", "the ERP update", "the supplier portal"],
-    answerTemplate: "{subject} {modal} phase in {object} {time}.",
-    examples: [
-      { en: "We will phase in the ERP update over three weeks.", kr: "ERP 업데이트를 3주에 걸쳐 단계적으로 도입할 예정입니다." },
-      { en: "The portal was phased in by region.", kr: "포털은 지역별로 순차 도입되었습니다." },
-    ],
-  }),
-  entry({
-    id: "step-in",
-    expression: "step in",
-    korean: "개입하다, 대신 처리하다",
-    level: "intermediate",
-    kind: "phrasal-verb",
-    grammarPattern: "step in + when / if clause",
-    grammarFocus: "문제가 생기거나 누군가를 대신해야 할 때 자동사로 씁니다.",
-    usageNote: "관리자나 지원 부서가 개입하는 상황에서 자연스럽습니다.",
-    commonMistake: "step in to solve the issue 도 되지만 뒤에 when절이 자주 옵니다.",
-    categories: ["management", "support"],
-    collocations: ["when needed", "if the supplier delays", "during escalation"],
-    objectPool: ["when needed", "if the supplier delays", "during escalation"],
-    answerTemplate: "{subject} {modal} step in {time}.",
-    examples: [
-      { en: "The manager stepped in when the supplier stopped replying.", kr: "공급사가 답장을 멈추자 관리자가 개입했습니다." },
-      { en: "We can step in if the issue escalates.", kr: "문제가 커지면 우리가 개입할 수 있습니다." },
-    ],
-  }),
-  entry({
-    id: "back-out-of",
-    expression: "back out of",
-    korean: "빠지다, 철회하다",
-    level: "advanced",
-    kind: "phrasal-verb",
-    grammarPattern: "back out of + agreement / plan",
-    grammarFocus: "이미 어느 정도 합의된 일에서 물러날 때 쓰는 표현입니다.",
-    usageNote: "공급사나 고객이 조건을 바꾸며 빠지는 상황을 설명할 때 자주 씁니다.",
-    commonMistake: "cancel 과 달리 약속을 깨는 뉘앙스가 강합니다.",
-    categories: ["negotiation", "risk"],
-    collocations: ["the deal", "the shipment plan", "the meeting"],
-    objectPool: ["the deal", "the shipment plan", "the meeting"],
-    answerTemplate: "{subject} {modal} back out of {object} {time}.",
-    examples: [
-      { en: "The buyer backed out of the deal at the last minute.", kr: "구매자가 마지막 순간에 거래에서 빠졌습니다." },
-      { en: "We hope the supplier will not back out of the shipment plan.", kr: "공급사가 선적 계획에서 빠지지 않기를 바랍니다." },
-    ],
-  }),
-  entry({
-    id: "carry-over",
-    expression: "carry over",
-    korean: "이월되다, 이어지다",
-    level: "intermediate",
-    kind: "phrasal-verb",
-    grammarPattern: "carry over + balance / issue / stock",
-    grammarFocus: "다음 기간으로 넘어가는 수량이나 이슈에 씁니다.",
-    usageNote: "재고, 예산, 미해결 이슈 관리에서 자주 보입니다.",
-    commonMistake: "carry on 과 혼동하지 마세요. carry over 는 다음 시점으로 넘기는 뜻입니다.",
-    categories: ["finance", "inventory", "planning"],
-    collocations: ["the balance", "the open issue", "the remaining stock"],
-    objectPool: ["the balance", "the open issue", "the remaining stock"],
-    answerTemplate: "{subject} {modal} carry over {object} {time}.",
-    examples: [
-      { en: "We will carry over the remaining stock into next month.", kr: "남은 재고는 다음 달로 이월할 예정입니다." },
-      { en: "The issue carried over into the next review cycle.", kr: "그 이슈는 다음 검토 주기로 넘어갔습니다." },
-    ],
-  }),
-  entry({
-    id: "narrow-down",
-    expression: "narrow down",
-    korean: "범위를 좁히다",
-    level: "intermediate",
-    kind: "phrasal-verb",
-    grammarPattern: "narrow down + options / list",
-    grammarFocus: "후보군을 줄일 때 쓰는 대표 표현입니다.",
-    usageNote: "공급사 선정, 사양 선택, 가격안 검토에서 유용합니다.",
-    commonMistake: "reduce options 보다 의사결정 맥락에서 더 자연스럽습니다.",
-    categories: ["selection", "analysis"],
-    collocations: ["the supplier list", "our options", "the final candidates"],
-    objectPool: ["the supplier list", "our options", "the final candidates"],
-    answerTemplate: "{subject} {modal} narrow down {object} {time}.",
-    examples: [
-      { en: "We narrowed down the supplier list to three vendors.", kr: "공급사 목록을 세 곳으로 좁혔습니다." },
-      { en: "Let's narrow down our options before the call.", kr: "통화 전에 옵션 범위를 좁힙시다." },
-    ],
-  }),
-  entry({
-    id: "map-out",
-    expression: "map out",
-    korean: "계획을 구체화하다",
-    level: "advanced",
-    kind: "phrasal-verb",
-    grammarPattern: "map out + plan / process / timeline",
-    grammarFocus: "머릿속 아이디어를 단계별 계획으로 펼칠 때 씁니다.",
-    usageNote: "프로젝트 로드맵, 승인 프로세스, 출시 일정에 잘 맞습니다.",
-    commonMistake: "plan out 도 가능하지만 map out 은 시각적 구조를 떠올리게 합니다.",
-    categories: ["planning", "project"],
-    collocations: ["the timeline", "the approval flow", "the launch plan"],
-    objectPool: ["the timeline", "the approval flow", "the launch plan"],
-    answerTemplate: "{subject} {modal} map out {object} {time}.",
-    examples: [
-      { en: "The PM mapped out the approval flow for the new portal.", kr: "PM이 새 포털의 승인 흐름을 구체화했습니다." },
-      { en: "We need to map out the timeline before kickoff.", kr: "킥오프 전에 일정을 구체화해야 합니다." },
-    ],
-  }),
-  entry({
-    id: "set-up",
-    expression: "set up",
-    korean: "설정하다, 준비하다, 만들다",
-    level: "intermediate",
-    kind: "phrasal-verb",
-    grammarPattern: "set up + meeting / account / system",
-    grammarFocus: "준비, 설치, 설정 전반에 쓰이는 아주 범용적인 구동사입니다.",
-    usageNote: "회의 잡기, 계정 생성, 시스템 설정에 모두 쓸 수 있습니다.",
-    commonMistake: "setup 은 명사, set up 은 동사입니다.",
-    categories: ["system", "meeting", "operations"],
-    collocations: ["the meeting", "the test environment", "a new account"],
-    objectPool: ["the meeting", "the test environment", "a new account"],
-    answerTemplate: "{subject} {modal} set up {object} {time}.",
-    examples: [
-      { en: "IT will set up the test environment today.", kr: "IT가 오늘 테스트 환경을 설정할 예정입니다." },
-      { en: "Can you set up a short call with the supplier?", kr: "공급사와 짧은 통화를 잡아 주시겠어요?" },
-    ],
-  }),
-  entry({
-    id: "sort-out",
-    expression: "sort out",
-    korean: "정리하다, 해결하다",
-    level: "intermediate",
-    kind: "phrasal-verb",
-    grammarPattern: "sort out + problem / document / details",
-    grammarFocus: "문제 해결과 정리 두 의미가 모두 있습니다.",
-    usageNote: "서류 누락, 일정 꼬임, 결제 문제 해결에 자주 씁니다.",
-    commonMistake: "solve 만 쓰면 딱딱할 때 sort out 이 더 구어적이고 자연스럽습니다.",
-    categories: ["documents", "operations", "support"],
-    collocations: ["the document issue", "the customs problem", "the final details"],
-    objectPool: ["the document issue", "the customs problem", "the final details"],
-    answerTemplate: "{subject} {modal} sort out {object} {time}.",
-    examples: [
-      { en: "We'll sort out the customs problem before shipment.", kr: "선적 전에 통관 문제를 해결하겠습니다." },
-      { en: "She sorted out the missing documents this morning.", kr: "그녀가 오늘 아침 누락 서류를 정리했습니다." },
-    ],
-  }),
-  entry({
-    id: "bring-forward",
-    expression: "bring forward",
-    korean: "앞당기다",
-    level: "advanced",
-    kind: "phrasal-verb",
-    grammarPattern: "bring forward + date / deadline / meeting",
-    grammarFocus: "영국식 비즈니스 영어에서 날짜를 앞당길 때 자주 씁니다.",
-    usageNote: "일정을 당길 때 move up 과 비슷하게 쓸 수 있습니다.",
-    commonMistake: "bring back 과 반대 의미가 아닙니다. 일정이 더 이르게 옵니다.",
-    categories: ["schedule", "planning"],
-    collocations: ["the deadline", "the meeting", "the launch date"],
-    objectPool: ["the deadline", "the meeting", "the launch date"],
-    answerTemplate: "{subject} {modal} bring forward {object} {time}.",
-    examples: [
-      { en: "We may need to bring forward the launch date.", kr: "출시일을 앞당겨야 할 수도 있습니다." },
-      { en: "The meeting was brought forward by one day.", kr: "회의가 하루 앞당겨졌습니다." },
-    ],
-  }),
-  entry({
-    id: "push-back",
-    expression: "push back",
-    korean: "연기하다, 이의를 제기하다",
-    level: "intermediate",
-    kind: "phrasal-verb",
-    grammarPattern: "push back + deadline / shipment / against an idea",
-    grammarFocus: "일정을 미루거나 의견에 반대할 때 모두 쓰입니다.",
-    usageNote: "프로젝트와 협상에서 모두 중요한 표현입니다.",
-    commonMistake: "delay 와 같은 뜻으로만 보지 말고 반론 제기 의미도 익혀야 합니다.",
-    categories: ["schedule", "negotiation"],
-    collocations: ["the deadline", "the shipment", "the proposal"],
-    objectPool: ["the deadline", "the shipment", "the proposal"],
-    answerTemplate: "{subject} {modal} push back {object} {time}.",
-    examples: [
-      { en: "We had to push back the shipment by two days.", kr: "선적을 이틀 미뤄야 했습니다." },
-      { en: "The client pushed back on the revised scope.", kr: "고객이 수정된 범위에 이의를 제기했습니다." },
-    ],
-  }),
-  entry({
-    id: "hand-over",
-    expression: "hand over",
-    korean: "인계하다, 넘기다",
-    level: "intermediate",
-    kind: "phrasal-verb",
-    grammarPattern: "hand over + responsibility / file / process",
-    grammarFocus: "책임이나 자료를 다른 사람에게 넘길 때 씁니다.",
-    usageNote: "프로젝트 전환, 담당자 변경, 공급사 인수인계에서 매우 중요합니다.",
-    commonMistake: "handover 는 명사, hand over 는 동사입니다.",
-    categories: ["project", "operations"],
-    collocations: ["the account", "the file", "the process"],
-    objectPool: ["the account", "the file", "the process"],
-    answerTemplate: "{subject} {modal} hand over {object} {time}.",
-    examples: [
-      { en: "Please hand over the account file before you leave.", kr: "퇴근 전에 계정 파일을 인계해 주세요." },
-      { en: "The team handed over the process to operations.", kr: "팀이 그 프로세스를 운영팀에 넘겼습니다." },
-    ],
-  }),
-  entry({
-    id: "build-on",
-    expression: "build on",
-    korean: "기반으로 발전시키다",
-    level: "advanced",
-    kind: "phrasal-verb",
-    grammarPattern: "build on + result / feedback / idea",
-    grammarFocus: "기존 성과나 의견을 토대로 다음 단계로 나아갈 때 씁니다.",
-    usageNote: "협업, 제안서, 제품 개선 문맥에서 많이 보입니다.",
-    commonMistake: "based on 과 달리 동작감이 더 강합니다.",
-    categories: ["strategy", "product", "teamwork"],
-    collocations: ["the feedback", "the first draft", "last quarter's results"],
-    objectPool: ["the feedback", "the first draft", "last quarter's results"],
-    answerTemplate: "{subject} {modal} build on {object} {time}.",
-    examples: [
-      { en: "Let's build on the feedback from the pilot group.", kr: "파일럿 그룹 피드백을 바탕으로 더 발전시켜 봅시다." },
-      { en: "The next proposal should build on the first draft.", kr: "다음 제안서는 1차 초안을 기반으로 발전해야 합니다." },
-    ],
-  }),
-  entry({
-    id: "lock-in",
-    expression: "lock in",
-    korean: "확정하다, 고정하다",
-    level: "advanced",
-    kind: "phrasal-verb",
-    grammarPattern: "lock in + price / schedule / supplier",
-    grammarFocus: "변동 가능성이 있는 조건을 최종 확정하는 느낌입니다.",
-    usageNote: "가격 고정, 일정 확정, 계약 조건 확정에서 자주 씁니다.",
-    commonMistake: "fix 와 비슷하지만 협상에서 확정했다는 느낌이 더 강합니다.",
-    categories: ["pricing", "schedule", "procurement"],
-    collocations: ["the price", "the production slot", "the shipment window"],
-    objectPool: ["the price", "the production slot", "the shipment window"],
-    answerTemplate: "{subject} {modal} lock in {object} {time}.",
-    examples: [
-      { en: "We need to lock in the price before raw materials go up.", kr: "원자재가 오르기 전에 가격을 확정해야 합니다." },
-      { en: "The team locked in the shipment window yesterday.", kr: "팀이 어제 선적 일정을 확정했습니다." },
-    ],
-  }),
-  entry({
-    id: "spell-out",
-    expression: "spell out",
-    korean: "명확히 설명하다",
-    level: "advanced",
-    kind: "phrasal-verb",
-    grammarPattern: "spell out + requirement / expectation",
-    grammarFocus: "모호함 없이 상세히 설명한다는 뜻입니다.",
-    usageNote: "계약 조건, 품질 기준, 책임 범위를 명확히 할 때 좋습니다.",
-    commonMistake: "say clearly 보다 더 공식적이고 문서적인 느낌입니다.",
-    categories: ["documents", "negotiation"],
-    collocations: ["the requirements", "the deadline", "our expectations"],
-    objectPool: ["the requirements", "the deadline", "our expectations"],
-    answerTemplate: "{subject} {modal} spell out {object} {time}.",
-    examples: [
-      { en: "The contract should spell out the warranty terms.", kr: "계약서에는 보증 조건이 명확히 적혀 있어야 합니다." },
-      { en: "Please spell out our expectations in the email.", kr: "이메일에 우리의 기대사항을 분명히 적어 주세요." },
-    ],
-  }),
-  entry({
-    id: "rule-out",
-    expression: "rule out",
-    korean: "배제하다, 가능성을 없애다",
-    level: "advanced",
-    kind: "phrasal-verb",
-    grammarPattern: "rule out + option / cause / possibility",
-    grammarFocus: "가능성 검토 후 제외할 때 쓰는 분석형 표현입니다.",
-    usageNote: "결함 분석, 공급사 평가, 의사결정 보고서에서 유용합니다.",
-    commonMistake: "remove 와 달리 검토 후 배제했다는 판단이 들어갑니다.",
-    categories: ["analysis", "quality", "selection"],
-    collocations: ["that option", "the root cause", "a price increase"],
-    objectPool: ["that option", "the root cause", "a price increase"],
-    answerTemplate: "{subject} {modal} rule out {object} {time}.",
-    examples: [
-      { en: "We can rule out that option because of the lead time.", kr: "리드타임 때문에 그 옵션은 제외할 수 있습니다." },
-      { en: "QA ruled out the root cause after retesting.", kr: "QA가 재시험 후 그 원인을 배제했습니다." },
-    ],
-  }),
-  entry({
-    id: "work-through",
-    expression: "work through",
-    korean: "하나씩 해결해 나가다",
-    level: "advanced",
-    kind: "phrasal-verb",
-    grammarPattern: "work through + issue / list / backlog",
-    grammarFocus: "시간을 들여 차근차근 처리한다는 의미입니다.",
-    usageNote: "백로그, 문제 목록, 수정 요청 처리에서 자주 씁니다.",
-    commonMistake: "work on 보다 완료를 향한 진행감이 더 큽니다.",
-    categories: ["operations", "quality", "project"],
-    collocations: ["the backlog", "the issue list", "the revision comments"],
-    objectPool: ["the backlog", "the issue list", "the revision comments"],
-    answerTemplate: "{subject} {modal} work through {object} {time}.",
-    examples: [
-      { en: "The team is working through the revision comments now.", kr: "팀이 지금 수정 코멘트를 하나씩 처리하고 있습니다." },
-      { en: "We will work through the backlog this week.", kr: "이번 주에 백로그를 차례대로 처리할 예정입니다." },
-    ],
-  }),
-  entry({
-    id: "account-for",
-    expression: "account for",
-    korean: "설명하다, 차지하다",
-    level: "advanced",
-    kind: "phrasal-verb",
-    grammarPattern: "account for + difference / amount / result",
-    grammarFocus: "차이를 설명하거나 비중을 말할 때 둘 다 사용됩니다.",
-    usageNote: "재무 보고, 비용 설명, 오차 분석에서 꼭 필요합니다.",
-    commonMistake: "explain 만으로는 비중 의미가 빠질 수 있습니다.",
-    categories: ["finance", "analysis"],
-    collocations: ["the gap", "most of the cost", "the discrepancy"],
-    objectPool: ["the gap", "most of the cost", "the discrepancy"],
-    answerTemplate: "{subject} {modal} account for {object} {time}.",
-    examples: [
-      { en: "Material cost accounts for most of the increase.", kr: "자재비가 상승분 대부분을 차지합니다." },
-      { en: "Can you account for the discrepancy in the invoice?", kr: "송장 차이를 설명해 주실 수 있나요?" },
-    ],
-  }),
-  entry({
-    id: "hinge-on",
-    expression: "hinge on",
-    korean: "~에 달려 있다",
-    level: "advanced",
-    kind: "pattern",
-    grammarPattern: "hinge on + noun / whether clause",
-    grammarFocus: "결과가 특정 조건에 좌우된다는 의미입니다.",
-    usageNote: "의사결정, 일정, 승인 여부 설명에 적합합니다.",
-    commonMistake: "depend of 가 아니라 depend on / hinge on 입니다.",
-    categories: ["decision", "risk"],
-    collocations: ["supplier approval", "whether the sample passes", "the final budget"],
-    objectPool: ["supplier approval", "whether the sample passes", "the final budget"],
-    answerTemplate: "{subject}'s decision {modal} hinge on {object} {time}.",
-    examples: [
-      { en: "The launch date hinges on whether the sample passes.", kr: "출시일은 샘플 통과 여부에 달려 있습니다." },
-      { en: "Our final decision hinges on the budget review.", kr: "최종 결정은 예산 검토에 달려 있습니다." },
-    ],
-  }),
-  entry({
-    id: "be-on-track-to",
-    expression: "be on track to",
-    korean: "~할 순조로운 궤도에 있다",
-    level: "intermediate",
-    kind: "pattern",
-    grammarPattern: "be on track to + verb",
-    grammarFocus: "계획대로 잘 진행 중임을 보고할 때 씁니다.",
-    usageNote: "진도 보고, 프로젝트 상태 공유에 매우 유용합니다.",
-    commonMistake: "on the track to 보다 on track to 가 자연스럽습니다.",
-    categories: ["project", "reporting"],
-    collocations: ["meet the deadline", "finish production", "hit the target"],
-    objectPool: ["meet the deadline", "finish production", "hit the target"],
-    answerTemplate: "{subject} is on track to {object} {time}.",
-    examples: [
-      { en: "We are on track to meet the deadline.", kr: "우리는 마감일을 맞출 궤도에 올라 있습니다." },
-      { en: "The project is on track to finish production this month.", kr: "프로젝트는 이번 달 양산 완료 일정대로 가고 있습니다." },
-    ],
-  }),
-  entry({
-    id: "be-slated-to",
-    expression: "be slated to",
-    korean: "~할 예정이다",
-    level: "advanced",
-    kind: "pattern",
-    grammarPattern: "be slated to + verb",
-    grammarFocus: "공식 일정상 계획되어 있다는 의미입니다.",
-    usageNote: "출시 일정, 회의 일정, 배포 일정을 공식적으로 말할 때 좋습니다.",
-    commonMistake: "schedule to 보다 be scheduled to / be slated to 구조를 씁니다.",
-    categories: ["schedule", "planning"],
-    collocations: ["launch next month", "ship next week", "go live in August"],
-    objectPool: ["launch next month", "ship next week", "go live in August"],
-    answerTemplate: "{subject} is slated to {object} {time}.",
-    examples: [
-      { en: "The new dashboard is slated to go live in August.", kr: "새 대시보드는 8월에 오픈 예정입니다." },
-      { en: "The first shipment is slated to leave next week.", kr: "첫 선적은 다음 주 출항 예정입니다." },
-    ],
-  }),
-  entry({
-    id: "be-subject-to",
-    expression: "be subject to",
-    korean: "~에 따라 달라질 수 있다, ~의 적용을 받다",
-    level: "advanced",
-    kind: "pattern",
-    grammarPattern: "be subject to + noun",
-    grammarFocus: "변경 가능성이나 규정 적용을 나타내는 공식 표현입니다.",
-    usageNote: "가격, 일정, 승인이 변경될 수 있음을 알릴 때 자주 씁니다.",
-    commonMistake: "subject for changes 가 아니라 subject to change 입니다.",
-    categories: ["legal", "pricing", "schedule"],
-    collocations: ["change", "customs inspection", "management approval"],
-    objectPool: ["change", "customs inspection", "management approval"],
-    answerTemplate: "{subject} is subject to {object} {time}.",
-    examples: [
-      { en: "All prices are subject to change without notice.", kr: "모든 가격은 사전 통지 없이 변경될 수 있습니다." },
-      { en: "The final release is subject to management approval.", kr: "최종 배포는 경영진 승인 대상입니다." },
-    ],
-  }),
-  entry({
-    id: "in-line-with",
-    expression: "in line with",
-    korean: "~와 일치하는, ~에 부합하는",
-    level: "intermediate",
-    kind: "pattern",
-    grammarPattern: "be in line with + policy / target / expectation",
-    grammarFocus: "기준이나 방침과 맞는다는 뜻의 전치사 패턴입니다.",
-    usageNote: "정책 준수, 가격 정책, 품질 기준 설명에 많이 씁니다.",
-    commonMistake: "in line to 와 혼동하지 말고 in line with 로 외우면 됩니다.",
-    categories: ["policy", "quality", "pricing"],
-    collocations: ["our policy", "the budget target", "customer expectations"],
-    objectPool: ["our policy", "the budget target", "customer expectations"],
-    answerTemplate: "{subject} is in line with {object} {time}.",
-    examples: [
-      { en: "The revised quote is in line with our pricing policy.", kr: "수정 견적은 우리 가격 정책에 부합합니다." },
-      { en: "Your draft is not fully in line with customer expectations.", kr: "작성한 초안이 고객 기대와 완전히 일치하지는 않습니다." },
-    ],
-  }),
-  entry({
-    id: "under-pressure-to",
-    expression: "under pressure to",
-    korean: "~해야 하는 압박을 받는",
-    level: "advanced",
-    kind: "pattern",
-    grammarPattern: "be under pressure to + verb",
-    grammarFocus: "상황적 압박을 설명하는 형용사 패턴입니다.",
-    usageNote: "마감, 원가절감, 일정 단축 등의 현실적 부담을 표현할 때 좋습니다.",
-    commonMistake: "under the pressure to 보다 under pressure to 가 더 일반적입니다.",
-    categories: ["management", "deadline", "cost"],
-    collocations: ["cut costs", "ship faster", "close the issue"],
-    objectPool: ["cut costs", "ship faster", "close the issue"],
-    answerTemplate: "{subject} is under pressure to {object} {time}.",
-    examples: [
-      { en: "The factory is under pressure to ship faster this quarter.", kr: "공장이 이번 분기에는 더 빨리 선적해야 하는 압박을 받고 있습니다." },
-      { en: "We are under pressure to close the issue this week.", kr: "우리는 이번 주에 그 이슈를 마무리해야 하는 압박을 받고 있습니다." },
-    ],
-  }),
-  entry({
-    id: "with-a-view-to",
-    expression: "with a view to",
-    korean: "~을 목표로, ~을 염두에 두고",
-    level: "advanced",
-    kind: "pattern",
-    grammarPattern: "with a view to + noun / gerund",
-    grammarFocus: "공식 문서에서 목적을 설명하는 고급 표현입니다.",
-    usageNote: "개선 계획, 전략 문서, 보고서 문장에 품격 있게 쓰입니다.",
-    commonMistake: "with a view to improve 가 아니라 with a view to improving 입니다.",
-    categories: ["strategy", "writing"],
-    collocations: ["improving lead time", "reducing defects", "long-term growth"],
-    objectPool: ["improving lead time", "reducing defects", "long-term growth"],
-    answerTemplate: "{subject} is taking action with a view to {object} {time}.",
-    examples: [
-      { en: "We are adjusting the workflow with a view to reducing defects.", kr: "불량률 감소를 목표로 워크플로를 조정하고 있습니다." },
-      { en: "The team updated the process with a view to improving lead time.", kr: "리드타임 개선을 염두에 두고 프로세스를 업데이트했습니다." },
-    ],
-  }),
-  entry({
-    id: "be-geared-toward",
-    expression: "be geared toward",
-    korean: "~에 맞춰져 있다",
-    level: "advanced",
-    kind: "pattern",
-    grammarPattern: "be geared toward + audience / goal",
-    grammarFocus: "제품이나 전략의 방향성이 누구/무엇을 향하는지 말할 때 씁니다.",
-    usageNote: "타깃 시장, 고객군, 목적을 설명할 때 좋습니다.",
-    commonMistake: "geared to 도 가능하지만 geared toward 가 더 널리 쓰입니다.",
-    categories: ["marketing", "strategy"],
-    collocations: ["enterprise buyers", "cost savings", "premium clients"],
-    objectPool: ["enterprise buyers", "cost savings", "premium clients"],
-    answerTemplate: "{subject} is geared toward {object} {time}.",
-    examples: [
-      { en: "This package is geared toward enterprise buyers.", kr: "이 패키지는 기업 구매자를 겨냥하고 있습니다." },
-      { en: "The campaign is geared toward premium clients.", kr: "그 캠페인은 프리미엄 고객층을 겨냥하고 있습니다." },
-    ],
-  }),
-  entry({
-    id: "ahead-of-schedule",
-    expression: "ahead of schedule",
-    korean: "예정보다 앞서",
-    level: "intermediate",
-    kind: "pattern",
-    grammarPattern: "be ahead of schedule",
-    grammarFocus: "일정 대비 진도가 빠를 때 쓰는 상태 표현입니다.",
-    usageNote: "프로젝트 리포트에서 긍정적인 신호로 자주 보입니다.",
-    commonMistake: "ahead the schedule 가 아니라 ahead of schedule 입니다.",
-    categories: ["schedule", "reporting"],
-    collocations: ["production", "installation", "testing"],
-    objectPool: ["production", "installation", "testing"],
-    answerTemplate: "{subject} is ahead of schedule {time}.",
-    examples: [
-      { en: "Production is ahead of schedule this week.", kr: "이번 주 생산은 예정보다 빠르게 진행되고 있습니다." },
-      { en: "The installation is running ahead of schedule.", kr: "설치가 일정 대비 앞서 진행되고 있습니다." },
-    ],
-  }),
-  entry({
-    id: "behind-schedule",
-    expression: "behind schedule",
-    korean: "일정보다 뒤처진",
-    level: "intermediate",
-    kind: "pattern",
-    grammarPattern: "be behind schedule",
-    grammarFocus: "진도 지연을 짧고 명확하게 표현합니다.",
-    usageNote: "리스크 공유, 일정 재조정, 보고용 문장에 필수입니다.",
-    commonMistake: "late schedule 보다 behind schedule 이 자연스럽습니다.",
-    categories: ["schedule", "risk"],
-    collocations: ["production", "inspection", "shipment"],
-    objectPool: ["production", "inspection", "shipment"],
-    answerTemplate: "{subject} is behind schedule {time}.",
-    examples: [
-      { en: "The inspection is behind schedule because of the holiday.", kr: "휴일 때문에 검사가 예정보다 지연되고 있습니다." },
-      { en: "We are slightly behind schedule on shipment.", kr: "선적 일정이 약간 뒤처져 있습니다." },
-    ],
-  }),
-  entry({
-    id: "as-part-of",
-    expression: "as part of",
-    korean: "~의 일환으로",
-    level: "intermediate",
-    kind: "pattern",
-    grammarPattern: "as part of + project / initiative",
-    grammarFocus: "큰 계획의 일부라는 의미를 연결해 주는 전치사 패턴입니다.",
-    usageNote: "보고서, 발표, 이메일에서 배경 설명에 자주 씁니다.",
-    commonMistake: "as a part of 도 가능하지만 business writing 에서는 as part of 가 더 간결합니다.",
-    categories: ["writing", "reporting"],
-    collocations: ["the pilot project", "our improvement plan", "the annual review"],
-    objectPool: ["the pilot project", "our improvement plan", "the annual review"],
-    answerTemplate: "{subject} is acting as part of {object} {time}.",
-    examples: [
-      { en: "We updated the checklist as part of our improvement plan.", kr: "개선 계획의 일환으로 체크리스트를 업데이트했습니다." },
-      { en: "This training was launched as part of the annual review.", kr: "이 교육은 연간 리뷰의 일환으로 시작되었습니다." },
-    ],
-  }),
-];
+function capitalizeSentence(value: string) {
+  return value.charAt(0).toUpperCase() + value.slice(1);
+}
+
+function createBaseExpressions(): BaseExpression[] {
+  const raw: Array<
+    [
+      string,
+      string,
+      string,
+      EnglishLevel,
+      EntryKind,
+      string,
+      string,
+      string,
+      string,
+      string[],
+      string[],
+    ]
+  > = [
+    ["follow-up-on", "follow up on", "후속 확인하다", "intermediate", "phrasal-verb", "follow up on + noun", "전치사 on 뒤에 확인 대상이 옵니다.", "견적, 일정, 승인처럼 다시 챙길 일이 있을 때 가장 자주 쓰입니다.", "follow up the issue 라고 쓰지 말고 follow up on the issue 로 씁니다.", ["email", "sales", "operations"], ["quotation", "shipment", "approval"]],
+    ["touch-base-with", "touch base with", "간단히 연락하다", "intermediate", "phrasal-verb", "touch base with + person / team", "with 뒤에 사람이나 팀이 옵니다.", "긴 회의보다 짧은 체크인에 가깝습니다.", "touch base to someone 보다 touch base with someone 이 자연스럽습니다.", ["meeting", "communication"], ["client", "supplier", "logistics team"]],
+    ["check-in-on", "check in on", "상태를 확인하다", "intermediate", "phrasal-verb", "check in on + progress / team", "진행 상태를 짧게 확인할 때 씁니다.", "업무 진행, 생산 현황, 문서 검토 상황을 점검할 때 자연스럽습니다.", "check in the progress 보다 check in on the progress 가 맞습니다.", ["progress", "operations"], ["progress", "shipment", "review"]],
+    ["go-over", "go over", "검토하다", "intermediate", "phrasal-verb", "go over + details / document", "문서나 세부사항을 함께 훑어볼 때 씁니다.", "회의 전 자료 확인, 계약 검토, 수치 체크에 자주 나옵니다.", "go through 와 비슷하지만 조금 더 대화형 맥락이 강합니다.", ["documents", "review"], ["document", "draft", "details"]],
+    ["hand-over", "hand over", "인계하다", "intermediate", "phrasal-verb", "hand over + file / task / account", "업무나 자료를 다른 담당자에게 넘길 때 씁니다.", "프로젝트 전환, 담당자 변경, 샘플 인수인계에 적합합니다.", "hand in 과 혼동하지 않습니다.", ["handover", "operations"], ["account", "task", "file"]],
+    ["set-up", "set up", "세팅하다, 마련하다", "intermediate", "phrasal-verb", "set up + call / system / process", "일정, 시스템, 프로세스 세팅에 폭넓게 씁니다.", "실무 이메일과 미팅 조율에서 매우 빈번합니다.", "setup 은 명사, set up 은 동사입니다.", ["meeting", "systems"], ["call", "dashboard", "review process"]],
+    ["map-out", "map out", "구체적으로 계획하다", "advanced", "phrasal-verb", "map out + plan / process", "단계별 실행 계획을 그릴 때 자연스럽습니다.", "런칭, 선적, 공급사 온보딩처럼 흐름이 긴 업무에 적합합니다.", "단순 나열보다 구조화된 계획을 암시합니다.", ["planning", "strategy"], ["timeline", "process", "roadmap"]],
+    ["sort-out", "sort out", "정리하다, 해결하다", "intermediate", "phrasal-verb", "sort out + issue / detail", "문제 해결과 정리라는 두 의미를 모두 가집니다.", "송장 오류, 일정 충돌, 파일 누락 정리에 많이 씁니다.", "sort the issue out 도 가능하지만 sort out the issue 가 더 간결합니다.", ["operations", "support"], ["issue", "mismatch", "file gap"]],
+    ["carry-over", "carry over", "이월하다", "advanced", "phrasal-verb", "carry over + item / balance / issue", "이슈나 수량을 다음 기간으로 넘길 때 씁니다.", "월말 재고, 다음 분기 과제, 미결 이슈에 자연스럽습니다.", "carry on 과 혼동하지 않습니다.", ["finance", "planning"], ["balance", "open issue", "backlog"]],
+    ["work-through", "work through", "차근차근 해결하다", "advanced", "phrasal-verb", "work through + problem / list", "한 번에 끝내기보다 단계적으로 풀어갈 때 씁니다.", "복잡한 클레임이나 규격 이슈 설명에 적합합니다.", "work on 보다 더 체계적인 뉘앙스입니다.", ["quality", "problem-solving"], ["claim list", "technical issue", "feedback"]],
+    ["line-up", "line up", "준비하다, 확보하다", "intermediate", "phrasal-verb", "line up + supplier / meeting / support", "사람, 자원, 일정 확보에 자주 씁니다.", "다음 단계 전에 필요한 자원을 준비했다는 의미입니다.", "line up with 는 일치하다는 다른 의미이므로 구분합니다.", ["planning", "resources"], ["backup supplier", "review call", "support plan"]],
+    ["roll-out", "roll out", "도입하다, 출시하다", "intermediate", "phrasal-verb", "roll out + program / product / process", "새 제품이나 프로세스를 단계적으로 도입할 때 씁니다.", "launch 보다 운영 도입 과정까지 포함하는 뉘앙스가 있습니다.", "roll out to market 보다는 roll out the product 가 기본입니다.", ["product", "launch", "operations"], ["dashboard", "label", "training program"]],
+    ["scale-up", "scale up", "확대하다, 증산하다", "intermediate", "phrasal-verb", "scale up + production / capacity", "생산량, 운영, 인력을 키울 때 씁니다.", "샘플 승인 후 양산 확대, 신규 거래 확대에 자연스럽습니다.", "scale the production up 도 가능하지만 scale up production 이 더 자주 쓰입니다.", ["manufacturing", "operations"], ["production", "capacity", "output"]],
+    ["wind-down", "wind down", "점진적으로 마무리하다", "advanced", "phrasal-verb", "wind down + project / process", "활동을 갑자기 멈추지 않고 정리할 때 씁니다.", "구형 공정 종료, 파일럿 프로젝트 종료에 적합합니다.", "close down 처럼 즉각 폐쇄 의미는 아닙니다.", ["management", "operations"], ["pilot project", "legacy process", "campaign"]],
+    ["iron-out", "iron out", "세부 문제를 해결하다", "advanced", "phrasal-verb", "iron out + issue / detail", "큰 방향보다 잔문제 정리에 강합니다.", "계약 문구, 테스트 오류, 출고 세부 정리에 잘 맞습니다.", "iron the issue out 보다 iron out the issue 가 더 일반적입니다.", ["negotiation", "quality"], ["shipping issue", "test failure", "final details"]],
+    ["sign-off-on", "sign off on", "최종 승인하다", "intermediate", "phrasal-verb", "sign off on + file / plan", "의사결정자가 공식 승인할 때 씁니다.", "견적, 포장안, 도면, 선적 계획 승인에 자주 나옵니다.", "sign off the document 가 아니라 sign off on the document 가 기본입니다.", ["approval", "documents"], ["drawing", "quotation", "shipment plan"]],
+    ["zero-in-on", "zero in on", "핵심에 집중하다", "advanced", "phrasal-verb", "zero in on + issue / target", "여러 선택지 중 핵심 포인트를 좁혀갈 때 씁니다.", "원가, 불량 원인, 주요 고객 요구사항을 다룰 때 적합합니다.", "focus in on 보다 더 날카로운 느낌을 줍니다.", ["analysis", "strategy"], ["root cause", "margin leak", "priority issue"]],
+    ["phase-out", "phase out", "단계적으로 중단하다", "advanced", "phrasal-verb", "phase out + item / model / process", "오래된 제품이나 공정을 천천히 종료할 때 씁니다.", "단종 통보, 부품 교체, 규정 변경 대응에 적합합니다.", "phase off 라고 쓰지 않습니다.", ["product", "lifecycle"], ["legacy model", "old packaging", "manual process"]],
+    ["rule-out", "rule out", "가능성을 배제하다", "advanced", "phrasal-verb", "rule out + option / cause", "원인 분석과 대안 평가에서 자주 나옵니다.", "품질 불량 원인이나 공급사 후보를 좁힐 때 자연스럽습니다.", "delete 나 remove 와 다른 분석적 표현입니다.", ["quality", "analysis"], ["design issue", "material cause", "supplier option"]],
+    ["call-off", "call off", "취소하다", "intermediate", "phrasal-verb", "call off + meeting / shipment / event", "잡혀 있던 일정이나 이벤트를 취소할 때 씁니다.", "회의 취소, 출하 보류, 방문 취소에 자연스럽습니다.", "cancel 과 거의 같지만 일정 취소 맥락이 강합니다.", ["meeting", "logistics"], ["review meeting", "shipment booking", "site visit"]],
+    ["lock-in", "lock in", "확정하다", "advanced", "phrasal-verb", "lock in + price / date / spec", "나중에 바뀌지 않도록 확정할 때 씁니다.", "원가, 선적일, 자재 규격 확정 표현으로 좋습니다.", "lock on 과 혼동하지 않습니다.", ["pricing", "planning"], ["target price", "ETD", "material spec"]],
+    ["bring-up", "bring up", "꺼내다, 제기하다", "intermediate", "phrasal-verb", "bring up + concern / topic", "회의나 이메일에서 이슈를 처음 제기할 때 씁니다.", "문제 지적, 가격 이슈, 일정 충돌 제기에 폭넓게 씁니다.", "raise 와 비슷하지만 구어적인 톤이 있습니다.", ["meeting", "communication"], ["quality concern", "price gap", "delay risk"]],
+    ["close-out", "close out", "완료 정리하다", "advanced", "phrasal-verb", "close out + task / month / claim", "단순 종료보다 정산과 정리를 포함합니다.", "월말 마감, 클레임 종결, 프로젝트 종료에 적합합니다.", "close 와 달리 정리 완료까지 포함합니다.", ["finance", "project"], ["claim case", "month-end tasks", "action list"]],
+    ["write-up", "write up", "문서화하다", "advanced", "phrasal-verb", "write up + summary / findings", "검토 결과, 회의 결과, 테스트 결과를 정리할 때 씁니다.", "구두 논의를 문서로 남기는 상황에 매우 유용합니다.", "write down 보다 더 공식적인 문서화 의미입니다.", ["reporting", "documents"], ["meeting summary", "test findings", "audit note"]],
+    ["back-up", "back up", "뒷받침하다, 백업하다", "intermediate", "phrasal-verb", "back up + claim / file / data", "주장 근거나 데이터 백업 둘 다 가능합니다.", "시험 성적서, 거래 이력, 로그 자료 설명에 자연스럽습니다.", "backup 은 명사, back up 은 동사입니다.", ["documents", "data"], ["claim", "cost estimate", "test result"]],
+    ["filter-out", "filter out", "걸러내다", "advanced", "phrasal-verb", "filter out + noise / duplicate / issue", "대량 데이터나 피드백에서 불필요한 것을 제거할 때 씁니다.", "리드 정제, 이상 데이터 제거, 문서 검토 결과 정리에 적합합니다.", "filter off 라고 쓰지 않습니다.", ["data", "analysis"], ["duplicate records", "noise", "non-priority items"]],
+    ["step-up", "step up", "강화하다, 속도를 높이다", "intermediate", "phrasal-verb", "step up + effort / control / output", "개선이 더 필요할 때 행동 강화를 뜻합니다.", "품질관리 강화, 커뮤니케이션 강화, 생산 증대에 자주 씁니다.", "step up to 는 역할을 맡는 다른 의미이므로 구분합니다.", ["management", "quality"], ["quality checks", "communication", "output"]],
+    ["hold-off-on", "hold off on", "보류하다", "advanced", "phrasal-verb", "hold off on + decision / shipment / change", "즉시 진행하지 않고 잠시 미루는 뜻입니다.", "승인 대기, 고객 확인 대기, 문서 보완 대기에 좋습니다.", "hold on 과 혼동하지 않습니다.", ["planning", "approval"], ["shipment release", "final decision", "spec change"]],
+    ["point-out", "point out", "지적하다", "intermediate", "phrasal-verb", "point out + issue / difference", "문제나 차이점을 상대에게 명확히 보여줄 때 씁니다.", "검토 코멘트, 리스크 공유, 가격 차이 설명에 자주 사용됩니다.", "point out about 는 불필요합니다.", ["review", "communication"], ["mismatch", "risk", "difference"]],
+    ["lean-on", "lean on", "의지하다, 압박하다", "advanced", "phrasal-verb", "lean on + team / supplier", "협조 요청이 강한 뉘앙스를 가질 수 있습니다.", "납기 압박, 빠른 회신 요청, 추가 지원 요청에 적합합니다.", "공식 문서에서는 overly aggressive 하게 보이지 않도록 주의합니다.", ["supplier", "management"], ["the supplier", "the logistics team", "the factory"]],
+    ["break-down", "break down", "세분화하다", "intermediate", "phrasal-verb", "break down + cost / process / task", "큰 항목을 더 작은 부분으로 나눌 때 씁니다.", "원가 구조, 일정, 단계별 책임 설명에 매우 유용합니다.", "고장나다 의미도 있으므로 문맥을 분명히 합니다.", ["analysis", "pricing"], ["cost structure", "timeline", "task list"]],
+    ["tie-up", "tie up", "묶다, 지연시키다", "advanced", "phrasal-verb", "tie up + capital / inventory / resources", "자원이 묶여 비효율이 생길 때 씁니다.", "재고 과다, 승인 지연, 자금 부담 설명에 적합합니다.", "긍정적 제휴 의미의 tie-up 과 문맥으로 구분합니다.", ["finance", "inventory"], ["working capital", "inventory", "engineering resources"]],
+    ["turn-around", "turn around", "반전시키다, 회전시키다", "advanced", "phrasal-verb", "turn around + performance / issue", "상황을 개선해 반전시킨다는 뜻이 강합니다.", "실적 회복, 불량 개선, 응답시간 개선에 씁니다.", "turnaround 는 명사형으로도 자주 쓰입니다.", ["performance", "quality"], ["response time", "performance trend", "claim rate"]],
+    ["pull-together", "pull together", "함께 정리하다", "intermediate", "phrasal-verb", "pull together + data / file / proposal", "여러 정보를 모아 하나의 산출물로 만들 때 씁니다.", "견적 패키지, 월간 보고, 검토 자료 묶음에 적합합니다.", "pull up 과 혼동하지 않습니다.", ["documents", "reporting"], ["proposal", "report pack", "review data"]],
+    ["move-forward-with", "move forward with", "진행하다", "intermediate", "pattern", "move forward with + plan / supplier / option", "의사결정 후 실제 실행으로 넘어갈 때 씁니다.", "프로젝트 승인, 발주 진행, 공급사 선정 이후 자주 나옵니다.", "go forward with 도 가능하지만 move forward with 가 더 자연스럽습니다.", ["project", "decision"], ["the plan", "the selected supplier", "the revised scope"]],
+    ["be-on-track-to", "be on track to", "~할 순조로운 상태다", "intermediate", "pattern", "be on track to + verb / target", "일정이나 목표 달성 가능성을 나타냅니다.", "양산 준비, 매출 목표, 인증 일정 보고에 좋습니다.", "on the track 는 부자연스럽습니다.", ["reporting", "planning"], ["hit the target", "meet the deadline", "complete the audit"]],
+    ["be-subject-to", "be subject to", "~에 따라 달라지다", "advanced", "pattern", "be subject to + approval / change / review", "아직 확정되지 않았음을 공식적으로 표현합니다.", "가격, 선적일, 사양 변경 가능성을 표현할 때 자주 사용됩니다.", "subject for 와 혼동하지 않습니다.", ["legal", "documents"], ["final approval", "stock availability", "customs review"]],
+    ["be-aligned-with", "be aligned with", "~와 일치하다", "advanced", "pattern", "be aligned with + strategy / requirement / plan", "정책, 요구사항, 목표와 정합성을 말할 때 씁니다.", "내부 보고와 고객 커뮤니케이션 모두에 잘 맞습니다.", "align on 과는 구조가 다릅니다.", ["strategy", "management"], ["the client brief", "the launch plan", "the quality standard"]],
+    ["be-accountable-for", "be accountable for", "~에 책임이 있다", "advanced", "pattern", "be accountable for + result / task", "소유권과 책임을 명확히 할 때 씁니다.", "역할 정의, 프로젝트 운영, KPI 관리에 자주 씁니다.", "responsible for 와 비슷하지만 더 강한 책임감을 줍니다.", ["management", "ownership"], ["the final output", "the action item", "the document review"]],
+    ["be-expected-to", "be expected to", "~할 것으로 기대되다", "intermediate", "pattern", "be expected to + verb", "상대방에게 강하게 요구하지 않고 기대 수준을 제시합니다.", "공급사 안내, 마감 공지, 검토 요청 문장에 적합합니다.", "expect to 와 수동 구조를 혼동하지 않습니다.", ["communication", "expectations"], ["reply within 24 hours", "submit the file", "confirm the schedule"]],
+    ["be-eligible-for", "be eligible for", "~의 대상이 되다", "advanced", "pattern", "be eligible for + program / rebate / approval", "조건 충족 여부를 설명할 때 씁니다.", "지원금, 특별가, 인증 대상, 파일 승인에 잘 맞습니다.", "qualify for 와 비슷하지만 조금 더 공식적입니다.", ["compliance", "pricing"], ["the rebate", "the pilot program", "the approval window"]],
+    ["be-keen-to", "be keen to", "~하고 싶어 하다", "intermediate", "pattern", "be keen to + verb", "영국식 비즈니스 영어에서 자주 보이는 표현입니다.", "협업 의지, 테스트 참여, 회신 의사를 부드럽게 전달합니다.", "너무 캐주얼한 상황은 피하고 맥락에 맞게 씁니다.", ["email", "relationship"], ["review the proposal", "join the call", "move ahead"]],
+    ["be-positioned-to", "be positioned to", "~할 위치에 있다", "advanced", "pattern", "be positioned to + verb / benefit", "조직이나 제품의 전략적 위치를 말할 때 씁니다.", "시장 확장, 가격 경쟁력, 공급망 대응력을 설명할 때 유용합니다.", "be in position to 와 유사하지만 더 전략적입니다.", ["strategy", "market"], ["expand faster", "win the bid", "support the rollout"]],
+    ["be-better-off", "be better off", "~하는 편이 낫다", "advanced", "pattern", "be better off + gerund / with noun", "대안 비교 시 실무적으로 더 나은 선택을 제안합니다.", "일정, 공급사, 포장 방식, 결제 조건 비교에 좋습니다.", "better to do 보다 더 판단형 느낌입니다.", ["negotiation", "decision"], ["waiting one more week", "using the revised pack", "switching suppliers"]],
+    ["be-due-to", "be due to", "~할 예정이다", "intermediate", "pattern", "be due to + verb / noun", "예정된 일정이나 마감을 말할 때 씁니다.", "출고, 입항, 회의, 검토 마감 안내에 자주 사용됩니다.", "because of 의미의 due to 와 구분해야 합니다.", ["planning", "schedule"], ["ship tomorrow", "arrive next week", "be reviewed today"]],
+    ["there-is-room-to", "there is room to", "~할 여지가 있다", "advanced", "pattern", "there is room to + improve / adjust", "정면 비판 대신 개선 가능성을 부드럽게 표현합니다.", "가격 조정, 문구 수정, 일정 보완 등 협상에 매우 유용합니다.", "room for improvement 도 자주 함께 씁니다.", ["negotiation", "feedback"], ["improve the draft", "adjust the price", "streamline the process"]],
+    ["it-comes-down-to", "it comes down to", "결국 ~의 문제다", "advanced", "pattern", "it comes down to + noun / clause", "논의의 핵심을 요약할 때 좋습니다.", "가격, 속도, 품질, 책임소재를 압축 정리할 때 유용합니다.", "문장 앞부분에서 요약형으로 많이 씁니다.", ["analysis", "decision"], ["timing", "cost control", "supplier discipline"]],
+    ["we-are-looking-to", "be looking to", "~하려고 한다", "intermediate", "pattern", "be looking to + verb", "상대에게 방향성과 의도를 부드럽게 설명합니다.", "신규 공급사 탐색, 가격 개선, 제품 확대 요청에 적합합니다.", "look to do 와는 다르게 진행 의지를 담습니다.", ["sales", "strategy"], ["expand the range", "reduce lead time", "review alternatives"]],
+    ["we-are-in-a-position-to", "be in a position to", "~할 수 있는 상황이다", "advanced", "pattern", "be in a position to + verb", "권한, 준비, 자원 측면에서 가능 여부를 설명합니다.", "승인 가능, 출하 가능, 지원 가능 여부를 공식적으로 말할 때 씁니다.", "can 보다 더 공식적인 톤입니다.", ["approval", "operations"], ["approve the sample", "release the payment", "support the launch"]],
+    ["it-would-help-if", "it would help if", "~하면 도움이 된다", "intermediate", "pattern", "it would help if + clause", "직접 명령 대신 정중한 요청을 만들 때 매우 좋습니다.", "추가자료 요청, 빠른 회신 요청, 포맷 수정 요청에 유용합니다.", "상대방 배려가 필요한 이메일에 적합합니다.", ["email", "polite request"], ["you shared the file today", "the supplier confirmed the spec", "we received the serial number"]],
+    ["this-is-intended-to", "be intended to", "~하도록 설계되다", "advanced", "pattern", "be intended to + verb", "제품 기능, 문서 목적, 정책 목적을 설명할 때 씁니다.", "기술 문서와 정책 문서에서 모두 유용합니다.", "intend for 와의 구조 차이를 주의합니다.", ["product", "documents"], ["support outdoor use", "reduce claims", "speed up approval"]],
+    ["be-required-to", "be required to", "~해야 한다", "intermediate", "pattern", "be required to + verb", "의무 사항이나 필수 절차를 설명할 때 씁니다.", "문서 제출, 검토 기준, 파일 업로드 규칙 안내에 적합합니다.", "must 보다 조금 더 제도적이고 객관적입니다.", ["compliance", "documents"], ["submit the report", "upload the certificate", "follow the format"]],
+    ["be-committed-to", "be committed to", "~에 전념하다", "advanced", "pattern", "be committed to + noun / gerund", "조직의 태도나 공급사의 의지를 표현할 때 자주 씁니다.", "품질 개선, 납기 준수, 장기 협업 의지 표현에 유용합니다.", "commit for 와 혼동하지 않습니다.", ["relationship", "management"], ["continuous improvement", "on-time delivery", "transparent communication"]],
+    ["be-contingent-on", "be contingent on", "~에 달려 있다", "advanced", "pattern", "be contingent on + noun", "조건부 진행을 명확하게 표현하는 공식 문구입니다.", "가격, 일정, 발주 확정, 출고 일정 설명에 자주 나옵니다.", "depend on 과 비슷하지만 더 공식적입니다.", ["legal", "planning"], ["final approval", "test results", "payment receipt"]],
+    ["be-open-to", "be open to", "~에 열려 있다", "intermediate", "pattern", "be open to + noun / gerund", "대안이나 제안을 유연하게 검토한다는 뜻입니다.", "사양 변경, 신규 포장, 가격 조정 대화에 자연스럽습니다.", "open for 와 구분합니다.", ["negotiation", "communication"], ["a revised timeline", "changing the supplier", "reviewing a pilot run"]],
+  ];
+
+  return raw.map(
+    (item): BaseExpression => ({
+      id: item[0],
+      expression: item[1],
+      korean: item[2],
+      level: item[3] as EnglishLevel,
+      kind: item[4] as EntryKind,
+      grammarPattern: item[5],
+      grammarFocus: item[6],
+      usageNote: item[7],
+      commonMistake: item[8],
+      categories: [...item[9]],
+      collocations: [...item[10]],
+      answerTemplate: "{subject} {modal} " + item[1] + " {object} {time}.",
+      objectTemplates: [
+        "the {scenario}",
+        "{object}",
+        "the {scenario} update",
+      ],
+      exampleTemplates: [
+        {
+          en: "We need to " + item[1] + " {object} before the deadline.",
+          kr: "마감 전에 {objectKr} 관련 업무를 " + item[2] + " 해야 합니다.",
+        },
+        {
+          en: "The team used the expression \"" + item[1] + "\" in the {scenario} discussion.",
+          kr: "{scenarioKr} 논의에서 이 표현을 실제 업무 문장으로 사용했습니다.",
+        },
+      ],
+    })
+  );
+}
+
+const BASE_EXPRESSIONS = createBaseExpressions();
+
+function replaceScenarioTokens(template: string, scenario: DomainScenario, object: string) {
+  const objectKr = object
+    .replace(/^the /, "")
+    .replace(/^a /, "")
+    .replace(/^an /, "");
+
+  return template
+    .replaceAll("{scenario}", scenario.label)
+    .replaceAll("{scenarioKr}", `${scenario.label} 업무`)
+    .replaceAll("{object}", object)
+    .replaceAll("{objectKr}", objectKr);
+}
+
+function buildEntry(base: BaseExpression, scenario: DomainScenario, object: string, variantIndex: number): EnglishEntry {
+  const objectPool = base.objectTemplates.map((template) =>
+    replaceScenarioTokens(template, scenario, object)
+  );
+
+  return {
+    id: `${base.id}-${scenario.slug}-${variantIndex}`,
+    expression: base.expression,
+    korean: base.korean,
+    baseExpression: base.expression,
+    scenarioLabel: scenario.label,
+    focusObject: object,
+    variantLabel: `${scenario.productTag.toUpperCase()} ${variantIndex + 1}`,
+    level: base.level,
+    kind: base.kind,
+    grammarPattern: base.grammarPattern,
+    grammarFocus: `${base.grammarFocus} ${scenario.label} 문맥과 ${object} 같은 실제 업무 대상을 붙여 반복 훈련하도록 확장했습니다.`,
+    usageNote: `${base.usageNote} 현재 선택 문맥은 ${scenario.label} / ${object} 입니다.`,
+    commonMistake: base.commonMistake,
+    categories: [...new Set([...base.categories, ...scenario.categories])],
+    collocations: [...new Set([...base.collocations, scenario.productTag, ...scenario.objects.map((item) => item.replace(/^the /, ""))])],
+    objectPool,
+    answerTemplate: base.answerTemplate,
+    examples: base.exampleTemplates.map((example) => ({
+      en: replaceScenarioTokens(example.en, scenario, object),
+      kr: replaceScenarioTokens(example.kr, scenario, object),
+    })),
+  };
+}
+
+function buildEntries() {
+  return BASE_EXPRESSIONS.flatMap((base) =>
+    base.collocations.flatMap((object, objectIndex) =>
+      PRACTICE_CONTEXTS.map((context, contextIndex) => {
+        const expression = base.expression;
+        const sentence = expression.startsWith("be ")
+          ? `The team is ${expression.slice(3)} ${object}.`
+          : expression === "behind schedule"
+            ? "The project is behind schedule."
+            : expression.startsWith("there is") || expression.startsWith("it comes down to")
+              ? `${capitalizeSentence(expression)} ${object}.`
+              : expression.startsWith("would you mind")
+                ? `Would you mind ${object}?`
+                : expression.startsWith("as part of")
+                  ? `We updated the plan ${expression} ${object}.`
+                  : `The team should ${expression} ${object} this week.`;
+
+        return {
+          id: `${base.id}-${objectIndex}-${contextIndex}`,
+          expression,
+          korean: base.korean,
+          baseExpression: `${expression} · ${object}`,
+          scenarioLabel: context,
+          focusObject: object,
+          variantLabel: `Business context ${contextIndex + 1}`,
+          level: base.level,
+          kind: base.kind,
+          grammarPattern: base.grammarPattern,
+          grammarFocus: base.grammarFocus,
+          usageNote: base.usageNote,
+          commonMistake: base.commonMistake,
+          categories: [...new Set([...base.categories, "business-english", context])],
+          collocations: base.collocations,
+          objectPool: base.collocations,
+          answerTemplate: sentence,
+          examples: [
+            { en: sentence, kr: `${context} 상황에서 ${base.korean} 의미로 쓰는 기본 업무 문장입니다.` },
+            {
+              en: `Use "${expression}" with ${base.grammarPattern.replace(`${expression} + `, "")}.`,
+              kr: `${base.grammarPattern} 문형을 그대로 유지해 사용하세요.`,
+            },
+          ],
+        };
+      })
+    )
+  );
+}
+
+function wordNetText(value: string | { text: string; source: string } | undefined) {
+  return typeof value === "string" ? value : value?.text ?? "";
+}
+
+const GENERAL_ENGLISH_ENTRIES: EnglishEntry[] = OPEN_WORDNET_CORE.map((item, index) => {
+  const definition = wordNetText(item.definition);
+  const example = wordNetText(item.example);
+
+  return {
+  id: `wordnet-${index}-${item.pos}`,
+  expression: item.term,
+  korean: "일반 영어 핵심 표현",
+  baseExpression: item.term,
+  scenarioLabel: "일반 영어",
+  focusObject: item.pos === "v" ? "verb" : item.pos === "n" ? "noun" : item.pos === "r" ? "adverb" : "adjective",
+  variantLabel: "Open English WordNet",
+  level: index % 2 === 0 ? "intermediate" : "advanced",
+  kind: "pattern",
+  grammarPattern: item.pos === "v" ? "verb" : item.pos === "n" ? "noun" : item.pos === "r" ? "adverb" : "adjective",
+  grammarFocus: definition,
+  usageNote: "Open English WordNet의 정의와 예문을 바탕으로 학습합니다.",
+  commonMistake: "단어의 품사와 예문 문맥을 함께 확인하세요.",
+  categories: ["general-english", "open-wordnet", item.pos],
+  collocations: [item.term],
+  objectPool: [item.term],
+  answerTemplate: example || definition,
+  examples: [
+    { en: example || definition, kr: "Open English WordNet 정의를 바탕으로 한 일반 영어 학습 항목입니다." },
+    { en: definition, kr: "영어 정의를 읽고 뜻과 쓰임을 확인하세요." },
+  ],
+  };
+});
+
+export const ENGLISH_ENTRIES: EnglishEntry[] = [...buildEntries(), ...GENERAL_ENGLISH_ENTRIES];
 
 export const ENGLISH_CATEGORIES = Array.from(
   new Set(ENGLISH_ENTRIES.flatMap((entry) => entry.categories))
 ).sort();
 
 export function createPracticeCard(entry: EnglishEntry, seed: number): PracticeCard {
-  const example = entry.examples[seed % entry.examples.length];
   const subject = ROLE_SUBJECTS[seed % ROLE_SUBJECTS.length];
   const object = entry.objectPool[seed % entry.objectPool.length];
   const time = TIME_MARKERS[seed % TIME_MARKERS.length];
-  const modal = MODAL_HELPERS[seed % MODAL_HELPERS.length];
   const taskType = TASK_TYPES[seed % TASK_TYPES.length];
-  const model = fillTemplate(entry.answerTemplate, subject, object, time, modal);
+  const context = PRACTICE_CONTEXTS[seed % PRACTICE_CONTEXTS.length];
+  const example = entry.examples[0];
+  const answer = example.en;
 
-  if (taskType === "빈칸 완성") {
-    return {
-      id: `${entry.id}-${seed}-cloze`,
-      entryId: entry.id,
-      expression: entry.expression,
-      level: entry.level,
-      taskType,
-      prompt: `${example.en.replace(entry.expression, "________")} \n\n빈칸에 들어갈 표현을 말해 보세요.`,
-      answer: entry.expression,
-      explanation: `${entry.grammarPattern} 패턴을 유지해야 합니다. ${entry.grammarFocus}`,
-    };
+  switch (taskType) {
+    case "빈칸 완성":
+      return {
+        id: `${entry.id}-${seed}-blank`,
+        entryId: entry.id,
+        expression: entry.expression,
+        level: entry.level,
+        taskType,
+        prompt: `[${context}]\n${example.en.replace(entry.expression, "________")}\n어떤 표현이 가장 자연스러운지 채워 보세요.`,
+        answer: entry.expression,
+        explanation: `${entry.expression} 은 ${entry.grammarPattern} 구조로 쓰입니다.`,
+      };
+    case "업무 문장 작성":
+      return {
+        id: `${entry.id}-${seed}-write`,
+        entryId: entry.id,
+        expression: entry.expression,
+        level: entry.level,
+        taskType,
+        prompt: `[${context}] 다음 조건을 만족하는 영어 문장을 직접 만들어 보세요.\n- 주어: ${subject}\n- 표현: ${entry.expression}\n- 어울리는 대상: ${object}\n- 시점: ${time}`,
+        answer,
+        explanation: `${entry.korean} 의미를 유지하면서 가장 기본적인 업무 문장으로 풀어 쓴 답입니다.`,
+      };
+    case "문법 포인트":
+      return {
+        id: `${entry.id}-${seed}-grammar`,
+        entryId: entry.id,
+        expression: entry.expression,
+        level: entry.level,
+        taskType,
+        prompt: `[${context}]\n${entry.expression}\n문형: ${entry.grammarPattern}\n이 표현의 문형과 핵심 용법을 설명해 보세요.`,
+        answer,
+        explanation: entry.grammarFocus,
+      };
+    case "번역 힌트":
+      return {
+        id: `${entry.id}-${seed}-translate`,
+        entryId: entry.id,
+        expression: entry.expression,
+        level: entry.level,
+        taskType,
+        prompt: `[${context}]\n${example.kr}\n핵심 표현을 사용해 영어로 옮겨 보세요.`,
+        answer,
+        explanation: `${entry.korean} 에 맞는 기본 번역 패턴입니다.`,
+      };
+    case "실수 교정":
+      return {
+        id: `${entry.id}-${seed}-fix`,
+        entryId: entry.id,
+        expression: entry.expression,
+        level: entry.level,
+        taskType,
+        prompt: `[${context}] 다음 표현의 흔한 오류를 확인하고 올바른 문형을 말해 보세요.\n${entry.expression}`,
+        answer,
+        explanation: entry.commonMistake,
+      };
+    default:
+      return {
+        id: `${entry.id}-${seed}-collocation`,
+        entryId: entry.id,
+        expression: entry.expression,
+        level: entry.level,
+        taskType,
+        prompt: `[${context}]\n${entry.expression} 와 가장 잘 어울리는 업무 대상은 무엇인지 설명해 보세요.\n추천 collocations: ${entry.collocations.slice(0, 4).join(", ")}`,
+        answer,
+        explanation: `이 표현은 ${entry.collocations.join(", ")} 같은 업무 명사와 자주 함께 쓰입니다.`,
+      };
   }
-
-  if (taskType === "업무 문장 작성") {
-    return {
-      id: `${entry.id}-${seed}-sentence`,
-      entryId: entry.id,
-      expression: entry.expression,
-      level: entry.level,
-      taskType,
-      prompt: `"${entry.expression}"를 사용해서 ${object}에 관한 비즈니스 문장을 하나 만들어 보세요. 힌트: ${subject}, ${time}`,
-      answer: model,
-      explanation: `${entry.usageNote}`,
-    };
-  }
-
-  if (taskType === "문법 포인트") {
-    return {
-      id: `${entry.id}-${seed}-grammar`,
-      entryId: entry.id,
-      expression: entry.expression,
-      level: entry.level,
-      taskType,
-      prompt: `"${entry.expression}"의 문형을 설명해 보세요.`,
-      answer: `${entry.grammarPattern} / ${entry.grammarFocus}`,
-      explanation: `실수 주의: ${entry.commonMistake}`,
-    };
-  }
-
-  if (taskType === "번역 힌트") {
-    return {
-      id: `${entry.id}-${seed}-translation`,
-      entryId: entry.id,
-      expression: entry.expression,
-      level: entry.level,
-      taskType,
-      prompt: `${example.kr}\n\n이 문장에서 핵심 표현으로 어떤 영어 구동사/패턴을 쓸지 떠올려 보세요.`,
-      answer: `${entry.expression} / 예문: ${example.en}`,
-      explanation: `${entry.korean}라는 의미로 쓰였습니다.`,
-    };
-  }
-
-  if (taskType === "실수 교정") {
-    return {
-      id: `${entry.id}-${seed}-mistake`,
-      entryId: entry.id,
-      expression: entry.expression,
-      level: entry.level,
-      taskType,
-      prompt: `다음 문장을 더 자연스럽게 고쳐 보세요.\n\n"${subject} should use ${entry.expression.replace(" on", "").replace(" with", "")} ${object} ${time}."`,
-      answer: model,
-      explanation: `교정 포인트: ${entry.commonMistake}`,
-    };
-  }
-
-  return {
-    id: `${entry.id}-${seed}-collocation`,
-    entryId: entry.id,
-    expression: entry.expression,
-    level: entry.level,
-    taskType,
-    prompt: `"${entry.expression}"와 자연스럽게 어울리는 업무 대상을 하나 골라 보세요.\n후보: ${entry.collocations.join(", ")}`,
-    answer: `${entry.collocations[seed % entry.collocations.length]} / 예문: ${model}`,
-    explanation: `${entry.usageNote}`,
-  };
 }
 
 export function practiceUniverseSize(entries = ENGLISH_ENTRIES) {
-  return entries.reduce(
-    (sum, current) =>
-      sum +
-      current.examples.length *
+  return entries.reduce((total, entry) => {
+    return (
+      total +
+      entry.objectPool.length *
         ROLE_SUBJECTS.length *
         TIME_MARKERS.length *
         TASK_TYPES.length *
-        MODAL_HELPERS.length,
-    0
-  );
+        PRACTICE_CONTEXTS.length
+    );
+  }, 0);
 }
 
 export function countByLevel(level: EnglishLevel) {

@@ -1,0 +1,83 @@
+name: collect-and-analyze
+
+on:
+  schedule:
+    # UTC 00:15 = KST 09:15.
+    # GitHub Actions cron은 "매 48시간"이 아니라 day-of-month 기준이라 월 경계에서 간격이 달라질 수 있다.
+    - cron: "15 0 */2 * *"
+  workflow_dispatch:
+
+concurrency:
+  group: led-market-data-pipeline
+  cancel-in-progress: true
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run collection and analysis pipeline
+        run: npm run pipeline
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_PRODUCTS_DATABASE_ID: ${{ secrets.NOTION_PRODUCTS_DATABASE_ID }}
+          NOTION_COMPANIES_DATABASE_ID: ${{ secrets.NOTION_COMPANIES_DATABASE_ID }}
+          NOTION_PRICE_HISTORY_DATABASE_ID: ${{ secrets.NOTION_PRICE_HISTORY_DATABASE_ID }}
+          NOTION_LISTINGS_DATABASE_ID: ${{ secrets.NOTION_LISTINGS_DATABASE_ID }}
+          NOTION_CERTIFICATIONS_DATABASE_ID: ${{ secrets.NOTION_CERTIFICATIONS_DATABASE_ID }}
+          NOTION_PROCUREMENT_RECORDS_DATABASE_ID: ${{ secrets.NOTION_PROCUREMENT_RECORDS_DATABASE_ID }}
+          NOTION_COLLECTION_RUNS_DATABASE_ID: ${{ secrets.NOTION_COLLECTION_RUNS_DATABASE_ID }}
+          NOTION_ANALYSIS_REPORTS_DATABASE_ID: ${{ secrets.NOTION_ANALYSIS_REPORTS_DATABASE_ID }}
+          NOTION_DATA_ISSUES_DATABASE_ID: ${{ secrets.NOTION_DATA_ISSUES_DATABASE_ID }}
+          PROCUREMENT_API_KEY: ${{ secrets.PROCUREMENT_API_KEY }}
+          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
+          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
+          ADMIN_SECRET: ${{ secrets.ADMIN_SECRET }}
+          NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
+
+      - name: Show generated files
+        if: always()
+        run: |
+          ls -la data/public
+          ls -la data/history || true
+          ls -la data/analytics || true
+          test -f data/public/bundle.json
+
+      - name: Upload pipeline artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: led-market-pipeline-${{ github.run_id }}
+          path: |
+            data/public
+            data/history
+            data/analytics
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Commit changed data only
+        if: success()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/public data/analytics data/history
+          if git diff --cached --quiet; then
+            echo "No data changes"
+            exit 0
+          fi
+          git commit -m "chore(data): refresh public market data [skip ci]"
+          git push
