@@ -99,8 +99,22 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
       const { data: prod } = await supabase.from('products').select('*').eq('id', id).single();
       if (prod) {
         setProduct(prod);
-        const { data: rel } = await supabase.from('products').select('*')
-          .eq('category', prod.category).neq('id', id).limit(3);
+        // 같은 product_type 우선, 없으면 같은 카테고리
+        const productType = prod.specs?.product_type;
+        let rel: any[] | null = null;
+        if (productType) {
+          const { data: sameType } = await supabase.from('products').select('*')
+            .eq('category', prod.category)
+            .neq('id', id)
+            .filter('specs->>product_type', 'eq', productType)
+            .limit(3);
+          rel = sameType && sameType.length > 0 ? sameType : null;
+        }
+        if (!rel) {
+          const { data: sameCat } = await supabase.from('products').select('*')
+            .eq('category', prod.category).neq('id', id).limit(3);
+          rel = sameCat;
+        }
         if (rel) setRelated(rel);
       }
       setLoading(false);
