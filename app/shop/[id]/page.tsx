@@ -18,22 +18,51 @@ const CATEGORIES: Record<string, { label: string; icon: string }> = {
 };
 
 const SPEC_META: Record<string, { label: string; icon: string; unit: string }> = {
-  power:         { label: '소비전력',     icon: '⚡', unit: 'W' },
-  luminous_flux: { label: '광속',        icon: '💡', unit: 'lm' },
-  efficacy:      { label: '광효율',      icon: '✨', unit: 'lm/W' },
-  color_temp:    { label: '색온도',      icon: '🌡', unit: 'K' },
-  cri:           { label: '연색지수',    icon: '🎨', unit: 'CRI Ra' },
-  beam_angle:    { label: '배광각',      icon: '📐', unit: '°' },
-  ip_rating:     { label: 'IP 등급',    icon: '🛡️', unit: '' },
-  input_voltage: { label: '입력전압',    icon: '🔌', unit: 'V' },
-  power_factor:  { label: '역률',       icon: '📊', unit: 'PF' },
-  thd:           { label: 'THD',        icon: '〰️', unit: '%' },
-  lifespan:      { label: '수명',        icon: '⏱️', unit: 'hrs' },
-  size:          { label: '제품 크기',   icon: '📏', unit: 'mm' },
-  weight:        { label: '중량',        icon: '⚖️', unit: 'kg' },
-  operating_temp:{ label: '작동온도',    icon: '🌡️', unit: '°C' },
-  warranty:      { label: '보증기간',    icon: '🛡', unit: '' },
-  driver:        { label: '드라이버',    icon: '🔧', unit: '' },
+  // 전기 특성
+  power:           { label: '소비전력',      icon: '⚡', unit: 'W' },
+  input_voltage:   { label: '입력전압',      icon: '🔌', unit: 'V' },
+  power_factor:    { label: '역률',          icon: '📊', unit: 'PF' },
+  thd:             { label: 'THD',           icon: '〰️', unit: '%' },
+  // 광학 특성
+  luminous_flux:   { label: '광속',          icon: '💡', unit: 'lm' },
+  efficacy:        { label: '광효율',        icon: '✨', unit: 'lm/W' },
+  cct:             { label: '색온도 옵션',   icon: '🌈', unit: '' },
+  color_temp:      { label: '색온도(대표)',  icon: '🌡', unit: 'K' },
+  cri:             { label: '연색지수',      icon: '🎨', unit: 'CRI Ra' },
+  beam_angle:      { label: '배광각',        icon: '📐', unit: '°' },
+  flux_tolerance:  { label: '광속 오차',     icon: '±', unit: '' },
+  // LED 칩
+  chip_type:       { label: '칩 종류',       icon: '🔬', unit: '' },
+  chip_qty:        { label: '칩 수량',       icon: '🔢', unit: '개' },
+  // 구조/소재
+  product_type:    { label: '제품 타입',     icon: '📦', unit: '' },
+  size:            { label: '외형 크기',     icon: '📏', unit: 'mm' },
+  weight:          { label: '중량',          icon: '⚖️', unit: 'g' },
+  material:        { label: '소재',          icon: '🧱', unit: '' },
+  body_color:      { label: '바디 색상',     icon: '🎨', unit: '' },
+  connection_type: { label: '접속 방식',     icon: '🔗', unit: '' },
+  // 환경/안전
+  ip_rating:       { label: 'IP 등급',      icon: '🛡️', unit: '' },
+  operating_temp:  { label: '작동온도',      icon: '🌡️', unit: '°C' },
+  dimming:         { label: '디밍',          icon: '🔆', unit: '' },
+  // 수명/보증
+  lifespan:        { label: '수명',          icon: '⏱️', unit: 'h' },
+  warranty:        { label: '보증기간',      icon: '🛡', unit: '' },
+  switching_cycles:{ label: '스위칭 횟수',  icon: '🔄', unit: '' },
+  // 드라이버
+  driver:          { label: '드라이버 타입', icon: '🔧', unit: '' },
+  driver_brand:    { label: '드라이버 브랜드',icon: '🏷️', unit: '' },
+  // 포장/물류
+  pcs_per_carton:  { label: '박스당 수량',   icon: '📦', unit: '개' },
+  gift_box_size:   { label: '낱개박스 크기', icon: '📫', unit: 'mm' },
+  carton_size:     { label: '외박스 크기',   icon: '🗃️', unit: 'mm' },
+  packaging_type:  { label: '포장 방식',     icon: '🎁', unit: '' },
+  // 구매/공급
+  moq:             { label: 'MOQ',           icon: '📋', unit: '개' },
+  lead_time:       { label: '납기',          icon: '🚢', unit: '' },
+  supplier:        { label: '제조사',        icon: '🏭', unit: '' },
+  supplier_code:   { label: '공급사 코드',   icon: '🔑', unit: '' },
+  certification:   { label: '인증',          icon: '✅', unit: '' },
 };
 
 const DOC_ICONS: Record<string, string> = {
