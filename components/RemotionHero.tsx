@@ -127,7 +127,7 @@ export const LuminaComposition: React.FC = () => (
 
 // ─── 영상 배경 (Player 와 분리) ──────────────────────────────────────────────
 function BackgroundVideo() {
-  const videoPaths = ['/hero-bg.mp4', '/hero-bg-2.mp4', '/hero-bg-3.mp4', '/hero-bg-4.mp4'];
+  const videoPaths = ['/hero-bg-1.mp4', '/hero-bg-2.mp4', '/hero-bg-3.mp4', '/hero-bg-4.mp4'];
   const [index, setIndex] = useState(0);
   const [fade, setFade] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
