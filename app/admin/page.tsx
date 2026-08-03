@@ -40,6 +40,9 @@ export default async function AdminPage() {
           </div>
           <ul className="dh-bullet-list">
             <li>
+              <Link href="/admin/product-builder">AI 상품페이지 빌더 열기</Link>
+            </li>
+            <li>
               <Link href="/data/public/csv-template-led-market.csv">CSV 업로드 템플릿 다운로드</Link>
             </li>
             <li>`npm run pipeline` 또는 GitHub Actions `workflow_dispatch`로 수동 실행</li>
