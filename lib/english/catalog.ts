@@ -651,3 +651,138 @@ export function countByLevel(level: EnglishLevel) {
     drills: practiceUniverseSize(entries),
   };
 }
+
+// ── LightExpression (10,000개 대용량 JSON) ────────────────────────────────────
+
+export interface LightExpression {
+  id: string;
+  expression: string;
+  korean: string;
+  definition: string;
+  example: string;
+  exampleKr: string;
+  pos: string;
+  level: 'beginner' | 'intermediate' | 'advanced';
+  categories: string[];
+  source: 'wordnet' | 'business';
+}
+
+export interface LightPracticeCard {
+  id: string;
+  entryId: string;
+  expression: string;
+  korean: string;
+  level: 'beginner' | 'intermediate' | 'advanced';
+  taskType: 'korean-to-english' | 'fill-blank' | 'definition-match' | 'example-translate';
+  prompt: string;
+  answer: string;
+  explanation: string;
+}
+
+function loadLightExpressions(): LightExpression[] {
+  try {
+    // Next.js 서버 사이드에서만 fs 사용 가능
+    if (typeof window !== 'undefined') return [];
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const fs = require('fs') as typeof import('fs');
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const path = require('path') as typeof import('path');
+    const filePath = path.join(process.cwd(), 'data/english/expressions-light.json');
+    if (!fs.existsSync(filePath)) return [];
+    return JSON.parse(fs.readFileSync(filePath, 'utf-8')) as LightExpression[];
+  } catch {
+    return [];
+  }
+}
+
+export const LIGHT_ENTRIES: LightExpression[] = loadLightExpressions();
+
+export const ALL_CATEGORIES: string[] = Array.from(
+  new Set([
+    ...ENGLISH_CATEGORIES,
+    ...LIGHT_ENTRIES.flatMap(e => e.categories),
+  ])
+).sort();
+
+export function createLightPracticeCard(entry: LightExpression, seed: number): LightPracticeCard {
+  const tasks: LightPracticeCard['taskType'][] = [
+    'korean-to-english',
+    'fill-blank',
+    'definition-match',
+    'example-translate',
+  ];
+  const taskType = tasks[seed % tasks.length];
+
+  switch (taskType) {
+    case 'korean-to-english':
+      return {
+        id: `${entry.id}-${seed}-kren`,
+        entryId: entry.id,
+        expression: entry.expression,
+        korean: entry.korean,
+        level: entry.level,
+        taskType,
+        prompt: `다음 한국어 뜻에 맞는 영어 표현을 쓰세요.\n"${entry.korean}"`,
+        answer: entry.expression,
+        explanation: `"${entry.expression}" — ${entry.definition}`,
+      };
+    case 'fill-blank':
+      return {
+        id: `${entry.id}-${seed}-fill`,
+        entryId: entry.id,
+        expression: entry.expression,
+        korean: entry.korean,
+        level: entry.level,
+        taskType,
+        prompt: `빈칸에 알맞은 표현을 채우세요.\n${entry.example.replace(
+          new RegExp(`\\b${entry.expression.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i'),
+          '________'
+        )}`,
+        answer: entry.expression,
+        explanation: `"${entry.expression}" (${entry.korean}) — ${entry.definition}`,
+      };
+    case 'definition-match':
+      return {
+        id: `${entry.id}-${seed}-def`,
+        entryId: entry.id,
+        expression: entry.expression,
+        korean: entry.korean,
+        level: entry.level,
+        taskType,
+        prompt: `다음 설명에 해당하는 영어 표현은?\n"${entry.definition}"`,
+        answer: entry.expression,
+        explanation: `"${entry.expression}" (${entry.korean})\n예문: ${entry.example}`,
+      };
+    case 'example-translate':
+      return {
+        id: `${entry.id}-${seed}-trans`,
+        entryId: entry.id,
+        expression: entry.expression,
+        korean: entry.korean,
+        level: entry.level,
+        taskType,
+        prompt: `다음 문장을 한국어로 옮기세요.\n"${entry.example}"`,
+        answer: entry.exampleKr || `(번역 준비 중)`,
+        explanation: `핵심 표현: "${entry.expression}" = ${entry.korean}`,
+      };
+  }
+}
+
+export function getLightExpressionsByCategory(category: string): LightExpression[] {
+  if (category === 'all') return LIGHT_ENTRIES;
+  return LIGHT_ENTRIES.filter(e => e.categories.includes(category));
+}
+
+export function getLightExpressionsByLevel(level: LightExpression['level']): LightExpression[] {
+  return LIGHT_ENTRIES.filter(e => e.level === level);
+}
+
+export function searchLightExpressions(query: string): LightExpression[] {
+  const q = query.toLowerCase();
+  return LIGHT_ENTRIES.filter(
+    e =>
+      e.expression.toLowerCase().includes(q) ||
+      e.korean.includes(q) ||
+      e.definition.toLowerCase().includes(q)
+  ).slice(0, 100);
+}
