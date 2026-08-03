@@ -40,6 +40,9 @@ export default async function AdminPage() {
           </div>
           <ul className="dh-bullet-list">
             <li>
+              <Link href="/admin/products">제품 관리 (스펙 테이블)</Link>
+            </li>
+            <li>
               <Link href="/admin/product-builder">AI 상품페이지 빌더 열기</Link>
             </li>
             <li>

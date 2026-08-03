@@ -4,7 +4,27 @@ import { supabase } from '@/lib/supabase';
 export const dynamic = 'force-dynamic';
 
 const VALID_CATEGORIES = ['smart','indoor','home_lighting','commercial','industrial','outdoor','landscape','special'];
-const VALID_SPEC_KEYS  = ['power','luminous_flux','efficacy','color_temp','cri','beam_angle','ip_rating','input_voltage','power_factor','thd','lifespan','size','weight','operating_temp','warranty','driver'];
+const VALID_SPEC_KEYS  = [
+  // 전기 특성
+  'power','input_voltage','power_factor','thd',
+  // 광학 특성
+  'luminous_flux','efficacy','color_temp','cri','beam_angle','cct','flux_tolerance',
+  // 구조/소재
+  'size','weight','material','body_color','connection_type','product_type',
+  // LED 칩
+  'chip_type','chip_qty',
+  // 환경/안전
+  'ip_rating','operating_temp','dimming',
+  // 수명/보증
+  'lifespan','warranty','switching_cycles',
+  // 드라이버
+  'driver','driver_brand',
+  // 포장/물류
+  'pcs_per_carton','gift_box_size','carton_size',
+  // 구매/공급
+  'moq','lead_time','supplier','supplier_code','certification',
+  'packaging_type',
+];
 const VALID_DOC_TYPES  = ['datasheet','manual','cert','drawing','other'];
 
 async function verifyKey(authHeader: string | null): Promise<boolean> {
