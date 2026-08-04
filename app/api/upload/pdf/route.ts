@@ -4,11 +4,11 @@ import path from 'path';
 
 export const dynamic = 'force-dynamic';
 
-// NAS 배포 경로: /volume1/web/newhome2026/.next/standalone/public/uploads/pdfs
-// 개발 환경: <cwd>/public/uploads/pdfs
 const UPLOAD_DIR =
   process.env.PDF_UPLOAD_DIR ||
-  path.join(process.cwd(), 'public', 'uploads', 'pdfs');
+  (process.env.NODE_ENV === 'production'
+    ? '/volume1/web/newhome2026/.next/standalone/public/uploads/pdfs'
+    : path.join(process.cwd(), 'public', 'uploads', 'pdfs'));
 
 const PUBLIC_URL_BASE = '/uploads/pdfs';
 
