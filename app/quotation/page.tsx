@@ -1,7 +1,7 @@
 'use client';
 import { useState, useRef } from 'react';
 import { useSiteSettings } from '@/lib/useSiteSettings';
-import * as XLSX from 'xlsx';
+import XLSX from 'xlsx-js-style';
 
 const CURRENCIES = ['USD', 'EUR', 'CNY', 'KRW', 'JPY'];
 const CURRENCY_SYMBOLS: Record<string, string> = { USD: '$', EUR: '€', CNY: '¥', KRW: '₩', JPY: '¥' };
@@ -112,42 +112,130 @@ export default function QuotationPage() {
   const incotermLabel = incotermType === 'FOB' ? incotermPort : `DDP ${ddpDest}`;
   const paymentLabel  = payment.replace(/\n/g, ' ');
 
-  /* ── Excel 다운로드 (SheetJS 실제 .xlsx) ── */
+  /* ── Excel 다운로드 (xlsx-js-style 스타일 적용) ── */
   const downloadExcel = () => {
     const wb = XLSX.utils.book_new();
-    const rows: (string | number)[][] = [
-      ['견적 의뢰서 / REQUEST FOR QUOTATION'],
-      [],
-      ['Quote No.', quoteNo, 'Date', quoteDate, 'Valid Until', validUntil],
-      ['FROM (구매자)', c.name, '', 'TO (공급사)', supplier.company],
-      ['', c.address, '', '', supplier.contact],
-      ['', `Tel: ${c.tel} | Fax: ${c.fax}`, '', '', supplier.email],
-      ['', `Email: ${fromEmail}`, '', '', supplier.tel],
-      [],
-    ];
-    products.forEach((p, i) => {
+    const ws: Record<string, any> = {};
+    const merges: { s: { r: number; c: number }; e: { r: number; c: number } }[] = [];
+    let r = 0;
+
+    const thin = { style: 'thin', color: { rgb: 'CBD5E1' } };
+    const bdr = { top: thin, bottom: thin, left: thin, right: thin };
+    const S: Record<string, any> = {
+      title:   { fill:{fgColor:{rgb:'0F172A'}}, font:{bold:true,color:{rgb:'FFFFFF'},sz:15,name:'Arial'}, alignment:{horizontal:'center',vertical:'center'}, border:bdr },
+      itemHdr: { fill:{fgColor:{rgb:'1E293B'}}, font:{bold:true,color:{rgb:'FFFFFF'},sz:11,name:'Arial'}, alignment:{horizontal:'left',vertical:'center'}, border:bdr },
+      secHdr:  { fill:{fgColor:{rgb:'1E3A5F'}}, font:{bold:true,color:{rgb:'FFFFFF'},sz:10,name:'Arial'}, alignment:{horizontal:'left',vertical:'center'}, border:bdr },
+      fromHdr: { fill:{fgColor:{rgb:'EFF6FF'}}, font:{bold:true,color:{rgb:'0284C7'},sz:10,name:'Arial'}, alignment:{horizontal:'center',vertical:'center'}, border:bdr },
+      toHdr:   { fill:{fgColor:{rgb:'F5F3FF'}}, font:{bold:true,color:{rgb:'7C3AED'},sz:10,name:'Arial'}, alignment:{horizontal:'center',vertical:'center'}, border:bdr },
+      label:   { fill:{fgColor:{rgb:'F1F5F9'}}, font:{bold:true,color:{rgb:'334155'},sz:9,name:'Arial'},  alignment:{horizontal:'left',vertical:'center',wrapText:true}, border:bdr },
+      value:   { fill:{fgColor:{rgb:'FFFFFF'}}, font:{color:{rgb:'0F172A'},sz:10,name:'Arial'}, alignment:{horizontal:'left',vertical:'center',wrapText:true}, border:bdr },
+      mLabel:  { fill:{fgColor:{rgb:'E2E8F0'}}, font:{bold:true,color:{rgb:'475569'},sz:9,name:'Arial'},  alignment:{horizontal:'right',vertical:'center'}, border:bdr },
+      mValue:  { fill:{fgColor:{rgb:'F8FAFC'}}, font:{bold:true,color:{rgb:'0F172A'},sz:10,name:'Arial'}, alignment:{horizontal:'left',vertical:'center'}, border:bdr },
+      amount:  { fill:{fgColor:{rgb:'F0F9FF'}}, font:{bold:true,color:{rgb:'0284C7'},sz:11,name:'Arial'}, alignment:{horizontal:'left',vertical:'center'}, border:bdr },
+      totLabel:{ fill:{fgColor:{rgb:'0F172A'}}, font:{bold:true,color:{rgb:'94A3B8'},sz:9,name:'Arial'},  alignment:{horizontal:'right',vertical:'center'}, border:bdr },
+      totValue:{ fill:{fgColor:{rgb:'0F172A'}}, font:{bold:true,color:{rgb:'FFFFFF'},sz:11,name:'Arial'}, alignment:{horizontal:'left',vertical:'center'}, border:bdr },
+      notice:  { fill:{fgColor:{rgb:'FFFBEB'}}, font:{color:{rgb:'92400E'},sz:9,name:'Arial'}, alignment:{horizontal:'left',vertical:'center',wrapText:true}, border:bdr },
+      empty:   { fill:{fgColor:{rgb:'FFFFFF'}}, font:{sz:10}, border:bdr },
+    };
+
+    const sc = (col: number, val: any, style: any) => {
+      ws[XLSX.utils.encode_cell({ r, c: col })] = { v: val ?? '', t: typeof val === 'number' ? 'n' : 's', s: style };
+    };
+    const row4 = (cells: [number, any, any][]) => cells.forEach(([col, val, s]) => sc(col, val, s));
+    const mrg  = (c1: number, c2: number) => merges.push({ s:{r,c:c1}, e:{r,c:c2} });
+    const blank = () => { for(let i=0;i<4;i++) sc(i,'',S.empty); r++; };
+
+    // Title
+    row4([[0,'REQUEST FOR QUOTATION / 견적 의뢰서',S.title],[1,'',S.title],[2,'',S.title],[3,'',S.title]]);
+    mrg(0,3); r++;
+    blank();
+
+    // Meta
+    row4([[0,'Quote No.',S.mLabel],[1,quoteNo,S.mValue],[2,'Date',S.mLabel],[3,quoteDate,S.mValue]]); r++;
+    row4([[0,'',S.empty],[1,'',S.empty],[2,'Valid Until',S.mLabel],[3,validUntil,S.mValue]]); r++;
+    blank();
+
+    // FROM / TO header
+    row4([[0,'FROM (구매자 / Buyer)',S.fromHdr],[1,'',S.fromHdr],[2,'TO (공급사 / Supplier)',S.toHdr],[3,'',S.toHdr]]);
+    mrg(0,1); mrg(2,3); r++;
+
+    const fromData = [c.name, c.address, `Tel: ${c.tel}  /  Fax: ${c.fax}`, fromEmail, `사업자번호: ${c.business_id}`];
+    const toData   = [supplier.company, supplier.contact, supplier.email, supplier.tel, supplier.address];
+    const nLines   = Math.max(fromData.length, toData.length);
+    for(let i=0; i<nLines; i++){
+      row4([[0,fromData[i]??'',S.value],[1,'',S.empty],[2,toData[i]??'',S.value],[3,'',S.empty]]);
+      merges.push({s:{r,c:0},e:{r,c:1}}); merges.push({s:{r,c:2},e:{r,c:3}}); r++;
+    }
+    blank();
+
+    // Products
+    products.forEach((p, idx) => {
       const sym = CURRENCY_SYMBOLS[p.currency] || p.currency;
       const amt = p.unitPrice && p.qty ? `${sym}${(+p.unitPrice * +p.qty).toFixed(2)} ${p.currency}` : '';
-      rows.push([`ITEM ${i + 1}`, p.name, p.model, '', '', '']);
-      rows.push(['소비전력 / Power (W)', p.power, '입력전압 / Input Voltage', p.voltage, '광속 / Luminous Flux (lm)', p.flux]);
-      rows.push(['광효율 / Efficacy (lm/W)', p.efficacy, '색온도 / CCT (K)', p.cct, '연색지수 / CRI (Ra)', p.cri]);
-      rows.push(['배광각 / Beam Angle (°)', p.beam, 'IP 등급 / IP Rating', p.ip, '수명 / Lifespan (h)', p.lifespan]);
-      rows.push(['보증기간 / Warranty', p.warranty, '인증 / Certification', p.cert, '제품 크기 / Product Size (mm)', p.size]);
-      rows.push(['중량 / Weight', p.weight, '이너박스 / Inner Box', p.innerBox, '아웃박스 / Outer Box', p.outerBox]);
-      rows.push(['입수 / Pcs per Carton', p.pcsPerCarton, `단가 / Unit Price (${p.currency})`, p.unitPrice, 'MOQ', p.moq]);
-      rows.push(['주문수량 / Qty', p.qty, '금액 / Amount', amt, '', '']);
-      rows.push([]);
-    });
-    rows.push(['※ 해당 양식으로 작성이 어려울 경우, 위 항목을 최소한 포함하여 귀사 양식으로 작성해서 보내주시기 바랍니다.']);
-    rows.push(['If this form is difficult to complete, please include the minimum items above and respond in your own format.']);
-    rows.push([]);
-    rows.push(['Incoterms', incotermLabel]);
-    rows.push(['결제조건 / Payment Terms', paymentLabel]);
-    rows.push(['납기 / Lead Time', leadTime]);
-    if (notes) rows.push(['비고 / Remarks', notes]);
 
-    const ws = XLSX.utils.aoa_to_sheet(rows);
-    ws['!cols'] = [{ wch: 28 }, { wch: 20 }, { wch: 28 }, { wch: 20 }, { wch: 28 }, { wch: 20 }];
+      row4([[0,`  ITEM ${idx+1}   ${p.name}${p.model?`  (${p.model})`:''}`,S.itemHdr],[1,'',S.itemHdr],[2,'',S.itemHdr],[3,'',S.itemHdr]]);
+      mrg(0,3); r++;
+
+      const specs: [string,string,string,string][] = [
+        ['소비전력 / Power (W)',p.power,'입력전압 / Input Voltage',p.voltage],
+        ['광속 / Luminous Flux (lm)',p.flux,'광효율 / Efficacy (lm/W)',p.efficacy],
+        ['색온도 / CCT (K)',p.cct,'연색지수 / CRI (Ra)',p.cri],
+        ['배광각 / Beam Angle (°)',p.beam,'IP 등급 / IP Rating',p.ip],
+        ['수명 / Lifespan (h)',p.lifespan,'보증기간 / Warranty',p.warranty],
+        ['인증 / Certification',p.cert,'제품 크기 / Size (mm)',p.size],
+        ['중량 / Weight',p.weight,'이너박스 / Inner Box',p.innerBox],
+        ['아웃박스 / Outer Box',p.outerBox,'입수 / Pcs per Carton',p.pcsPerCarton],
+      ];
+      specs.forEach(([l1,v1,l2,v2]) => { row4([[0,l1,S.label],[1,v1,S.value],[2,l2,S.label],[3,v2,S.value]]); r++; });
+
+      row4([[0,`단가 / Unit Price (${p.currency})`,S.label],[1,p.unitPrice||'',S.value],[2,'MOQ',S.label],[3,p.moq||'',S.value]]); r++;
+      row4([[0,'주문수량 / Order Qty',S.label],[1,p.qty||'',S.value],[2,'금액 / Amount',S.label],[3,amt,S.amount]]); r++;
+      blank();
+    });
+
+    // Total
+    const totals = totalByCurrency();
+    if(Object.keys(totals).length > 0){
+      const totalStr = Object.entries(totals).map(([cur,a])=>`${CURRENCY_SYMBOLS[cur]||cur}${(a as number).toFixed(2)} ${cur}`).join('   |   ');
+      row4([[0,'TOTAL AMOUNT',S.totLabel],[1,'',S.totLabel],[2,totalStr,S.totValue],[3,'',S.totValue]]);
+      merges.push({s:{r,c:0},e:{r,c:1}}); merges.push({s:{r,c:2},e:{r,c:3}}); r++;
+      blank();
+    }
+
+    // Notice
+    row4([[0,'※ 해당 양식으로 작성이 어려울 경우, 위 항목을 최소한 포함하여 귀사 양식으로 작성해서 보내주시기 바랍니다.  /  If this form is difficult to complete, please include minimum items above and respond using your own company format.',S.notice],[1,'',S.notice],[2,'',S.notice],[3,'',S.notice]]);
+    mrg(0,3); r++;
+    blank();
+
+    // Terms header
+    row4([[0,'거래 조건 / Terms & Conditions',S.secHdr],[1,'',S.secHdr],[2,'',S.secHdr],[3,'',S.secHdr]]);
+    mrg(0,3); r++;
+    const termsRows: [string,string][] = [
+      ['Incoterms', incotermLabel],
+      ['결제조건 / Payment Terms', paymentLabel],
+      ['납기 / Lead Time', leadTime],
+    ];
+    if(notes) termsRows.push(['비고 / Remarks', notes]);
+    termsRows.forEach(([l,v]) => {
+      row4([[0,l,S.mLabel],[1,v,S.value],[2,'',S.value],[3,'',S.value]]);
+      merges.push({s:{r,c:1},e:{r,c:3}}); r++;
+    });
+    blank();
+
+    // Signature
+    row4([[0,'구매자 / Buyer',S.fromHdr],[1,'',S.fromHdr],[2,'공급사 / Supplier',S.toHdr],[3,'',S.toHdr]]);
+    mrg(0,1); mrg(2,3); r++;
+    const boldVal = { ...S.value, font:{bold:true,sz:11,color:{rgb:'0F172A'},name:'Arial'} };
+    row4([[0,c.name,boldVal],[1,'',S.empty],[2,supplier.company||'',boldVal],[3,'',S.empty]]);
+    merges.push({s:{r,c:0},e:{r,c:1}}); merges.push({s:{r,c:2},e:{r,c:3}}); r++;
+    row4([[0,'서명 / Signature & Seal',S.mLabel],[1,'',S.empty],[2,'서명 / Signature & Seal',S.mLabel],[3,'',S.empty]]);
+    merges.push({s:{r,c:0},e:{r,c:1}}); merges.push({s:{r,c:2},e:{r,c:3}}); r++;
+
+    ws['!ref']    = XLSX.utils.encode_range({ s:{r:0,c:0}, e:{r:r-1,c:3} });
+    ws['!merges'] = merges;
+    ws['!cols']   = [{wch:32},{wch:22},{wch:32},{wch:22}];
+    ws['!rows']   = [{hpt:30}];
+
     XLSX.utils.book_append_sheet(wb, ws, 'RFQ');
     XLSX.writeFile(wb, `RFQ_${quoteNo}.xlsx`);
   };
