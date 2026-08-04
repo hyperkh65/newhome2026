@@ -1,5 +1,5 @@
 'use client';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { useSiteSettings } from '@/lib/useSiteSettings';
 import XLSX from 'xlsx-js-style';
 
@@ -107,6 +107,114 @@ export default function QuotationPage() {
       if (amt > 0) map[p.currency] = (map[p.currency] || 0) + amt;
     });
     return map;
+  };
+
+  const [savedId, setSavedId]       = useState<string | null>(null);
+  const [isSaving, setIsSaving]     = useState(false);
+  const [showList, setShowList]     = useState(false);
+  const [savedList, setSavedList]   = useState<{ id: string; quote_no: string; supplier_company: string; updated_at: string }[]>([]);
+  const [listLoading, setListLoading] = useState(false);
+  const [saveMsg, setSaveMsg]       = useState('');
+
+  const ADMIN_TOKEN = process.env.NEXT_PUBLIC_ADMIN_PW || 'aa565577##';
+
+  const getFormData = useCallback(() => ({
+    quoteNo, quoteDate, validUntil, supplier, products,
+    incotermType, incotermPort, ddpDest, payment, leadTime, notes,
+  }), [quoteNo, quoteDate, validUntil, supplier, products, incotermType, incotermPort, ddpDest, payment, leadTime, notes]);
+
+  const applyFormData = (d: ReturnType<typeof getFormData>) => {
+    setQuoteNo(d.quoteNo);
+    setQuoteDate(d.quoteDate);
+    setValidUntil(d.validUntil);
+    setSupplier(d.supplier);
+    setProducts(d.products);
+    setIncotermType(d.incotermType);
+    setIncotermPort(d.incotermPort);
+    setDdpDest(d.ddpDest);
+    setPayment(d.payment);
+    setLeadTime(d.leadTime);
+    setNotes(d.notes);
+  };
+
+  const fetchList = useCallback(async () => {
+    setListLoading(true);
+    const res = await fetch('/api/quotations');
+    if (res.ok) setSavedList(await res.json());
+    setListLoading(false);
+  }, []);
+
+  useEffect(() => { if (showList) fetchList(); }, [showList, fetchList]);
+
+  const saveQuotation = async () => {
+    setIsSaving(true);
+    setSaveMsg('');
+    const body = getFormData();
+    try {
+      let res;
+      if (savedId) {
+        res = await fetch(`/api/quotations/${savedId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json', 'x-admin-token': ADMIN_TOKEN },
+          body: JSON.stringify(body),
+        });
+      } else {
+        res = await fetch('/api/quotations', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'x-admin-token': ADMIN_TOKEN },
+          body: JSON.stringify(body),
+        });
+      }
+      if (res.ok) {
+        const data = await res.json();
+        setSavedId(data.id);
+        setSaveMsg('저장됨');
+        setTimeout(() => setSaveMsg(''), 2000);
+        if (showList) fetchList();
+      } else {
+        const err = await res.json();
+        setSaveMsg(err.error || '저장 실패');
+      }
+    } catch {
+      setSaveMsg('오류 발생');
+    }
+    setIsSaving(false);
+  };
+
+  const loadQuotation = async (id: string) => {
+    const res = await fetch(`/api/quotations/${id}`);
+    if (!res.ok) return;
+    const row = await res.json();
+    applyFormData(row.data);
+    setSavedId(id);
+    setShowList(false);
+  };
+
+  const deleteQuotation = async (id: string) => {
+    if (!confirm('삭제하시겠습니까?')) return;
+    await fetch(`/api/quotations/${id}`, {
+      method: 'DELETE',
+      headers: { 'x-admin-token': ADMIN_TOKEN },
+    });
+    fetchList();
+    if (savedId === id) setSavedId(null);
+  };
+
+  const newQuotation = () => {
+    const today = new Date().toISOString().slice(0, 10);
+    setQuoteNo(`YNK-${today.replace(/-/g, '')}-001`);
+    setQuoteDate(today);
+    const d = new Date(); d.setDate(d.getDate() + 30);
+    setValidUntil(d.toISOString().slice(0, 10));
+    setSupplier({ company: '', contact: '', email: '', address: '', tel: '' });
+    setProducts([emptyProduct()]);
+    setIncotermType('FOB');
+    setIncotermPort(FOB_PORTS[4]);
+    setDdpDest('');
+    setPayment(PAYMENT_OPTIONS[0]);
+    setLeadTime('45 days after deposit confirmed');
+    setNotes('');
+    setSavedId(null);
   };
 
   const incotermLabel = incotermType === 'FOB' ? incotermPort : `DDP ${ddpDest}`;
@@ -329,13 +437,53 @@ ${productRows}
       {/* 상단 컨트롤 */}
       <div className="no-print" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, background: '#0f172a', padding: '10px 24px', display: 'flex', gap: 10, alignItems: 'center' }}>
         <span style={{ color: '#fff', fontWeight: 800, fontSize: 15 }}>📄 견적 의뢰서</span>
+        {savedId && <span style={{ fontSize: 11, color: '#34d399', fontWeight: 700, background: 'rgba(52,211,153,0.15)', padding: '2px 8px', borderRadius: 6 }}>● 저장됨</span>}
+        {saveMsg && <span style={{ fontSize: 11, color: saveMsg === '저장됨' ? '#34d399' : '#f87171', fontWeight: 700 }}>{saveMsg}</span>}
         <div style={{ flex: 1 }} />
+        <button onClick={newQuotation} style={{ padding: '7px 14px', background: 'rgba(255,255,255,0.1)', color: '#fff', border: 'none', borderRadius: 8, fontWeight: 700, fontSize: 12, cursor: 'pointer' }}>🆕 새 견적서</button>
+        <button onClick={() => setShowList(v => !v)} style={{ padding: '7px 14px', background: showList ? '#4f46e5' : 'rgba(255,255,255,0.15)', color: '#fff', border: 'none', borderRadius: 8, fontWeight: 700, fontSize: 12, cursor: 'pointer' }}>📂 목록</button>
+        <button onClick={saveQuotation} disabled={isSaving} style={{ padding: '7px 14px', background: savedId ? '#d97706' : '#16a34a', color: '#fff', border: 'none', borderRadius: 8, fontWeight: 700, fontSize: 12, cursor: 'pointer', opacity: isSaving ? 0.6 : 1 }}>
+          {isSaving ? '저장 중...' : savedId ? '💾 수정 저장' : '💾 저장'}
+        </button>
         <button onClick={addProduct} style={{ padding: '7px 14px', background: '#3b82f6', color: '#fff', border: 'none', borderRadius: 8, fontWeight: 700, fontSize: 12, cursor: 'pointer' }}>+ 제품 추가</button>
-        <button onClick={downloadExcel} style={{ padding: '7px 14px', background: '#16a34a', color: '#fff', border: 'none', borderRadius: 8, fontWeight: 700, fontSize: 12, cursor: 'pointer' }}>📊 Excel 다운로드</button>
-        <button onClick={downloadWord} style={{ padding: '7px 14px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: 8, fontWeight: 700, fontSize: 12, cursor: 'pointer' }}>📝 Word 다운로드</button>
-        <button onClick={() => window.print()} style={{ padding: '7px 14px', background: '#10b981', color: '#fff', border: 'none', borderRadius: 8, fontWeight: 700, fontSize: 12, cursor: 'pointer' }}>🖨️ PDF 인쇄</button>
+        <button onClick={downloadExcel} style={{ padding: '7px 14px', background: '#0e7490', color: '#fff', border: 'none', borderRadius: 8, fontWeight: 700, fontSize: 12, cursor: 'pointer' }}>📊 Excel</button>
+        <button onClick={downloadWord} style={{ padding: '7px 14px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: 8, fontWeight: 700, fontSize: 12, cursor: 'pointer' }}>📝 Word</button>
+        <button onClick={() => window.print()} style={{ padding: '7px 14px', background: '#10b981', color: '#fff', border: 'none', borderRadius: 8, fontWeight: 700, fontSize: 12, cursor: 'pointer' }}>🖨️ PDF</button>
         <a href="/admin" style={{ padding: '7px 14px', background: 'rgba(255,255,255,0.1)', color: '#fff', borderRadius: 8, fontWeight: 700, fontSize: 12, textDecoration: 'none' }}>← 관리자</a>
       </div>
+
+      {/* 저장 목록 패널 */}
+      {showList && (
+        <div className="no-print" style={{ position: 'fixed', top: 0, right: 0, bottom: 0, width: 340, background: '#1e293b', zIndex: 200, display: 'flex', flexDirection: 'column', boxShadow: '-4px 0 24px rgba(0,0,0,0.4)' }}>
+          <div style={{ padding: '16px 20px', borderBottom: '1px solid #334155', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{ color: '#fff', fontWeight: 800, fontSize: 15 }}>📂 저장된 견적 의뢰서</span>
+            <button onClick={() => setShowList(false)} style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: 20, cursor: 'pointer', lineHeight: 1 }}>✕</button>
+          </div>
+          <div style={{ flex: 1, overflowY: 'auto', padding: '12px 16px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {listLoading ? (
+              <div style={{ color: '#64748b', textAlign: 'center', marginTop: 40, fontSize: 13 }}>불러오는 중...</div>
+            ) : savedList.length === 0 ? (
+              <div style={{ color: '#64748b', textAlign: 'center', marginTop: 40, fontSize: 13 }}>저장된 견적서가 없습니다</div>
+            ) : savedList.map(item => (
+              <div key={item.id} style={{ background: savedId === item.id ? '#1e3a5f' : '#0f172a', borderRadius: 10, padding: '12px 14px', border: savedId === item.id ? '1.5px solid #3b82f6' : '1px solid #334155' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 6 }}>
+                  <span style={{ color: '#e2e8f0', fontWeight: 700, fontSize: 13 }}>{item.quote_no}</span>
+                  {savedId === item.id && <span style={{ fontSize: 10, color: '#60a5fa', fontWeight: 700 }}>현재</span>}
+                </div>
+                <div style={{ color: '#94a3b8', fontSize: 12, marginBottom: 2 }}>{item.supplier_company || '(공급사 미입력)'}</div>
+                <div style={{ color: '#64748b', fontSize: 11, marginBottom: 10 }}>{new Date(item.updated_at).toLocaleString('ko-KR', { year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit' })}</div>
+                <div style={{ display: 'flex', gap: 8 }}>
+                  <button onClick={() => loadQuotation(item.id)} style={{ flex: 1, padding: '6px 0', background: '#3b82f6', color: '#fff', border: 'none', borderRadius: 6, fontWeight: 700, fontSize: 12, cursor: 'pointer' }}>불러오기</button>
+                  <button onClick={() => deleteQuotation(item.id)} style={{ padding: '6px 12px', background: '#7f1d1d', color: '#fca5a5', border: 'none', borderRadius: 6, fontWeight: 700, fontSize: 12, cursor: 'pointer' }}>삭제</button>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div style={{ padding: '12px 16px', borderTop: '1px solid #334155' }}>
+            <button onClick={fetchList} style={{ width: '100%', padding: '8px 0', background: '#334155', color: '#94a3b8', border: 'none', borderRadius: 8, fontWeight: 700, fontSize: 12, cursor: 'pointer' }}>↻ 새로고침</button>
+          </div>
+        </div>
+      )}
 
       {/* 견적서 본문 */}
       <div style={{ paddingTop: 56, background: '#e2e8f0', minHeight: '100vh' }}>
