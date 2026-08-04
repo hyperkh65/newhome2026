@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -10,6 +10,8 @@ interface Catalog {
   page_count: number; view_count: number; created_at: string;
 }
 
+type ViewMode = 'google' | 'direct';
+
 export default function CatalogViewer() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
@@ -18,11 +20,8 @@ export default function CatalogViewer() {
   const [unlocked, setUnlocked] = useState(false);
   const [pwInput, setPwInput] = useState('');
   const [pwError, setPwError] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageInput, setPageInput] = useState('1');
   const [fullscreen, setFullscreen] = useState(false);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
-  const [iframeKey, setIframeKey] = useState(0);
+  const [viewMode, setViewMode] = useState<ViewMode>('google');
 
   useEffect(() => {
     fetch(`/api/catalogs/${id}`)
@@ -44,16 +43,11 @@ export default function CatalogViewer() {
     else { setPwError(true); }
   };
 
-  const goToPage = (p: number) => {
-    if (!catalog) return;
-    const max = catalog.page_count || 9999;
-    const next = Math.max(1, Math.min(max, p));
-    setCurrentPage(next);
-    setPageInput(String(next));
-    setIframeKey(k => k + 1); // force reload to new page
-  };
-
-  const pdfSrc = catalog ? `${catalog.pdf_url}#page=${currentPage}&toolbar=1&navpanes=1` : '';
+  const pdfSrc = catalog?.pdf_url
+    ? viewMode === 'google'
+      ? `https://docs.google.com/viewer?url=${encodeURIComponent(catalog.pdf_url)}&embedded=true`
+      : catalog.pdf_url
+    : '';
 
   if (loading) return (
     <>
@@ -113,41 +107,22 @@ export default function CatalogViewer() {
             {catalog.category && <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)' }}>{catalog.category}</div>}
           </div>
 
-          {/* 페이지 이동 컨트롤 */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
-            <button onClick={() => goToPage(currentPage - 1)} disabled={currentPage <= 1}
-              style={{ width: 32, height: 32, borderRadius: 6, border: '1px solid rgba(255,255,255,0.15)', background: 'rgba(255,255,255,0.08)', color: '#fff', cursor: currentPage<=1?'not-allowed':'pointer', opacity: currentPage<=1?0.4:1, fontSize: 14 }}>
-              ‹
-            </button>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 13, color: 'rgba(255,255,255,0.7)' }}>
-              <input value={pageInput}
-                onChange={e => setPageInput(e.target.value)}
-                onKeyDown={e => e.key === 'Enter' && goToPage(Number(pageInput))}
-                onBlur={() => goToPage(Number(pageInput))}
-                style={{ width: 48, padding: '5px 8px', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: 6, color: '#fff', fontSize: 13, textAlign: 'center', fontFamily: 'inherit', outline: 'none' }} />
-              {catalog.page_count > 0 && <span>/ {catalog.page_count}</span>}
-            </div>
-            <button onClick={() => goToPage(currentPage + 1)} disabled={catalog.page_count > 0 && currentPage >= catalog.page_count}
-              style={{ width: 32, height: 32, borderRadius: 6, border: '1px solid rgba(255,255,255,0.15)', background: 'rgba(255,255,255,0.08)', color: '#fff', cursor: 'pointer', fontSize: 14 }}>
-              ›
-            </button>
-          </div>
+          {catalog.page_count > 0 && (
+            <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)', flexShrink: 0 }}>{catalog.page_count}p</span>
+          )}
 
-          {/* 페이지 바로가기 버튼들 (page_count 있을 때) */}
-          {catalog.page_count > 0 && catalog.page_count <= 50 && (
-            <div style={{ display: 'flex', gap: 3, flexWrap: 'wrap', maxWidth: 300 }}>
-              {Array.from({ length: Math.min(catalog.page_count, 20) }, (_, i) => i+1).map(p => (
-                <button key={p} onClick={() => goToPage(p)}
-                  style={{ width: 26, height: 26, borderRadius: 4, border: 'none', background: p===currentPage?'#0ea5e9':'rgba(255,255,255,0.08)', color: p===currentPage?'#fff':'rgba(255,255,255,0.5)', fontSize: 10, fontWeight: 700, cursor: 'pointer' }}>
-                  {p}
+          <div style={{ display: 'flex', gap: 6, flexShrink: 0, alignItems: 'center' }}>
+            {/* 뷰어 모드 전환 */}
+            <div style={{ display: 'flex', background: 'rgba(255,255,255,0.08)', borderRadius: 8, padding: 2, gap: 2 }}>
+              {(['google', 'direct'] as ViewMode[]).map(mode => (
+                <button key={mode} onClick={() => setViewMode(mode)}
+                  style={{ padding: '5px 10px', borderRadius: 6, border: 'none', cursor: 'pointer', fontSize: 11, fontWeight: 700, background: viewMode === mode ? '#0ea5e9' : 'transparent', color: viewMode === mode ? '#fff' : 'rgba(255,255,255,0.4)', transition: 'all 0.15s' }}>
+                  {mode === 'google' ? '🌐 뷰어' : '📄 직접'}
                 </button>
               ))}
             </div>
-          )}
-
-          <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
-            <a href={catalog.pdf_url} target="_blank" rel="noopener noreferrer" download
-              style={{ padding: '7px 14px', background: 'rgba(14,165,233,0.2)', border: '1px solid rgba(14,165,233,0.4)', borderRadius: 8, color: '#7dd3fc', fontSize: 12, fontWeight: 700, textDecoration: 'none', cursor: 'pointer' }}>
+            <a href={catalog.pdf_url} target="_blank" rel="noopener noreferrer"
+              style={{ padding: '7px 12px', background: 'rgba(14,165,233,0.2)', border: '1px solid rgba(14,165,233,0.4)', borderRadius: 8, color: '#7dd3fc', fontSize: 12, fontWeight: 700, textDecoration: 'none' }}>
               ⬇ 다운로드
             </a>
             <button onClick={() => setFullscreen(f => !f)}
@@ -160,10 +135,11 @@ export default function CatalogViewer() {
         {/* PDF 뷰어 */}
         <div style={{ width: '100%', background: '#374151' }}>
           <iframe
-            key={`${id}-${iframeKey}`}
+            key={`${id}-${viewMode}`}
             src={pdfSrc}
-            style={{ width: '100%', height: fullscreen ? '100vh' : 'calc(100vh - 140px)', border: 'none', display: 'block' }}
+            style={{ width: '100%', height: fullscreen ? '100vh' : 'calc(100vh - 120px)', border: 'none', display: 'block' }}
             title={catalog.title}
+            allow="fullscreen"
           />
         </div>
       </main>
