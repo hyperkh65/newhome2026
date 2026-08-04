@@ -68,6 +68,10 @@ export default function AboutPage() {
             <p style={{ fontSize: 20, color: 'rgba(255,255,255,0.85)', fontWeight: 700, marginBottom: 16, letterSpacing: 1 }}>
               {c.about_text}
             </p>
+            <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.75)', maxWidth: 700, margin: '0 auto', lineHeight: 1.8 }}>
+              {c.name}는 전 세계의 고품질 LED 조명 시스템을 발굴하고,<br />
+              국내외 B2B 파트너들에게 안전하고 신속하게 공급하는 빛의 무역 허브입니다.
+            </p>
           </div>
         </div>
 
@@ -85,7 +89,7 @@ export default function AboutPage() {
                 <div style={{ fontSize: 40, marginBottom: 24 }}>🏢</div>
                 <h3 style={{ fontSize: 24, fontWeight: 800, marginBottom: 16, color: 'var(--gray-900)' }}>회사 소개</h3>
                 <p style={{ fontSize: 16, color: 'var(--gray-600)', lineHeight: 1.7, flex: 1 }}>
-                  {c.about_text}
+                  우리는 단순한 제품 공급을 넘어, 공간의 가치를 높이는 빛을 전달합니다. 수년 간의 글로벌 소싱 경험과 국제 무역 및 인증 노하우를 바탕으로 가장 혁신적이고 안정적인 LED 조명 솔루션을 제안합니다. 스마트 조명부터 산업용 특수 조명까지, {c.name}가 귀사의 든든한 무역 파트너가 되겠습니다.
                 </p>
                 {/* 회사소개서 다운로드 버튼 */}
                 {brochureUrl ? (
