@@ -1390,16 +1390,18 @@ function createBaseExpressions(): BaseExpression[] {
         "{object}",
         "the {scenario} update",
       ],
-      exampleTemplates: item[11] ?? [
-        {
-          en: "We need to " + item[1] + " {object} before the deadline.",
-          kr: "마감 전에 {objectKr} 관련 업무를 " + item[2] + " 해야 합니다.",
-        },
-        {
-          en: "The team used the expression \"" + item[1] + "\" in the {scenario} discussion.",
-          kr: "{scenarioKr} 논의에서 이 표현을 실제 업무 문장으로 사용했습니다.",
-        },
-      ],
+      exampleTemplates: item[11] ?? (() => {
+        const cols = item[10] as string[];
+        const art = (w: string) => /^(the |a |an )/.test(w) ? w : `the ${w}`;
+        const obj0 = art(cols[0] ?? "issue");
+        const obj1 = art(cols[1] ?? cols[0] ?? "request");
+        const obj2 = art(cols[2] ?? cols[0] ?? "task");
+        return [
+          { en: `Could you ${item[1]} ${obj0}? We need an update before end of day.`, kr: `${obj0} 관련 ${item[2]}주시겠어요? 오늘 중으로 업데이트가 필요합니다.` },
+          { en: `I'll ${item[1]} ${obj1} and get back to you by tomorrow morning.`, kr: `${obj1}를 ${item[2]}하고 내일 오전까지 다시 연락드리겠습니다.` },
+          { en: `Please make sure to ${item[1]} ${obj2} before the deadline.`, kr: `마감 전에 ${obj2}를 꼭 ${item[2]}해 주세요.` },
+        ];
+      })(),
     })
   );
 }
@@ -1429,17 +1431,17 @@ function buildEntry(base: BaseExpression, scenario: DomainScenario, object: stri
     expression: base.expression,
     korean: base.korean,
     baseExpression: base.expression,
-    scenarioLabel: scenario.label,
-    focusObject: object,
+    scenarioLabel: base.usageNote,
+    focusObject: base.collocations[variantIndex % base.collocations.length] ?? object,
     variantLabel: `${scenario.productTag.toUpperCase()} ${variantIndex + 1}`,
     level: base.level,
     kind: base.kind,
     grammarPattern: base.grammarPattern,
-    grammarFocus: `${base.grammarFocus} ${scenario.label} 문맥과 ${object} 같은 실제 업무 대상을 붙여 반복 훈련하도록 확장했습니다.`,
-    usageNote: `${base.usageNote} 현재 선택 문맥은 ${scenario.label} / ${object} 입니다.`,
+    grammarFocus: base.grammarFocus,
+    usageNote: base.usageNote,
     commonMistake: base.commonMistake,
     categories: [...new Set([...base.categories, ...scenario.categories])],
-    collocations: [...new Set([...base.collocations, scenario.productTag, ...scenario.objects.map((item) => item.replace(/^the /, ""))])],
+    collocations: base.collocations,
     objectPool,
     answerTemplate: base.answerTemplate,
     examples: base.exampleTemplates.map((example) => ({
