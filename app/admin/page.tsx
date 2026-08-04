@@ -210,14 +210,16 @@ export default function AdminPage() {
   async function fetchSettings() {
     const { data } = await supabase.from('site_settings').select('*');
     if (data) {
-      const company = data.find(d => d.category === 'company')?.config;
-      const menus   = data.find(d => d.category === 'menu')?.config;
+      const company = data.find(d => d.category === 'company')?.config || {
+        name: '(주)와이앤케이', address: '인천광역시 미추홀구 경인로112 4층',
+        tel: '032-862-1350', fax: '032-863-1351', email: 'sales@ynk2014.com',
+        business_id: '131-86-67779', about_text: '글로벌 LED 조명 무역회사',
+      };
+      const menus   = data.find(d => d.category === 'menu')?.config || [];
       const brochure = data.find(d => d.category === 'brochure')?.config;
       const site    = data.find(d => d.category === 'site')?.config || { site_name: '(주)와이앤케이 YNK', logo_url: '', description: '' };
       const payment = data.find(d => d.category === 'payment')?.config || {
-        bank_name: '',
-        account_number: '',
-        account_holder: '(주)와이앤케이',
+        bank_name: '', account_number: '', account_holder: '(주)와이앤케이',
         notice: '카드/간편결제는 제공하지 않으며, 입금 확인 후 주문이 진행됩니다.',
       };
       const apikeyConfig = data.find(d => d.category === 'apikey')?.config;

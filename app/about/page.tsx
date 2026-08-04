@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import Navbar from '@/components/Navbar';
 import { ScrollReveal } from '@/components/LuminaAnimation';
 import { supabase } from '@/lib/supabase';
+import { useSiteSettings } from '@/lib/useSiteSettings';
 
 const VIDEOS = ['/hero-bg-4.mp4', '/hero-bg-3.mp4', '/hero-bg-2.mp4', '/hero-bg-1.mp4'];
 
@@ -10,6 +11,12 @@ export default function AboutPage() {
   const [vidIndex, setVidIndex] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [brochureUrl, setBrochureUrl] = useState('');
+  const siteSettings = useSiteSettings();
+  const c = siteSettings?.company || {
+    name: '(주)와이앤케이', address: '인천광역시 미추홀구 경인로112 4층',
+    tel: '032-862-1350', fax: '032-863-1351', email: 'sales@ynk2014.com',
+    business_id: '131-86-67779', about_text: '글로벌 LED 조명 무역회사',
+  };
 
   // 역순 동영상 로테이션
   useEffect(() => {
@@ -56,14 +63,10 @@ export default function AboutPage() {
         <div style={{ position: 'relative', zIndex: 2, height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '0 24px' }}>
           <div>
             <h1 style={{ fontSize: 'clamp(36px, 5vw, 60px)', fontWeight: 800, color: '#ffffff', marginBottom: 20, textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}>
-              (주)와이앤케이
+              {c.name}
             </h1>
             <p style={{ fontSize: 20, color: 'rgba(255,255,255,0.85)', fontWeight: 700, marginBottom: 16, letterSpacing: 1 }}>
-              글로벌 LED 조명 무역회사
-            </p>
-            <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.75)', maxWidth: 700, margin: '0 auto', lineHeight: 1.8 }}>
-              (주)와이앤케이는 전 세계의 고품질 LED 조명 시스템을 발굴하고,<br />
-              국내외 B2B 파트너들에게 안전하고 신속하게 공급하는 빛의 무역 허브입니다.
+              {c.about_text}
             </p>
           </div>
         </div>
@@ -82,7 +85,7 @@ export default function AboutPage() {
                 <div style={{ fontSize: 40, marginBottom: 24 }}>🏢</div>
                 <h3 style={{ fontSize: 24, fontWeight: 800, marginBottom: 16, color: 'var(--gray-900)' }}>회사 소개</h3>
                 <p style={{ fontSize: 16, color: 'var(--gray-600)', lineHeight: 1.7, flex: 1 }}>
-                  우리는 단순한 제품 공급을 넘어, 공간의 가치를 높이는 빛을 전달합니다. 수년 간의 글로벌 소싱 경험과 국제 무역 및 인증 노하우를 바탕으로 가장 혁신적이고 안정적인 LED 조명 솔루션을 제안합니다. 스마트 조명부터 산업용 특수 조명까지, (주)와이앤케이가 귀사의 든든한 무역 파트너가 되겠습니다.
+                  {c.about_text}
                 </p>
                 {/* 회사소개서 다운로드 버튼 */}
                 {brochureUrl ? (
@@ -124,7 +127,7 @@ export default function AboutPage() {
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
                   <li style={{ display: 'flex', gap: 12 }}>
                     <span style={{ color: 'var(--primary)' }}>•</span>
-                    <span><strong>주소:</strong> 인천광역시 미추홀구 경인로112 4층 (주)와이앤케이</span>
+                    <span><strong>주소:</strong> {c.address} {c.name}</span>
                   </li>
                   <li style={{ display: 'flex', gap: 12 }}>
                     <span style={{ color: 'var(--primary)' }}>•</span>
