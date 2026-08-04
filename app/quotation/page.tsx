@@ -89,7 +89,7 @@ export default function QuotationPage() {
   const [quoteDate, setQuoteDate] = useState(today);
   const [validUntil, setValidUntil] = useState(() => { const d = new Date(); d.setDate(d.getDate() + 30); return d.toISOString().slice(0, 10); });
 
-  const [buyer, setBuyer] = useState({ company: '', contact: '', email: '', address: '', tel: '' });
+  const [supplier, setSupplier] = useState({ company: '', contact: '', email: '', address: '', tel: '' });
 
   const [products, setProducts] = useState<ProductRow[]>([emptyProduct()]);
   const [incoterm, setIncoterm]   = useState('FOB XIAMEN');
@@ -97,7 +97,7 @@ export default function QuotationPage() {
   const [leadTime, setLeadTime]   = useState('45 days after deposit confirmed');
   const [notes, setNotes]         = useState('');
 
-  const updateBuyer = (k: keyof typeof buyer, v: string) => setBuyer(b => ({ ...b, [k]: v }));
+  const updateSupplier = (k: keyof typeof supplier, v: string) => setSupplier(s => ({ ...s, [k]: v }));
   const updateProduct = (id: number, k: keyof ProductRow, v: string) =>
     setProducts(ps => ps.map(p => p.id === id ? { ...p, [k]: v } : p));
   const addProduct   = () => setProducts(ps => [...ps, emptyProduct()]);
@@ -168,7 +168,8 @@ export default function QuotationPage() {
               </div>
             </div>
             <div style={{ textAlign: 'right' }}>
-              <div style={{ fontSize: 28, fontWeight: 900, color: '#0ea5e9', letterSpacing: -0.5, marginBottom: 12 }}>QUOTATION</div>
+              <div style={{ fontSize: 22, fontWeight: 900, color: '#0ea5e9', letterSpacing: -0.5, marginBottom: 4 }}>견적 의뢰서</div>
+              <div style={{ fontSize: 13, fontWeight: 700, color: '#64748b', marginBottom: 12 }}>REQUEST FOR QUOTATION</div>
               <div style={{ display: 'grid', gridTemplateColumns: 'auto auto', gap: '4px 16px', fontSize: 13, textAlign: 'left' }}>
                 <span style={{ color: '#64748b', fontWeight: 600 }}>Quote No.</span>
                 <input value={quoteNo} onChange={e => setQuoteNo(e.target.value)} style={{ border: 'none', borderBottom: '1px solid #e2e8f0', fontSize: 13, fontWeight: 700, textAlign: 'right', outline: 'none', width: 160 }} />
@@ -180,15 +181,29 @@ export default function QuotationPage() {
             </div>
           </div>
 
-          {/* 수신처 */}
-          <div className="print-section" style={{ marginBottom: 32, background: '#f8fafc', borderRadius: 12, padding: '20px 24px', border: '1px solid #e2e8f0' }}>
-            <div style={{ fontSize: 12, fontWeight: 800, color: '#0ea5e9', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 14 }}>TO (수신처)</div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px 24px' }}>
-              <F label="회사명 (Company)" value={buyer.company} onChange={v => updateBuyer('company', v)} />
-              <F label="담당자 (Contact)" value={buyer.contact} onChange={v => updateBuyer('contact', v)} />
-              <F label="이메일 (Email)" value={buyer.email} onChange={v => updateBuyer('email', v)} />
-              <F label="전화 (Tel)" value={buyer.tel} onChange={v => updateBuyer('tel', v)} />
-              <F label="주소 (Address)" value={buyer.address} onChange={v => updateBuyer('address', v)} wide />
+          {/* FROM / TO */}
+          <div className="print-section" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 32 }}>
+            {/* FROM: 구매자 (YNK 자동) */}
+            <div style={{ background: '#f0f9ff', borderRadius: 12, padding: '18px 20px', border: '1px solid #bae6fd' }}>
+              <div style={{ fontSize: 12, fontWeight: 800, color: '#0284c7', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12 }}>FROM (구매자)</div>
+              <div style={{ fontSize: 14, fontWeight: 800, marginBottom: 6 }}>{c.name}</div>
+              <div style={{ fontSize: 12, color: '#475569', lineHeight: 1.8 }}>
+                <div>{c.address}</div>
+                <div>Tel: {c.tel} | Fax: {c.fax}</div>
+                <div>Email: {c.email}</div>
+                <div>사업자번호: {c.business_id}</div>
+              </div>
+            </div>
+            {/* TO: 공급사 (직접 입력) */}
+            <div style={{ background: '#f8fafc', borderRadius: 12, padding: '18px 20px', border: '1px solid #e2e8f0' }}>
+              <div style={{ fontSize: 12, fontWeight: 800, color: '#7c3aed', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12 }}>TO (공급사)</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                <F label="회사명 (Company)" value={supplier.company} onChange={v => updateSupplier('company', v)} />
+                <F label="담당자 (Contact)" value={supplier.contact} onChange={v => updateSupplier('contact', v)} />
+                <F label="이메일 (Email)" value={supplier.email} onChange={v => updateSupplier('email', v)} />
+                <F label="전화 (Tel)" value={supplier.tel} onChange={v => updateSupplier('tel', v)} />
+                <F label="주소 (Address)" value={supplier.address} onChange={v => updateSupplier('address', v)} />
+              </div>
             </div>
           </div>
 
@@ -301,7 +316,7 @@ export default function QuotationPage() {
 
           {/* 서명란 */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40, paddingTop: 24, borderTop: '1px solid #e2e8f0' }}>
-            {[['공급자 (Seller)', c.name], ['구매자 (Buyer)', buyer.company]].map(([role, name]) => (
+            {[['구매자 (Buyer)', c.name], ['공급사 (Supplier)', supplier.company]].map(([role, name]) => (
               <div key={role} style={{ textAlign: 'center' }}>
                 <div style={{ fontSize: 12, color: '#64748b', marginBottom: 8 }}>{role}</div>
                 <div style={{ fontWeight: 700, fontSize: 14, marginBottom: 48 }}>{name}</div>
