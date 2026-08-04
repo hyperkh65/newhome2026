@@ -1,6 +1,7 @@
 'use client';
 import { useState, useRef } from 'react';
 import { useSiteSettings } from '@/lib/useSiteSettings';
+import * as XLSX from 'xlsx';
 
 const CURRENCIES = ['USD', 'EUR', 'CNY', 'KRW', 'JPY'];
 const CURRENCY_SYMBOLS: Record<string, string> = { USD: '$', EUR: '€', CNY: '¥', KRW: '₩', JPY: '¥' };
@@ -111,11 +112,54 @@ export default function QuotationPage() {
   const incotermLabel = incotermType === 'FOB' ? incotermPort : `DDP ${ddpDest}`;
   const paymentLabel  = payment.replace(/\n/g, ' ');
 
-  /* ── Word 다운로드 ── */
+  /* ── Excel 다운로드 (SheetJS 실제 .xlsx) ── */
+  const downloadExcel = () => {
+    const wb = XLSX.utils.book_new();
+    const rows: (string | number)[][] = [
+      ['견적 의뢰서 / REQUEST FOR QUOTATION'],
+      [],
+      ['Quote No.', quoteNo, 'Date', quoteDate, 'Valid Until', validUntil],
+      ['FROM (구매자)', c.name, '', 'TO (공급사)', supplier.company],
+      ['', c.address, '', '', supplier.contact],
+      ['', `Tel: ${c.tel} | Fax: ${c.fax}`, '', '', supplier.email],
+      ['', `Email: ${fromEmail}`, '', '', supplier.tel],
+      [],
+    ];
+    products.forEach((p, i) => {
+      const sym = CURRENCY_SYMBOLS[p.currency] || p.currency;
+      const amt = p.unitPrice && p.qty ? `${sym}${(+p.unitPrice * +p.qty).toFixed(2)} ${p.currency}` : '';
+      rows.push([`ITEM ${i + 1}`, p.name, p.model, '', '', '']);
+      rows.push(['소비전력 / Power (W)', p.power, '입력전압 / Input Voltage', p.voltage, '광속 / Luminous Flux (lm)', p.flux]);
+      rows.push(['광효율 / Efficacy (lm/W)', p.efficacy, '색온도 / CCT (K)', p.cct, '연색지수 / CRI (Ra)', p.cri]);
+      rows.push(['배광각 / Beam Angle (°)', p.beam, 'IP 등급 / IP Rating', p.ip, '수명 / Lifespan (h)', p.lifespan]);
+      rows.push(['보증기간 / Warranty', p.warranty, '인증 / Certification', p.cert, '제품 크기 / Product Size (mm)', p.size]);
+      rows.push(['중량 / Weight', p.weight, '이너박스 / Inner Box', p.innerBox, '아웃박스 / Outer Box', p.outerBox]);
+      rows.push(['입수 / Pcs per Carton', p.pcsPerCarton, `단가 / Unit Price (${p.currency})`, p.unitPrice, 'MOQ', p.moq]);
+      rows.push(['주문수량 / Qty', p.qty, '금액 / Amount', amt, '', '']);
+      rows.push([]);
+    });
+    rows.push(['※ 해당 양식으로 작성이 어려울 경우, 위 항목을 최소한 포함하여 귀사 양식으로 작성해서 보내주시기 바랍니다.']);
+    rows.push(['If this form is difficult to complete, please include the minimum items above and respond in your own format.']);
+    rows.push([]);
+    rows.push(['Incoterms', incotermLabel]);
+    rows.push(['결제조건 / Payment Terms', paymentLabel]);
+    rows.push(['납기 / Lead Time', leadTime]);
+    if (notes) rows.push(['비고 / Remarks', notes]);
+
+    const ws = XLSX.utils.aoa_to_sheet(rows);
+    ws['!cols'] = [{ wch: 28 }, { wch: 20 }, { wch: 28 }, { wch: 20 }, { wch: 28 }, { wch: 20 }];
+    XLSX.utils.book_append_sheet(wb, ws, 'RFQ');
+    XLSX.writeFile(wb, `RFQ_${quoteNo}.xlsx`);
+  };
+
+  /* ── Word 다운로드 (MHTML — Microsoft Word 호환) ── */
   const downloadWord = () => {
-    const productRows = products.map((p, i) => `
-      <h3>ITEM ${i + 1}: ${p.name} ${p.model ? `(${p.model})` : ''}</h3>
-      <table>
+    const productRows = products.map((p, i) => {
+      const sym = CURRENCY_SYMBOLS[p.currency] || p.currency;
+      const amt = p.unitPrice && p.qty ? `${sym}${(+p.unitPrice * +p.qty).toFixed(2)} ${p.currency}` : '';
+      return `
+      <h3 style="background:#1e293b;color:#fff;padding:6px 10px;margin:20px 0 6px">ITEM ${i + 1}: ${p.name} ${p.model ? `(${p.model})` : ''}</h3>
+      <table><tbody>
         <tr><td><b>소비전력 / Power (W)</b></td><td>${p.power}</td><td><b>입력전압 / Input Voltage</b></td><td>${p.voltage}</td></tr>
         <tr><td><b>광속 / Luminous Flux (lm)</b></td><td>${p.flux}</td><td><b>광효율 / Efficacy (lm/W)</b></td><td>${p.efficacy}</td></tr>
         <tr><td><b>색온도 / CCT (K)</b></td><td>${p.cct}</td><td><b>연색지수 / CRI (Ra)</b></td><td>${p.cri}</td></tr>
@@ -124,89 +168,56 @@ export default function QuotationPage() {
         <tr><td><b>인증 / Certification</b></td><td>${p.cert}</td><td><b>제품 크기 / Product Size (mm)</b></td><td>${p.size}</td></tr>
         <tr><td><b>중량 / Weight</b></td><td>${p.weight}</td><td><b>이너박스 / Inner Box</b></td><td>${p.innerBox}</td></tr>
         <tr><td><b>아웃박스 / Outer Box</b></td><td>${p.outerBox}</td><td><b>입수 / Pcs per Carton</b></td><td>${p.pcsPerCarton}</td></tr>
-        <tr><td><b>단가 / Unit Price</b></td><td>${CURRENCY_SYMBOLS[p.currency]}${p.unitPrice} ${p.currency}</td><td><b>MOQ</b></td><td>${p.moq}</td></tr>
-        <tr><td><b>주문수량 / Qty</b></td><td>${p.qty}</td><td><b>금액 / Amount</b></td><td>${p.unitPrice && p.qty ? `${CURRENCY_SYMBOLS[p.currency]}${(+p.unitPrice * +p.qty).toFixed(2)}` : ''}</td></tr>
-      </table><br/>
-    `).join('');
+        <tr><td><b>단가 / Unit Price</b></td><td>${sym}${p.unitPrice} ${p.currency}</td><td><b>MOQ</b></td><td>${p.moq}</td></tr>
+        <tr><td><b>주문수량 / Qty</b></td><td>${p.qty}</td><td><b>금액 / Amount</b></td><td>${amt}</td></tr>
+      </tbody></table>`;
+    }).join('');
 
-    const html = `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word'>
-<head><meta charset='utf-8'><style>
-  body { font-family: Arial, sans-serif; font-size: 11pt; color: #000; }
-  h1 { font-size: 20pt; color: #0284c7; text-align: right; }
-  h2 { font-size: 13pt; }
-  h3 { font-size: 12pt; background: #f1f5f9; padding: 6px; margin-top: 16px; }
-  table { border-collapse: collapse; width: 100%; margin-bottom: 8px; }
-  td, th { border: 1px solid #ccc; padding: 5px 8px; font-size: 10pt; }
-  .header { display: flex; justify-content: space-between; }
-  .notice { border: 1px solid #f59e0b; background: #fffbeb; padding: 10px; margin: 16px 0; font-size: 10pt; }
-</style></head>
-<body>
+    const body = `<!DOCTYPE html><html><head>
+<meta charset="UTF-8">
+<style>
+  body{font-family:Arial,sans-serif;font-size:11pt;color:#000;margin:40px}
+  h1{font-size:18pt;color:#0284c7}
+  h2{font-size:13pt;border-bottom:2px solid #0ea5e9;padding-bottom:4px}
+  h3{font-size:11pt}
+  table{border-collapse:collapse;width:100%;margin-bottom:8px}
+  td{border:1px solid #bbb;padding:5px 9px;font-size:10pt;vertical-align:top}
+  .notice{border:1px solid #f59e0b;background:#fffbeb;padding:10px;margin:16px 0;font-size:10pt}
+  .sig td{border:none;text-align:center;padding:50px 20px 10px}
+</style></head><body>
 <h1>견적 의뢰서 / REQUEST FOR QUOTATION</h1>
 <table><tr>
-  <td><b>${c.name}</b><br/>${c.address}<br/>Tel: ${c.tel} | Fax: ${c.fax}<br/>Email: ${fromEmail}<br/>사업자번호: ${c.business_id}</td>
-  <td style="text-align:right">Quote No: <b>${quoteNo}</b><br/>Date: ${quoteDate}<br/>Valid Until: ${validUntil}</td>
+  <td><b>${c.name}</b><br>${c.address}<br>Tel: ${c.tel} | Fax: ${c.fax}<br>Email: ${fromEmail}<br>사업자번호: ${c.business_id}</td>
+  <td style="text-align:right;vertical-align:top">Quote No: <b>${quoteNo}</b><br>Date: ${quoteDate}<br>Valid Until: ${validUntil}</td>
 </tr></table>
-<table><tr>
-  <td width="50%"><b>FROM (구매자)</b><br/>${c.name}</td>
-  <td width="50%"><b>TO (공급사)</b><br/>${supplier.company}<br/>${supplier.contact}<br/>${supplier.email}<br/>${supplier.tel}<br/>${supplier.address}</td>
+<table style="margin-top:12px"><tr>
+  <td width="50%"><b>FROM (구매자 / Buyer)</b><br><br>${c.name}</td>
+  <td width="50%"><b>TO (공급사 / Supplier)</b><br><br>${supplier.company}<br>${supplier.contact}<br>${supplier.email}<br>${supplier.tel}<br>${supplier.address}</td>
 </tr></table>
 ${productRows}
 <div class="notice">
-  ※ 해당 양식으로 작성이 어려울 경우, 위 항목을 최소한 포함하여 귀사 양식으로 작성해서 보내주시기 바랍니다.<br/>
-  If this form is difficult to fill out, please include at minimum the above items and respond using your own company format.
+  ※ 해당 양식으로 작성이 어려울 경우, 위 항목을 최소한 포함하여 <b>귀사 양식으로 작성해서 보내주시기 바랍니다.</b><br>
+  If this form is difficult to complete, please include at minimum the above items and <b>respond using your own company format.</b>
 </div>
-<h2>거래 조건 (Terms &amp; Conditions)</h2>
-<table>
-  <tr><td><b>Incoterms</b></td><td>${incotermLabel}</td></tr>
-  <tr><td><b>결제조건 (Payment Terms)</b></td><td>${paymentLabel}</td></tr>
-  <tr><td><b>납기 (Lead Time)</b></td><td>${leadTime}</td></tr>
-</table>
-${notes ? `<p><b>비고 (Remarks):</b> ${notes}</p>` : ''}
-<br/><br/>
-<table><tr>
-  <td style="text-align:center;width:50%;padding:40px 0"><b>${c.name}</b><br/><br/><br/>_______________________<br/>서명 / Signature &amp; Seal</td>
-  <td style="text-align:center;width:50%;padding:40px 0"><b>${supplier.company || '(공급사)'}</b><br/><br/><br/>_______________________<br/>서명 / Signature &amp; Seal</td>
+<h2>거래 조건 / Terms &amp; Conditions</h2>
+<table><tbody>
+  <tr><td width="30%"><b>Incoterms</b></td><td>${incotermLabel}</td></tr>
+  <tr><td><b>결제조건 / Payment Terms</b></td><td>${paymentLabel}</td></tr>
+  <tr><td><b>납기 / Lead Time</b></td><td>${leadTime}</td></tr>
+  ${notes ? `<tr><td><b>비고 / Remarks</b></td><td>${notes}</td></tr>` : ''}
+</tbody></table>
+<br><br>
+<table class="sig"><tr>
+  <td><b>${c.name}</b><br>_________________________<br>서명 / Signature &amp; Seal</td>
+  <td><b>${supplier.company || '(Supplier)'}</b><br>_________________________<br>서명 / Signature &amp; Seal</td>
 </tr></table>
 </body></html>`;
 
-    const blob = new Blob(['﻿' + html], { type: 'application/msword' });
-    const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-    a.download = `RFQ_${quoteNo}.doc`; a.click();
-  };
-
-  /* ── Excel 다운로드 ── */
-  const downloadExcel = () => {
-    const rows = products.map((p, i) => `
-      <tr style="background:#1e293b;color:#fff"><td colspan="6"><b>ITEM ${i + 1}: ${p.name} ${p.model}</b></td></tr>
-      <tr><td><b>소비전력 / Power (W)</b></td><td>${p.power}</td><td><b>입력전압 / Input Voltage</b></td><td>${p.voltage}</td><td><b>광속 / Flux (lm)</b></td><td>${p.flux}</td></tr>
-      <tr><td><b>광효율 / Efficacy (lm/W)</b></td><td>${p.efficacy}</td><td><b>색온도 / CCT (K)</b></td><td>${p.cct}</td><td><b>연색지수 / CRI (Ra)</b></td><td>${p.cri}</td></tr>
-      <tr><td><b>배광각 / Beam Angle (°)</b></td><td>${p.beam}</td><td><b>IP 등급 / IP Rating</b></td><td>${p.ip}</td><td><b>수명 / Lifespan (h)</b></td><td>${p.lifespan}</td></tr>
-      <tr><td><b>보증기간 / Warranty</b></td><td>${p.warranty}</td><td><b>인증 / Certification</b></td><td>${p.cert}</td><td><b>제품크기 / Size (mm)</b></td><td>${p.size}</td></tr>
-      <tr><td><b>중량 / Weight</b></td><td>${p.weight}</td><td><b>이너박스 / Inner Box</b></td><td>${p.innerBox}</td><td><b>아웃박스 / Outer Box</b></td><td>${p.outerBox}</td></tr>
-      <tr><td><b>입수 / Pcs per Carton</b></td><td>${p.pcsPerCarton}</td><td><b>단가 / Unit Price (${p.currency})</b></td><td>${p.unitPrice}</td><td><b>MOQ</b></td><td>${p.moq}</td></tr>
-      <tr><td><b>주문수량 / Qty</b></td><td>${p.qty}</td><td><b>금액 / Amount</b></td><td colspan="3">${p.unitPrice && p.qty ? `${CURRENCY_SYMBOLS[p.currency]}${(+p.unitPrice * +p.qty).toFixed(2)} ${p.currency}` : ''}</td></tr>
-      <tr><td colspan="6"></td></tr>
-    `).join('');
-
-    const html = `<html><head><meta charset='utf-8'>
-<style>table{border-collapse:collapse}td,th{border:1px solid #ccc;padding:5px 8px;font-size:10pt;font-family:Arial}</style>
-</head><body><table>
-<tr style="background:#0f172a;color:#fff"><td colspan="6" style="font-size:16pt;padding:12px"><b>견적 의뢰서 / REQUEST FOR QUOTATION</b></td></tr>
-<tr><td><b>Quote No.</b></td><td>${quoteNo}</td><td><b>Date</b></td><td>${quoteDate}</td><td><b>Valid Until</b></td><td>${validUntil}</td></tr>
-<tr><td><b>FROM (구매자)</b></td><td colspan="2">${c.name}</td><td><b>TO (공급사)</b></td><td colspan="2">${supplier.company}</td></tr>
-<tr><td colspan="6"></td></tr>
-${rows}
-<tr style="background:#fef3c7"><td colspan="6">※ 해당 양식으로 작성이 어려울 경우, 위 항목을 최소한 포함하여 귀사 양식으로 작성해서 보내주시기 바랍니다. / If difficult, respond using your own format including minimum items above.</td></tr>
-<tr><td colspan="6"></td></tr>
-<tr><td><b>Incoterms</b></td><td colspan="5">${incotermLabel}</td></tr>
-<tr><td><b>결제조건</b></td><td colspan="5">${paymentLabel}</td></tr>
-<tr><td><b>납기</b></td><td colspan="5">${leadTime}</td></tr>
-${notes ? `<tr><td><b>비고</b></td><td colspan="5">${notes}</td></tr>` : ''}
-</table></body></html>`;
-
-    const blob = new Blob(['﻿' + html], { type: 'application/vnd.ms-excel' });
-    const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-    a.download = `RFQ_${quoteNo}.xls`; a.click();
+    const blob = new Blob([body], { type: 'text/html;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `RFQ_${quoteNo}.html`;
+    a.click();
   };
 
   return (
