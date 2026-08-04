@@ -318,26 +318,26 @@ ${notes ? `<tr><td><b>비고</b></td><td colspan="5">${notes}</td></tr>` : ''}
                 <div style={{ marginBottom: 12 }}>
                   <div style={{ fontSize: 11, fontWeight: 800, color: '#0ea5e9', textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 8, paddingBottom: 4, borderBottom: '1px solid #e2e8f0' }}>⚡ 전기 / 광학 사양</div>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px 20px' }}>
-                    <F label="소비전력 (W)" value={p.power} onChange={v => updateProduct(p.id, 'power', v)} placeholder="e.g. 50" />
-                    <F label="입력전압 (V)" value={p.voltage} onChange={v => updateProduct(p.id, 'voltage', v)} placeholder="220-240V" />
-                    <F label="광속 (lm)" value={p.flux} onChange={v => updateProduct(p.id, 'flux', v)} placeholder="e.g. 4500" />
-                    <F label="광효율 (lm/W)" value={p.efficacy} onChange={v => updateProduct(p.id, 'efficacy', v)} placeholder="e.g. 90" />
-                    <F label="색온도 CCT (K)" value={p.cct} onChange={v => updateProduct(p.id, 'cct', v)} placeholder="e.g. 6500K" />
-                    <F label="연색지수 CRI (Ra)" value={p.cri} onChange={v => updateProduct(p.id, 'cri', v)} placeholder="e.g. Ra80" />
-                    <F label="배광각 (°)" value={p.beam} onChange={v => updateProduct(p.id, 'beam', v)} placeholder="e.g. 120°" />
-                    <F label="IP 등급" value={p.ip} onChange={v => updateProduct(p.id, 'ip', v)} placeholder="e.g. IP65" />
-                    <F label="수명 (h)" value={p.lifespan} onChange={v => updateProduct(p.id, 'lifespan', v)} placeholder="e.g. 50000" />
-                    <F label="보증기간" value={p.warranty} onChange={v => updateProduct(p.id, 'warranty', v)} placeholder="e.g. 3 years" />
+                    <F label="소비전력 (W)" value={p.power} onChange={v => updateProduct(p.id, 'power', v)} />
+                    <F label="입력전압 (V)" value={p.voltage} onChange={v => updateProduct(p.id, 'voltage', v)} />
+                    <F label="광속 (lm)" value={p.flux} onChange={v => updateProduct(p.id, 'flux', v)} />
+                    <F label="광효율 (lm/W)" value={p.efficacy} onChange={v => updateProduct(p.id, 'efficacy', v)} />
+                    <F label="색온도 CCT (K)" value={p.cct} onChange={v => updateProduct(p.id, 'cct', v)} />
+                    <F label="연색지수 CRI (Ra)" value={p.cri} onChange={v => updateProduct(p.id, 'cri', v)} />
+                    <F label="배광각 (°)" value={p.beam} onChange={v => updateProduct(p.id, 'beam', v)} />
+                    <F label="IP 등급" value={p.ip} onChange={v => updateProduct(p.id, 'ip', v)} />
+                    <F label="수명 (h)" value={p.lifespan} onChange={v => updateProduct(p.id, 'lifespan', v)} />
+                    <F label="보증기간" value={p.warranty} onChange={v => updateProduct(p.id, 'warranty', v)} />
                   </div>
                 </div>
                 <div style={{ marginBottom: 12 }}>
                   <div style={{ fontSize: 11, fontWeight: 800, color: '#7c3aed', textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 8, paddingBottom: 4, borderBottom: '1px solid #e2e8f0' }}>📦 제품 / 포장 크기</div>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px 20px' }}>
-                    <F label="제품 크기 (mm)" value={p.size} onChange={v => updateProduct(p.id, 'size', v)} placeholder="e.g. 640×640×28" />
-                    <F label="중량 (g/kg)" value={p.weight} onChange={v => updateProduct(p.id, 'weight', v)} placeholder="e.g. 560g" />
-                    <F label="이너박스 (Inner Box)" value={p.innerBox} onChange={v => updateProduct(p.id, 'innerBox', v)} placeholder="e.g. 680×680×40mm" />
-                    <F label="아웃박스 (Outer Box)" value={p.outerBox} onChange={v => updateProduct(p.id, 'outerBox', v)} placeholder="e.g. 700×360×440mm" />
-                    <F label="입수 (Pcs/Carton)" value={p.pcsPerCarton} onChange={v => updateProduct(p.id, 'pcsPerCarton', v)} placeholder="e.g. 4" />
+                    <F label="제품 크기 (mm)" value={p.size} onChange={v => updateProduct(p.id, 'size', v)} />
+                    <F label="중량 (g/kg)" value={p.weight} onChange={v => updateProduct(p.id, 'weight', v)} />
+                    <F label="이너박스 (Inner Box)" value={p.innerBox} onChange={v => updateProduct(p.id, 'innerBox', v)} />
+                    <F label="아웃박스 (Outer Box)" value={p.outerBox} onChange={v => updateProduct(p.id, 'outerBox', v)} />
+                    <F label="입수 (Pcs/Carton)" value={p.pcsPerCarton} onChange={v => updateProduct(p.id, 'pcsPerCarton', v)} />
                   </div>
                 </div>
                 <div style={{ background: '#f0f9ff', borderRadius: 8, padding: '14px 16px', display: 'grid', gridTemplateColumns: 'auto 1fr 1fr 1fr auto', gap: '0 20px', alignItems: 'end' }}>
@@ -347,9 +347,9 @@ ${notes ? `<tr><td><b>비고</b></td><td colspan="5">${notes}</td></tr>` : ''}
                       {CURRENCIES.map(cur => <option key={cur} value={cur}>{cur}</option>)}
                     </select>
                   </div>
-                  <F label={`단가 (Unit Price, ${CURRENCY_SYMBOLS[p.currency] || p.currency})`} value={p.unitPrice} onChange={v => updateProduct(p.id, 'unitPrice', v)} placeholder="0.00" />
-                  <F label="MOQ" value={p.moq} onChange={v => updateProduct(p.id, 'moq', v)} placeholder="e.g. 1000 pcs" />
-                  <F label="주문수량 (Qty)" value={p.qty} onChange={v => updateProduct(p.id, 'qty', v)} placeholder="0" />
+                  <F label={`단가 (Unit Price, ${CURRENCY_SYMBOLS[p.currency] || p.currency})`} value={p.unitPrice} onChange={v => updateProduct(p.id, 'unitPrice', v)} />
+                  <F label="MOQ" value={p.moq} onChange={v => updateProduct(p.id, 'moq', v)} />
+                  <F label="주문수량 (Qty)" value={p.qty} onChange={v => updateProduct(p.id, 'qty', v)} />
                   <div style={{ textAlign: 'right' }}>
                     <div style={{ fontSize: 10, color: '#64748b', fontWeight: 700, textTransform: 'uppercase', marginBottom: 4 }}>금액 (Amount)</div>
                     <div style={{ fontSize: 16, fontWeight: 900, color: '#0f172a' }}>
@@ -403,7 +403,7 @@ ${notes ? `<tr><td><b>비고</b></td><td colspan="5">${notes}</td></tr>` : ''}
                       {FOB_PORTS.map(p => <option key={p} value={p}>{p}</option>)}
                     </select>
                   ) : (
-                    <input value={ddpDest} onChange={e => setDdpDest(e.target.value)} placeholder="목적지 입력 (e.g. Incheon, Korea)"
+                    <input value={ddpDest} onChange={e => setDdpDest(e.target.value)} placeholder="목적지 입력"
                       style={{ border: 'none', borderBottom: '1px solid #e2e8f0', padding: '4px 0', fontSize: 13, outline: 'none', minWidth: 220 }} />
                   )}
                 </div>
@@ -432,7 +432,7 @@ ${notes ? `<tr><td><b>비고</b></td><td colspan="5">${notes}</td></tr>` : ''}
           {/* 비고 */}
           <div style={{ marginBottom: 40 }}>
             <div style={{ fontSize: 11, fontWeight: 800, color: '#64748b', textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 6 }}>비고 (Remarks)</div>
-            <textarea value={notes} onChange={e => setNotes(e.target.value)} rows={3} placeholder="추가 조건, 특이사항 등..." />
+            <textarea value={notes} onChange={e => setNotes(e.target.value)} rows={3} />
           </div>
 
           {/* 서명란 */}
