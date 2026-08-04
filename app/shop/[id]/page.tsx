@@ -107,12 +107,12 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
             .eq('category', prod.category)
             .neq('id', id)
             .filter('specs->>product_type', 'eq', productType)
-            .limit(3);
+            .limit(10);
           rel = sameType && sameType.length > 0 ? sameType : null;
         }
         if (!rel) {
           const { data: sameCat } = await supabase.from('products').select('*')
-            .eq('category', prod.category).neq('id', id).limit(3);
+            .eq('category', prod.category).neq('id', id).limit(10);
           rel = sameCat;
         }
         if (rel) setRelated(rel);
@@ -335,7 +335,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
             <h2 style={{ fontSize: 26, fontWeight: 800, marginBottom: 32, color: '#0f172a' }}>
               {cat.icon} 같은 카테고리 제품
             </h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, minmax(0, 1fr))', gap: 16 }}>
               {related.map((p, i) => {
                 const pImg = p.images?.[0] || p.image;
                 return (
@@ -343,7 +343,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
                     <Link href={`/shop/${p.id}`} style={{ display: 'block', textDecoration: 'none', background: '#f8fafc', borderRadius: 18, overflow: 'hidden', border: '1px solid #e2e8f0', transition: 'all 0.25s', color: '#0f172a' }}
                       onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(-4px)'; (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 16px 40px rgba(0,0,0,0.08)'; }}
                       onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.transform = 'none'; (e.currentTarget as HTMLAnchorElement).style.boxShadow = 'none'; }}>
-                      <div style={{ height: 180, background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                      <div style={{ height: 140, background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
                         {pImg ? <img src={pImg} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'contain', padding: 8 }} /> : <span style={{ fontSize: 40, color: '#e2e8f0' }}>💡</span>}
                       </div>
                       <div style={{ padding: '16px 18px' }}>
