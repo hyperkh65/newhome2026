@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAdminStore } from '@/lib/store';
 import CloudinaryUpload from '@/components/CloudinaryUpload';
+import PdfUpload from '@/components/PdfUpload';
 import RichEditor from '@/components/RichEditor';
 import { supabase } from '@/lib/supabase';
 
@@ -1324,7 +1325,8 @@ export default function AdminPage() {
                   <h3 style={{ fontSize: 13, fontWeight: 800, color: '#a855f7', marginBottom: 20 }}>📄 PDF 파일</h3>
                   {Field('PDF URL', <input value={editCatalog.pdf_url} onChange={e => setEditCatalog({ ...editCatalog, pdf_url: e.target.value })} placeholder="Cloudinary PDF URL" style={inputStyle} />)}
                   <div style={{ marginTop: 8 }}>
-                    <CloudinaryUpload label="PDF 업로드" folder="catalogs" accept="application/pdf"
+                    <PdfUpload
+                      adminToken={process.env.NEXT_PUBLIC_ADMIN_PW || 'aa565577##'}
                       onSuccess={url => setEditCatalog({ ...editCatalog, pdf_url: url })} />
                   </div>
                   {editCatalog.pdf_url && (
