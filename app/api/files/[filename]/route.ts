@@ -16,11 +16,18 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ fil
   const safe = path.basename(filename);
   const filePath = path.join(STORE_DIR, safe);
 
+  const ext = safe.split('.').pop()?.toLowerCase() ?? '';
+  const mime: Record<string, string> = {
+    pdf: 'application/pdf', png: 'image/png', jpg: 'image/jpeg',
+    jpeg: 'image/jpeg', webp: 'image/webp', gif: 'image/gif',
+  };
+  const contentType = mime[ext] ?? 'application/octet-stream';
+
   try {
     const buffer = await readFile(filePath);
     return new NextResponse(buffer, {
       headers: {
-        'Content-Type': 'application/pdf',
+        'Content-Type': contentType,
         'Content-Disposition': `inline; filename="${safe}"`,
         'Cache-Control': 'public, max-age=86400',
       },
