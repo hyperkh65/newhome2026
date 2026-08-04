@@ -46,10 +46,17 @@ export default function CatalogViewer() {
     else { setPwError(true); }
   };
 
-  const proxyUrl = catalog?.pdf_url ? `/api/pdf-proxy?url=${encodeURIComponent(catalog.pdf_url)}` : '';
+  // /api/files/ 로 시작하면 직접 서빙 가능 — proxy 불필요
+  const isLocal = catalog?.pdf_url?.startsWith('/api/files/');
+  const proxyUrl = catalog?.pdf_url && !isLocal
+    ? `/api/pdf-proxy?url=${encodeURIComponent(catalog.pdf_url)}`
+    : catalog?.pdf_url || '';
+
   const pdfSrc = catalog?.pdf_url
     ? viewMode === 'proxy'  ? proxyUrl
-    : viewMode === 'google' ? `https://docs.google.com/viewer?url=${encodeURIComponent(catalog.pdf_url)}&embedded=true`
+    : viewMode === 'google' ? `https://docs.google.com/viewer?url=${encodeURIComponent(
+        isLocal ? `http://hy64.synology.me:3102${catalog.pdf_url}` : catalog.pdf_url
+      )}&embedded=true`
     : catalog.pdf_url
     : '';
 
