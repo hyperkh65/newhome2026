@@ -5,12 +5,12 @@ import path from 'path';
 export const dynamic = 'force-dynamic';
 
 const UPLOAD_DIR =
-  process.env.PDF_UPLOAD_DIR ||
+  process.env.PDF_STORE_DIR ||
   (process.env.NODE_ENV === 'production'
-    ? '/volume1/web/newhome2026/.next/standalone/public/uploads/pdfs'
-    : path.join(process.cwd(), 'public', 'uploads', 'pdfs'));
+    ? '/volume1/homes/urjent/pdf-store'
+    : path.join(process.cwd(), 'pdf-store'));
 
-const PUBLIC_URL_BASE = '/uploads/pdfs';
+const PUBLIC_URL_BASE = '/api/files';
 
 function auth(req: NextRequest) {
   const token = req.headers.get('x-admin-token');
