@@ -66,7 +66,7 @@ export default function Home() {
   
   useEffect(() => {
     async function fetchFeatured() {
-      const { data } = await supabase.from('products').select('*').eq('featured', true).limit(8);
+      const { data } = await supabase.from('products').select('*').eq('featured', true).limit(10);
       if (data) setProducts(data);
     }
     fetchFeatured();
