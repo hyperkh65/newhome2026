@@ -99,10 +99,18 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
       const { data: prod } = await supabase.from('products').select('*').eq('id', id).single();
       if (prod) {
         setProduct(prod);
-        // 같은 product_type 우선, 없으면 같은 카테고리
-        const productType = prod.specs?.product_type;
+        // 관련 그룹 우선 → product_type → category 순 폴백
+        const relatedGroup = prod.specs?.related_group;
+        const productType  = prod.specs?.product_type;
         let rel: any[] | null = null;
-        if (productType) {
+        if (relatedGroup) {
+          const { data: sameGroup } = await supabase.from('products').select('*')
+            .neq('id', id)
+            .filter('specs->>related_group', 'eq', relatedGroup)
+            .limit(10);
+          rel = sameGroup && sameGroup.length > 0 ? sameGroup : null;
+        }
+        if (!rel && productType) {
           const { data: sameType } = await supabase.from('products').select('*')
             .eq('category', prod.category)
             .neq('id', id)
@@ -149,9 +157,9 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
   // 이미지 배열 (images[] 우선, 없으면 image 단일)
   const images: string[] = (product.images?.length > 0 ? product.images : (product.image ? [product.image] : [])).filter(Boolean);
 
-  // 스펙 — 빈 값 제외
+  // 스펙 — 빈 값·내부 필드 제외
   const specs: Record<string, string> = product.specs || {};
-  const specEntries = Object.entries(specs).filter(([, v]) => v !== '' && v != null);
+  const specEntries = Object.entries(specs).filter(([k, v]) => v !== '' && v != null && k !== 'related_group');
 
   // 문서
   const documents: { name: string; url: string; type: string }[] = product.documents || [];

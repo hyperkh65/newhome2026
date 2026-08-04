@@ -24,6 +24,8 @@ const VALID_SPEC_KEYS  = [
   // 구매/공급
   'moq','lead_time','supplier','supplier_code','certification',
   'packaging_type',
+  // 관련 제품 그룹
+  'related_group',
 ];
 const VALID_DOC_TYPES  = ['datasheet','manual','cert','drawing','other'];
 

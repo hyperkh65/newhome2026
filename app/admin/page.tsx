@@ -91,6 +91,8 @@ const SPEC_FIELDS = [
   { key: 'supplier', label: '제조사', unit: '', icon: '🏭' },
   { key: 'supplier_code', label: '공급사 코드', unit: '', icon: '🔑' },
   { key: 'certification', label: '인증', unit: '', icon: '✅' },
+  // 관련 제품 그룹
+  { key: 'related_group', label: '관련 제품 그룹', unit: '', icon: '🔗' },
 ];
 
 const DOC_TYPES = [
