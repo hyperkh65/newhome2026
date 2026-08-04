@@ -601,6 +601,288 @@ const RAW_VOCAB: Array<[
     ]
   ],
 
+  // ── COMMUNICATION & MEETINGS ─────────────────────────────────────────────
+  ['acknowledge', 'acknowledge', 'verb', '인정하다, 확인하다', 'to accept or confirm the receipt of something; to recognize something', 'basic',
+    ['communication', 'email'],
+    ['confirm', 'recognize', 'accept'],
+    [
+      { en: 'Please acknowledge receipt of this email.', kr: '이 이메일 수신을 확인해주세요.' },
+      { en: 'We acknowledge the delay and sincerely apologize.', kr: '지연을 인정하며 진심으로 사과드립니다.' },
+    ]
+  ],
+  ['propose', 'propose', 'verb', '제안하다', 'to put forward a plan or idea for others to consider', 'basic',
+    ['communication', 'meeting'],
+    ['suggest', 'recommend', 'put forward'],
+    [
+      { en: 'I would like to propose a new payment structure.', kr: '새로운 결제 구조를 제안하고 싶습니다.' },
+      { en: 'The client proposed extending the contract by six months.', kr: '고객이 계약을 6개월 연장하자고 제안했습니다.' },
+    ]
+  ],
+  ['summarize', 'summarize', 'verb', '요약하다', 'to give a brief statement of the main points of something', 'basic',
+    ['communication', 'meeting'],
+    ['recap', 'outline', 'condense'],
+    [
+      { en: 'Could you summarize the key takeaways from the meeting?', kr: '회의의 주요 내용을 요약해주시겠어요?' },
+      { en: 'To summarize, we need to reduce lead time and improve packaging.', kr: '요약하면, 납기를 줄이고 포장을 개선해야 합니다.' },
+    ]
+  ],
+  ['revise', 'revise', 'verb', '수정하다', 'to reconsider and alter something in light of new information', 'basic',
+    ['documents', 'planning'],
+    ['update', 'amend', 'modify'],
+    [
+      { en: 'Please revise the quotation to reflect the new specifications.', kr: '새로운 사양을 반영하여 견적서를 수정해주세요.' },
+      { en: 'We need to revise the delivery schedule due to a factory shutdown.', kr: '공장 가동 중단으로 납기 일정을 수정해야 합니다.' },
+    ]
+  ],
+  ['confirm', 'confirm', 'verb', '확인하다, 확정하다', 'to establish the truth or correctness of something', 'basic',
+    ['communication', 'email'],
+    ['verify', 'affirm', 'validate'],
+    [
+      { en: 'Could you confirm the order details by end of today?', kr: '오늘 중으로 주문 세부 내용을 확인해주실 수 있나요?' },
+      { en: 'I can confirm that the shipment left the factory this morning.', kr: '오늘 아침 공장에서 선적이 출발했음을 확인드립니다.' },
+    ]
+  ],
+  ['outline', 'outline', 'verb', '개요를 설명하다', 'to give a summary of the main facts or points of something', 'basic',
+    ['communication', 'presentation'],
+    ['summarize', 'sketch', 'describe'],
+    [
+      { en: 'Let me outline the main steps in our new approval process.', kr: '새로운 승인 프로세스의 주요 단계를 개요로 설명해드리겠습니다.' },
+      { en: 'The proposal outlines three key benefits of switching suppliers.', kr: '제안서는 공급사를 변경할 경우의 세 가지 주요 이점을 설명합니다.' },
+    ]
+  ],
+  ['notify', 'notify', 'verb', '통보하다, 알리다', 'to inform someone of something in an official way', 'basic',
+    ['communication', 'email'],
+    ['inform', 'advise', 'alert'],
+    [
+      { en: 'Please notify us immediately if there are any changes to the schedule.', kr: '일정에 변경이 생기면 즉시 알려주세요.' },
+      { en: 'We have notified all suppliers of the new quality requirements.', kr: '모든 공급사에 새로운 품질 요건을 통보했습니다.' },
+    ]
+  ],
+
+  // ── SALES & BUSINESS ─────────────────────────────────────────────────────
+  ['secure', 'secure', 'verb', '확보하다, 따내다', 'to obtain or achieve something, often with effort', 'intermediate',
+    ['sales', 'negotiation'],
+    ['obtain', 'win', 'land'],
+    [
+      { en: 'We secured a new contract with a major retailer.', kr: '대형 소매업체와 새 계약을 확보했습니다.' },
+      { en: 'The team worked hard to secure the deal before year-end.', kr: '팀이 연말 전에 거래를 성사시키기 위해 열심히 노력했습니다.' },
+    ]
+  ],
+  ['acquire', 'acquire', 'verb', '획득하다, 인수하다', 'to gain or obtain something, or to take over another company', 'intermediate',
+    ['business', 'strategy'],
+    ['obtain', 'gain', 'procure'],
+    [
+      { en: 'The company acquired a new distribution partner in Korea.', kr: '회사가 한국에 새로운 유통 파트너를 인수했습니다.' },
+      { en: 'We need to acquire more market data before launching.', kr: '출시 전에 더 많은 시장 데이터를 확보해야 합니다.' },
+    ]
+  ],
+  ['generate', 'generate', 'verb', '창출하다, 발생시키다', 'to produce or cause something to come into existence', 'basic',
+    ['sales', 'finance'],
+    ['produce', 'create', 'yield'],
+    [
+      { en: 'The new product line generated significant revenue in Q3.', kr: '신제품 라인이 3분기에 상당한 수익을 창출했습니다.' },
+      { en: 'We need to generate more leads in the North American market.', kr: '북미 시장에서 더 많은 잠재 고객을 발굴해야 합니다.' },
+    ]
+  ],
+  ['retain', 'retain', 'verb', '유지하다, 보유하다', 'to keep something or continue to have something', 'intermediate',
+    ['sales', 'relationship'],
+    ['keep', 'maintain', 'hold onto'],
+    [
+      { en: 'Our goal is to retain at least 90% of our key accounts.', kr: '목표는 주요 거래처의 최소 90%를 유지하는 것입니다.' },
+      { en: 'It costs more to acquire a new client than to retain an existing one.', kr: '신규 고객 확보보다 기존 고객을 유지하는 데 더 적은 비용이 듭니다.' },
+    ]
+  ],
+  ['pitch', 'pitch', 'verb', '제안하다, 영업하다', 'to present an idea or product persuasively to a potential buyer', 'intermediate',
+    ['sales', 'presentation'],
+    ['present', 'propose', 'sell'],
+    [
+      { en: 'We pitched our product to five major buyers at the trade show.', kr: '전시회에서 5개 주요 바이어에게 제품을 제안했습니다.' },
+      { en: 'She pitched the new service idea to the board with great confidence.', kr: '그녀는 새 서비스 아이디어를 이사회에 자신감 있게 제안했습니다.' },
+    ]
+  ],
+  ['pursue', 'pursue', 'verb', '추구하다, 진행하다', 'to follow or continue with a course of action or goal', 'intermediate',
+    ['strategy', 'sales'],
+    ['follow up', 'chase', 'work toward'],
+    [
+      { en: 'We plan to pursue the Southeast Asian market aggressively next year.', kr: '내년에 동남아 시장을 적극적으로 공략할 계획입니다.' },
+      { en: 'The account team is pursuing three major prospects this quarter.', kr: '계정 팀이 이번 분기에 세 개의 주요 잠재 고객을 추진 중입니다.' },
+    ]
+  ],
+
+  // ── LOGISTICS & OPERATIONS ───────────────────────────────────────────────
+  ['dispatch', 'dispatch', 'verb', '발송하다, 출하하다', 'to send off goods or a person to a destination', 'intermediate',
+    ['logistics', 'operations'],
+    ['ship', 'send', 'consign'],
+    [
+      { en: 'The goods were dispatched yesterday and should arrive by Thursday.', kr: '물품은 어제 발송되었으며 목요일까지 도착할 예정입니다.' },
+      { en: 'We will dispatch the replacement units as soon as they are ready.', kr: '교체품이 준비되는 즉시 발송하겠습니다.' },
+    ]
+  ],
+  ['expedite', 'expedite', 'verb', '신속하게 처리하다', 'to make an action or process happen sooner or faster', 'intermediate',
+    ['logistics', 'operations'],
+    ['speed up', 'fast-track', 'rush'],
+    [
+      { en: 'Can you expedite the customs clearance for this shipment?', kr: '이 선적의 통관을 신속하게 처리해주실 수 있나요?' },
+      { en: 'We need to expedite the order to meet the client\'s tight deadline.', kr: '고객의 촉박한 마감에 맞추기 위해 주문을 신속 처리해야 합니다.' },
+    ]
+  ],
+  ['consolidate', 'consolidate', 'verb', '통합하다, 합치다', 'to combine multiple things into a single more effective whole', 'intermediate',
+    ['logistics', 'operations'],
+    ['combine', 'merge', 'integrate'],
+    [
+      { en: 'We consolidated three separate shipments to reduce freight costs.', kr: '운임 절감을 위해 세 개의 별도 선적을 통합했습니다.' },
+      { en: 'The company plans to consolidate its warehouses from five to two.', kr: '회사는 창고를 5개에서 2개로 통합할 계획입니다.' },
+    ]
+  ],
+  ['procure', 'procure', 'verb', '조달하다', 'to obtain something, especially with care or effort', 'intermediate',
+    ['operations', 'supply'],
+    ['source', 'obtain', 'acquire'],
+    [
+      { en: 'We need to procure raw materials at a competitive price.', kr: '경쟁력 있는 가격으로 원자재를 조달해야 합니다.' },
+      { en: 'The procurement team managed to procure the parts on short notice.', kr: '조달팀이 촉박한 통보에도 불구하고 부품을 조달하는 데 성공했습니다.' },
+    ]
+  ],
+  ['replenish', 'replenish', 'verb', '보충하다', 'to fill something up again that had been partially depleted', 'intermediate',
+    ['inventory', 'operations'],
+    ['restock', 'refill', 'top up'],
+    [
+      { en: 'We need to replenish safety stock before the peak season starts.', kr: '성수기가 시작되기 전에 안전 재고를 보충해야 합니다.' },
+      { en: 'The warehouse replenished the shelves overnight.', kr: '창고는 밤새 선반을 보충했습니다.' },
+    ]
+  ],
+  ['allocate', 'allocate', 'verb', '할당하다, 배분하다', 'to give particular things to particular people or for a particular purpose', 'intermediate',
+    ['operations', 'planning'],
+    ['assign', 'distribute', 'apportion'],
+    [
+      { en: 'We need to allocate more production capacity to the top-selling models.', kr: '가장 잘 팔리는 모델에 생산 능력을 더 배분해야 합니다.' },
+      { en: 'The budget has been allocated across three departments.', kr: '예산이 세 부서에 걸쳐 배분되었습니다.' },
+    ]
+  ],
+
+  // ── QUALITY & IMPROVEMENT ─────────────────────────────────────────────────
+  ['rectify', 'rectify', 'verb', '시정하다, 바로잡다', 'to put something right; to correct a mistake or fault', 'intermediate',
+    ['quality', 'operations'],
+    ['correct', 'fix', 'remedy'],
+    [
+      { en: 'We have taken steps to rectify the defect found in the last batch.', kr: '지난 배치에서 발견된 결함을 시정하기 위한 조치를 취했습니다.' },
+      { en: 'Please let us know how you plan to rectify this situation.', kr: '이 상황을 어떻게 시정할 계획인지 알려주세요.' },
+    ]
+  ],
+  ['remedy', 'remedy', 'verb', '치료하다, 해결하다', 'to solve a problem or improve an unsatisfactory situation', 'intermediate',
+    ['quality', 'support'],
+    ['fix', 'resolve', 'correct'],
+    [
+      { en: 'What steps are you taking to remedy the quality issue?', kr: '품질 문제를 해결하기 위해 어떤 조치를 취하고 있나요?' },
+      { en: 'The engineer identified a simple solution to remedy the design flaw.', kr: '엔지니어가 설계 결함을 해결할 간단한 방법을 찾아냈습니다.' },
+    ]
+  ],
+  ['enhance', 'enhance', 'verb', '향상시키다', 'to increase or improve the quality, value, or extent of something', 'intermediate',
+    ['strategy', 'quality'],
+    ['improve', 'boost', 'upgrade'],
+    [
+      { en: 'We are constantly looking for ways to enhance our product quality.', kr: '제품 품질을 향상시킬 방법을 지속적으로 모색하고 있습니다.' },
+      { en: 'The new software enhances the efficiency of our order management system.', kr: '새 소프트웨어가 주문 관리 시스템의 효율성을 향상시킵니다.' },
+    ]
+  ],
+  ['streamline', 'streamline', 'verb', '효율화하다', 'to make a system or organization more efficient and effective', 'advanced',
+    ['operations', 'strategy'],
+    ['simplify', 'optimize', 'rationalize'],
+    [
+      { en: 'We have streamlined the approval process from 5 steps to 2.', kr: '승인 절차를 5단계에서 2단계로 효율화했습니다.' },
+      { en: 'Streamlining our supply chain reduced lead times by 20%.', kr: '공급망을 효율화하여 납기가 20% 단축되었습니다.' },
+    ]
+  ],
+  ['refine', 'refine', 'verb', '개선하다, 다듬다', 'to improve something by making small changes', 'intermediate',
+    ['quality', 'strategy'],
+    ['improve', 'polish', 'perfect'],
+    [
+      { en: 'We refined the proposal based on the client\'s feedback.', kr: '고객의 피드백을 바탕으로 제안서를 개선했습니다.' },
+      { en: 'The team spent two weeks refining the manufacturing process.', kr: '팀이 2주에 걸쳐 제조 공정을 개선했습니다.' },
+    ]
+  ],
+
+  // ── KEY BUSINESS NOUNS (추가) ─────────────────────────────────────────────
+  ['turnaround', 'turnaround', 'noun', '전환, 처리 시간', 'the time needed to do a job; or a significant improvement from bad to good', 'intermediate',
+    ['logistics', 'operations'],
+    ['lead time', 'response time', 'recovery'],
+    [
+      { en: 'Our standard turnaround time for quotations is 24 hours.', kr: '견적서의 표준 처리 시간은 24시간입니다.' },
+      { en: 'The factory achieved a remarkable turnaround in quality this year.', kr: '공장은 올해 품질 면에서 놀라운 전환을 달성했습니다.' },
+    ]
+  ],
+  ['benchmark', 'benchmark', 'noun', '기준점', 'a standard against which something can be measured or assessed', 'intermediate',
+    ['analysis', 'strategy'],
+    ['standard', 'yardstick', 'reference point'],
+    [
+      { en: 'A 98% on-time delivery rate is our internal benchmark.', kr: '납기 준수율 98%가 내부 기준입니다.' },
+      { en: 'Set a realistic benchmark before launching the new program.', kr: '새 프로그램 시작 전에 현실적인 기준을 설정하세요.' },
+    ]
+  ],
+  ['overhead', 'overhead', 'noun', '간접비, 운영비', 'the ongoing expenses of running a business, not directly tied to production', 'intermediate',
+    ['finance', 'operations'],
+    ['running costs', 'fixed costs', 'operating expenses'],
+    [
+      { en: 'We need to reduce overhead costs to improve our profit margin.', kr: '이익률을 개선하기 위해 간접비를 줄여야 합니다.' },
+      { en: 'Overhead accounts for nearly 30% of our total operating costs.', kr: '간접비가 총 운영비의 약 30%를 차지합니다.' },
+    ]
+  ],
+  ['turnover', 'turnover', 'noun', '매출액, 이직률', 'total revenue generated; or the rate at which employees leave a company', 'intermediate',
+    ['finance', 'hr'],
+    ['revenue', 'sales volume', 'attrition'],
+    [
+      { en: 'Annual turnover reached $5 million for the first time.', kr: '연간 매출액이 처음으로 500만 달러에 달했습니다.' },
+      { en: 'High staff turnover is causing disruption in the operations team.', kr: '높은 이직률로 인해 운영팀에 혼란이 생기고 있습니다.' },
+    ]
+  ],
+  ['friction', 'friction', 'noun', '마찰, 갈등', 'conflict or disagreement between people; or resistance in a process', 'intermediate',
+    ['relationship', 'operations'],
+    ['conflict', 'tension', 'resistance'],
+    [
+      { en: 'There has been some friction between the two teams over responsibility.', kr: '두 팀 사이에 책임 문제로 약간의 마찰이 있었습니다.' },
+      { en: 'Reducing friction in the checkout process improves customer conversion.', kr: '결제 과정의 마찰을 줄이면 고객 전환율이 개선됩니다.' },
+    ]
+  ],
+  ['alignment', 'alignment', 'noun', '일치, 정렬', 'the state of being in agreement or having the same goals', 'intermediate',
+    ['management', 'communication'],
+    ['agreement', 'coordination', 'sync'],
+    [
+      { en: 'We need full alignment across all departments before proceeding.', kr: '진행하기 전에 모든 부서 간 완전한 합의가 필요합니다.' },
+      { en: 'There is strong alignment between the two companies on pricing strategy.', kr: '두 회사 간 가격 전략에 대한 강한 합의가 있습니다.' },
+    ]
+  ],
+  ['exposure', 'exposure', 'noun', '노출, 위험에의 취약성', 'the state of being exposed to something, especially risk or financial liability', 'advanced',
+    ['finance', 'risk'],
+    ['risk', 'vulnerability', 'liability'],
+    [
+      { en: 'We need to limit our currency exposure by hedging.', kr: '헤징을 통해 환율 노출을 제한해야 합니다.' },
+      { en: 'The company has significant exposure to raw material price volatility.', kr: '회사는 원자재 가격 변동성에 상당한 위험 노출이 있습니다.' },
+    ]
+  ],
+  ['threshold', 'threshold', 'noun', '임계값, 기준선', 'a level or point at which something begins or changes', 'advanced',
+    ['analysis', 'quality'],
+    ['limit', 'boundary', 'cutoff'],
+    [
+      { en: 'Orders above the threshold of 1,000 units receive a volume discount.', kr: '1,000개 이상의 주문은 대량 할인을 받습니다.' },
+      { en: 'The defect rate exceeded the acceptable threshold of 0.5%.', kr: '불량률이 허용 임계값인 0.5%를 초과했습니다.' },
+    ]
+  ],
+  ['trajectory', 'trajectory', 'noun', '궤도, 추세', 'the path or direction of something developing over time', 'advanced',
+    ['strategy', 'analysis'],
+    ['trend', 'path', 'direction'],
+    [
+      { en: 'The sales trajectory shows steady growth over the past three years.', kr: '판매 궤도는 지난 3년간 꾸준한 성장을 보여줍니다.' },
+      { en: 'If we continue on this trajectory, we will miss the annual target.', kr: '이 추세로 계속 가면 연간 목표를 달성하지 못할 것입니다.' },
+    ]
+  ],
+  ['leverage', 'leverage', 'noun', '영향력, 레버리지', 'power to achieve goals; or the use of borrowed money to invest', 'advanced',
+    ['negotiation', 'finance'],
+    ['influence', 'power', 'advantage'],
+    [
+      { en: 'Our large order volume gives us leverage in price negotiations.', kr: '대규모 주문 물량이 가격 협상에서 영향력을 줍니다.' },
+      { en: 'They used financial leverage to fund the new inventory purchase.', kr: '그들은 새 재고 구매 자금 조달을 위해 금융 레버리지를 활용했습니다.' },
+    ]
+  ],
+
   // ── KEY ADVERBS & PHRASES ─────────────────────────────────────────────────
   ['promptly', 'promptly', 'adverb', '즉시, 신속하게', 'with little or no delay; immediately', 'basic',
     ['communication', 'email'],
