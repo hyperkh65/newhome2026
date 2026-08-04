@@ -286,16 +286,21 @@ export function EnglishHub() {
   });
   const currentVocab = filteredVocab[vocabIndex] ?? filteredVocab[0];
 
-  // Expression filtered
-  const filteredExpr = ENGLISH_ENTRIES.filter(e => {
-    if (e.level !== exprLevel) return false;
-    if (exprCat !== 'all' && !e.categories.includes(exprCat)) return false;
-    if (exprQ) {
-      const hay = [e.baseExpression, e.korean, e.grammarPattern, ...e.categories].join(' ').toLowerCase();
-      if (!hay.includes(exprQ.toLowerCase())) return false;
-    }
-    return true;
-  });
+  // Expression filtered — deduplicate by baseExpression
+  const filteredExpr = (() => {
+    const seen = new Set<string>();
+    return ENGLISH_ENTRIES.filter(e => {
+      if (e.level !== exprLevel) return false;
+      if (exprCat !== 'all' && !e.categories.includes(exprCat)) return false;
+      if (exprQ) {
+        const hay = [e.baseExpression, e.korean, e.grammarPattern, ...e.categories].join(' ').toLowerCase();
+        if (!hay.includes(exprQ.toLowerCase())) return false;
+      }
+      if (seen.has(e.baseExpression)) return false;
+      seen.add(e.baseExpression);
+      return true;
+    });
+  })();
   const selectedExpr = filteredExpr.find(e => e.id === selectedExprId) ?? filteredExpr[0];
 
   // Start quiz
