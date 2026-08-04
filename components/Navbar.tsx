@@ -13,6 +13,7 @@ const PRODUCT_CATEGORIES = [
   { href: '/shop?cat=commercial', labelKey: 'commercial', icon: '🏪', descKey: 'desc_commercial' },
   { href: '/shop?cat=outdoor', labelKey: 'outdoor', icon: '🏭', descKey: 'desc_outdoor' },
   { href: '/shop?cat=industrial', labelKey: 'industrial', icon: '🏗️', descKey: 'desc_industrial' },
+  { href: '/shop?cat=panel', labelKey: 'panel', icon: '⬜', descKey: 'desc_panel' },
   { href: '/shop?cat=landscape', labelKey: 'landscape', icon: '🌉', descKey: 'desc_landscape' },
   { href: '/shop?cat=special', labelKey: 'special', icon: '🔬', descKey: 'desc_special' },
 ];

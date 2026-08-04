@@ -55,6 +55,8 @@ export const TRANSLATIONS: Record<string, Record<Language, string>> = {
   special: { ko: '특수조명', en: 'Specialty', zh: '特殊照明', ja: '特殊照明' },
   industrial: { ko: '산업조명', en: 'Industrial', zh: '工业照明', ja: '産業照明' },
   home_lighting: { ko: '홈조명', en: 'Home Lighting', zh: '家居照明', ja: 'ホーム照明' },
+  panel: { ko: '평판등', en: 'Panel Light', zh: '平板灯', ja: 'パネルライト' },
+  desc_panel: { ko: 'LED 평판·백라이트 패널', en: 'LED Flat Panel Lights', zh: 'LED平板面板灯', ja: 'LEDフラットパネル' },
   'price-asc': { ko: '가격 낮은순', en: 'Price: Low to High', zh: '价格：从低到高', ja: '価格の安い順' },
   'price-desc': { ko: '가격 높은순', en: 'Price: High to Low', zh: '价格：从高到低', ja: '価格の高い順' },
   rating: { ko: '평점순', en: 'Rating', zh: '评分', ja: '評価順' },
