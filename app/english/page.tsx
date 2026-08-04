@@ -1,25 +1,11 @@
 import type { Metadata } from "next";
-
-import { BusinessEnglishStudio } from "@/components/english/BusinessEnglishStudio";
-import { LightExpressionBrowser } from "@/components/english/LightExpressionBrowser";
-import { LIGHT_ENTRIES } from "@/lib/english/catalog";
+import { EnglishHub } from "@/components/english/EnglishHub";
 
 export const metadata: Metadata = {
-  title: "Business English Study Lab",
-  description:
-    "Business phrasal verbs and patterns with self-study drills, Remotion learning cards, and local progress tracking.",
+  title: "Business English Hub",
+  description: "비즈니스 영어 완전 정복 — 단어, 표현, 테스트, 진도 관리",
 };
 
 export default function EnglishPage() {
-  return (
-    <>
-      <BusinessEnglishStudio />
-      <div style={{
-        maxWidth: 1400, margin: "0 auto", padding: "48px 24px",
-        borderTop: "1px solid #1e293b",
-      }}>
-        <LightExpressionBrowser totalCount={LIGHT_ENTRIES.length} />
-      </div>
-    </>
-  );
+  return <EnglishHub />;
 }
