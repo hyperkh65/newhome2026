@@ -28,7 +28,7 @@ interface ProductRow {
 
 const emptyProduct = (): ProductRow => ({
   id: Date.now(), image: '', name: '', model: '',
-  power: '', voltage: '220-240V', flux: '', efficacy: '', cct: '', cri: '',
+  power: '', voltage: '', flux: '', efficacy: '', cct: '', cri: '',
   beam: '', ip: '', lifespan: '', warranty: '', cert: '',
   size: '', weight: '', innerBox: '', outerBox: '', pcsPerCarton: '',
   currency: 'USD', unitPrice: '', moq: '', qty: '',
@@ -116,16 +116,16 @@ export default function QuotationPage() {
     const productRows = products.map((p, i) => `
       <h3>ITEM ${i + 1}: ${p.name} ${p.model ? `(${p.model})` : ''}</h3>
       <table>
-        <tr><td><b>소비전력 (W)</b></td><td>${p.power}</td><td><b>입력전압</b></td><td>${p.voltage}</td></tr>
-        <tr><td><b>광속 (lm)</b></td><td>${p.flux}</td><td><b>광효율 (lm/W)</b></td><td>${p.efficacy}</td></tr>
-        <tr><td><b>색온도 CCT</b></td><td>${p.cct}</td><td><b>연색지수 CRI</b></td><td>${p.cri}</td></tr>
-        <tr><td><b>배광각</b></td><td>${p.beam}</td><td><b>IP 등급</b></td><td>${p.ip}</td></tr>
-        <tr><td><b>수명 (h)</b></td><td>${p.lifespan}</td><td><b>보증기간</b></td><td>${p.warranty}</td></tr>
-        <tr><td><b>인증</b></td><td>${p.cert}</td><td><b>제품 크기</b></td><td>${p.size}</td></tr>
-        <tr><td><b>중량</b></td><td>${p.weight}</td><td><b>이너박스</b></td><td>${p.innerBox}</td></tr>
-        <tr><td><b>아웃박스</b></td><td>${p.outerBox}</td><td><b>입수</b></td><td>${p.pcsPerCarton}</td></tr>
-        <tr><td><b>단가 (Unit Price)</b></td><td>${CURRENCY_SYMBOLS[p.currency]}${p.unitPrice} ${p.currency}</td><td><b>MOQ</b></td><td>${p.moq}</td></tr>
-        <tr><td><b>주문수량 (Qty)</b></td><td>${p.qty}</td><td><b>금액 (Amount)</b></td><td>${p.unitPrice && p.qty ? `${CURRENCY_SYMBOLS[p.currency]}${(+p.unitPrice * +p.qty).toFixed(2)}` : ''}</td></tr>
+        <tr><td><b>소비전력 / Power (W)</b></td><td>${p.power}</td><td><b>입력전압 / Input Voltage</b></td><td>${p.voltage}</td></tr>
+        <tr><td><b>광속 / Luminous Flux (lm)</b></td><td>${p.flux}</td><td><b>광효율 / Efficacy (lm/W)</b></td><td>${p.efficacy}</td></tr>
+        <tr><td><b>색온도 / CCT (K)</b></td><td>${p.cct}</td><td><b>연색지수 / CRI (Ra)</b></td><td>${p.cri}</td></tr>
+        <tr><td><b>배광각 / Beam Angle (°)</b></td><td>${p.beam}</td><td><b>IP 등급 / IP Rating</b></td><td>${p.ip}</td></tr>
+        <tr><td><b>수명 / Lifespan (h)</b></td><td>${p.lifespan}</td><td><b>보증기간 / Warranty</b></td><td>${p.warranty}</td></tr>
+        <tr><td><b>인증 / Certification</b></td><td>${p.cert}</td><td><b>제품 크기 / Product Size (mm)</b></td><td>${p.size}</td></tr>
+        <tr><td><b>중량 / Weight</b></td><td>${p.weight}</td><td><b>이너박스 / Inner Box</b></td><td>${p.innerBox}</td></tr>
+        <tr><td><b>아웃박스 / Outer Box</b></td><td>${p.outerBox}</td><td><b>입수 / Pcs per Carton</b></td><td>${p.pcsPerCarton}</td></tr>
+        <tr><td><b>단가 / Unit Price</b></td><td>${CURRENCY_SYMBOLS[p.currency]}${p.unitPrice} ${p.currency}</td><td><b>MOQ</b></td><td>${p.moq}</td></tr>
+        <tr><td><b>주문수량 / Qty</b></td><td>${p.qty}</td><td><b>금액 / Amount</b></td><td>${p.unitPrice && p.qty ? `${CURRENCY_SYMBOLS[p.currency]}${(+p.unitPrice * +p.qty).toFixed(2)}` : ''}</td></tr>
       </table><br/>
     `).join('');
 
@@ -178,13 +178,13 @@ ${notes ? `<p><b>비고 (Remarks):</b> ${notes}</p>` : ''}
   const downloadExcel = () => {
     const rows = products.map((p, i) => `
       <tr style="background:#1e293b;color:#fff"><td colspan="6"><b>ITEM ${i + 1}: ${p.name} ${p.model}</b></td></tr>
-      <tr><td><b>소비전력(W)</b></td><td>${p.power}</td><td><b>입력전압</b></td><td>${p.voltage}</td><td><b>광속(lm)</b></td><td>${p.flux}</td></tr>
-      <tr><td><b>광효율(lm/W)</b></td><td>${p.efficacy}</td><td><b>색온도 CCT</b></td><td>${p.cct}</td><td><b>CRI</b></td><td>${p.cri}</td></tr>
-      <tr><td><b>배광각</b></td><td>${p.beam}</td><td><b>IP등급</b></td><td>${p.ip}</td><td><b>수명(h)</b></td><td>${p.lifespan}</td></tr>
-      <tr><td><b>보증기간</b></td><td>${p.warranty}</td><td><b>인증</b></td><td>${p.cert}</td><td><b>제품크기</b></td><td>${p.size}</td></tr>
-      <tr><td><b>중량</b></td><td>${p.weight}</td><td><b>이너박스</b></td><td>${p.innerBox}</td><td><b>아웃박스</b></td><td>${p.outerBox}</td></tr>
-      <tr><td><b>입수(pcs/ctn)</b></td><td>${p.pcsPerCarton}</td><td><b>단가(${p.currency})</b></td><td>${p.unitPrice}</td><td><b>MOQ</b></td><td>${p.moq}</td></tr>
-      <tr><td><b>주문수량</b></td><td>${p.qty}</td><td><b>금액</b></td><td colspan="3">${p.unitPrice && p.qty ? `${CURRENCY_SYMBOLS[p.currency]}${(+p.unitPrice * +p.qty).toFixed(2)} ${p.currency}` : ''}</td></tr>
+      <tr><td><b>소비전력 / Power (W)</b></td><td>${p.power}</td><td><b>입력전압 / Input Voltage</b></td><td>${p.voltage}</td><td><b>광속 / Flux (lm)</b></td><td>${p.flux}</td></tr>
+      <tr><td><b>광효율 / Efficacy (lm/W)</b></td><td>${p.efficacy}</td><td><b>색온도 / CCT (K)</b></td><td>${p.cct}</td><td><b>연색지수 / CRI (Ra)</b></td><td>${p.cri}</td></tr>
+      <tr><td><b>배광각 / Beam Angle (°)</b></td><td>${p.beam}</td><td><b>IP 등급 / IP Rating</b></td><td>${p.ip}</td><td><b>수명 / Lifespan (h)</b></td><td>${p.lifespan}</td></tr>
+      <tr><td><b>보증기간 / Warranty</b></td><td>${p.warranty}</td><td><b>인증 / Certification</b></td><td>${p.cert}</td><td><b>제품크기 / Size (mm)</b></td><td>${p.size}</td></tr>
+      <tr><td><b>중량 / Weight</b></td><td>${p.weight}</td><td><b>이너박스 / Inner Box</b></td><td>${p.innerBox}</td><td><b>아웃박스 / Outer Box</b></td><td>${p.outerBox}</td></tr>
+      <tr><td><b>입수 / Pcs per Carton</b></td><td>${p.pcsPerCarton}</td><td><b>단가 / Unit Price (${p.currency})</b></td><td>${p.unitPrice}</td><td><b>MOQ</b></td><td>${p.moq}</td></tr>
+      <tr><td><b>주문수량 / Qty</b></td><td>${p.qty}</td><td><b>금액 / Amount</b></td><td colspan="3">${p.unitPrice && p.qty ? `${CURRENCY_SYMBOLS[p.currency]}${(+p.unitPrice * +p.qty).toFixed(2)} ${p.currency}` : ''}</td></tr>
       <tr><td colspan="6"></td></tr>
     `).join('');
 
