@@ -13,7 +13,6 @@ const CATEGORIES: Record<string, { label: string; icon: string }> = {
   commercial: { label: '상업조명', icon: '🏪' },
   industrial: { label: '산업조명', icon: '🏗️' },
   outdoor: { label: '실외조명', icon: '🏭' },
-  panel: { label: '평판등', icon: '⬜' },
   landscape: { label: '경관조명', icon: '🌉' },
   special: { label: '특수조명', icon: '🔬' },
 };

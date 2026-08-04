@@ -20,7 +20,6 @@ const CATEGORIES = [
   { id: 'commercial', labelKey: 'commercial', icon: '🏪', descKey: 'desc_commercial' },
   { id: 'outdoor', labelKey: 'outdoor', icon: '🏭', descKey: 'desc_outdoor' },
   { id: 'industrial', labelKey: 'industrial', icon: '🏗️', descKey: 'desc_industrial' },
-  { id: 'panel', labelKey: 'panel', icon: '⬜', descKey: 'desc_panel' },
   { id: 'landscape', labelKey: 'landscape', icon: '🌉', descKey: 'desc_landscape' },
   { id: 'special', labelKey: 'special', icon: '🔬', descKey: 'desc_special' },
 ];

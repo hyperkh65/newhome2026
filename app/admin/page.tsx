@@ -42,7 +42,6 @@ const CATEGORIES = [
   { value: 'smart', label: '스마트조명', icon: '☁️' }, { value: 'indoor', label: '실내조명', icon: '🏢' },
   { value: 'home_lighting', label: '홈조명', icon: '🏠' }, { value: 'commercial', label: '상업조명', icon: '🏪' },
   { value: 'industrial', label: '산업조명', icon: '🏗️' }, { value: 'outdoor', label: '실외조명', icon: '🏭' },
-  { value: 'panel', label: '평판등', icon: '⬜' },
   { value: 'landscape', label: '경관조명', icon: '🌉' }, { value: 'special', label: '특수조명', icon: '🔬' },
 ];
 
