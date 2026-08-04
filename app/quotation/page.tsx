@@ -168,6 +168,7 @@ export default function QuotationPage() {
       if (res.ok) {
         const data = await res.json();
         setSavedId(data.id);
+        if (!savedId) setQuoteNo(data.quote_no); // 신규 저장 시 자동 번호 반영
         setSaveMsg('저장됨');
         setTimeout(() => setSaveMsg(''), 2000);
         if (showList) fetchList();

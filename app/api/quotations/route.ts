@@ -9,6 +9,17 @@ function auth(req: NextRequest) {
   return !!(token && pw && token === pw);
 }
 
+async function generateQuoteNo(): Promise<string> {
+  const year = new Date().getFullYear();
+  const prefix = `YNK-RFQ-${year}-`;
+  const { count } = await supabase
+    .from('bossai_quotations')
+    .select('*', { count: 'exact', head: true })
+    .like('quote_no', `${prefix}%`);
+  const next = ((count ?? 0) + 1).toString().padStart(3, '0');
+  return `${prefix}${next}`;
+}
+
 export async function GET() {
   const { data, error } = await supabase
     .from('bossai_quotations')
@@ -21,9 +32,11 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   if (!auth(req)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   const body = await req.json();
+  const quoteNo = await generateQuoteNo();
+  const saveData = { ...body, quoteNo };
   const { data, error } = await supabase
     .from('bossai_quotations')
-    .insert({ quote_no: body.quoteNo, supplier_company: body.supplier?.company || '', data: body })
+    .insert({ quote_no: quoteNo, supplier_company: body.supplier?.company || '', data: saveData })
     .select('id, quote_no, supplier_company, updated_at')
     .single();
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
