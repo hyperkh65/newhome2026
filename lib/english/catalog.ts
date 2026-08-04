@@ -1369,6 +1369,682 @@ function createBaseExpressions(): BaseExpression[] {
         { en: "In retrospect, we should have sourced from multiple suppliers.", kr: "사후에 보면, 여러 공급사로부터 조달했어야 했습니다." },
       ]
     ],
+
+    // ── +200 추가: 구동사 (Phrasal Verbs) ────────────────────────────────────
+    ["ask-around", "ask around", "여기저기 알아보다", "intermediate", "phrasal-verb", "ask around + about / for", "정보나 의견을 여러 사람에게 구할 때 씁니다.", "가격 조사, 추천 공급사, 신규 서비스 정보 수집에 씁니다.", "ask around 뒤에 about/for 가 이어지거나 단독으로도 씁니다.", ["communication", "research"], ["pricing", "availability", "recommendations"],
+      [
+        { en: "Let me ask around and see if anyone has worked with this vendor before.", kr: "알아보고 이 벤더와 일해본 사람이 있는지 확인해볼게요." },
+        { en: "I'll ask around about the typical lead time for this product.", kr: "이 제품의 일반적인 납기에 대해 여기저기 물어볼게요." },
+        { en: "She asked around and found a better freight option.", kr: "그녀는 여기저기 알아보고 더 나은 운송 옵션을 찾았습니다." },
+      ]
+    ],
+    ["back-down", "back down", "물러서다, 입장을 철회하다", "intermediate", "phrasal-verb", "back down + from + position / demand", "협상에서 강경한 입장을 누그러뜨릴 때 씁니다.", "양보, 타협, 요구 철회 상황에 씁니다.", "back off 보다 더 완전한 입장 전환을 뜻합니다.", ["negotiation", "communication"], ["the original demand", "the price requirement", "the position"],
+      [
+        { en: "After two hours of discussion, they backed down from the initial price.", kr: "두 시간의 논의 끝에 그들은 초기 가격 요구를 철회했습니다." },
+        { en: "We cannot back down from our quality requirements.", kr: "우리는 품질 요건에서 물러설 수 없습니다." },
+        { en: "He backed down when he realized the data didn't support his claim.", kr: "데이터가 자신의 주장을 뒷받침하지 않는다는 것을 깨닫고 물러섰습니다." },
+      ]
+    ],
+    ["blaze-a-trail", "blaze a trail", "선구자가 되다", "advanced", "phrasal-verb", "blaze a trail + in / for", "새로운 분야를 개척하는 선구자 역할을 할 때 씁니다.", "신기술 도입, 시장 개척, 혁신적 전략 표현에 씁니다.", "명사형으로는 trailblazer 를 씁니다.", ["strategy", "innovation"], ["the industry", "digital transformation", "sustainable business"],
+      [
+        { en: "Our R&D team is blazing a trail in energy-efficient lighting.", kr: "우리 R&D팀은 에너지 효율 조명 분야에서 선구자가 되고 있습니다." },
+        { en: "The company blazed a trail in direct-to-consumer sales.", kr: "그 회사는 직접 소비자 판매 분야에서 길을 개척했습니다." },
+        { en: "She blazed a trail for women in the engineering sector.", kr: "그녀는 엔지니어링 분야에서 여성들을 위한 길을 개척했습니다." },
+      ]
+    ],
+    ["bounce-back", "bounce back", "회복하다", "intermediate", "phrasal-verb", "bounce back + from + setback", "어려움 이후 회복할 때 씁니다.", "매출 회복, 클레임 이후 관계 복구, 시장 회복에 씁니다.", "rebound 와 같은 뜻이지만 더 구어적입니다.", ["performance", "sales"], ["from the setback", "from a slow quarter", "quickly"],
+      [
+        { en: "Sales bounced back strongly in Q3 after a slow first half.", kr: "상반기 부진 후 3분기에 매출이 강하게 회복됐습니다." },
+        { en: "The team bounced back quickly after the product recall.", kr: "팀은 제품 리콜 이후 빠르게 회복했습니다." },
+        { en: "It takes resilience to bounce back from a major client loss.", kr: "주요 고객 이탈 후 회복하려면 회복력이 필요합니다." },
+      ]
+    ],
+    ["buy-into", "buy into", "받아들이다, 동조하다", "intermediate", "phrasal-verb", "buy into + idea / strategy / vision", "아이디어나 전략에 동의하고 지지할 때 씁니다.", "전략 공유, 팀 설득, 비전 제시 상황에 씁니다.", "구체적인 주식 매입 의미도 있으므로 문맥으로 구분합니다.", ["management", "strategy"], ["the vision", "the new approach", "the concept"],
+      [
+        { en: "We need everyone to buy into the new strategy before we proceed.", kr: "진행하기 전에 모두가 새 전략을 받아들여야 합니다." },
+        { en: "The board didn't fully buy into the expansion plan.", kr: "이사회는 확장 계획을 완전히 받아들이지 않았습니다." },
+        { en: "Once they saw the data, the team really bought into the idea.", kr: "데이터를 보고 나서 팀이 그 아이디어에 완전히 동조했습니다." },
+      ]
+    ],
+    ["catch-on", "catch on", "이해하다, 유행하다", "intermediate", "phrasal-verb", "catch on + to / with", "개념을 파악하거나 새로운 것이 인기를 얻을 때 씁니다.", "신제품 시장 반응, 개념 학습, 트렌드 확산에 씁니다.", "두 가지 의미를 문맥으로 구분합니다.", ["market", "communication"], ["the trend", "the concept", "the new process"],
+      [
+        { en: "The new app feature really caught on with younger users.", kr: "새 앱 기능이 젊은 사용자들에게 큰 인기를 얻었습니다." },
+        { en: "It took a while for the team to catch on to the new system.", kr: "팀이 새 시스템을 이해하는 데 시간이 좀 걸렸습니다." },
+        { en: "The concept is simple once you catch on.", kr: "일단 이해하면 개념은 간단합니다." },
+      ]
+    ],
+    ["cash-in-on", "cash in on", "이익을 챙기다, 활용하다", "advanced", "phrasal-verb", "cash in on + opportunity / trend", "기회나 상황을 이용해 이익을 취할 때 씁니다.", "시장 기회 활용, 트렌드 편승, 타이밍 전략에 씁니다.", "capitalize on 과 비슷하지만 더 기회주의적 뉘앙스입니다.", ["strategy", "sales"], ["the trend", "the market gap", "the timing"],
+      [
+        { en: "They cashed in on the surge in demand for remote work tools.", kr: "그들은 원격 근무 도구 수요 급증을 이용해 큰 이익을 얻었습니다." },
+        { en: "We need to cash in on the trade show momentum while it lasts.", kr: "전시회 모멘텀이 지속되는 동안 이를 활용해야 합니다." },
+        { en: "The company cashed in on rising energy prices.", kr: "그 회사는 에너지 가격 상승을 이용해 이익을 챙겼습니다." },
+      ]
+    ],
+    ["chip-away-at", "chip away at", "조금씩 줄여나가다", "advanced", "phrasal-verb", "chip away at + problem / deficit / gap", "크고 어려운 문제를 조금씩 해결해 나갈 때 씁니다.", "비용 절감, 시장 점유율 확대, 문제 해결 과정에 씁니다.", "한 번에 해결하지 않고 지속적으로 줄여간다는 뉘앙스입니다.", ["strategy", "operations"], ["the cost gap", "the backlog", "the deficit"],
+      [
+        { en: "We've been chipping away at the backlog all month.", kr: "한 달 내내 밀린 업무를 조금씩 해결해 왔습니다." },
+        { en: "We can chip away at the cost gap through incremental improvements.", kr: "점진적인 개선을 통해 비용 격차를 조금씩 줄여나갈 수 있습니다." },
+        { en: "The team is chipping away at the long-standing quality issue.", kr: "팀이 오래된 품질 문제를 조금씩 해결해 나가고 있습니다." },
+      ]
+    ],
+    ["clamp-down-on", "clamp down on", "단속하다, 엄격히 제한하다", "advanced", "phrasal-verb", "clamp down on + violations / spending", "규정 위반이나 불필요한 지출을 강하게 제한할 때 씁니다.", "비용 통제, 규정 준수 강화, 품질 위반 단속에 씁니다.", "crack down on 과 거의 같지만 조금 더 점진적인 뉘앙스입니다.", ["compliance", "management"], ["unauthorized spending", "policy violations", "late submissions"],
+      [
+        { en: "Management is clamping down on unauthorized overtime claims.", kr: "경영진이 비승인 초과 근무 청구를 강하게 단속하고 있습니다." },
+        { en: "We need to clamp down on expenses before the budget review.", kr: "예산 검토 전에 지출을 엄격히 제한해야 합니다." },
+        { en: "The regulator clamped down on companies that failed the audit.", kr: "규제 기관이 감사를 통과하지 못한 기업을 단속했습니다." },
+      ]
+    ],
+    ["come-around", "come around", "생각이 바뀌다, 동의하게 되다", "intermediate", "phrasal-verb", "come around + to + idea / view", "처음에 반대하다가 결국 동의하게 될 때 씁니다.", "설득 성공, 의견 변화, 내부 합의 도출에 씁니다.", "come round 도 같은 의미이며 영국식입니다.", ["negotiation", "communication"], ["to the idea", "to our position", "eventually"],
+      [
+        { en: "It took a while, but the client finally came around to our pricing.", kr: "시간이 걸렸지만 고객이 결국 우리 가격에 동의했습니다." },
+        { en: "I think he'll come around once he sees the test results.", kr: "테스트 결과를 보면 그가 생각을 바꿀 것 같습니다." },
+        { en: "The board came around to the new strategy after a second presentation.", kr: "이사회는 두 번째 발표 후 새 전략에 동의하게 되었습니다." },
+      ]
+    ],
+    ["come-clean", "come clean", "솔직히 털어놓다", "intermediate", "phrasal-verb", "come clean + about + issue", "문제나 실수를 숨기지 않고 솔직하게 밝힐 때 씁니다.", "실수 인정, 문제 조기 공개, 책임 있는 커뮤니케이션에 씁니다.", "come clean to someone about something 형태로 씁니다.", ["communication", "management"], ["the mistake", "the delay", "the problem"],
+      [
+        { en: "We decided to come clean about the production delay early.", kr: "생산 지연을 일찍 솔직하게 밝히기로 결정했습니다." },
+        { en: "He came clean about the error before it affected the client.", kr: "고객에게 영향이 가기 전에 실수를 솔직하게 시인했습니다." },
+        { en: "It's better to come clean now than to hide the issue.", kr: "문제를 숨기는 것보다 지금 솔직히 털어놓는 게 낫습니다." },
+      ]
+    ],
+    ["cut-corners", "cut corners", "요령을 피우다, 절차를 무시하다", "intermediate", "phrasal-verb", "cut corners + on + process / quality", "비용이나 시간을 아끼려고 절차를 건너뛸 때 씁니다.", "품질 문제 원인 설명, 절차 준수 강조에 씁니다.", "항상 부정적 뉘앙스를 가집니다.", ["quality", "operations"], ["quality checks", "safety procedures", "documentation"],
+      [
+        { en: "We never cut corners on safety — it's non-negotiable.", kr: "우리는 절대 안전 절차를 무시하지 않습니다 — 타협의 여지가 없습니다." },
+        { en: "Cutting corners on quality control led to expensive rework.", kr: "품질 관리 절차를 무시한 결과 비용이 많이 드는 재작업이 발생했습니다." },
+        { en: "Don't cut corners just because the deadline is tight.", kr: "마감이 촉박하다고 해서 요령을 피우지 마세요." },
+      ]
+    ],
+    ["dig-in", "dig in", "버티다, 깊이 파고들다", "intermediate", "phrasal-verb", "dig in + on + position / details", "입장을 고수하거나 세부 내용을 깊이 파고들 때 씁니다.", "협상 고집, 문제 심층 분석, 상세 검토에 씁니다.", "dig into 는 분석, dig in 은 고집이나 시작을 뜻합니다.", ["negotiation", "analysis"], ["the position", "the numbers", "the details"],
+      [
+        { en: "Both sides dug in and refused to compromise on price.", kr: "양측 모두 버티며 가격 타협을 거부했습니다." },
+        { en: "Let's dig in and understand the root cause before proposing a solution.", kr: "해결책을 제안하기 전에 파고들어 근본 원인을 파악합시다." },
+        { en: "The team dug in over the weekend to meet the Monday deadline.", kr: "팀이 월요일 마감을 맞추기 위해 주말에 깊이 파고들었습니다." },
+      ]
+    ],
+    ["drop-off", "drop off", "감소하다, 줄어들다", "intermediate", "phrasal-verb", "drop off + in + sales / interest", "수요나 성과가 줄어들 때 씁니다.", "계절적 수요 변화, 시장 침체, 고객 이탈 설명에 씁니다.", "decrease 보다 더 갑작스러운 하락을 암시합니다.", ["sales", "market"], ["demand", "sales volume", "customer engagement"],
+      [
+        { en: "Sales dropped off significantly in the second half of the year.", kr: "하반기에 매출이 크게 줄어들었습니다." },
+        { en: "Website traffic dropped off after the marketing campaign ended.", kr: "마케팅 캠페인이 끝나자 웹사이트 트래픽이 감소했습니다." },
+        { en: "We noticed a drop-off in repeat orders from key clients.", kr: "주요 고객들의 재주문이 줄어드는 것을 발견했습니다." },
+      ]
+    ],
+    ["draw-on", "draw on", "활용하다, 참고하다", "intermediate", "phrasal-verb", "draw on + experience / data / expertise", "경험이나 자료를 활용할 때 씁니다.", "발표, 보고서 작성, 전략 수립 시 경험 참고에 씁니다.", "draw upon 도 같은 뜻이지만 더 격식 있습니다.", ["strategy", "presentation"], ["past experience", "industry data", "team expertise"],
+      [
+        { en: "She drew on ten years of experience to guide the team.", kr: "그녀는 10년의 경험을 활용해 팀을 이끌었습니다." },
+        { en: "We'll draw on the pilot data to build the full rollout plan.", kr: "파일럿 데이터를 활용해 전체 출시 계획을 수립할 것입니다." },
+        { en: "The proposal draws on best practices from three industries.", kr: "이 제안은 세 가지 산업의 모범 사례를 참고합니다." },
+      ]
+    ],
+    ["ease-up", "ease up", "완화하다, 줄이다", "intermediate", "phrasal-verb", "ease up + on + pressure / demands", "요구나 압박을 줄일 때 씁니다.", "지나친 마감 압박, 과도한 요구 조정에 씁니다.", "ease off 와 같은 뜻입니다.", ["management", "negotiation"], ["the pressure", "the demands", "the timeline"],
+      [
+        { en: "Could you ease up on the delivery timeline? We need at least three more days.", kr: "납기 일정을 좀 완화해주시겠어요? 최소 3일이 더 필요합니다." },
+        { en: "The manager eased up on the team after seeing how hard they were working.", kr: "매니저는 팀이 얼마나 열심히 일하는지 보고 압박을 줄였습니다." },
+        { en: "Sales pressure eased up after the strong Q2 results.", kr: "2분기 강한 실적 이후 영업 압박이 완화되었습니다." },
+      ]
+    ],
+    ["fall-out", "fall out", "사이가 나빠지다, 결과가 나오다", "intermediate", "phrasal-verb", "fall out + with / over", "관계가 나빠지거나 결과가 발생할 때 씁니다.", "파트너십 갈등, 내부 의견 충돌, 결정 결과 설명에 씁니다.", "문맥에 따라 관계 악화 또는 결과 발생을 뜻합니다.", ["relationship", "management"], ["with the partner", "over the budget", "from the decision"],
+      [
+        { en: "The two departments fell out over how to allocate the budget.", kr: "두 부서가 예산 배분 방식을 놓고 사이가 나빠졌습니다." },
+        { en: "Let's resolve this before we fall out with the supplier.", kr: "공급사와 사이가 나빠지기 전에 이것을 해결합시다." },
+        { en: "We need to manage the fallout from last quarter's missed targets.", kr: "지난 분기 목표 미달의 결과를 관리해야 합니다." },
+      ]
+    ],
+    ["fit-in", "fit in", "잘 맞다, 일정에 넣다", "intermediate", "phrasal-verb", "fit in + meeting / change / task", "일정이나 팀에 맞추거나 추가할 때 씁니다.", "회의 일정 추가, 신규 직원 적응, 업무 끼워 넣기에 씁니다.", "fit into 도 같은 뜻입니다.", ["meeting", "hr"], ["the meeting", "the schedule", "the team"],
+      [
+        { en: "Can you fit in a quick call at 3pm today?", kr: "오늘 오후 3시에 짧은 통화를 넣을 수 있을까요?" },
+        { en: "We need to fit in a review session before the product launch.", kr: "제품 출시 전에 리뷰 세션을 일정에 넣어야 합니다." },
+        { en: "She fit in well with the team from day one.", kr: "그녀는 첫날부터 팀에 잘 어울렸습니다." },
+      ]
+    ],
+    ["follow-suit", "follow suit", "같은 방식으로 따라 하다", "intermediate", "phrasal-verb", "follow suit + and + action", "다른 사람이나 경쟁사의 행동을 따라 할 때 씁니다.", "경쟁사 대응, 업계 트렌드 추종에 씁니다.", "an article 없이 follow suit 로 씁니다.", ["strategy", "market"], ["the competitor", "the industry", "the pricing change"],
+      [
+        { en: "Our competitor reduced prices, and we had to follow suit.", kr: "경쟁사가 가격을 낮췄고, 우리도 따라야 했습니다." },
+        { en: "Once the market leader makes a move, others tend to follow suit.", kr: "시장 선도자가 움직이면, 다른 기업들도 따라 하는 경향이 있습니다." },
+        { en: "We don't always need to follow suit — differentiation has its own value.", kr: "항상 따라 할 필요는 없습니다 — 차별화도 그 자체의 가치가 있습니다." },
+      ]
+    ],
+    ["gain-ground", "gain ground", "입지를 다지다, 진전을 이루다", "advanced", "phrasal-verb", "gain ground + in / on", "경쟁이나 목표에서 앞서 나갈 때 씁니다.", "시장 점유율 확대, 협상 우위 확보에 씁니다.", "lose ground 의 반대입니다.", ["strategy", "market"], ["in the market", "on the competition", "with key clients"],
+      [
+        { en: "We are gaining ground on our main competitor in the enterprise segment.", kr: "기업 시장에서 주요 경쟁사를 따라잡고 있습니다." },
+        { en: "The new product helped us gain ground in the premium category.", kr: "신제품이 프리미엄 카테고리에서 입지를 다지는 데 도움이 됐습니다." },
+        { en: "We're gaining ground, but there's still a lot of work ahead.", kr: "진전을 이루고 있지만 앞으로도 할 일이 많습니다." },
+      ]
+    ],
+    ["get-ahead", "get ahead", "앞서 나가다, 미리 준비하다", "intermediate", "phrasal-verb", "get ahead + of + schedule / competition", "일정보다 앞서거나 준비를 먼저 해두는 것입니다.", "사전 준비, 경쟁 우위 확보, 납기 여유 확보에 씁니다.", "get ahead of ourselves 는 너무 앞서 나간다는 뜻입니다.", ["planning", "strategy"], ["of the schedule", "of the competition", "of the workload"],
+      [
+        { en: "Let's try to get ahead of the production schedule this week.", kr: "이번 주에 생산 일정보다 앞서려고 노력합시다." },
+        { en: "By preparing early, we can get ahead of any potential delays.", kr: "미리 준비하면 잠재적 지연을 앞서 막을 수 있습니다." },
+        { en: "To get ahead in this market, you need to innovate constantly.", kr: "이 시장에서 앞서 나가려면 지속적으로 혁신해야 합니다." },
+      ]
+    ],
+    ["get-behind", "get behind", "지연되다, 지지하다", "intermediate", "phrasal-verb", "get behind + schedule / idea", "일정이 뒤처지거나 무언가를 지지할 때 씁니다.", "업무 지연 표현 또는 아이디어 지지 표현에 씁니다.", "두 의미 모두 문맥으로 파악합니다.", ["planning", "management"], ["on the project", "the initiative", "the schedule"],
+      [
+        { en: "We got behind on the project after the system outage.", kr: "시스템 중단 이후 프로젝트가 지연됐습니다." },
+        { en: "The whole team got behind the new initiative and pushed hard.", kr: "팀 전체가 새 이니셔티브를 지지하며 열심히 밀었습니다." },
+        { en: "If we get behind now, it'll be very hard to catch up.", kr: "지금 지연되면 따라잡기 매우 어려울 것입니다." },
+      ]
+    ],
+    ["give-away", "give away", "드러내다, 공짜로 주다", "intermediate", "phrasal-verb", "give away + information / position", "의도치 않게 정보를 드러내거나 무상으로 제공할 때 씁니다.", "협상 전략 노출, 원가 정보 공개, 무상 제공에 씁니다.", "giveaway 는 명사형입니다.", ["negotiation", "communication"], ["the strategy", "pricing information", "the advantage"],
+      [
+        { en: "Be careful not to give away your bottom line too early in negotiations.", kr: "협상 초반에 최종 마지노선을 너무 일찍 드러내지 않도록 주의하세요." },
+        { en: "His reaction gave away that the price was already too high.", kr: "그의 반응이 가격이 이미 너무 높다는 것을 드러냈습니다." },
+        { en: "We can't keep giving away free consulting — it needs to be priced.", kr: "무료 컨설팅을 계속 제공할 수는 없습니다 — 가격이 책정되어야 합니다." },
+      ]
+    ],
+    ["go-along-with", "go along with", "동의하다, 따라가다", "intermediate", "phrasal-verb", "go along with + decision / plan", "다른 사람의 의견이나 결정을 따를 때 씁니다.", "합의 도출, 팀 결정 수용, 제안 동의에 씁니다.", "agree with 보다 더 수동적인 동의를 암시합니다.", ["communication", "decision"], ["the plan", "the decision", "the proposal"],
+      [
+        { en: "I'll go along with whatever the team decides.", kr: "팀이 결정하는 대로 따르겠습니다." },
+        { en: "We went along with the client's suggestion to keep the relationship smooth.", kr: "관계를 원활하게 유지하기 위해 고객의 제안을 따랐습니다." },
+        { en: "Don't just go along with the idea if you have concerns — speak up.", kr: "우려 사항이 있다면 그냥 따라가지 말고 말씀해주세요." },
+      ]
+    ],
+    ["hammer-out", "hammer out", "힘들게 협의해서 도출하다", "advanced", "phrasal-verb", "hammer out + agreement / deal / terms", "어렵게 논의하고 합의를 이끌어낼 때 씁니다.", "계약 협상, 팀 내 의견 조율, 가격 합의에 씁니다.", "negotiate 보다 훨씬 더 힘든 과정을 암시합니다.", ["negotiation", "legal"], ["an agreement", "the details", "the final terms"],
+      [
+        { en: "We spent three days hammering out the contract terms.", kr: "계약 조건을 이끌어내기 위해 3일을 씨름했습니다." },
+        { en: "The two sides finally hammered out a deal late Friday night.", kr: "양측은 금요일 밤늦게 마침내 합의를 도출했습니다." },
+        { en: "Let's hammer out the pricing details in tomorrow's meeting.", kr: "내일 회의에서 가격 세부 사항을 협의해 도출합시다." },
+      ]
+    ],
+    ["jump-to-conclusions", "jump to conclusions", "성급하게 결론 내리다", "intermediate", "phrasal-verb", "jump to conclusions + about", "충분한 정보 없이 결론을 내릴 때 씁니다.", "클레임 원인 분석, 신중한 판단 강조에 씁니다.", "don't jump to conclusions 형태로 자주 씁니다.", ["analysis", "communication"], ["the problem", "the cause", "the situation"],
+      [
+        { en: "Let's not jump to conclusions before we have all the facts.", kr: "모든 사실을 파악하기 전에 성급하게 결론을 내리지 맙시다." },
+        { en: "He jumped to conclusions and blamed the wrong department.", kr: "그는 성급하게 결론을 내리고 엉뚱한 부서를 탓했습니다." },
+        { en: "Don't jump to conclusions — the data might tell a different story.", kr: "성급하게 결론 내리지 마세요 — 데이터가 다른 이야기를 할 수도 있습니다." },
+      ]
+    ],
+    ["keep-up-with", "keep up with", "따라가다, 뒤처지지 않다", "intermediate", "phrasal-verb", "keep up with + demand / changes / competition", "빠르게 변하는 상황이나 수요에 뒤처지지 않을 때 씁니다.", "시장 변화 대응, 수요 충족, 업계 트렌드 추적에 씁니다.", "keep pace with 과 같은 뜻입니다.", ["operations", "market"], ["demand", "the competition", "industry trends"],
+      [
+        { en: "Our production capacity can barely keep up with the current demand.", kr: "현재 수요를 우리 생산 능력이 간신히 따라가고 있습니다." },
+        { en: "It's hard to keep up with all the regulatory changes.", kr: "모든 규제 변화를 따라가기가 어렵습니다." },
+        { en: "We need to invest in technology to keep up with the competition.", kr: "경쟁을 따라가기 위해 기술에 투자해야 합니다." },
+      ]
+    ],
+    ["lag-behind", "lag behind", "뒤처지다", "intermediate", "phrasal-verb", "lag behind + competitor / schedule", "다른 것보다 뒤처지는 상황에 씁니다.", "시장 점유율 하락, 기술 격차, 일정 지연에 씁니다.", "fall behind 보다 더 지속적인 뒤처짐을 암시합니다.", ["market", "operations"], ["the competition", "the market", "industry averages"],
+      [
+        { en: "We are lagging behind our competitors in digital adoption.", kr: "디지털 도입에서 경쟁사보다 뒤처지고 있습니다." },
+        { en: "Production is lagging behind schedule by about two weeks.", kr: "생산이 약 2주 정도 일정보다 뒤처지고 있습니다." },
+        { en: "Don't let one department lag behind and slow down the whole process.", kr: "한 부서가 뒤처져서 전체 프로세스를 늦추게 하지 마세요." },
+      ]
+    ],
+    ["level-off", "level off", "안정되다, 평탄해지다", "intermediate", "phrasal-verb", "level off + at / after", "급격한 변화 후 안정될 때 씁니다.", "가격 안정, 성장 둔화, 수요 안정화 표현에 씁니다.", "plateau 와 비슷하지만 더 구어적입니다.", ["finance", "market"], ["after the spike", "at current levels", "in Q4"],
+      [
+        { en: "After rapid growth, sales have leveled off at around 500 units per month.", kr: "빠른 성장 후 매출이 월 500개 수준으로 안정됐습니다." },
+        { en: "Raw material costs have leveled off after months of increases.", kr: "몇 달간의 상승 후 원자재 비용이 안정됐습니다." },
+        { en: "We expect demand to level off in the second half of the year.", kr: "하반기에 수요가 안정될 것으로 예상합니다." },
+      ]
+    ],
+    ["lie-ahead", "lie ahead", "앞에 놓여 있다", "intermediate", "phrasal-verb", "lie ahead + for + team / company", "미래에 일어날 일을 예고할 때 씁니다.", "전략 발표, 연간 목표 제시, 도전 예상에 씁니다.", "미래를 내다보는 표현으로 공식 발표에 적합합니다.", ["strategy", "planning"], ["significant challenges", "exciting opportunities", "a busy quarter"],
+      [
+        { en: "A challenging but exciting quarter lies ahead for the whole team.", kr: "팀 전체에 도전적이지만 흥미진진한 분기가 앞에 놓여 있습니다." },
+        { en: "A lot of hard work lies ahead before we can call this a success.", kr: "성공이라고 부를 수 있기 전에 많은 고된 작업이 앞에 놓여 있습니다." },
+        { en: "With the new contract signed, a promising period lies ahead.", kr: "새 계약이 체결되어 유망한 시기가 앞에 놓여 있습니다." },
+      ]
+    ],
+    ["live-up-to", "live up to", "기대에 부응하다", "intermediate", "phrasal-verb", "live up to + expectation / standard / promise", "기대나 약속에 걸맞게 행동할 때 씁니다.", "고객 기대 충족, 브랜드 가치 유지, 품질 유지에 씁니다.", "live up to expectations 가 가장 흔한 형태입니다.", ["quality", "relationship"], ["expectations", "the promise", "the standard"],
+      [
+        { en: "The new product fully lived up to the client's expectations.", kr: "신제품은 고객의 기대에 완전히 부응했습니다." },
+        { en: "We need to live up to the quality standards we promised.", kr: "우리가 약속한 품질 기준에 부응해야 합니다." },
+        { en: "The supplier failed to live up to its commitments on delivery.", kr: "공급사가 납기에 대한 약속을 지키지 못했습니다." },
+      ]
+    ],
+    ["miss-out-on", "miss out on", "기회를 놓치다", "intermediate", "phrasal-verb", "miss out on + opportunity / deal", "기회를 잡지 못할 때 씁니다.", "신규 거래 기회, 시장 트렌드, 할인 혜택을 놓치는 상황에 씁니다.", "FOMO(기회 상실 두려움) 표현에도 자주 씁니다.", ["sales", "strategy"], ["the opportunity", "the contract", "the early-bird pricing"],
+      [
+        { en: "If we don't decide now, we'll miss out on the early pricing.", kr: "지금 결정하지 않으면 조기 가격 혜택을 놓칠 것입니다." },
+        { en: "We missed out on a major contract because our response was too slow.", kr: "대응이 너무 느려서 주요 계약을 놓쳤습니다." },
+        { en: "Don't miss out on this limited production slot.", kr: "이 제한된 생산 슬롯을 놓치지 마세요." },
+      ]
+    ],
+    ["open-up", "open up", "열리다, 솔직하게 말하다", "intermediate", "phrasal-verb", "open up + new opportunities / about concerns", "새로운 가능성이 열리거나 솔직해질 때 씁니다.", "신시장 개척, 솔직한 피드백 요청, 관계 발전에 씁니다.", "두 의미 모두 쓰입니다.", ["strategy", "communication"], ["new markets", "about the issue", "opportunities"],
+      [
+        { en: "The new trade agreement opens up great opportunities in Southeast Asia.", kr: "새 무역 협정이 동남아에서 큰 기회를 열어줍니다." },
+        { en: "I'd like you to open up about any concerns you have with the project.", kr: "프로젝트에 대해 우려되는 점을 솔직하게 말씀해주세요." },
+        { en: "The partnership opened up a whole new distribution channel.", kr: "파트너십이 완전히 새로운 유통 채널을 열었습니다." },
+      ]
+    ],
+    ["pay-off", "pay off", "성과를 거두다, 빚을 갚다", "intermediate", "phrasal-verb", "pay off + investment / effort", "노력이나 투자가 결실을 맺을 때 씁니다.", "전략 성공, 투자 수익, 장기 노력의 결실 표현에 씁니다.", "pay off 는 성과 의미, pay off debt 는 빚 상환 의미입니다.", ["finance", "strategy"], ["the investment", "the hard work", "the risk"],
+      [
+        { en: "All the hard work finally paid off — we won the tender.", kr: "모든 노력이 마침내 결실을 맺었습니다 — 입찰에서 이겼습니다." },
+        { en: "Investing in automation early is paying off now.", kr: "초기 자동화 투자가 지금 성과를 거두고 있습니다." },
+        { en: "The risk paid off — revenue doubled in one year.", kr: "위험을 감수한 것이 결실을 맺었습니다 — 1년 만에 매출이 두 배로 늘었습니다." },
+      ]
+    ],
+    ["phase-in-gradually", "phase in", "단계적으로 도입하다", "intermediate", "phrasal-verb", "phase in + new policy / system / pricing", "새로운 것을 한 번에 바꾸지 않고 단계적으로 적용할 때 씁니다.", "가격 인상, 신규 시스템, 환경 규정 도입에 씁니다.", "phase out 의 반대입니다.", ["operations", "planning"], ["the new pricing", "the updated process", "the system"],
+      [
+        { en: "We plan to phase in the price increase over three months.", kr: "3개월에 걸쳐 단계적으로 가격 인상을 도입할 계획입니다." },
+        { en: "The new compliance rules will be phased in starting January.", kr: "새 규정 준수 규칙이 1월부터 단계적으로 도입됩니다." },
+        { en: "Phasing in the changes helps reduce disruption for the team.", kr: "변화를 단계적으로 도입하면 팀의 혼란을 줄일 수 있습니다." },
+      ]
+    ],
+    ["pick-up-steam", "pick up steam", "탄력을 받다, 속도가 붙다", "intermediate", "phrasal-verb", "pick up steam + in / as", "활동이나 프로젝트가 점차 속도를 낼 때 씁니다.", "프로젝트 초기 단계 이후 가속, 시장 확대에 씁니다.", "gain momentum 과 비슷한 뜻입니다.", ["operations", "sales"], ["as the quarter progresses", "after the launch", "in Q2"],
+      [
+        { en: "The project started slowly but is really picking up steam now.", kr: "프로젝트가 느리게 시작됐지만 지금은 정말 속도가 붙고 있습니다." },
+        { en: "Online sales are picking up steam heading into the holiday season.", kr: "연말 시즌을 앞두고 온라인 판매가 탄력을 받고 있습니다." },
+        { en: "The marketing campaign picked up steam after a slow first week.", kr: "마케팅 캠페인이 느린 첫 주 이후 탄력을 받았습니다." },
+      ]
+    ],
+    ["play-down", "play down", "대수롭지 않게 여기다", "intermediate", "phrasal-verb", "play down + concern / issue / importance", "문제를 작게 보이게 하거나 중요성을 낮출 때 씁니다.", "위기 관리, 고객 안심, 내부 갈등 최소화에 씁니다.", "downplay 와 같은 뜻입니다.", ["communication", "management"], ["the risk", "the delay", "the concern"],
+      [
+        { en: "Don't play down the issue — the client needs to know the full picture.", kr: "문제를 대수롭지 않게 여기지 마세요 — 고객은 전체 상황을 알아야 합니다." },
+        { en: "The CEO played down the impact of the supply disruption.", kr: "CEO가 공급 차질의 영향을 대수롭지 않게 여겼습니다." },
+        { en: "We need to address the concern, not play it down.", kr: "우려 사항을 대수롭지 않게 여기는 게 아니라 해결해야 합니다." },
+      ]
+    ],
+    ["plug-in", "plug in", "연결하다, 대입하다", "intermediate", "phrasal-verb", "plug in + numbers / data / solution", "수치를 넣거나 시스템에 연결할 때 씁니다.", "공식 계산, 시스템 연동, 대입 계산에 씁니다.", "plug into 도 자주 씁니다.", ["data", "operations"], ["the numbers", "the variables", "the system"],
+      [
+        { en: "Let me plug in the actual figures and see what the model shows.", kr: "실제 수치를 대입해서 모델이 어떻게 나오는지 봐볼게요." },
+        { en: "Once you plug in the updated data, the forecast changes significantly.", kr: "업데이트된 데이터를 대입하면 예측이 크게 달라집니다." },
+        { en: "The new platform plugs into our existing ERP system.", kr: "새 플랫폼은 기존 ERP 시스템에 연결됩니다." },
+      ]
+    ],
+    ["put-forward", "put forward", "제안하다, 제출하다", "intermediate", "phrasal-verb", "put forward + proposal / idea / name", "공식적으로 아이디어나 제안을 내놓을 때 씁니다.", "회의 제안, 인사 추천, 전략 제출에 씁니다.", "propose 보다 더 구어적입니다.", ["meeting", "communication"], ["a proposal", "an idea", "a candidate"],
+      [
+        { en: "I'd like to put forward a suggestion for restructuring the process.", kr: "프로세스 재구성에 대한 제안을 드리고 싶습니다." },
+        { en: "She put forward three candidates for the manager position.", kr: "그녀는 매니저 직책에 세 명의 후보를 제안했습니다." },
+        { en: "The team put forward a cost-saving proposal that impressed the board.", kr: "팀이 이사회를 감동시킨 비용 절감 제안을 제출했습니다." },
+      ]
+    ],
+    ["ramp-up", "ramp up", "증대하다, 늘리다", "intermediate", "phrasal-verb", "ramp up + production / hiring / effort", "생산, 채용, 활동 수준을 빠르게 늘릴 때 씁니다.", "성수기 준비, 신제품 출시, 급증 수요 대응에 씁니다.", "scale up 보다 더 빠른 증가를 암시합니다.", ["operations", "manufacturing"], ["production", "hiring", "marketing spend"],
+      [
+        { en: "We need to ramp up production by 30% before the peak season.", kr: "성수기 전에 생산을 30% 늘려야 합니다." },
+        { en: "The factory is ramping up capacity for the new product line.", kr: "공장이 새 제품 라인을 위해 생산 능력을 증대하고 있습니다." },
+        { en: "We're ramping up hiring to support the expansion.", kr: "확장을 지원하기 위해 채용을 늘리고 있습니다." },
+      ]
+    ],
+    ["ride-out", "ride out", "버티다, 어려움을 헤쳐나가다", "advanced", "phrasal-verb", "ride out + crisis / downturn / uncertainty", "어려운 시기를 버티며 극복할 때 씁니다.", "경기 침체, 공급망 위기, 가격 변동에 대응할 때 씁니다.", "wait out 보다 더 능동적으로 버티는 느낌입니다.", ["strategy", "risk"], ["the downturn", "the market volatility", "the crisis"],
+      [
+        { en: "We have enough reserves to ride out the current market downturn.", kr: "현재 시장 침체를 버텨낼 충분한 예비금이 있습니다." },
+        { en: "The company rode out the supply crisis without cutting jobs.", kr: "그 회사는 일자리를 줄이지 않고 공급 위기를 버텨냈습니다." },
+        { en: "If we can ride out the next two quarters, we'll be in a strong position.", kr: "앞으로 두 분기를 버틸 수 있다면 강력한 위치에 있을 것입니다." },
+      ]
+    ],
+    ["run-by", "run by", "의견을 구하다, 설명하다", "intermediate", "phrasal-verb", "run + something + by + person", "누군가에게 먼저 확인이나 동의를 구할 때 씁니다.", "상사 사전 승인 요청, 고객 사전 설명, 팀 의견 수렴에 씁니다.", "run this by you 또는 run it by the team 형태로 씁니다.", ["communication", "approval"], ["the manager", "the team", "the client"],
+      [
+        { en: "Before we proceed, let me run this by the legal team.", kr: "진행하기 전에 법무팀에 이것을 먼저 확인해보겠습니다." },
+        { en: "Could you run the revised proposal by the client and get their feedback?", kr: "수정된 제안서를 고객에게 먼저 설명하고 피드백을 받아주시겠어요?" },
+        { en: "I'll run the idea by the director before we commit to anything.", kr: "무언가를 결정하기 전에 이사에게 먼저 아이디어를 확인해보겠습니다." },
+      ]
+    ],
+    ["run-up-to", "run up to", "~에 앞두다, ~로 이어지다", "intermediate", "phrasal-verb", "in the run-up to + event / deadline", "중요한 이벤트나 마감 전 기간을 표현할 때 씁니다.", "행사 준비 기간, 연말 성수기, 출시 직전 기간에 씁니다.", "주로 명사형 'the run-up to' 로 씁니다.", ["planning", "operations"], ["the trade show", "the launch", "year-end"],
+      [
+        { en: "In the run-up to the trade show, we need to finalize all marketing materials.", kr: "전시회를 앞두고 모든 마케팅 자료를 마무리해야 합니다." },
+        { en: "Demand spikes in the run-up to the holiday season.", kr: "연말 시즌을 앞두고 수요가 급증합니다." },
+        { en: "In the run-up to the product launch, the team worked 12-hour days.", kr: "제품 출시를 앞두고 팀은 하루 12시간씩 일했습니다." },
+      ]
+    ],
+    ["shake-up", "shake up", "대대적으로 바꾸다", "advanced", "phrasal-verb", "shake up + industry / team / process", "기존 방식을 크게 뒤흔들 때 씁니다.", "조직 개편, 업계 변화, 전략 전환에 씁니다.", "명사형 'shakeup'으로도 자주 씁니다.", ["strategy", "management"], ["the team", "the industry", "internal processes"],
+      [
+        { en: "The new CEO shook up the organization with a major restructuring.", kr: "새 CEO가 대대적인 구조조정으로 조직을 뒤흔들었습니다." },
+        { en: "This product is going to shake up the entire market.", kr: "이 제품은 전체 시장을 대대적으로 바꿔놓을 것입니다." },
+        { en: "Sometimes you need to shake up the process to drive real improvement.", kr: "때로는 실질적인 개선을 이끌어내기 위해 프로세스를 대대적으로 바꿔야 합니다." },
+      ]
+    ],
+    ["size-up", "size up", "파악하다, 가늠하다", "intermediate", "phrasal-verb", "size up + situation / competitor / opportunity", "상황이나 경쟁사를 파악하고 평가할 때 씁니다.", "시장 분석, 경쟁사 파악, 신규 파트너 평가에 씁니다.", "assess 와 같지만 더 구어적이고 직관적입니다.", ["analysis", "strategy"], ["the situation", "the competition", "the opportunity"],
+      [
+        { en: "I've been sizing up the competition — they've made some interesting moves.", kr: "경쟁사를 파악하고 있습니다 — 흥미로운 움직임을 보이고 있습니다." },
+        { en: "Take a moment to size up the situation before making a decision.", kr: "결정을 내리기 전에 상황을 가늠할 시간을 가지세요." },
+        { en: "The investor sizing up our pitch was clearly experienced.", kr: "우리 발표를 평가하는 투자자는 분명히 경험이 많았습니다." },
+      ]
+    ],
+    ["slow-down", "slow down", "속도를 줄이다", "intermediate", "phrasal-verb", "slow down + process / growth / production", "속도나 규모를 의도적으로 줄일 때 씁니다.", "성장 조절, 공정 속도 조정, 신중한 의사결정에 씁니다.", "speed up 의 반대입니다.", ["operations", "management"], ["the process", "expansion", "hiring"],
+      [
+        { en: "Let's slow down and make sure we get this right.", kr: "속도를 줄이고 제대로 처리하도록 합시다." },
+        { en: "Growth has slowed down, but the fundamentals remain strong.", kr: "성장이 둔화됐지만 기본 체력은 여전히 강합니다." },
+        { en: "Slow down the onboarding process — rushing leads to mistakes.", kr: "온보딩 프로세스를 서두르지 마세요 — 서두르면 실수가 생깁니다." },
+      ]
+    ],
+    ["stand-out", "stand out", "두드러지다, 눈에 띄다", "intermediate", "phrasal-verb", "stand out + from + competition / crowd", "다른 것들 사이에서 특별히 눈에 띌 때 씁니다.", "제품 차별화, 제안서 강점, 인재 강점 표현에 씁니다.", "stand out from the crowd 이 가장 흔한 형태입니다.", ["sales", "strategy"], ["from the competition", "in the market", "from the crowd"],
+      [
+        { en: "Our product stands out from the competition because of its energy efficiency.", kr: "우리 제품은 에너지 효율 덕분에 경쟁사보다 두드러집니다." },
+        { en: "Her presentation really stood out — it was clear and data-driven.", kr: "그녀의 발표는 정말 눈에 띄었습니다 — 명확하고 데이터 중심이었습니다." },
+        { en: "To win the bid, our proposal needs to stand out.", kr: "입찰에서 이기려면 우리 제안서가 눈에 띄어야 합니다." },
+      ]
+    ],
+    ["stay-on-top-of", "stay on top of", "잘 관리하다, 파악하고 있다", "intermediate", "phrasal-verb", "stay on top of + tasks / updates / issues", "상황이나 업무를 놓치지 않고 계속 관리할 때 씁니다.", "프로젝트 관리, 고객 소통, 진행 상황 추적에 씁니다.", "keep on top of 와 같은 뜻입니다.", ["management", "operations"], ["the project", "client requests", "market changes"],
+      [
+        { en: "It's important to stay on top of customer complaints before they escalate.", kr: "고객 불만이 커지기 전에 잘 관리하는 것이 중요합니다." },
+        { en: "With so many projects, it's hard to stay on top of everything.", kr: "프로젝트가 너무 많아서 모든 것을 파악하기가 어렵습니다." },
+        { en: "Use a tracking sheet to stay on top of all open action items.", kr: "추적 시트를 사용해 모든 미결 액션 아이템을 관리하세요." },
+      ]
+    ],
+    ["steer-clear-of", "steer clear of", "피하다", "intermediate", "phrasal-verb", "steer clear of + risk / topic / person", "의도적으로 무언가를 피할 때 씁니다.", "민감한 주제 회피, 위험 분야 회피에 씁니다.", "avoid 보다 더 의도적인 회피를 암시합니다.", ["strategy", "communication"], ["the topic", "high-risk suppliers", "the controversy"],
+      [
+        { en: "Let's steer clear of that supplier — there are too many red flags.", kr: "그 공급사는 피합시다 — 위험 신호가 너무 많습니다." },
+        { en: "In the client meeting, steer clear of discussing the delay directly.", kr: "고객 회의에서는 지연에 대해 직접 언급하는 것을 피하세요." },
+        { en: "Steer clear of any commitment you can't back up with data.", kr: "데이터로 뒷받침할 수 없는 약속은 피하세요." },
+      ]
+    ],
+    ["stretch-out", "stretch out", "연장하다, 늘리다", "intermediate", "phrasal-verb", "stretch out + deadline / payment / timeline", "기간이나 일정을 늘릴 때 씁니다.", "결제 기간 연장, 납기 연장 협의에 씁니다.", "extend 보다 더 구어적입니다.", ["negotiation", "planning"], ["the payment terms", "the deadline", "the contract period"],
+      [
+        { en: "Could we stretch out the payment terms to 60 days?", kr: "결제 기간을 60일로 늘릴 수 있을까요?" },
+        { en: "They asked to stretch out the project timeline by two weeks.", kr: "그들은 프로젝트 일정을 2주 연장해달라고 요청했습니다." },
+        { en: "Stretching out the deadline is an option, but it affects our Q4 targets.", kr: "마감을 연장하는 것도 선택지이지만, 4분기 목표에 영향을 미칩니다." },
+      ]
+    ],
+    ["swing-by", "swing by", "잠깐 들르다", "intermediate", "phrasal-verb", "swing by + office / location", "짧게 방문할 때 씁니다.", "비공식 방문, 현장 확인, 짧은 미팅 제안에 씁니다.", "stop by 와 같은 뜻의 구어적 표현입니다.", ["meeting", "operations"], ["the office", "the warehouse", "the factory"],
+      [
+        { en: "Can you swing by the factory tomorrow and check on the progress?", kr: "내일 공장에 잠깐 들러서 진행 상황을 확인해주시겠어요?" },
+        { en: "I'll swing by your office after the morning meeting.", kr: "오전 회의 후 사무실에 잠깐 들르겠습니다." },
+        { en: "The client might swing by this week to see the sample.", kr: "고객이 이번 주에 샘플을 보러 잠깐 들를 수도 있습니다." },
+      ]
+    ],
+    ["take-stock", "take stock of", "현황을 점검하다", "intermediate", "phrasal-verb", "take stock of + situation / progress / position", "현재 상황이나 진행 상황을 전반적으로 평가할 때 씁니다.", "분기 말 검토, 전략 재평가, 현황 파악에 씁니다.", "take a step back and take stock 형태로도 자주 씁니다.", ["management", "reporting"], ["where we stand", "the current situation", "our progress"],
+      [
+        { en: "Let's take stock of where we are before planning the next quarter.", kr: "다음 분기 계획을 세우기 전에 현재 위치를 점검합시다." },
+        { en: "After the busy launch period, it's time to take stock of the results.", kr: "바쁜 출시 기간이 지나고 나서 이제 결과를 점검할 때입니다." },
+        { en: "Taking stock of the situation, I think we're in better shape than expected.", kr: "현황을 점검해보면, 예상보다 좋은 상황에 있는 것 같습니다." },
+      ]
+    ],
+    ["tap-into", "tap into", "활용하다, 파고들다", "intermediate", "phrasal-verb", "tap into + market / talent / resource", "기존 자원이나 시장의 잠재력을 끌어낼 때 씁니다.", "신규 시장 진입, 내부 역량 활용, 고객층 확대에 씁니다.", "access 보다 더 적극적으로 활용하는 뉘앙스입니다.", ["strategy", "sales"], ["the emerging market", "local talent", "customer loyalty"],
+      [
+        { en: "We plan to tap into the growing demand for eco-friendly products.", kr: "친환경 제품에 대한 성장하는 수요를 활용할 계획입니다." },
+        { en: "This partnership allows us to tap into their distribution network.", kr: "이 파트너십을 통해 그들의 유통망을 활용할 수 있습니다." },
+        { en: "We need to tap into the local talent pool to reduce hiring costs.", kr: "채용 비용을 줄이기 위해 지역 인재 풀을 활용해야 합니다." },
+      ]
+    ],
+    ["throw-in", "throw in", "덤으로 포함하다", "intermediate", "phrasal-verb", "throw in + bonus / extra / service", "협상에서 추가 혜택을 끼워 넣을 때 씁니다.", "계약 협상, 추가 서비스 제공, 거래 마무리에 씁니다.", "협상에서 거래를 성사시키기 위한 마지막 카드로 씁니다.", ["negotiation", "sales"], ["free shipping", "an extra month of support", "a discount"],
+      [
+        { en: "To close the deal, we'll throw in free shipping on the first order.", kr: "거래를 성사시키기 위해 첫 주문에 무료 배송을 포함하겠습니다." },
+        { en: "They threw in an extra month of warranty to sweeten the deal.", kr: "거래를 매력적으로 만들기 위해 1개월 추가 보증을 끼워 넣었습니다." },
+        { en: "What if we throw in free installation to close this?", kr: "이것을 성사시키기 위해 무료 설치를 포함하면 어떨까요?" },
+      ]
+    ],
+    ["turn-down", "turn down", "거절하다", "intermediate", "phrasal-verb", "turn down + offer / request / proposal", "제안이나 요청을 거절할 때 씁니다.", "비용 초과 요청, 실현 불가능한 조건, 무리한 납기 거절에 씁니다.", "decline 보다 더 구어적입니다.", ["negotiation", "communication"], ["the offer", "the request", "the terms"],
+      [
+        { en: "We had to turn down the offer because the margin was too thin.", kr: "마진이 너무 얇아서 제안을 거절해야 했습니다." },
+        { en: "The client turned down our first proposal and asked for revisions.", kr: "고객이 첫 제안을 거절하고 수정을 요청했습니다." },
+        { en: "It's not easy to turn down a long-term partner, but the terms don't work.", kr: "오랜 파트너를 거절하기는 쉽지 않지만, 조건이 맞지 않습니다." },
+      ]
+    ],
+    ["wear-off", "wear off", "효과가 사라지다", "intermediate", "phrasal-verb", "wear off + over time / quickly", "효과나 영향이 점차 사라질 때 씁니다.", "프로모션 효과, 동기 저하, 시장 효과 분석에 씁니다.", "fade 보다 더 구어적입니다.", ["market", "management"], ["the promotional effect", "the novelty", "initial excitement"],
+      [
+        { en: "The promotional discount wore off and sales returned to normal.", kr: "프로모션 할인 효과가 사라지고 매출이 정상으로 돌아왔습니다." },
+        { en: "Initial enthusiasm can wear off if there's no follow-through.", kr: "후속 조치가 없으면 초기 열정이 사라질 수 있습니다." },
+        { en: "The effect of the price increase wore off within two quarters.", kr: "가격 인상의 효과는 두 분기 만에 사라졌습니다." },
+      ]
+    ],
+    ["work-around", "work around", "우회하다, 대안을 찾다", "intermediate", "phrasal-verb", "work around + obstacle / limitation / schedule", "장애물이나 제약을 돌아서 해결할 때 씁니다.", "일정 충돌 해결, 규정 제약 대안, 기술적 한계 우회에 씁니다.", "명사형 'workaround' 도 자주 씁니다.", ["operations", "problem-solving"], ["the constraint", "the schedule conflict", "the limitation"],
+      [
+        { en: "We can work around the holiday shutdown by shipping early.", kr: "일찍 선적하면 공휴일 가동 중단을 우회할 수 있습니다." },
+        { en: "The team found a creative workaround for the software limitation.", kr: "팀이 소프트웨어 한계를 우회하는 창의적인 대안을 찾았습니다." },
+        { en: "We'll need to work around the budget cap to get this done.", kr: "이것을 완수하려면 예산 한도를 우회할 방법을 찾아야 합니다." },
+      ]
+    ],
+
+    // ── +200 추가: 패턴 문장 (Patterns) ──────────────────────────────────────
+    ["allow-me-to", "allow me to", "제가 ~하겠습니다", "intermediate", "pattern", "allow me to + verb", "정중하게 무언가를 시작하거나 소개할 때 씁니다.", "발표 시작, 자기 소개, 이메일 목적 안내에 씁니다.", "let me 보다 더 격식 있고 공식적입니다.", ["presentation", "email"], ["explain", "introduce myself", "walk you through"],
+      [
+        { en: "Allow me to walk you through the key highlights of our proposal.", kr: "제안서의 주요 내용을 설명드리겠습니다." },
+        { en: "Allow me to introduce our new operations director, Mr. Kim.", kr: "새로운 운영 이사인 김 이사님을 소개하겠습니다." },
+        { en: "Allow me to clarify what I meant by that statement.", kr: "그 발언의 의미를 명확히 해드리겠습니다." },
+      ]
+    ],
+    ["as-a-matter-of-fact", "as a matter of fact", "사실은", "intermediate", "pattern", "as a matter of fact, + clause", "상대방의 가정을 정정하거나 실제 정보를 강조할 때 씁니다.", "사실 정정, 강한 주장, 예상치 못한 정보 전달에 씁니다.", "in fact 와 같은 뜻이지만 더 강조가 강합니다.", ["communication", "negotiation"], ["sales increased", "we have more capacity", "it's already done"],
+      [
+        { en: "As a matter of fact, we've already started the production.", kr: "사실은, 이미 생산을 시작했습니다." },
+        { en: "As a matter of fact, our lead time is shorter than the industry average.", kr: "사실은, 우리 납기가 업계 평균보다 짧습니다." },
+        { en: "As a matter of fact, the client was very satisfied with the sample.", kr: "사실은, 고객이 샘플에 매우 만족했습니다." },
+      ]
+    ],
+    ["be-that-as-it-may", "be that as it may", "그렇다 하더라도", "advanced", "pattern", "be that as it may, + clause", "상대의 주장을 인정하면서도 자신의 입장을 유지할 때 씁니다.", "협상, 반박, 입장 고수에 씁니다.", "even so 와 같은 뜻이지만 더 격식 있습니다.", ["negotiation", "formal"], ["we still need the order by Friday", "the price needs to come down", "quality must not be compromised"],
+      [
+        { en: "Be that as it may, we cannot extend the deadline any further.", kr: "그렇다 하더라도, 마감을 더 이상 연장할 수 없습니다." },
+        { en: "Be that as it may, the minimum quality standard is non-negotiable.", kr: "그렇다 하더라도, 최소 품질 기준은 협상 대상이 아닙니다." },
+        { en: "Be that as it may, we still need a firm commitment from your side.", kr: "그렇다 하더라도, 귀사의 확고한 확약이 여전히 필요합니다." },
+      ]
+    ],
+    ["beyond-a-shadow-of-doubt", "beyond a shadow of a doubt", "의심할 여지 없이", "advanced", "pattern", "beyond a shadow of a doubt, + clause", "어떤 사실을 완전히 확실하다고 강조할 때 씁니다.", "품질 보증, 데이터 근거 확인, 강한 주장에 씁니다.", "without a doubt 보다 더 강하고 문학적입니다.", ["formal", "communication"], ["the results are positive", "the investment was worthwhile", "quality improved"],
+      [
+        { en: "Beyond a shadow of a doubt, this is the most cost-effective option.", kr: "의심할 여지 없이, 이것이 가장 비용 효율적인 선택입니다." },
+        { en: "The test results prove, beyond a shadow of a doubt, that the product is safe.", kr: "테스트 결과는 제품이 안전하다는 것을 의심할 여지 없이 증명합니다." },
+        { en: "Beyond a shadow of a doubt, we need to change our approach.", kr: "의심할 여지 없이, 우리는 접근 방식을 바꿔야 합니다." },
+      ]
+    ],
+    ["by-all-means", "by all means", "물론이죠, 꼭 그렇게 하세요", "intermediate", "pattern", "by all means, + do / feel free to", "상대방의 요청에 흔쾌히 동의할 때 씁니다.", "허락 표현, 격려, 요청 수락에 씁니다.", "of course 보다 더 강한 허락의 뉘앙스입니다.", ["communication", "polite request"], ["go ahead", "ask any questions", "share your thoughts"],
+      [
+        { en: "By all means, feel free to share any feedback you have.", kr: "물론이죠, 가지고 계신 피드백을 편하게 공유해주세요." },
+        { en: "By all means, go ahead and contact our technical team directly.", kr: "물론이죠, 기술팀에 직접 연락하셔도 됩니다." },
+        { en: "By all means, take as much time as you need to review the contract.", kr: "물론이죠, 계약서를 검토하는 데 필요한 만큼 시간을 가지세요." },
+      ]
+    ],
+    ["chances-are", "chances are", "아마도 ~일 것입니다", "intermediate", "pattern", "chances are + clause", "높은 가능성을 비공식적으로 표현할 때 씁니다.", "예측, 비공식 보고, 회의 중 의견 공유에 씁니다.", "it is likely that 보다 더 구어적입니다.", ["communication", "analysis"], ["the client will accept", "we'll meet the target", "demand will increase"],
+      [
+        { en: "Chances are the client will agree if we offer a slight discount.", kr: "약간의 할인을 제공하면 아마 고객이 동의할 것입니다." },
+        { en: "Chances are, demand will pick up again after the holiday season.", kr: "아마도 연휴 이후 다시 수요가 살아날 것입니다." },
+        { en: "Chances are, we'll need to revisit the pricing before year-end.", kr: "아마도 연말 전에 가격 책정을 재검토해야 할 것입니다." },
+      ]
+    ],
+    ["credit-where-credit-is-due", "credit where credit is due", "공을 인정하다", "intermediate", "pattern", "give credit where credit is due", "누군가의 노력이나 성과를 적절히 인정할 때 씁니다.", "팀 성과 발표, 공로 인정, 감사 표현에 씁니다.", "due credit 을 주는 것이 핵심입니다.", ["management", "communication"], ["the team", "the supplier", "the initiative"],
+      [
+        { en: "Credit where credit is due — the engineering team solved this in record time.", kr: "공을 인정하자면 — 엔지니어링팀이 이것을 기록적인 시간 안에 해결했습니다." },
+        { en: "Let's give credit where credit is due: this was a team effort.", kr: "공을 제대로 인정합시다: 이것은 팀 전체의 노력이었습니다." },
+        { en: "Credit where credit is due — the supplier delivered under difficult conditions.", kr: "공을 인정하자면 — 공급사가 어려운 조건에서 납품해냈습니다." },
+      ]
+    ],
+    ["each-other-halfway", "meet each other halfway", "서로 양보하다", "intermediate", "pattern", "meet each other halfway + on + issue", "양측이 조금씩 양보해 합의에 이를 때 씁니다.", "협상 타협, 분쟁 해결, 조건 조정에 씁니다.", "meet someone halfway 도 자주 씁니다.", ["negotiation", "communication"], ["the pricing", "the delivery schedule", "the terms"],
+      [
+        { en: "If we both meet each other halfway on price, we can close this today.", kr: "우리 둘 다 가격에서 조금씩 양보하면 오늘 거래를 마무리할 수 있습니다." },
+        { en: "I'm willing to meet you halfway on the payment terms.", kr: "결제 조건에서 절충점을 찾을 의향이 있습니다." },
+        { en: "Can we find a way to meet each other halfway on the timeline?", kr: "일정에 대해 서로 절충점을 찾을 수 있을까요?" },
+      ]
+    ],
+    ["fair-enough", "fair enough", "납득이 되다, 그렇게 합시다", "intermediate", "pattern", "fair enough — + acknowledgment", "상대방의 주장이나 조건이 합리적이라고 인정할 때 씁니다.", "협상 수용, 요청 인정, 조건 동의에 씁니다.", "짧고 실용적인 동의 표현입니다.", ["negotiation", "communication"], ["let's proceed", "I understand your position", "we can adjust"],
+      [
+        { en: "Fair enough — if you can confirm by Thursday, we'll hold the production slot.", kr: "납득이 됩니다 — 목요일까지 확인해주시면 생산 슬롯을 잡아두겠습니다." },
+        { en: "Fair enough. We'll revise the proposal and send it tomorrow.", kr: "그렇게 하죠. 제안서를 수정해서 내일 보내겠습니다." },
+        { en: "Fair enough — we'll split the shipping cost 50-50.", kr: "납득이 됩니다 — 운송비를 50대 50으로 나누겠습니다." },
+      ]
+    ],
+    ["first-things-first", "first things first", "먼저 해야 할 것부터", "intermediate", "pattern", "first things first, + priority action", "가장 중요한 것을 먼저 처리해야 한다고 강조할 때 씁니다.", "우선순위 결정, 회의 시작, 업무 정리에 씁니다.", "let's prioritize 와 비슷하지만 더 직접적입니다.", ["meeting", "management"], ["confirm the order", "align on the scope", "agree on the timeline"],
+      [
+        { en: "First things first — let's confirm the delivery date before anything else.", kr: "먼저 해야 할 것부터 — 다른 무엇보다 납기일을 확인합시다." },
+        { en: "First things first: does everyone have the updated brief?", kr: "먼저 해야 할 것부터: 모두 업데이트된 브리프를 가지고 있나요?" },
+        { en: "First things first — we need to resolve the payment dispute.", kr: "먼저 해야 할 것부터 — 결제 분쟁을 해결해야 합니다." },
+      ]
+    ],
+    ["food-for-thought", "food for thought", "생각할 거리", "intermediate", "pattern", "give someone food for thought", "깊이 생각해볼 거리를 제공할 때 씁니다.", "제안, 데이터 제시, 전략 논의 마무리에 씁니다.", "something to think about 과 같은 뜻입니다.", ["meeting", "strategy"], ["the market data", "this comparison", "the long-term projection"],
+      [
+        { en: "This comparison should give us some food for thought before we decide.", kr: "이 비교 자료는 결정하기 전에 생각할 거리를 줄 것입니다." },
+        { en: "The customer feedback provides a lot of food for thought.", kr: "고객 피드백이 많은 생각할 거리를 제공합니다." },
+        { en: "I'll leave you with this: some food for thought for our next session.", kr: "다음 세션을 위한 생각할 거리로 이것을 남겨드리겠습니다." },
+      ]
+    ],
+    ["from-where-i-stand", "from where I stand", "내 관점에서는", "intermediate", "pattern", "from where I stand, + opinion / assessment", "자신의 시각이나 관점을 밝힐 때 씁니다.", "의견 표현, 상황 판단, 입장 설명에 씁니다.", "in my view 보다 더 개인적·구체적인 관점을 강조합니다.", ["communication", "negotiation"], ["this is a fair deal", "the risk is manageable", "we should proceed"],
+      [
+        { en: "From where I stand, the revised offer is reasonable.", kr: "내 관점에서는, 수정된 제안이 합리적입니다." },
+        { en: "From where I stand, the bigger risk is doing nothing.", kr: "내 관점에서는, 더 큰 위험은 아무것도 하지 않는 것입니다." },
+        { en: "From where I stand, both options have merit — it depends on your priorities.", kr: "내 관점에서는 두 옵션 모두 장점이 있습니다 — 우선순위에 달려 있습니다." },
+      ]
+    ],
+    ["given-that", "given that", "~임을 감안하면", "intermediate", "pattern", "given that + clause, + recommendation", "특정 조건이나 사실을 고려해 결론을 도출할 때 씁니다.", "보고서, 협상 근거, 결정 설명에 씁니다.", "considering that 과 같은 뜻입니다.", ["analysis", "formal"], ["the timeline is tight", "costs have increased", "demand is uncertain"],
+      [
+        { en: "Given that the timeline is tight, we recommend air freight over sea.", kr: "일정이 빠듯함을 감안하면, 해상 대신 항공 운송을 권장합니다." },
+        { en: "Given that costs have risen, a price adjustment is necessary.", kr: "비용이 올랐음을 감안하면, 가격 조정이 필요합니다." },
+        { en: "Given that the client has a strict quality requirement, we'll need extra QC steps.", kr: "고객이 엄격한 품질 요건을 가지고 있음을 감안하면, 추가 품질 관리 단계가 필요합니다." },
+      ]
+    ],
+    ["heads-up", "give a heads up", "미리 알려주다", "intermediate", "pattern", "give someone a heads up + about / that", "미리 알려줄 때 씁니다.", "사전 경고, 변경 사항 사전 공지, 일정 공유에 씁니다.", "heads up 은 명사로도 씁니다.", ["communication", "email"], ["about the delay", "that the price will change", "before the announcement"],
+      [
+        { en: "I just wanted to give you a heads up — the shipment may be delayed.", kr: "미리 알려드리고 싶었습니다 — 선적이 지연될 수 있습니다." },
+        { en: "Thanks for the heads up about the price change.", kr: "가격 변경에 대해 미리 알려주셔서 감사합니다." },
+        { en: "Can you give the client a heads up before we send the formal notice?", kr: "공식 공지를 보내기 전에 고객에게 미리 알려주시겠어요?" },
+      ]
+    ],
+    ["hit-the-ground-running", "hit the ground running", "바로 전력으로 시작하다", "intermediate", "pattern", "hit the ground running + with + project", "새 역할이나 프로젝트를 지체 없이 바로 시작할 때 씁니다.", "신규 담당자 온보딩, 프로젝트 킥오프에 씁니다.", "준비가 완벽히 된 상태에서 바로 시작하는 뉘앙스입니다.", ["management", "project"], ["the new project", "the account", "the role"],
+      [
+        { en: "The new hire hit the ground running and closed a deal in her first week.", kr: "신입 직원이 바로 전력으로 시작해서 첫 주에 거래를 성사시켰습니다." },
+        { en: "We need someone who can hit the ground running — no time for a long ramp-up.", kr: "바로 시작할 수 있는 사람이 필요합니다 — 긴 적응 기간은 없습니다." },
+        { en: "With the briefing materials ready, we're all set to hit the ground running.", kr: "브리핑 자료가 준비되어 바로 전력으로 시작할 준비가 되었습니다." },
+      ]
+    ],
+    ["if-anything", "if anything", "오히려, 굳이 말하자면", "intermediate", "pattern", "if anything, + contrasting statement", "예상과 다른 방향의 결과나 의견을 부드럽게 표현할 때 씁니다.", "반전 정보 제공, 예상 정정, 미묘한 차이 강조에 씁니다.", "if anything 은 문장 앞이나 중간에 씁니다.", ["communication", "analysis"], ["it's better than expected", "demand is higher", "the cost is lower"],
+      [
+        { en: "If anything, the quality has improved since we switched suppliers.", kr: "오히려, 공급사를 바꾼 이후로 품질이 개선됐습니다." },
+        { en: "If anything, the new process has made things more complicated.", kr: "오히려, 새 프로세스가 일을 더 복잡하게 만들었습니다." },
+        { en: "The response wasn't negative — if anything, they seemed quite interested.", kr: "반응이 부정적이지 않았습니다 — 오히려, 꽤 관심을 보이는 것 같았습니다." },
+      ]
+    ],
+    ["in-due-course", "in due course", "때가 되면, 차차", "intermediate", "pattern", "in due course + clause", "지금 당장이 아닌 적절한 시기에 이루어질 것을 안심시킬 때 씁니다.", "공식 회신 안내, 승인 예상, 결정 예고에 씁니다.", "상대를 재촉하지 않고 기다려달라는 의미도 있습니다.", ["email", "formal"], ["we will provide an update", "you will receive confirmation", "a decision will be made"],
+      [
+        { en: "In due course, we will send you the official confirmation.", kr: "때가 되면 공식 확인서를 보내드리겠습니다." },
+        { en: "All queries will be addressed in due course.", kr: "모든 문의는 때가 되면 처리될 것입니다." },
+        { en: "The board will make a decision in due course.", kr: "이사회가 차차 결정을 내릴 것입니다." },
+      ]
+    ],
+    ["in-good-faith", "in good faith", "선의로, 진심으로", "advanced", "pattern", "act in good faith / negotiate in good faith", "진심어린 의도로 행동할 때 씁니다.", "계약 협상, 신뢰 구축, 성의 있는 대화에 씁니다.", "법적·계약적 상황에서도 자주 쓰입니다.", ["negotiation", "legal"], ["the offer", "the negotiation", "the concession"],
+      [
+        { en: "We have made this offer in good faith and hope you'll consider it seriously.", kr: "이 제안은 선의로 드리는 것이며 진지하게 검토해주시길 바랍니다." },
+        { en: "Both parties agreed to negotiate in good faith to reach a fair outcome.", kr: "양 당사자는 공정한 결과를 위해 선의로 협상하기로 합의했습니다." },
+        { en: "We acted in good faith, but the supplier failed to deliver as promised.", kr: "우리는 선의로 행동했지만 공급사가 약속대로 납품하지 못했습니다." },
+      ]
+    ],
+    ["in-the-same-boat", "in the same boat", "같은 처지에 있다", "intermediate", "pattern", "be in the same boat + as", "같은 어려운 상황에 처해 있음을 공감할 때 씁니다.", "공통된 도전 공유, 파트너십 강화, 협력 촉구에 씁니다.", "공감과 연대를 표현하는 데 좋습니다.", ["communication", "relationship"], ["everyone", "our partners", "most companies"],
+      [
+        { en: "We're all in the same boat — raw material costs are up for everyone.", kr: "우리 모두 같은 처지입니다 — 모두를 위해 원자재 비용이 올랐습니다." },
+        { en: "We understand your situation — we're in the same boat with our suppliers.", kr: "귀사의 상황을 이해합니다 — 우리도 공급사와 같은 처지입니다." },
+        { en: "Since we're in the same boat, let's work together to find a solution.", kr: "같은 처지이므로 함께 해결책을 찾아봅시다." },
+      ]
+    ],
+    ["jump-on-board", "jump on board", "참여하다, 동참하다", "intermediate", "pattern", "jump on board + with + project / idea", "기회를 놓치지 않고 빠르게 동참할 때 씁니다.", "파트너십 제안, 신규 프로젝트, 시장 기회 참여에 씁니다.", "come on board 보다 더 능동적이고 빠른 참여를 뜻합니다.", ["sales", "relationship"], ["the initiative", "the project", "the partnership"],
+      [
+        { en: "We'd love for you to jump on board with this joint venture.", kr: "이 합작 투자에 동참해주시면 좋겠습니다." },
+        { en: "The client jumped on board immediately after seeing the demo.", kr: "데모를 보고 나서 고객이 즉시 참여했습니다." },
+        { en: "Other suppliers have already jumped on board — don't miss this.", kr: "다른 공급사들은 이미 동참했습니다 — 놓치지 마세요." },
+      ]
+    ],
+    ["keep-a-lid-on", "keep a lid on", "억제하다, 비밀로 유지하다", "advanced", "pattern", "keep a lid on + costs / information / situation", "비용이나 정보를 통제하거나 억제할 때 씁니다.", "비용 통제, 기밀 유지, 상황 통제에 씁니다.", "keep under wraps 와 비슷하지만 더 구어적입니다.", ["management", "finance"], ["costs", "the information", "the situation"],
+      [
+        { en: "We need to keep a lid on costs this quarter — no unnecessary spending.", kr: "이번 분기에는 비용을 억제해야 합니다 — 불필요한 지출은 없습니다." },
+        { en: "Let's keep a lid on this until we have official confirmation.", kr: "공식 확인이 있을 때까지 이것을 비밀로 유지합시다." },
+        { en: "The team managed to keep a lid on the situation before it escalated.", kr: "팀이 상황이 커지기 전에 억제하는 데 성공했습니다." },
+      ]
+    ],
+    ["on-that-note", "on that note", "그런 의미에서", "intermediate", "pattern", "on that note, + closing / transition", "발언이나 주제를 마무리하며 다음으로 넘어갈 때 씁니다.", "회의 마무리, 발표 전환, 이메일 마지막 문단에 씁니다.", "with that in mind 보다 더 마무리 성격이 강합니다.", ["meeting", "presentation"], ["let's wrap up", "I'll hand it over to", "thank you all for joining"],
+      [
+        { en: "On that note, let's wrap up and move to Q&A.", kr: "그런 의미에서, 마무리하고 Q&A로 넘어가겠습니다." },
+        { en: "On that note, I'll hand the floor over to our CFO.", kr: "그런 의미에서, CFO에게 발언권을 넘기겠습니다." },
+        { en: "On that note, thank you all for your time today.", kr: "그런 의미에서, 오늘 시간을 내주신 모든 분들께 감사드립니다." },
+      ]
+    ],
+    ["on-the-fence", "on the fence", "결정을 못 하고 있다", "intermediate", "pattern", "be on the fence + about / regarding", "결정을 내리지 못하고 망설일 때 씁니다.", "고객 설득, 내부 결정 보류, 협상에서 탐색 단계에 씁니다.", "undecided 보다 더 구어적입니다.", ["negotiation", "sales"], ["the decision", "the proposal", "the new supplier"],
+      [
+        { en: "The client is still on the fence — can we offer something extra to tip the balance?", kr: "고객이 아직 결정을 못 하고 있습니다 — 균형을 기울이기 위해 무언가 추가 제공할 수 있을까요?" },
+        { en: "I'm on the fence about whether to expand into that market now.", kr: "지금 그 시장으로 확장해야 할지 망설이고 있습니다." },
+        { en: "If you're on the fence, let me share some data that might help.", kr: "결정을 못 하고 계신다면, 도움이 될 만한 데이터를 공유해드리겠습니다." },
+      ]
+    ],
+    ["out-of-the-loop", "be out of the loop", "소식을 못 듣고 있다", "intermediate", "pattern", "be out of the loop + on / about", "중요한 정보나 결정에서 제외되어 있을 때 씁니다.", "커뮤니케이션 단절, 부재 후 복귀, 정보 공유 요청에 씁니다.", "keep someone in the loop 의 반대입니다.", ["communication", "management"], ["the decision", "recent developments", "the update"],
+      [
+        { en: "I've been out of the loop this week — can you bring me up to speed?", kr: "이번 주에 소식을 못 듣고 있었습니다 — 최신 내용을 알려주시겠어요?" },
+        { en: "The supplier seems to be out of the loop on the spec change.", kr: "공급사가 사양 변경에 대해 소식을 못 듣고 있는 것 같습니다." },
+        { en: "Let's make sure no one is out of the loop on this decision.", kr: "이 결정에서 소식을 못 듣는 사람이 없도록 합시다." },
+      ]
+    ],
+    ["put-it-bluntly", "to put it bluntly", "솔직히 말하자면", "intermediate", "pattern", "to put it bluntly, + direct statement", "완곡하지 않고 직접적으로 말할 때 씁니다.", "문제 직접 지적, 현실적 평가, 협상 결렬 표현에 씁니다.", "frankly speaking 과 같지만 더 강한 뉘앙스입니다.", ["negotiation", "communication"], ["the price is too high", "the quality is unacceptable", "we need a better offer"],
+      [
+        { en: "To put it bluntly, your current pricing is not competitive.", kr: "솔직히 말하자면, 현재 가격이 경쟁력이 없습니다." },
+        { en: "To put it bluntly, we can't move forward without a quality improvement plan.", kr: "솔직히 말하자면, 품질 개선 계획 없이는 진행할 수 없습니다." },
+        { en: "To put it bluntly, the timeline you've proposed is simply not workable.", kr: "솔직히 말하자면, 제안하신 일정은 실현 불가능합니다." },
+      ]
+    ],
+    ["rain-check", "take a rain check", "다음 기회로 미루다", "intermediate", "pattern", "take a rain check + on + meeting / offer", "지금은 아니지만 나중에 하겠다고 할 때 씁니다.", "미팅 일정 변경, 제안 보류, 임시 거절에 씁니다.", "I'll take a rain check 이 가장 흔한 형태입니다.", ["meeting", "communication"], ["the dinner", "the offer", "the visit"],
+      [
+        { en: "I'll have to take a rain check on the lunch — I have an urgent call.", kr: "점심을 다음으로 미뤄야 할 것 같습니다 — 긴급 통화가 있습니다." },
+        { en: "Can I take a rain check on the factory visit? Next week works better.", kr: "공장 방문을 다음으로 미뤄도 될까요? 다음 주가 더 좋습니다." },
+        { en: "She took a rain check on the offer and came back three weeks later.", kr: "그녀는 제안을 보류했다가 3주 후에 다시 연락했습니다." },
+      ]
+    ],
+    ["safe-to-say", "it's safe to say", "~라고 봐도 무방하다", "intermediate", "pattern", "it's safe to say + clause", "어느 정도 확실한 사실을 말할 때 씁니다.", "결과 요약, 트렌드 확인, 예측에 씁니다.", "it's fair to say 와 거의 같지만 조금 더 확신이 있습니다.", ["communication", "analysis"], ["the strategy is working", "we exceeded expectations", "demand is growing"],
+      [
+        { en: "It's safe to say that Q3 was our strongest quarter in three years.", kr: "3분기가 3년 만에 가장 강한 분기였다고 봐도 무방합니다." },
+        { en: "It's safe to say the client was pleased with the outcome.", kr: "고객이 결과에 만족했다고 봐도 무방합니다." },
+        { en: "It's safe to say that the investment in quality control has paid off.", kr: "품질 관리에 대한 투자가 결실을 맺었다고 봐도 무방합니다." },
+      ]
+    ],
+    ["speaking-of-which", "speaking of which", "그 말이 나와서 말인데", "intermediate", "pattern", "speaking of which, + related topic", "대화 중 관련 주제로 자연스럽게 넘어갈 때 씁니다.", "회의 전환, 관련 이슈 추가, 연결 발언에 씁니다.", "by the way 보다 더 관련성을 강조합니다.", ["meeting", "communication"], ["the delivery schedule", "the budget", "the client visit"],
+      [
+        { en: "We're making good progress on the project. Speaking of which, have you confirmed the testing date?", kr: "프로젝트가 잘 진행되고 있습니다. 그 말이 나와서 말인데, 테스트 날짜를 확인했나요?" },
+        { en: "The new system is working well. Speaking of which, we need to train the new staff.", kr: "새 시스템이 잘 작동하고 있습니다. 그 말이 나와서 말인데, 신규 직원 교육이 필요합니다." },
+        { en: "Speaking of which, let's add that topic to next week's agenda.", kr: "그 말이 나와서 말인데, 그 주제를 다음 주 의제에 추가합시다." },
+      ]
+    ],
+    ["take-it-from-me", "take it from me", "내 말을 믿어봐요", "intermediate", "pattern", "take it from me, + advice / experience", "경험을 바탕으로 강력히 조언할 때 씁니다.", "전문가 조언, 경험 기반 권고에 씁니다.", "trust me 보다 더 경험적 근거를 강조합니다.", ["communication", "management"], ["this approach works", "invest in quality early", "set clear expectations"],
+      [
+        { en: "Take it from me — investing in quality from the start saves a lot of rework.", kr: "내 말을 믿어봐요 — 처음부터 품질에 투자하면 재작업을 많이 줄일 수 있습니다." },
+        { en: "Take it from me, clear communication upfront prevents misunderstandings later.", kr: "내 말을 믿어봐요, 초반에 명확하게 소통하면 나중에 오해를 막을 수 있습니다." },
+        { en: "Take it from me — don't skip the pilot phase, no matter how confident you feel.", kr: "내 말을 믿어봐요 — 아무리 자신 있어도 파일럿 단계를 건너뛰지 마세요." },
+      ]
+    ],
+    ["that-said", "that said", "그렇긴 하지만", "intermediate", "pattern", "that said, + contrasting view", "앞의 내용을 인정하면서 반전이나 조건을 추가할 때 씁니다.", "보고서 결론, 협상 타협, 발표 전환에 씁니다.", "that being said 의 짧은 형태입니다.", ["communication", "presentation"], ["there are still challenges", "we need to act cautiously", "the opportunity is real"],
+      [
+        { en: "The results look promising. That said, it's too early to celebrate.", kr: "결과가 유망해 보입니다. 그렇긴 하지만, 아직 축하하기엔 이릅니다." },
+        { en: "The proposal is solid. That said, I'd like to revisit the pricing.", kr: "제안서가 탄탄합니다. 그렇긴 하지만, 가격을 재검토하고 싶습니다." },
+        { en: "Market conditions are tough. That said, our pipeline is stronger than ever.", kr: "시장 상황이 어렵습니다. 그렇긴 하지만, 우리 파이프라인은 그 어느 때보다 강합니다." },
+      ]
+    ],
+    ["there-you-have-it", "there you have it", "바로 그것입니다", "intermediate", "pattern", "there you have it — + summary", "결론이나 요점을 마무리 지을 때 씁니다.", "발표 마무리, 설명 결론, 간단한 요약에 씁니다.", "there it is 와 같지만 더 구어적이고 발표에 자주 씁니다.", ["presentation", "communication"], ["the full picture", "the three key benefits", "our proposal"],
+      [
+        { en: "And there you have it — three reasons why we're the right partner for you.", kr: "바로 그것입니다 — 우리가 귀사에 적합한 파트너인 세 가지 이유입니다." },
+        { en: "There you have it: a clear plan for improving our on-time delivery rate.", kr: "바로 그것입니다: 납기 준수율을 개선하기 위한 명확한 계획입니다." },
+        { en: "There you have it — everything you need to know about the new process.", kr: "바로 그것입니다 — 새 프로세스에 대해 알아야 할 모든 것입니다." },
+      ]
+    ],
+    ["think-outside-the-box", "think outside the box", "틀을 벗어나 생각하다", "intermediate", "pattern", "think outside the box + to / and", "창의적이고 관습에 얽매이지 않는 사고를 독려할 때 씁니다.", "문제 해결, 브레인스토밍, 혁신 촉구에 씁니다.", "비유적 표현이므로 너무 남용하지 않습니다.", ["strategy", "communication"], ["to find a solution", "when approaching this challenge", "to differentiate"],
+      [
+        { en: "We need to think outside the box if we want to crack this market.", kr: "이 시장을 공략하려면 틀을 벗어나 생각해야 합니다." },
+        { en: "I'm asking you to think outside the box — what if we restructure the offer entirely?", kr: "틀을 벗어나 생각해봐 주세요 — 제안을 완전히 재구성하면 어떨까요?" },
+        { en: "Thinking outside the box led us to a solution no one had considered.", kr: "틀을 벗어난 사고가 아무도 고려하지 않은 해결책으로 이어졌습니다." },
+      ]
+    ],
+    ["time-will-tell", "time will tell", "두고 보면 알 것이다", "intermediate", "pattern", "time will tell + whether / if", "결과를 기다려봐야 알 수 있다는 뜻입니다.", "불확실한 예측, 신중한 전망, 실험 결과 대기에 씁니다.", "we'll see 보다 더 참을성 있는 어조입니다.", ["analysis", "communication"], ["the strategy works", "the partnership will succeed", "the market will respond"],
+      [
+        { en: "Time will tell whether this new approach will work in the long run.", kr: "이 새로운 접근 방식이 장기적으로 효과가 있을지 두고 보면 알 것입니다." },
+        { en: "It's a bold move — time will tell if it pays off.", kr: "대담한 행동입니다 — 결실을 맺을지 두고 보면 알 것입니다." },
+        { en: "We're cautiously optimistic, but time will tell.", kr: "조심스럽게 낙관적이지만, 두고 보면 알 것입니다." },
+      ]
+    ],
+    ["to-be-fair", "to be fair", "공정하게 말하자면", "intermediate", "pattern", "to be fair, + balanced statement", "균형 잡힌 시각을 제시할 때 씁니다.", "의견 균형, 비판 완화, 공정한 평가에 씁니다.", "to be honest 와 비슷하지만 더 공평성을 강조합니다.", ["communication", "analysis"], ["they did deliver on time", "the issue was partly our fault", "the price is reasonable"],
+      [
+        { en: "To be fair, the supplier delivered within the agreed window.", kr: "공정하게 말하자면, 공급사는 합의된 기간 내에 납품했습니다." },
+        { en: "To be fair, the delay was partly due to our late specification change.", kr: "공정하게 말하자면, 지연은 부분적으로 우리의 늦은 사양 변경 때문이었습니다." },
+        { en: "To be fair, this is a difficult problem with no easy solution.", kr: "공정하게 말하자면, 쉬운 해결책이 없는 어려운 문제입니다." },
+      ]
+    ],
+    ["to-be-on-the-safe-side", "to be on the safe side", "혹시 모르니, 안전을 위해", "intermediate", "pattern", "to be on the safe side, + precaution", "위험을 최소화하기 위해 추가 조치를 취할 때 씁니다.", "재고 버퍼, 이중 확인, 사전 대비에 씁니다.", "just to be safe 와 같은 뜻입니다.", ["planning", "operations"], ["order extra stock", "double-check the specs", "send a backup supplier"],
+      [
+        { en: "To be on the safe side, let's order 10% more than the minimum.", kr: "혹시 모르니, 최소량보다 10% 더 주문합시다." },
+        { en: "To be on the safe side, get a written confirmation from the client.", kr: "안전을 위해, 고객에게 서면 확인을 받아두세요." },
+        { en: "To be on the safe side, we've lined up a backup supplier.", kr: "혹시 모르니, 백업 공급사를 확보해 두었습니다." },
+      ]
+    ],
+    ["under-the-circumstances", "under the circumstances", "상황을 고려하면", "intermediate", "pattern", "under the circumstances, + decision or reaction", "주어진 상황에서 최선의 선택임을 설명할 때 씁니다.", "예외 처리, 비상 결정, 이해 구하기에 씁니다.", "given the circumstances 와 같은 뜻입니다.", ["communication", "management"], ["this is the best we can do", "we did the right thing", "it was a reasonable decision"],
+      [
+        { en: "Under the circumstances, a one-week extension is the most we can offer.", kr: "상황을 고려하면, 1주일 연장이 우리가 제공할 수 있는 최선입니다." },
+        { en: "Under the circumstances, I think the team did an excellent job.", kr: "상황을 고려하면, 팀이 훌륭하게 해낸 것 같습니다." },
+        { en: "Under the circumstances, delaying the launch was the right call.", kr: "상황을 고려하면, 출시를 연기한 것은 옳은 결정이었습니다." },
+      ]
+    ],
+    ["up-in-the-air", "be up in the air", "아직 미정이다", "intermediate", "pattern", "still up in the air + regarding", "결정이 아직 내려지지 않았을 때 씁니다.", "보류 중인 결정, 불확실한 계획, 협상 중인 조건에 씁니다.", "undecided 보다 더 구어적이고 유동적인 뉘앙스입니다.", ["planning", "communication"], ["the final decision", "the exact timeline", "the pricing structure"],
+      [
+        { en: "The launch date is still up in the air — we're waiting on the certification.", kr: "출시 날짜가 아직 미정입니다 — 인증을 기다리고 있습니다." },
+        { en: "Things are still up in the air on the pricing — let's revisit next week.", kr: "가격이 아직 미정입니다 — 다음 주에 다시 논의합시다." },
+        { en: "Whether we'll expand to that region is still up in the air.", kr: "그 지역으로 확장할지 여부가 아직 미정입니다." },
+      ]
+    ],
+    ["without-further-ado", "without further ado", "더 이상 지체 없이", "intermediate", "pattern", "without further ado, + action", "소개나 이유 설명 없이 바로 시작할 때 씁니다.", "발표 시작, 이메일 본론 전환, 회의 진행에 씁니다.", "발표나 공식 이메일에서 자주 씁니다.", ["presentation", "formal"], ["let's get started", "I'd like to introduce", "here are the results"],
+      [
+        { en: "Without further ado, let's get started with today's agenda.", kr: "더 이상 지체 없이, 오늘 의제를 시작하겠습니다." },
+        { en: "Without further ado, I'd like to introduce our keynote speaker.", kr: "더 이상 지체 없이, 기조 연사를 소개하겠습니다." },
+        { en: "Without further ado, here are the Q3 results we've been waiting for.", kr: "더 이상 지체 없이, 기다리던 3분기 결과를 공개합니다." },
+      ]
+    ],
+    ["worth-bearing-in-mind", "worth bearing in mind", "명심할 만하다", "intermediate", "pattern", "it's worth bearing in mind that + clause", "잊지 않으면 좋을 중요한 사항을 전달할 때 씁니다.", "계획 수립, 협상, 리스크 관리에 씁니다.", "worth keeping in mind 과 같은 뜻입니다.", ["communication", "planning"], ["the lead time", "the market conditions", "the regulatory requirements"],
+      [
+        { en: "It's worth bearing in mind that the lead time increases during peak season.", kr: "성수기에 납기가 늘어난다는 점을 명심할 만합니다." },
+        { en: "Worth bearing in mind: the minimum order quantity is 1,000 units.", kr: "명심할 만한 것: 최소 주문 수량이 1,000개입니다." },
+        { en: "It's worth bearing in mind that exchange rates can affect your total cost.", kr: "환율이 총 비용에 영향을 미칠 수 있다는 점을 명심할 만합니다." },
+      ]
+    ],
   ];
 
   return raw.map(
