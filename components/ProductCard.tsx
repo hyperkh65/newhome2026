@@ -36,13 +36,13 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       style={{
-        background: hover ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.03)',
-        border: `1px solid ${hover ? 'rgba(255,255,255,0.15)' : 'rgba(255,255,255,0.07)'}`,
+        background: hover ? '#f1f5f9' : '#fff',
+        border: `1px solid ${hover ? '#cbd5e1' : '#e2e8f0'}`,
         borderRadius: 20,
         overflow: 'hidden',
         transition: 'all 0.4s cubic-bezier(0.4,0,0.2,1)',
         transform: hover ? 'translateY(-6px)' : 'none',
-        boxShadow: hover ? '0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(255,255,255,0.04)' : 'none',
+        boxShadow: hover ? '0 20px 40px rgba(0,0,0,0.12)' : '0 2px 8px rgba(0,0,0,0.06)',
         animationDelay: `${index * 80}ms`,
         animation: 'fadeInUp 0.6s ease forwards',
         cursor: 'pointer',
@@ -72,8 +72,9 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
             <div style={{
               position: 'absolute', top: 14, left: 14,
               padding: '4px 10px', borderRadius: 6,
-              background: product.badge === 'SALE' ? 'rgba(255,255,255,0.15)' : 'rgba(255,255,255,0.12)',
-              border: '1px solid rgba(255,255,255,0.25)',
+              background: 'rgba(15,23,42,0.75)',
+              border: '1px solid rgba(255,255,255,0.2)',
+              color: '#fff',
               fontSize: 10, fontWeight: 700, letterSpacing: 1,
               backdropFilter: 'blur(8px)',
             }}>
@@ -111,34 +112,34 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
         {/* Info */}
         <div style={{ padding: '20px 20px 16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 8 }}>
-            <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: 1 }}>
+            <span style={{ fontSize: 11, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 1 }}>
               {product.category}
             </span>
-            <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.25)' }}>·</span>
+            <span style={{ fontSize: 11, color: '#cbd5e1' }}>·</span>
             <div style={{ display: 'flex', alignItems: 'center', gap: 3 }}>
               <span style={{ fontSize: 11, color: '#f5c518' }}>★</span>
-              <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)' }}>{product.rating} ({product.reviews})</span>
+              <span style={{ fontSize: 11, color: '#94a3b8' }}>{product.rating} ({product.reviews})</span>
             </div>
           </div>
 
-          <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 10, letterSpacing: '-0.01em', lineHeight: 1.3 }}>
+          <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 10, letterSpacing: '-0.01em', lineHeight: 1.3, color: '#0f172a' }}>
             {product.name}
           </h3>
 
-          <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', lineHeight: 1.5, marginBottom: 16, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+          <p style={{ fontSize: 13, color: '#64748b', lineHeight: 1.5, marginBottom: 16, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
             {product.description}
           </p>
 
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <div>
               {originalPrice && (
-                <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)', textDecoration: 'line-through', marginRight: 6 }}>
+                <span style={{ fontSize: 12, color: '#94a3b8', textDecoration: 'line-through', marginRight: 6 }}>
                   {originalPrice.toLocaleString()}원
                 </span>
               )}
-              <span style={{ fontSize: 18, fontWeight: 700 }}>{price.toLocaleString()}원</span>
+              <span style={{ fontSize: 18, fontWeight: 700, color: '#0f172a' }}>{price.toLocaleString()}원</span>
             </div>
-            <span style={{ fontSize: 11, color: product.stock > 10 ? 'rgba(255,255,255,0.3)' : '#ff8080' }}>
+            <span style={{ fontSize: 11, color: product.stock > 10 ? '#94a3b8' : '#ef4444' }}>
               {product.stock > 10 ? '재고있음' : `${product.stock}개 남음`}
             </span>
           </div>
@@ -151,11 +152,11 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
           onClick={handleAddToCart}
           style={{
             width: '100%', padding: '11px', borderRadius: 12,
-            background: added ? 'rgba(100,255,150,0.15)' : hover ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.06)',
-            color: added ? '#80ffaa' : '#fff',
+            background: added ? '#dcfce7' : hover ? '#0ea5e9' : '#f1f5f9',
+            color: added ? '#16a34a' : hover ? '#fff' : '#374151',
             fontSize: 13, fontWeight: 600, cursor: 'pointer',
             transition: 'all 0.3s ease', fontFamily: 'inherit',
-            border: `1px solid ${added ? 'rgba(100,255,150,0.3)' : 'rgba(255,255,255,0.1)'}`,
+            border: `1px solid ${added ? '#bbf7d0' : hover ? '#0ea5e9' : '#e2e8f0'}`,
           }}
         >
           {added ? '✓ 추가됨' : '장바구니 담기'}
