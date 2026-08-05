@@ -27,7 +27,7 @@ type ProductItem = {
 
 type ProductsApiResponse = {
   ok: boolean;
-  stats?: { total?: number; available?: number; featured?: number };
+  stats?: { total?: number; filtered?: number; available?: number; featured?: number };
   facets?: { categories?: Array<{ name: string; count: number }> };
   items?: ProductItem[];
   error?: string;
@@ -52,6 +52,7 @@ export default function ShopContent() {
   const [products, setProducts] = useState<ProductItem[]>([]);
   const [categories, setCategories] = useState<Array<{ name: string; count: number }>>([]);
   const [total, setTotal] = useState(0);
+  const [filteredTotal, setFilteredTotal] = useState(0);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -77,11 +78,13 @@ export default function ShopContent() {
         setProducts(data.items ?? []);
         setCategories(data.facets?.categories ?? []);
         setTotal(data.stats?.total ?? 0);
+        setFilteredTotal(data.stats?.filtered ?? data.stats?.total ?? 0);
       } catch {
         if (!alive) return;
         setProducts([]);
         setCategories([]);
         setTotal(0);
+        setFilteredTotal(0);
       } finally {
         if (alive) setLoading(false);
       }
@@ -93,7 +96,7 @@ export default function ShopContent() {
     };
   }, [cat, search, sort, maxPrice]);
 
-  const filteredCount = useMemo(() => total, [total]);
+  const filteredCount = useMemo(() => filteredTotal, [filteredTotal]);
 
   return (
     <main style={{ background: '#f9fafb', minHeight: '100vh', color: '#111827', paddingTop: 64 }}>

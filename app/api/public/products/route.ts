@@ -121,7 +121,8 @@ export async function GET(req: Request) {
       ok: true,
       query: { q, category, sort, limit, featuredOnly, priceMax },
       stats: {
-        total: filtered.length,
+        total: items.length,
+        filtered: filtered.length,
         available: items.length,
         featured: items.filter((item) => item.featured).length,
       },
