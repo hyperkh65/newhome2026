@@ -55,7 +55,7 @@ const RAW_VOCAB: Array<[
     ['communicate', 'express', 'transmit'],
     [
       { en: 'Please convey our apologies to the client.', kr: '고객에게 저희의 사과를 전달해 주세요.' },
-      { en: 'The email failed to convey the urgency of the situation.', kr: '이메일이 상황의 긴박함을 제대로 전달하지 못했습니다.' },
+      { en: 'The email failed to convey the urgency of the situation.', kr: '이메일이 상황의 심각성을 제대로 전달하지 못했습니다.' },
     ]
   ],
 
@@ -138,7 +138,7 @@ const RAW_VOCAB: Array<[
     ['management', 'quality'],
     ['track', 'watch', 'check'],
     [
-      { en: 'Please monitor the shipment status and update us daily.', kr: '선적 상태를 모니터링하고 매일 업데이트해 주세요.' },
+      { en: 'Please monitor the shipment status and update us daily.', kr: '선적 상태를 모니터링하고 매일 현황을 보고해 주세요.' },
       { en: 'We monitor supplier performance on a quarterly basis.', kr: '공급사 성과를 분기별로 모니터링합니다.' },
     ]
   ],
@@ -149,7 +149,7 @@ const RAW_VOCAB: Array<[
     ['bargain', 'discuss terms', 'work out'],
     [
       { en: 'We are negotiating better payment terms with the supplier.', kr: '공급사와 더 좋은 결제 조건을 협상 중입니다.' },
-      { en: 'She negotiated a 10% discount on the bulk order.', kr: '그녀는 대량 주문에서 10% 할인을 협상했습니다.' },
+      { en: 'She negotiated a 10% discount on the bulk order.', kr: '그녀는 대량 주문에서 10% 할인을 이끌어냈습니다.' },
     ]
   ],
   ['compromise', 'compromise', 'verb', '타협하다', 'to settle a dispute by mutual concession; each side gives up something', 'intermediate',
@@ -913,10 +913,407 @@ const RAW_VOCAB: Array<[
     ['provisionally', 'conditionally', 'subject to change'],
     [
       { en: 'We have tentatively scheduled the factory visit for June 10.', kr: '공장 방문을 잠정적으로 6월 10일로 예정했습니다.' },
-      { en: 'The price is tentatively set at $4.50 pending final approval.', kr: '가격은 최종 승인을 기다리며 잠정적으로 $4.50으로 정해져 있습니다.' },
+      { en: 'The price is tentatively set at $4.50 pending final approval.', kr: '가격은 최종 승인 전까지 잠정적으로 $4.50으로 설정되어 있습니다.' },
+    ]
+  ],
+
+  // ── CONTRACT & LEGAL ──────────────────────────────────────────────────────
+  ['clause', 'clause', 'noun', '조항', 'a specific provision or condition in a legal document or contract', 'intermediate',
+    ['legal', 'contract'],
+    ['provision', 'term', 'condition'],
+    [
+      { en: 'Please review the penalty clause before signing the agreement.', kr: '계약서에 서명하기 전에 위약금 조항을 검토해주세요.' },
+      { en: 'The force majeure clause covers delays caused by natural disasters.', kr: '불가항력 조항은 천재지변으로 인한 지연을 보호합니다.' },
+    ]
+  ],
+  ['liability', 'liability', 'noun', '책임, 배상 책임', 'legal responsibility for something; financial obligation', 'advanced',
+    ['legal', 'finance'],
+    ['responsibility', 'obligation', 'exposure'],
+    [
+      { en: 'The contract clearly states that liability is limited to the invoice value.', kr: '계약서에는 배상 책임이 인보이스 금액으로 제한된다고 명시되어 있습니다.' },
+      { en: 'We need to clarify who bears liability for damage during transit.', kr: '운송 중 손상에 대한 책임이 누구에게 있는지 명확히 해야 합니다.' },
+    ]
+  ],
+  ['warranty', 'warranty', 'noun', '품질 보증, 하자 담보', 'a written guarantee promising to repair or replace a product if needed', 'intermediate',
+    ['legal', 'quality'],
+    ['guarantee', 'assurance', 'certification'],
+    [
+      { en: 'Our standard warranty covers defects for 12 months from the delivery date.', kr: '당사 기본 품질 보증은 납품일로부터 12개월간 하자를 보장합니다.' },
+      { en: 'The warranty does not apply if the product has been mishandled.', kr: '제품이 부적절하게 취급된 경우 품질 보증이 적용되지 않습니다.' },
+    ]
+  ],
+  ['breach', 'breach', 'noun', '위반, 불이행', 'a failure to fulfill an obligation or agreement', 'advanced',
+    ['legal', 'contract'],
+    ['violation', 'infringement', 'default'],
+    [
+      { en: 'Late delivery beyond 30 days constitutes a breach of contract.', kr: '30일을 초과한 납기 지연은 계약 위반에 해당합니다.' },
+      { en: 'We reserve the right to claim damages in case of a breach.', kr: '위반 발생 시 손해배상을 청구할 권리가 있습니다.' },
+    ]
+  ],
+  ['indemnify', 'indemnify', 'verb', '배상하다, 면책하다', 'to compensate for harm or loss; to hold harmless against liability', 'advanced',
+    ['legal', 'contract'],
+    ['compensate', 'reimburse', 'hold harmless'],
+    [
+      { en: 'The supplier agreed to indemnify us for any third-party claims arising from defects.', kr: '공급사는 불량으로 인한 제3자 클레임에 대해 당사를 배상하기로 합의했습니다.' },
+      { en: 'The contract requires both parties to indemnify each other against intellectual property claims.', kr: '계약에는 양측이 지식재산권 클레임에 대해 상호 배상하도록 규정되어 있습니다.' },
+    ]
+  ],
+  ['arbitration', 'arbitration', 'noun', '중재', 'a method of resolving disputes outside of court using a neutral third party', 'advanced',
+    ['legal', 'negotiation'],
+    ['mediation', 'dispute resolution', 'adjudication'],
+    [
+      { en: 'Any dispute shall be resolved by arbitration under ICC rules.', kr: '모든 분쟁은 ICC 규정에 따른 중재로 해결합니다.' },
+      { en: 'We prefer arbitration over litigation to keep the process confidential.', kr: '절차의 기밀성을 위해 소송보다 중재를 선호합니다.' },
+    ]
+  ],
+
+  // ── SUPPLY CHAIN & PROCUREMENT ────────────────────────────────────────────
+  ['procure', 'procure', 'verb', '조달하다, 구매하다', 'to obtain goods or services, especially for business use', 'intermediate',
+    ['procurement', 'operations'],
+    ['source', 'purchase', 'obtain'],
+    [
+      { en: 'We procure all our LED chips directly from verified manufacturers.', kr: '당사는 모든 LED 칩을 검증된 제조사로부터 직접 조달합니다.' },
+      { en: 'The procurement team is looking to procure an alternative component.', kr: '구매팀에서 대체 부품을 조달하는 방안을 검토 중입니다.' },
+    ]
+  ],
+  ['tender', 'tender', 'noun', '입찰', 'a formal offer or bid to supply goods or services at a stated price', 'advanced',
+    ['procurement', 'sales'],
+    ['bid', 'quote', 'proposal'],
+    [
+      { en: 'We submitted a competitive tender for the government lighting project.', kr: '정부 조명 프로젝트에 경쟁력 있는 입찰을 제출했습니다.' },
+      { en: 'All suppliers are invited to respond to the tender by next Friday.', kr: '모든 공급사는 다음 주 금요일까지 입찰에 응찰하시기 바랍니다.' },
+    ]
+  ],
+  ['sourcing', 'sourcing', 'noun', '소싱, 공급처 발굴', 'the process of finding, evaluating and selecting suppliers for goods', 'intermediate',
+    ['procurement', 'strategy'],
+    ['procurement', 'purchasing', 'supply'],
+    [
+      { en: 'Our sourcing strategy focuses on dual suppliers to reduce risk.', kr: '당사의 소싱 전략은 리스크 감소를 위해 이중 공급처를 원칙으로 합니다.' },
+      { en: 'We are sourcing alternative materials to reduce dependence on a single supplier.', kr: '단일 공급사 의존도를 낮추기 위해 대체 소재 소싱을 진행 중입니다.' },
+    ]
+  ],
+  ['MOQ', 'MOQ (minimum order quantity)', 'noun', '최소 주문 수량', 'the smallest amount of a product a supplier is willing to sell in one order', 'intermediate',
+    ['procurement', 'negotiation'],
+    ['minimum order', 'order threshold', 'batch size'],
+    [
+      { en: 'The supplier\'s MOQ is 500 units, which is higher than our current demand.', kr: '공급사의 최소 주문 수량(MOQ)은 500개로, 현재 수요보다 많습니다.' },
+      { en: 'Can we negotiate a lower MOQ for the initial trial order?', kr: '초도 시험 주문에 한해 최소 주문 수량을 낮출 수 있을까요?' },
+    ]
+  ],
+  ['lead time', 'lead time', 'noun', '납기, 리드타임', 'the time from placing an order to receiving the goods', 'basic',
+    ['logistics', 'procurement'],
+    ['delivery time', 'production time', 'turnaround'],
+    [
+      { en: 'The standard lead time for this product is 30 working days.', kr: '이 제품의 표준 납기는 30 영업일입니다.' },
+      { en: 'We need to reduce lead time to respond faster to market demand.', kr: '시장 수요에 더 빠르게 대응하기 위해 납기를 단축해야 합니다.' },
+    ]
+  ],
+  ['consignment', 'consignment', 'noun', '위탁 화물, 위탁 판매', 'goods sent to a seller who pays only when items are sold', 'advanced',
+    ['logistics', 'sales'],
+    ['shipment', 'cargo', 'stock'],
+    [
+      { en: 'The goods were shipped on a consignment basis to reduce upfront risk.', kr: '초기 리스크를 줄이기 위해 위탁 방식으로 상품을 발송했습니다.' },
+      { en: 'A consignment of 2,000 units arrived at the warehouse this morning.', kr: '오늘 오전 창고에 2,000개 단위의 화물이 도착했습니다.' },
+    ]
+  ],
+  ['freight', 'freight', 'noun', '운송료, 화물', 'goods transported in bulk by truck, train, ship, or aircraft', 'basic',
+    ['logistics', 'finance'],
+    ['cargo', 'shipment', 'haulage'],
+    [
+      { en: 'Air freight is faster but costs significantly more than sea freight.', kr: '항공 운송이 더 빠르지만 해상 운송보다 비용이 훨씬 많이 듭니다.' },
+      { en: 'The freight charges are included in the quoted CIF price.', kr: '운송료는 제시된 CIF 가격에 포함되어 있습니다.' },
+    ]
+  ],
+  ['incoterms', 'Incoterms', 'noun', '인코텀즈 (무역 조건)', 'internationally recognized rules defining responsibilities for goods delivery', 'advanced',
+    ['logistics', 'legal'],
+    ['trade terms', 'delivery terms', 'FOB/CIF/EXW'],
+    [
+      { en: 'We typically trade on FOB terms — the most common Incoterms in our industry.', kr: '당사는 일반적으로 FOB 조건으로 거래합니다. 업계에서 가장 많이 사용하는 인코텀즈입니다.' },
+      { en: 'Please confirm which Incoterms apply before we finalize the shipping quote.', kr: '운송 견적을 확정하기 전에 적용할 인코텀즈를 확인해주세요.' },
+    ]
+  ],
+
+  // ── FINANCIAL DEEP ────────────────────────────────────────────────────────
+  ['remit', 'remit', 'verb', '송금하다', 'to send money, especially as a payment', 'intermediate',
+    ['finance', 'payment'],
+    ['transfer', 'wire', 'pay'],
+    [
+      { en: 'Please remit the outstanding balance by the end of this week.', kr: '이번 주 말까지 미결 잔액을 송금해주세요.' },
+      { en: 'We will remit the deposit upon receipt of the proforma invoice.', kr: '견적 인보이스를 받는 즉시 계약금을 송금하겠습니다.' },
+    ]
+  ],
+  ['receivable', 'receivable', 'noun', '미수금, 매출채권', 'money owed to a company by its customers for goods or services delivered', 'advanced',
+    ['finance', 'accounting'],
+    ['outstanding payment', 'debtor', 'unpaid balance'],
+    [
+      { en: 'Our accounts receivable balance increased by 15% this quarter due to extended credit terms.', kr: '신용 조건 연장으로 이번 분기 미수금 잔액이 15% 증가했습니다.' },
+      { en: 'The finance team is following up on overdue receivables.', kr: '재무팀이 연체된 미수금을 추심 중입니다.' },
+    ]
+  ],
+  ['overdue', 'overdue', 'adjective', '연체된, 기한이 지난', 'not done or paid by the required time', 'intermediate',
+    ['finance', 'payment'],
+    ['late', 'outstanding', 'past due'],
+    [
+      { en: 'This invoice is 45 days overdue and must be settled immediately.', kr: '이 인보이스는 45일이 연체되었으며 즉시 정산되어야 합니다.' },
+      { en: 'We will put the account on hold until the overdue amount is cleared.', kr: '연체 금액이 해소될 때까지 계정을 보류 처리하겠습니다.' },
+    ]
+  ],
+  ['reconcile', 'reconcile', 'verb', '정산하다, 대조하다', 'to make two sets of accounts or records match; to settle a discrepancy', 'advanced',
+    ['finance', 'accounting'],
+    ['balance', 'match', 'settle'],
+    [
+      { en: 'The finance team reconciles accounts payable with supplier statements every month.', kr: '재무팀은 매월 매입채무와 공급사 거래 내역서를 대조·정산합니다.' },
+      { en: 'We need to reconcile the discrepancy between the invoice and the delivery note.', kr: '인보이스와 납품서 간의 차이를 정산해야 합니다.' },
+    ]
+  ],
+  ['markup', 'markup', 'noun', '마진, 마크업', 'the amount added to the cost price to determine the selling price', 'intermediate',
+    ['finance', 'sales'],
+    ['margin', 'profit margin', 'price increase'],
+    [
+      { en: 'Our standard markup on imported LED fixtures is 30%.', kr: '수입 LED 조명 기구에 대한 당사의 기본 마진은 30%입니다.' },
+      { en: 'With raw material costs rising, maintaining our current markup is becoming difficult.', kr: '원자재 비용이 오르면서 현재 마진을 유지하기가 점점 어려워지고 있습니다.' },
+    ]
+  ],
+  ['overhead', 'overhead', 'noun', '간접비, 고정비', 'the ongoing business expenses not directly related to production', 'intermediate',
+    ['finance', 'management'],
+    ['fixed costs', 'operating expenses', 'indirect costs'],
+    [
+      { en: 'Renting a warehouse significantly increases our overhead costs.', kr: '창고 임대는 간접비를 크게 증가시킵니다.' },
+      { en: 'We are looking for ways to reduce overhead without cutting key staff.', kr: '핵심 인력 감원 없이 간접비를 줄일 방법을 모색 중입니다.' },
+    ]
+  ],
+  ['invoice', 'invoice', 'noun', '청구서, 인보이스', 'a bill sent by a seller to a buyer listing goods or services and their prices', 'basic',
+    ['finance', 'documents'],
+    ['bill', 'statement', 'account'],
+    [
+      { en: 'Please send the commercial invoice along with the packing list.', kr: '포장 명세서와 함께 상업 인보이스를 보내주세요.' },
+      { en: 'Our payment terms are 30 days from the date of the invoice.', kr: '결제 조건은 인보이스 발행일로부터 30일입니다.' },
+    ]
+  ],
+
+  // ── QUALITY & INSPECTION ──────────────────────────────────────────────────
+  ['defect', 'defect', 'noun', '결함, 불량', 'a fault or imperfection in a product that affects its quality or function', 'basic',
+    ['quality', 'manufacturing'],
+    ['fault', 'flaw', 'imperfection'],
+    [
+      { en: 'The defect rate must not exceed 0.5% per shipment.', kr: '선적 건당 불량률은 0.5%를 초과해서는 안 됩니다.' },
+      { en: 'We found a defect in the LED driver module during incoming inspection.', kr: '입고 검사에서 LED 드라이버 모듈에 결함이 발견되었습니다.' },
+    ]
+  ],
+  ['tolerance', 'tolerance', 'noun', '허용 오차', 'the allowable variation in the size or quality of a manufactured part', 'advanced',
+    ['quality', 'manufacturing'],
+    ['margin', 'acceptable range', 'deviation'],
+    [
+      { en: 'The dimension tolerance for this bracket is ±0.2mm.', kr: '이 브래킷의 치수 허용 오차는 ±0.2mm입니다.' },
+      { en: 'Any component outside the specified tolerance will be rejected at inspection.', kr: '규정된 허용 오차를 벗어난 부품은 검사에서 불합격 처리됩니다.' },
+    ]
+  ],
+  ['audit', 'audit', 'noun', '감사, 점검', 'an official inspection of an organization\'s accounts or processes', 'intermediate',
+    ['quality', 'compliance'],
+    ['inspection', 'review', 'assessment'],
+    [
+      { en: 'We conduct a full supplier audit once a year at each factory.', kr: '각 공장에서 연 1회 공급사 전체 감사를 실시합니다.' },
+      { en: 'The audit revealed several gaps in the supplier\'s quality management system.', kr: '감사를 통해 공급사의 품질 관리 시스템에 여러 미비점이 발견되었습니다.' },
+    ]
+  ],
+  ['calibrate', 'calibrate', 'verb', '교정하다, 보정하다', 'to check and adjust a measurement instrument to ensure accuracy', 'advanced',
+    ['quality', 'manufacturing'],
+    ['adjust', 'fine-tune', 'standardize'],
+    [
+      { en: 'All measuring instruments must be calibrated before the inspection begins.', kr: '검사를 시작하기 전에 모든 계측기를 교정해야 합니다.' },
+      { en: 'The production line sensors are calibrated monthly to ensure consistent output.', kr: '일관된 생산을 보장하기 위해 생산 라인 센서를 월 1회 교정합니다.' },
+    ]
+  ],
+  ['non-conformance', 'non-conformance', 'noun', '부적합, 기준 미달', 'a failure to meet a specified requirement or standard', 'advanced',
+    ['quality', 'compliance'],
+    ['defect', 'deviation', 'rejection'],
+    [
+      { en: 'All non-conformances must be reported and corrective actions documented.', kr: '모든 부적합 사항은 보고하고 시정 조치를 기록해야 합니다.' },
+      { en: 'The supplier issued a corrective action report for the non-conformance found last month.', kr: '공급사는 지난달 발견된 부적합에 대해 시정 조치 보고서를 제출했습니다.' },
+    ]
+  ],
+
+  // ── COMMUNICATION & EMAIL ─────────────────────────────────────────────────
+  ['follow up', 'follow up', 'verb', '후속 조치를 취하다, 다시 확인하다', 'to check on the progress of something previously discussed', 'basic',
+    ['communication', 'email'],
+    ['check in', 'get back to', 'revisit'],
+    [
+      { en: 'I am following up on my previous email regarding the shipment schedule.', kr: '선적 일정 관련 이전 이메일에 대해 추가 문의드립니다.' },
+      { en: 'Could you follow up with the client to confirm they received the samples?', kr: '고객에게 샘플 수령 여부를 확인해 주시겠어요?' },
+    ]
+  ],
+  ['loop in', 'loop in', 'verb', '공유하다, 포함시키다', 'to include someone in a conversation or communication', 'intermediate',
+    ['communication', 'email'],
+    ['include', 'copy in', 'bring in'],
+    [
+      { en: 'Please loop in our logistics team so they can prepare the shipment documents.', kr: '선적 서류를 준비할 수 있도록 물류팀을 함께 포함시켜 주세요.' },
+      { en: 'I\'ve looped in our quality manager so she can address the technical questions directly.', kr: '기술적 질문에 직접 답변할 수 있도록 품질 담당자를 참조 추가했습니다.' },
+    ]
+  ],
+  ['revert', 'revert', 'verb', '회신하다, 답변하다', 'to reply to someone (common in Asian business English)', 'intermediate',
+    ['communication', 'email'],
+    ['reply', 'respond', 'get back to'],
+    [
+      { en: 'Please revert with your confirmation by the end of today.', kr: '오늘 중으로 확인 회신 부탁드립니다.' },
+      { en: 'I will revert once I have checked with our production team.', kr: '생산팀에 확인한 후 회신드리겠습니다.' },
+    ]
+  ],
+  ['cc', 'CC (carbon copy)', 'verb', '참조하다, 참조로 넣다', 'to send a copy of an email to an additional recipient', 'basic',
+    ['communication', 'email'],
+    ['copy', 'include', 'notify'],
+    [
+      { en: 'Please CC our accounts team on all payment-related correspondence.', kr: '결제 관련 모든 이메일에는 회계팀을 참조 추가해주세요.' },
+      { en: 'I have CC\'d the sales manager so he is aware of the discussion.', kr: '논의 내용을 공유하기 위해 영업 부장을 참조에 추가했습니다.' },
+    ]
+  ],
+  ['escalate', 'escalate', 'verb', '상위에 보고하다, 확대하다', 'to refer a problem to a higher level of management for resolution', 'intermediate',
+    ['communication', 'management'],
+    ['raise', 'refer', 'elevate'],
+    [
+      { en: 'If the issue is not resolved within 48 hours, we will escalate it to senior management.', kr: '48시간 내 해결되지 않으면 경영진에 보고하겠습니다.' },
+      { en: 'The client has escalated their complaint after waiting three weeks for a response.', kr: '3주째 답변이 없자 고객이 상위 기관에 불만을 제기했습니다.' },
+    ]
+  ],
+
+  // ── BUSINESS STRATEGY ────────────────────────────────────────────────────
+  ['streamline', 'streamline', 'verb', '간소화하다, 효율화하다', 'to make a process simpler and more efficient', 'intermediate',
+    ['strategy', 'operations'],
+    ['simplify', 'optimize', 'improve efficiency'],
+    [
+      { en: 'We are streamlining the approval process to reduce turnaround time.', kr: '처리 시간을 줄이기 위해 승인 절차를 간소화하고 있습니다.' },
+      { en: 'Streamlining the supply chain cut our lead time by 20%.', kr: '공급망을 효율화해 납기를 20% 단축했습니다.' },
+    ]
+  ],
+  ['benchmark', 'benchmark', 'noun', '기준, 벤치마크', 'a standard or point of reference for measuring performance', 'intermediate',
+    ['analysis', 'strategy'],
+    ['standard', 'reference point', 'target'],
+    [
+      { en: 'Our pricing is benchmarked against the top three competitors in the market.', kr: '당사 가격은 시장 내 상위 3개 경쟁사를 기준으로 책정됩니다.' },
+      { en: 'The quality benchmark for this product class is a defect rate below 0.3%.', kr: '이 제품 등급의 품질 기준은 불량률 0.3% 미만입니다.' },
+    ]
+  ],
+  ['scalable', 'scalable', 'adjective', '확장 가능한', 'able to be expanded or adapted to larger demand without losing quality', 'advanced',
+    ['strategy', 'technology'],
+    ['expandable', 'flexible', 'adaptable'],
+    [
+      { en: 'We need a scalable distribution model that can handle 10x growth.', kr: '10배 성장을 감당할 수 있는 확장 가능한 유통 모델이 필요합니다.' },
+      { en: 'The new ERP system is scalable and can accommodate our expansion plans.', kr: '새 ERP 시스템은 확장 가능하며 당사의 성장 계획을 수용할 수 있습니다.' },
+    ]
+  ],
+  ['contingency', 'contingency', 'noun', '비상 계획, 만약의 사태', 'a plan prepared for an unexpected situation', 'advanced',
+    ['strategy', 'risk'],
+    ['backup plan', 'fallback', 'emergency plan'],
+    [
+      { en: 'What is our contingency if the primary supplier cannot deliver on time?', kr: '주 공급사가 제때 납품하지 못할 경우 비상 계획이 무엇인가요?' },
+      { en: 'We should build a contingency into the project timeline for unexpected delays.', kr: '예상치 못한 지연에 대비해 프로젝트 일정에 여유를 두어야 합니다.' },
+    ]
+  ],
+  ['mitigate', 'mitigate', 'verb', '완화하다, 줄이다', 'to reduce the severity or seriousness of a risk or problem', 'advanced',
+    ['risk', 'strategy'],
+    ['reduce', 'minimize', 'alleviate'],
+    [
+      { en: 'We are dual-sourcing to mitigate supply chain risk.', kr: '공급망 리스크를 줄이기 위해 이중 소싱을 진행 중입니다.' },
+      { en: 'Early payment discounts can help mitigate cash flow pressure.', kr: '조기 결제 할인은 자금 흐름 압박을 완화하는 데 도움이 됩니다.' },
+    ]
+  ],
+  ['stakeholder', 'stakeholder', 'noun', '이해관계자', 'a person or group with an interest or concern in an organization or project', 'intermediate',
+    ['management', 'strategy'],
+    ['party', 'interest group', 'participant'],
+    [
+      { en: 'We need to align all key stakeholders before the project launches.', kr: '프로젝트 출시 전에 모든 핵심 이해관계자의 동의를 구해야 합니다.' },
+      { en: 'Stakeholder feedback was incorporated into the final design specification.', kr: '이해관계자의 의견이 최종 설계 사양에 반영되었습니다.' },
+    ]
+  ],
+  ['turnaround', 'turnaround', 'noun', '처리 기간, 전환', 'the time taken to complete a process; also a business recovery', 'intermediate',
+    ['operations', 'logistics'],
+    ['processing time', 'lead time', 'response time'],
+    [
+      { en: 'Our standard quote turnaround is 2 business days.', kr: '당사 견적서 처리 기간은 영업일 기준 2일입니다.' },
+      { en: 'We are working to improve the turnaround time for sample production.', kr: '샘플 제작 처리 기간을 개선하기 위해 노력하고 있습니다.' },
+    ]
+  ],
+  ['bottleneck', 'bottleneck', 'noun', '병목 현상', 'a point of congestion in a system that slows overall performance', 'intermediate',
+    ['operations', 'analysis'],
+    ['constraint', 'chokepoint', 'blockage'],
+    [
+      { en: 'The customs clearance process is the main bottleneck in our supply chain.', kr: '통관 과정이 당사 공급망의 주요 병목 현상입니다.' },
+      { en: 'Identifying the bottleneck is the first step to improving throughput.', kr: '병목 구간을 파악하는 것이 처리량 개선의 첫 걸음입니다.' },
+    ]
+  ],
+  ['onboard', 'onboard', 'verb', '등록하다, 온보딩하다', 'to integrate a new supplier, client, or employee into a system or process', 'intermediate',
+    ['management', 'operations'],
+    ['register', 'integrate', 'bring on'],
+    [
+      { en: 'We need to onboard the new supplier before the Q3 order cycle begins.', kr: 'Q3 발주 주기가 시작되기 전에 신규 공급사를 등록해야 합니다.' },
+      { en: 'Onboarding a new key account takes about four weeks including credit checks.', kr: '신규 주요 거래처 온보딩은 신용 조회를 포함해 약 4주가 걸립니다.' },
+    ]
+  ],
+  ['rollout', 'rollout', 'noun', '출시, 단계적 도입', 'a gradual introduction of a new product, service, or system', 'intermediate',
+    ['strategy', 'operations'],
+    ['launch', 'deployment', 'release'],
+    [
+      { en: 'The new product rollout is scheduled for Q2 in key Asian markets.', kr: '신제품 출시는 Q2에 주요 아시아 시장을 대상으로 예정되어 있습니다.' },
+      { en: 'We will pilot the new system in one warehouse before a full rollout.', kr: '전면 도입 전에 창고 한 곳에서 신규 시스템을 시범 운영할 것입니다.' },
+    ]
+  ],
+  ['pipeline', 'pipeline', 'noun', '파이프라인, 진행 중인 거래', 'ongoing deals, projects, or products in development', 'intermediate',
+    ['sales', 'strategy'],
+    ['deal flow', 'backlog', 'prospect'],
+    [
+      { en: 'We have three new major accounts in the pipeline for Q4.', kr: 'Q4를 위해 3개의 주요 신규 고객사가 파이프라인에 있습니다.' },
+      { en: 'The product pipeline includes two new LED driver models launching next year.', kr: '제품 파이프라인에는 내년에 출시할 신규 LED 드라이버 2종이 포함되어 있습니다.' },
+    ]
+  ],
+  ['proactive', 'proactive', 'adjective', '선제적인, 능동적인', 'taking action in advance to prevent a problem rather than reacting to it', 'intermediate',
+    ['management', 'communication'],
+    ['preventive', 'forward-thinking', 'initiative-taking'],
+    [
+      { en: 'A proactive approach to quality control reduces costly rework later.', kr: '품질 관리에 선제적으로 접근하면 나중에 발생하는 비싼 재작업 비용을 줄일 수 있습니다.' },
+      { en: 'Please be proactive in flagging any potential delays before they escalate.', kr: '지연이 커지기 전에 선제적으로 파악해 알려주세요.' },
+    ]
+  ],
+  ['robust', 'robust', 'adjective', '탄탄한, 견고한', 'strong and unlikely to fail; effective in a wide range of conditions', 'intermediate',
+    ['quality', 'strategy'],
+    ['strong', 'reliable', 'solid'],
+    [
+      { en: 'We need a more robust process to prevent repeat defects.', kr: '반복 불량을 막기 위해 더 탄탄한 프로세스가 필요합니다.' },
+      { en: 'The new packaging design is more robust and reduces damage during transit.', kr: '새 포장 설계가 더 견고해 운송 중 파손을 줄여줍니다.' },
+    ]
+  ],
+  ['feasible', 'feasible', 'adjective', '실현 가능한, 타당한', 'possible and practical to do easily or conveniently', 'intermediate',
+    ['decision', 'planning'],
+    ['viable', 'achievable', 'workable'],
+    [
+      { en: 'Is it feasible to reduce the lead time to 20 days for urgent orders?', kr: '긴급 주문의 경우 납기를 20일로 단축하는 것이 실현 가능한가요?' },
+      { en: 'The feasibility study showed that the project is both technically and commercially viable.', kr: '타당성 검토 결과, 해당 프로젝트는 기술적으로도 상업적으로도 실현 가능한 것으로 나타났습니다.' },
+    ]
+  ],
+  ['discrepancy', 'discrepancy', 'noun', '불일치, 오차', 'a difference between two things that should be the same', 'intermediate',
+    ['quality', 'finance'],
+    ['difference', 'mismatch', 'inconsistency'],
+    [
+      { en: 'There is a discrepancy between the invoice amount and the purchase order.', kr: '인보이스 금액과 발주서 사이에 불일치가 있습니다.' },
+      { en: 'Please investigate the discrepancy in the inventory count and report back by Friday.', kr: '재고 수량의 불일치를 조사해 금요일까지 보고해 주세요.' },
+    ]
+  ],
+  ['diligence', 'due diligence', 'noun', '사전 실사', 'a thorough investigation or audit before entering a business agreement', 'advanced',
+    ['legal', 'procurement'],
+    ['investigation', 'vetting', 'assessment'],
+    [
+      { en: 'We conduct due diligence on all new suppliers before placing the first order.', kr: '첫 주문 전에 모든 신규 공급사에 대해 사전 실사를 진행합니다.' },
+      { en: 'The due diligence process includes a factory visit and financial review.', kr: '사전 실사 절차에는 공장 방문과 재무 검토가 포함됩니다.' },
+    ]
+  ],
+  ['accrue', 'accrue', 'verb', '누적되다, 발생하다', 'to accumulate or be received over time (interest, costs, benefits)', 'advanced',
+    ['finance', 'accounting'],
+    ['accumulate', 'build up', 'amass'],
+    [
+      { en: 'Interest will accrue on the overdue invoice at 1.5% per month.', kr: '연체 인보이스에는 월 1.5%의 이자가 발생합니다.' },
+      { en: 'The cost savings from the new process will accrue over the next 12 months.', kr: '새 프로세스로 인한 비용 절감 효과는 향후 12개월에 걸쳐 누적될 것입니다.' },
     ]
   ],
 ];
+
 
 export const VOCAB_ENTRIES: VocabEntry[] = RAW_VOCAB.map((item, index) => ({
   id: `vocab-${item[0]}-${index}`,
