@@ -66,6 +66,6 @@ jobs:
             PORT_PID=$(netstat -tlnp 2>/dev/null | grep ':3102 ' | awk '{print $NF}' | cut -d'/' -f1)
             [ -n "$PORT_PID" ] && kill $PORT_PID 2>/dev/null || true
             sleep 1
-            PORT=3102 $NODE /volume1/web/newhome2026/.next/standalone/server.js >> /tmp/newhome.log 2>&1 &
+            PORT=3102 ICPA_API_KEY="${{ secrets.ICPA_API_KEY }}" $NODE /volume1/web/newhome2026/.next/standalone/server.js >> /tmp/newhome.log 2>&1 &
             echo $! > /tmp/newhome.pid
             echo "Started PID=$(cat /tmp/newhome.pid) on port 3102"
