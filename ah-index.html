@@ -1,0 +1,1791 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>아현동 3D 지형 박물관 | data.ynk2014.com</title>
+  <meta name="description" content="아현동의 실제 고도 타일을 사용해 지형을 3D로 띄우고, 옛 사진과 기억 지점을 얹는 실험 페이지입니다.">
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+  <style>
+    :root{
+      --bg:#eaf0f3;
+      --panel:#fbfcfd;
+      --ink:#132032;
+      --muted:#5a6978;
+      --line:#cfd9e2;
+      --deep:#101c2c;
+      --teal:#0d8a84;
+      --sand:#b28a55;
+      --clay:#a26a3d;
+      --stone:#5a6d7f;
+      --shadow:0 20px 50px rgba(16,28,44,.12);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(13,138,132,.14), transparent 28%),
+        linear-gradient(180deg, #f6fafc 0%, var(--bg) 52%, #f2f6f8 100%);
+    }
+    a{color:inherit}
+    .wrap{max-width:1400px;margin:0 auto;padding:0 24px}
+    .topbar{
+      position:sticky;top:0;z-index:30;
+      background:rgba(246,250,252,.82);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(16,28,44,.08);
+    }
+    .topbar-inner{
+      display:flex;justify-content:space-between;align-items:center;gap:16px;
+      padding:14px 0;
+    }
+    .brand{
+      display:flex;align-items:center;gap:12px;text-decoration:none;font-weight:900;color:var(--deep);
+    }
+    .mark{
+      width:42px;height:42px;border-radius:12px;display:grid;place-items:center;color:#fff;
+      background:linear-gradient(135deg,#0d8a84,#265b99 72%,#b28a55);
+      box-shadow:0 10px 24px rgba(16,28,44,.18);
+    }
+    .nav{display:flex;gap:10px;flex-wrap:wrap}
+    .nav a{
+      text-decoration:none;padding:10px 14px;border-radius:999px;font-size:13px;font-weight:800;
+      background:rgba(255,255,255,.7);border:1px solid rgba(16,28,44,.08);
+    }
+    .hero{padding:36px 0 24px}
+    .hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(360px,.95fr);gap:24px;align-items:end}
+    .eyebrow{font-size:12px;letter-spacing:2.4px;text-transform:uppercase;color:var(--teal);font-weight:900}
+    h1{
+      margin:12px 0 0;font-size:clamp(42px,6vw,82px);line-height:.96;letter-spacing:-.05em;
+      color:var(--deep);max-width:780px;
+    }
+    .hero-copy{
+      margin:18px 0 0;max-width:760px;color:var(--muted);font-size:18px;line-height:1.78;
+    }
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      min-height:46px;padding:0 18px;border-radius:999px;text-decoration:none;font-weight:900;
+      border:1px solid transparent;
+    }
+    .btn.primary{background:var(--deep);color:#fff;box-shadow:var(--shadow)}
+    .btn.secondary{background:rgba(255,255,255,.78);border-color:rgba(16,28,44,.12)}
+    .summary{
+      background:rgba(255,255,255,.78);border:1px solid rgba(16,28,44,.08);
+      border-radius:22px;padding:22px;box-shadow:var(--shadow);
+    }
+    .summary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px}
+    .summary-item{
+      background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;min-height:98px;
+    }
+    .summary-item b{display:block;font-size:12px;color:var(--muted);margin-bottom:10px}
+    .summary-item strong{display:block;font-size:24px;line-height:1.08}
+    .summary-item small{display:block;margin-top:8px;color:var(--muted);line-height:1.55}
+    .section{padding:22px 0 42px}
+    .section-head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+    .section-head h2{margin:8px 0 0;font-size:clamp(28px,4vw,44px);line-height:1.04;letter-spacing:-.03em}
+    .section-head p{margin:12px 0 0;max-width:820px;color:var(--muted);line-height:1.75}
+    .map-shell{
+      position:relative;overflow:hidden;border-radius:30px;border:1px solid rgba(16,28,44,.08);
+      background:
+        radial-gradient(circle at 20% 15%, rgba(238,226,195,.75), transparent 24%),
+        linear-gradient(180deg, #dbe7ee 0%, #cbd8e0 100%);
+      box-shadow:var(--shadow);min-height:760px;
+    }
+    #terrain-map{
+      position:absolute;inset:0;
+    }
+    .map-overlay{
+      position:absolute;z-index:5;pointer-events:none;
+    }
+    .panel{
+      pointer-events:auto;
+      background:rgba(251,252,253,.88);backdrop-filter:blur(12px);
+      border:1px solid rgba(16,28,44,.08);border-radius:20px;box-shadow:var(--shadow);
+    }
+    .info-panel{
+      left:24px;top:24px;width:min(380px,calc(100% - 48px));padding:18px;
+    }
+    .control-panel{
+      right:24px;top:24px;width:min(260px,calc(100% - 48px));padding:16px;
+    }
+    .memory-panel{
+      right:24px;bottom:24px;width:min(420px,calc(100% - 48px));padding:20px;
+    }
+    .timeline-panel{
+      left:24px;bottom:24px;width:min(420px,calc(100% - 48px));padding:18px;
+    }
+    .panel h3{margin:0 0 10px;font-size:20px;letter-spacing:-.03em}
+    .panel p{margin:0;color:var(--muted);line-height:1.7}
+    .camera-panel{
+      left:24px;top:24px;width:min(250px,calc(100% - 48px));padding:14px;
+    }
+    .pill-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+    .pill{
+      display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:900;
+      background:#eaf2f8;color:#29445d;border:1px solid rgba(41,68,93,.1);
+    }
+    .jump-list{display:grid;gap:10px;margin-top:14px}
+    .jump-btn{
+      width:100%;text-align:left;border:none;cursor:pointer;background:#fff;color:var(--deep);
+      border:1px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;font-weight:800;
+      transition:transform .18s ease,border-color .18s ease;
+    }
+    .jump-btn:hover{transform:translateY(-1px);border-color:#90a9bb}
+    .camera-grid{display:grid;gap:8px;margin-top:10px}
+    .camera-btn{
+      width:100%;text-align:left;border:none;cursor:pointer;background:#fff;color:var(--deep);
+      border:1px solid var(--line);border-radius:14px;padding:11px 12px;font:inherit;font-weight:800;
+      transition:transform .18s ease,border-color .18s ease,background-color .18s ease;
+    }
+    .camera-btn:hover{transform:translateY(-1px);border-color:#90a9bb}
+    .camera-btn.is-active{background:#12253d;color:#fff;border-color:#12253d}
+    .camera-btn small{display:block;margin-top:4px;font-size:11px;font-weight:700;opacity:.8}
+    .legend{display:grid;gap:10px;margin-top:14px}
+    .legend-item{
+      display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--muted);line-height:1.6;
+    }
+    .legend-dot{
+      width:12px;height:12px;border-radius:999px;flex:0 0 auto;margin-top:4px;
+      background:#153659;box-shadow:0 0 0 4px rgba(255,255,255,.7);
+    }
+    .legend-dot.mass{background:#9b6238}
+    .legend-dot.road{background:#486987}
+    .memory-panel h4{margin:0;font-size:30px;letter-spacing:-.04em}
+    .memory-panel .meta{margin-top:14px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+    .memory-panel .meta article{
+      background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;
+    }
+    .memory-panel .meta b{display:block;font-size:11px;color:var(--muted);margin-bottom:8px}
+    .memory-panel .meta strong{font-size:15px;line-height:1.35}
+    .source-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+    .source-actions a{
+      text-decoration:none;padding:10px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:13px;font-weight:900;
+    }
+    .archive-list{display:grid;gap:8px;margin-top:14px}
+    .archive-item{
+      background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;
+    }
+    .archive-item b{display:block;font-size:11px;color:var(--muted);margin-bottom:6px}
+    .archive-item strong{display:block;font-size:14px;line-height:1.45}
+    .timeline-list{display:grid;gap:10px;margin-top:12px}
+    .timeline-btn{
+      width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;
+      text-align:left;border:none;cursor:pointer;background:#fff;color:var(--deep);
+      border:1px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;
+    }
+    .timeline-btn strong{display:block;font-size:14px}
+    .timeline-btn span{display:block;font-size:12px;color:var(--muted)}
+    .timeline-btn em{
+      font-style:normal;font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;
+      color:#0f7f7b;
+    }
+    .hud-panel{
+      position:absolute;z-index:7;left:24px;right:24px;bottom:24px;
+      display:grid;grid-template-columns:minmax(0,1.15fr) minmax(320px,.85fr);gap:14px;
+    }
+    .hud-card{
+      background:rgba(251,252,253,.9);backdrop-filter:blur(12px);border:1px solid rgba(16,28,44,.08);
+      border-radius:22px;padding:16px 18px;box-shadow:var(--shadow);
+    }
+    .hud-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+    .hud-head h3{margin:0;font-size:28px;letter-spacing:-.04em}
+    .hud-head p{margin:6px 0 0;color:var(--muted);line-height:1.65}
+    .hud-chip-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .hud-chip{
+      display:inline-flex;align-items:center;padding:7px 11px;border-radius:999px;background:#eff4f8;
+      border:1px solid rgba(16,28,44,.08);font-size:12px;font-weight:900;color:#29445d;
+    }
+    .hud-meta{
+      display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px;
+    }
+    .hud-meta article{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px}
+    .hud-meta b{display:block;font-size:11px;color:var(--muted);margin-bottom:8px}
+    .hud-meta strong{display:block;font-size:15px;line-height:1.35}
+    .tour-buttons{display:grid;gap:8px}
+    .tour-btn{
+      width:100%;text-align:left;border:none;cursor:pointer;background:#12253d;color:#fff;
+      border-radius:14px;padding:12px 14px;font:inherit;font-weight:900;box-shadow:var(--shadow);
+    }
+    .tour-btn.secondary{background:#fff;color:var(--deep);border:1px solid var(--line);box-shadow:none}
+    .tour-btn small{display:block;margin-top:4px;font-size:11px;font-weight:700;opacity:.8}
+    .route-meter{margin-top:12px;height:8px;border-radius:999px;background:#dfe8ee;overflow:hidden}
+    .route-meter span{
+      display:block;height:100%;width:0;background:linear-gradient(90deg,#123557,#0d8a84 66%,#d2a55f);
+      transition:width .4s ease;
+    }
+    .queue-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .queue-card{
+      background:rgba(255,255,255,.82);border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:var(--shadow);
+    }
+    .queue-card h3{margin:0 0 10px;font-size:22px;letter-spacing:-.03em}
+    .queue-card p{margin:0;color:var(--muted);line-height:1.7}
+    .queue-card ul{margin:14px 0 0;padding-left:18px;color:var(--muted);line-height:1.7}
+    .queue-card code{
+      display:block;margin-top:12px;padding:12px 14px;border-radius:14px;background:#f4f8fb;border:1px solid var(--line);
+      color:#23405c;font-size:12px;line-height:1.7;white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    }
+    .notes{
+      display:grid;grid-template-columns:1.1fr .9fr;gap:18px;background:linear-gradient(135deg,#112336,#17314c 54%,#165466 100%);
+      color:#fff;border-radius:28px;padding:24px;box-shadow:var(--shadow);
+    }
+    .notes h3{margin:0;font-size:30px;letter-spacing:-.04em}
+    .notes p{margin:12px 0 0;color:rgba(255,255,255,.78);line-height:1.75}
+    .notes .stack{display:grid;gap:10px}
+    .notes .item{
+      border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.08);border-radius:16px;padding:14px 16px;
+    }
+    .notes .item b{display:block;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#9bd3c7;margin-bottom:8px}
+    .notes .item strong{display:block;font-size:18px}
+    .notes .item span{display:block;margin-top:8px;color:rgba(255,255,255,.72);line-height:1.6;font-size:14px}
+    .walk-shell{
+      overflow:hidden;border-radius:30px;border:1px solid rgba(16,28,44,.08);
+      background:linear-gradient(180deg,#eef4f7 0%,#dde8ee 100%);box-shadow:var(--shadow);
+    }
+    .walk-stage{
+      position:relative;min-height:780px;background:#ccd7de;
+    }
+    .walk-viewport{
+      position:absolute;inset:0;overflow:hidden;cursor:grab;
+      background:radial-gradient(circle at center, rgba(255,255,255,.18), rgba(0,0,0,.06));
+    }
+    .walk-viewport.is-dragging{cursor:grabbing}
+    .walk-scene{
+      position:absolute;inset:-4%;width:108%;height:108%;object-fit:cover;object-position:center;
+      transition:transform .55s ease, opacity .45s ease;will-change:transform,opacity;
+      filter:saturate(1.04) contrast(1.02);
+    }
+    .walk-overlay{
+      position:absolute;inset:0;pointer-events:none;
+      background:
+        linear-gradient(180deg, rgba(8,16,24,.42) 0%, rgba(8,16,24,.04) 24%, rgba(8,16,24,.04) 72%, rgba(8,16,24,.48) 100%),
+        radial-gradient(circle at center, transparent 36%, rgba(7,14,22,.12) 100%);
+    }
+    .walk-panel{
+      position:absolute;z-index:7;left:24px;top:24px;width:min(420px,calc(100% - 48px));
+      background:rgba(251,252,253,.9);backdrop-filter:blur(12px);border:1px solid rgba(16,28,44,.08);
+      border-radius:22px;padding:18px;box-shadow:var(--shadow);
+    }
+    .walk-panel h3{margin:0 0 8px;font-size:28px;letter-spacing:-.04em}
+    .walk-panel p{margin:0;color:var(--muted);line-height:1.7}
+    .walk-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}
+    .walk-meta article{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px}
+    .walk-meta b{display:block;font-size:11px;color:var(--muted);margin-bottom:8px}
+    .walk-meta strong{display:block;font-size:14px;line-height:1.4}
+    .walk-controls{
+      position:absolute;z-index:7;right:24px;top:24px;display:grid;gap:10px;width:min(240px,calc(100% - 48px));
+    }
+    .walk-controls button{
+      border:none;background:rgba(16,28,44,.88);color:#fff;border-radius:16px;padding:14px 16px;
+      font:inherit;font-weight:900;cursor:pointer;box-shadow:var(--shadow);text-align:left;
+    }
+    .walk-controls button.secondary{background:rgba(251,252,253,.9);color:var(--deep);border:1px solid rgba(16,28,44,.08)}
+    .walk-strip{
+      position:absolute;z-index:7;left:24px;right:24px;bottom:24px;
+      background:rgba(251,252,253,.9);backdrop-filter:blur(12px);border:1px solid rgba(16,28,44,.08);
+      border-radius:24px;padding:14px;box-shadow:var(--shadow);
+    }
+    .walk-strip-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+    .walk-strip-head strong{font-size:15px}
+    .walk-strip-head span{color:var(--muted);font-size:13px}
+    .walk-track{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:12px}
+    .walk-node{
+      border:none;cursor:pointer;background:#fff;border:1px solid var(--line);border-radius:16px;padding:10px;
+      text-align:left;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+    }
+    .walk-node:hover{transform:translateY(-1px);border-color:#90a9bb}
+    .walk-node.is-active{border-color:#123557;box-shadow:0 0 0 2px rgba(18,53,87,.08)}
+    .walk-node b{display:block;font-size:11px;color:var(--muted);margin-bottom:6px}
+    .walk-node strong{display:block;font-size:14px;line-height:1.35}
+    .walk-progress{
+      margin-top:10px;height:8px;border-radius:999px;background:#dfe8ee;overflow:hidden;
+    }
+    .walk-progress span{
+      display:block;height:100%;width:0;background:linear-gradient(90deg,#123557,#0d8a84 72%,#d2a55f);
+      transition:width .35s ease;
+    }
+    .maplibregl-ctrl-bottom-right,.maplibregl-ctrl-bottom-left{display:none}
+    .memory-marker{
+      width:16px;height:16px;border-radius:999px;background:#10243a;border:3px solid rgba(255,255,255,.88);
+      box-shadow:0 8px 24px rgba(16,36,58,.25);cursor:pointer;
+    }
+    .label-marker{
+      display:flex;flex-direction:column;align-items:center;gap:6px;transform:translateY(-6px);
+      pointer-events:none;
+    }
+    .label-marker i{
+      width:10px;height:10px;border-radius:999px;background:#123557;border:2px solid #fff;
+      box-shadow:0 4px 12px rgba(16,36,58,.2);
+    }
+    .label-marker span{
+      display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(255,255,255,.88);
+      border:1px solid rgba(16,28,44,.08);color:#0f2033;font-size:12px;font-weight:800;white-space:nowrap;
+      box-shadow:0 8px 20px rgba(16,28,44,.14);
+    }
+    .memory-marker::after{
+      content:"";display:block;width:34px;height:34px;margin:-12px 0 0 -12px;border-radius:999px;border:1px solid rgba(16,36,58,.24);
+      animation:pulse 2.5s ease-in-out infinite;
+    }
+    @keyframes pulse{
+      0%{transform:scale(.74);opacity:.7}
+      70%{transform:scale(1.2);opacity:.08}
+      100%{transform:scale(1.2);opacity:0}
+    }
+    footer{padding:28px 0 44px;color:var(--muted);font-size:14px}
+
+    body.compact-view{
+      min-height:100vh;overflow:hidden;
+    }
+    body.compact-view .hero,
+    body.compact-view #walk,
+    body.compact-view #queue,
+    body.compact-view #notes,
+    body.compact-view footer,
+    body.compact-view .section-head,
+    body.compact-view .info-panel,
+    body.compact-view .timeline-panel,
+    body.compact-view .memory-panel{
+      display:none !important;
+    }
+    body.compact-view .topbar{
+      position:sticky;top:0;
+    }
+    body.compact-view .topbar-inner{
+      padding:12px 0;
+    }
+    body.compact-view .nav a:not(:first-child){
+      display:none;
+    }
+    body.compact-view #terrain.section{
+      padding:0;
+    }
+    body.compact-view #terrain .wrap{
+      max-width:none;padding:0;
+    }
+    body.compact-view .map-shell{
+      border-radius:0;border-left:none;border-right:none;border-bottom:none;
+      min-height:calc(100vh - 71px);
+      box-shadow:none;
+    }
+    body.compact-view .control-panel{
+      top:18px;right:18px;width:220px;padding:14px;border-radius:18px;
+    }
+    body.compact-view .camera-panel{
+      display:block !important;
+      top:18px;left:18px;width:240px;padding:14px;border-radius:18px;
+    }
+    body.compact-view .hud-panel{
+      display:grid !important;
+      left:18px;right:18px;bottom:18px;
+    }
+    body.compact-view .jump-list{
+      gap:8px;
+    }
+    body.compact-view .jump-btn{
+      padding:10px 12px;font-size:14px;
+    }
+    @media (max-width:1080px){
+      .hero-grid,.notes,.queue-grid{grid-template-columns:1fr}
+      .map-shell{min-height:980px}
+      .walk-stage{min-height:920px}
+      .control-panel{top:auto;left:24px;right:24px;bottom:320px;width:auto}
+      .camera-panel{top:24px;left:24px;width:auto;right:24px}
+      .hud-panel{grid-template-columns:1fr;left:24px;right:24px;bottom:24px}
+      .timeline-panel{left:24px;right:24px;bottom:24px;width:auto}
+      .memory-panel{left:24px;right:24px;width:auto}
+      .walk-controls{left:24px;right:24px;top:auto;bottom:240px;width:auto}
+    }
+    @media (max-width:760px){
+      .nav{display:none}
+      .summary-grid,.memory-panel .meta,.queue-grid{grid-template-columns:1fr}
+      .map-shell{min-height:1120px}
+      .walk-stage{min-height:980px}
+      .walk-meta,.walk-track{grid-template-columns:1fr}
+      .hud-meta{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body class="compact-view">
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="/">
+        <span class="mark">AH</span>
+        <span>아현동 3D 지형 박물관</span>
+      </a>
+      <nav class="nav">
+        <a href="#terrain">3D 지형</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow">Ahyun Terrain Museum</div>
+          <h1>실제 지형을 먼저 띄우고, 그 위에 옛 사진을 얹습니다.</h1>
+          <p class="hero-copy">이 페이지는 최신 도로지도나 최근 개발 이미지를 보여주려는 게 아닙니다. 아현동의 실제 고도 타일을 이용해 언덕과 골의 흐름을 3D로 띄운 뒤, 1980년대 후반부터 1990년대 말까지의 사진과 기억을 그 위에 매다는 방식으로 만들었습니다.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#terrain">3D 지형 보기</a>
+            <a class="btn secondary" href="#queue">사진 수집 큐</a>
+          </div>
+        </div>
+
+        <aside class="summary">
+          <div class="eyebrow">Build State</div>
+          <div class="summary-grid">
+            <article class="summary-item">
+              <b>지도 타입</b>
+              <strong>실제 3D 지형</strong>
+              <small>공개 Terrarium 고도 타일을 사용합니다.</small>
+            </article>
+            <article class="summary-item">
+              <b>표현 방식</b>
+              <strong>라벨 없는 지형</strong>
+              <small>옛 항공사진 오버레이가 확보되면 그걸 3D 지형 위에 얹습니다.</small>
+            </article>
+            <article class="summary-item">
+              <b>기준 연대</b>
+              <strong>1987~1999</strong>
+              <small>향수가 남아 있는 시기 위주로 구성합니다.</small>
+            </article>
+            <article class="summary-item">
+              <b>복원 방식</b>
+              <strong>사진 퍼즐 매칭</strong>
+              <small>인터넷 기사 사진, 아카이브, 사용자 수집본을 맞물려 지형축을 복원합니다.</small>
+            </article>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="terrain" class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Terrain Viewer</div>
+            <h2>아현동을 평면이 아니라, 기울어진 몸의 감각으로 다시 봅니다.</h2>
+          <p>아래 화면은 WebGL 3D 지형도입니다. 다만 지금은 옛 항공사진 원본이 확보되지 않았기 때문에, 최근 벡터지도는 제거하고 실제 지형과 기억 지점만 남겨 둔 상태입니다. 오른쪽 메모 패널은 옛 사진이 들어갈 위치입니다.</p>
+          </div>
+        </div>
+
+        <div class="map-shell">
+          <div id="terrain-map" aria-label="아현동 3D 지형도"></div>
+
+          <div class="map-overlay panel camera-panel">
+            <div class="eyebrow">Camera</div>
+            <h3>시점 프리셋</h3>
+            <div class="camera-grid">
+              <button class="camera-btn is-active" type="button" data-camera="cinematic">시네마틱
+                <small>기울어진 3D 전경</small>
+              </button>
+              <button class="camera-btn" type="button" data-camera="topo">지형 판독
+                <small>능선과 오르막 읽기</small>
+              </button>
+              <button class="camera-btn" type="button" data-camera="route">골목 추적
+                <small>메인 골목 축 정렬</small>
+              </button>
+            </div>
+          </div>
+
+          <div class="map-overlay panel info-panel">
+            <div class="eyebrow">Terrain Mode</div>
+            <h3>옛 항공사진 오버레이 대기 모드</h3>
+            <p>지금 보이는 건 아현동 일대의 실제 고도 데이터를 기반으로 한 3D 지형도입니다. 아직 1999 전후 항공 원본을 확보하지 못했기 때문에, 최근 도로와 최근 건물 레이어는 의도적으로 제거했습니다.</p>
+            <div class="legend">
+              <div class="legend-item"><span class="legend-dot"></span><span>진한 지점은 옛 사진이나 기억을 매달 후보 위치입니다.</span></div>
+              <div class="legend-item"><span class="legend-dot road"></span><span>점선은 옛 길 결과 골목 계단 축을 입체 지형 위에 다시 그린 선입니다.</span></div>
+              <div class="legend-item"><span class="legend-dot mass"></span><span>황토색 입체 매스는 산동네 주거 덩어리와 핵심 지형지물을 3D로 복원한 것입니다.</span></div>
+              <div class="legend-item"><span class="legend-dot"></span><span>옛 항공사진이 확보되면 이 지형 위에 반투명 오버레이로 바로 얹습니다.</span></div>
+              <div class="legend-item"><span class="legend-dot"></span><span>마우스로 회전, 확대, 기울이기가 가능합니다.</span></div>
+            </div>
+          </div>
+
+          <div class="map-overlay panel control-panel">
+            <div class="eyebrow">Quick Jump</div>
+            <h3>아현동 메인 축</h3>
+            <div class="jump-list">
+              <button class="jump-btn" data-jump="alley">메인 골목 입구</button>
+              <button class="jump-btn" data-jump="slope">메인 오르막</button>
+              <button class="jump-btn" data-jump="pass">아현고개 능선</button>
+              <button class="jump-btn" data-jump="school">아현초 정문 교차로</button>
+              <button class="jump-btn" data-jump="terrace">상단 골목 축</button>
+            </div>
+          </div>
+
+          <div class="map-overlay panel timeline-panel">
+            <div class="eyebrow">Historic Sequence</div>
+            <h3>지형 위에 남길 시대별 장면</h3>
+            <p>최근 도시는 빼고, 공식 기록에서 확인된 옛 장면만 지형 위에 바로 연결했습니다. 각 항목을 누르면 해당 기억 지점으로 이동합니다.</p>
+            <div class="timeline-list">
+              <button class="timeline-btn" type="button" data-jump="alley">
+                <div><strong>메인 골목 입구</strong><span>상가 간판선과 학교 담장 바깥길이 만나는 실제 생활 축</span></div>
+                <em>2009</em>
+              </button>
+              <button class="timeline-btn" type="button" data-jump="slope">
+                <div><strong>메인 오르막</strong><span>메인 골목이 위쪽 생활축으로 치고 올라가는 핵심 구간</span></div>
+                <em>2009</em>
+              </button>
+              <button class="timeline-btn" type="button" data-jump="terrace">
+                <div><strong>상단 골목 축</strong><span>오르막 끝에서 상단 생활권으로 이어지는 골목 지형 구간</span></div>
+                <em>2009</em>
+              </button>
+            </div>
+          </div>
+
+          <div class="map-overlay panel memory-panel">
+            <div class="pill-row">
+              <span class="pill" id="memory-type">능선</span>
+              <span class="pill" id="memory-era">1999 우선</span>
+              <span class="pill" id="memory-state">사진 대기</span>
+            </div>
+            <h4 id="memory-title">아현고개 능선</h4>
+            <p id="memory-copy">몸으로는 분명 오르막이 기억나는데, 평면 지도만 보면 사라지는 지점입니다. 이 자리에 1999년 항공 컷과 골목 사진이 같이 들어오면 박물관의 중심이 됩니다.</p>
+            <div class="meta">
+              <article><b>원하는 자료</b><strong id="memory-want">항공 전경 1장</strong></article>
+              <article><b>전시 방식</b><strong id="memory-format">메인 패널</strong></article>
+              <article><b>자료 상태</b><strong id="memory-status">직접 수집 대기</strong></article>
+            </div>
+            <div class="source-actions" id="memory-links"></div>
+            <div class="archive-list" id="memory-archive"></div>
+          </div>
+
+          <div class="hud-panel">
+            <div class="hud-card">
+              <div class="hud-head">
+                <div>
+                  <div class="eyebrow">Live Focus</div>
+                  <h3 id="hud-title">메인 골목 입구</h3>
+                  <p id="hud-copy">상가줄과 학교 담장 바깥길이 이어지며 오르막 메인 골목이 시작되는 기준점입니다.</p>
+                </div>
+                <div class="hud-chip-row">
+                  <span class="hud-chip" id="hud-era">2009 기준</span>
+                  <span class="hud-chip" id="hud-type">주 동선</span>
+                  <span class="hud-chip" id="hud-state">사진 확보</span>
+                </div>
+              </div>
+              <div class="hud-meta">
+                <article><b>현재 카메라</b><strong id="hud-camera">시네마틱</strong></article>
+                <article><b>주요 단서</b><strong id="hud-clue">골목 입구와 오르막 시작</strong></article>
+                <article><b>자료 상태</b><strong id="hud-status">노션 사진 확인</strong></article>
+              </div>
+            </div>
+            <div class="hud-card">
+              <div class="eyebrow">Map Tour</div>
+              <div class="tour-buttons">
+                <button class="tour-btn" type="button" id="tour-play">자동 투어 시작
+                  <small>메인 골목에서 상단 골목 축까지 순차 이동</small>
+                </button>
+                <button class="tour-btn secondary" type="button" id="tour-stop">투어 정지
+                  <small>현재 시점에서 멈춤</small>
+                </button>
+              </div>
+              <div class="route-meter"><span id="tour-progress"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="walk" class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Street Walkthrough</div>
+            <h2>골목 안으로 직접 들어가듯이, 장면을 따라 움직입니다.</h2>
+            <p>여기는 정적인 지도 대신 사진 경로를 따라 걷는 뷰어입니다. 장면마다 앞으로 나아가고, 마우스로 좌우 시선을 흔들면서 주변을 읽을 수 있습니다. 지금은 아현초 정문에서 메인 오르막까지의 골목 축을 먼저 깔았습니다.</p>
+          </div>
+        </div>
+
+        <div class="walk-shell">
+          <div class="walk-stage">
+            <div class="walk-viewport" id="walk-viewport" aria-label="아현동 골목 워크스루">
+              <img class="walk-scene" id="walk-scene" alt="아현동 골목 장면">
+              <div class="walk-overlay"></div>
+            </div>
+
+            <div class="walk-panel">
+              <div class="eyebrow">Live Route</div>
+              <h3 id="walk-title">메인 골목 입구</h3>
+              <p id="walk-copy">학교 담장 바깥길과 상가줄이 맞붙는 출발점입니다. 여기서부터 오르막 메인 골목이 시작됩니다.</p>
+              <div class="walk-meta">
+                <article><b>현재 구간</b><strong id="walk-segment">입구</strong></article>
+                <article><b>움직임</b><strong id="walk-move">전진 가능</strong></article>
+                <article><b>지형 단서</b><strong id="walk-clue">완만한 상승</strong></article>
+              </div>
+            </div>
+
+            <div class="walk-controls">
+              <button type="button" id="walk-next">앞으로 이동</button>
+              <button type="button" id="walk-prev" class="secondary">뒤로 이동</button>
+              <button type="button" id="walk-reset" class="secondary">시점 초기화</button>
+            </div>
+
+            <div class="walk-strip">
+              <div class="walk-strip-head">
+                <strong>메인 골목 경로</strong>
+                <span id="walk-counter">scene 1 / 5</span>
+              </div>
+              <div class="walk-track" id="walk-track"></div>
+              <div class="walk-progress"><span id="walk-progress"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="queue" class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Collection Queue</div>
+            <h2>이 3D 지형 위에 얹을 옛 사진 수집 큐</h2>
+            <p>최근 비교 자료는 제외했습니다. 이 지형도 위에 바로 꽂을 수 있는 옛 사진만 찾는 큐입니다.</p>
+          </div>
+        </div>
+
+        <div class="queue-grid">
+          <article class="queue-card">
+            <h3>큐 A: 1999 항공 전경</h3>
+            <p>아현동 전체의 높낮이와 주거 밀집이 한 장에 잡히는 항공 컷이 가장 중요합니다. 공식 확인 경로는 국토지리정보원의 국토정보플랫폼입니다.</p>
+            <ul>
+              <li>용도: 메인 능선 패널</li>
+              <li>목표 시기: 1999년 또는 2000~2001 인접 연도</li>
+              <li>자료 상태: 공식 항공사진 서비스 경로 확인</li>
+            </ul>
+            <code>Google Earth Historical Imagery
+아현동 1999 항공사진
+아현동 2001 항공사진</code>
+          </article>
+
+          <article class="queue-card">
+            <h3>큐 B: 골목과 계단</h3>
+            <p>오르막 계단, 담장, 전신주, 동네 상점이 보이는 생활 사진이 필요합니다. 서울역사아카이브에는 `아현·염리동` 전용 조사 페이지와 e-book이 확인됩니다.</p>
+            <ul>
+              <li>용도: 핫스팟 보조 패널</li>
+              <li>목표 시기: 1980년대 후반~1990년대 말</li>
+              <li>자료 상태: 공식 아카이브 경로 확보</li>
+            </ul>
+            <code>서울역사아카이브 아현동
+아현동 옛 사진
+아현동 골목 사진
+아현동 계단 사진</code>
+          </article>
+
+          <article class="queue-card">
+            <h3>큐 C: 동네 어귀 풍경</h3>
+            <p>시장 입구, 버스가 지나던 길, 아현동 입구 같은 일상 풍경이 들어와야 향수가 살아납니다. 현재 공개 후보 목록에는 `1930년대 전반 아현 일대 전경`, `1930년대 전반 공덕동과 아현동`, `1930년대 전반 아현초등학교 앞`이 확인됩니다.</p>
+            <ul>
+              <li>용도: 기억 문장 카드</li>
+              <li>목표 시기: 1990년대 전후</li>
+              <li>자료 상태: 더 이른 연대 후보 목록 확인</li>
+            </ul>
+            <code>아현동 시장 옛 사진
+아현동 버스길 사진
+아현동 입구 사진
+서울사 아현동</code>
+          </article>
+
+          <article class="queue-card">
+            <h3>큐 D: 사진 퍼즐 단서</h3>
+            <p>인터넷에서 확인되는 외부 사진은 골목 경사, 전깃줄 밀도, 계단/내리막, 주거 밀도를 잡는 단서입니다. 이것을 사용자가 모은 노션 사진과 겹쳐 3D 축을 맞춥니다.</p>
+            <ul>
+              <li>2022 기사: 아현1구역 언덕, 계단, 노후 주거 밀집 묘사 확인</li>
+              <li>외부 사진: 아현동 급경사 골목과 생활축 단서 확인</li>
+              <li>노션 수집본: 메인 오르막과 상단 골목 연속 컷 확인</li>
+            </ul>
+            <code>에너지경제신문 2022 아현1구역
+한겨레 2016 골목은 재개발 아파트 현관 안으로 숨어들었다
+AHYUN PJ 노션 사진 묶음</code>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="notes" class="section">
+      <div class="wrap">
+        <div class="notes">
+          <div>
+            <div class="eyebrow" style="color:#9bd3c7">Memory Notes</div>
+            <h3>이 페이지는 사진을 맞춰 지형을 되살리는 작업대입니다.</h3>
+            <p>방식은 단순하지 않습니다. 학교 앞, 상가 골목, 메인 오르막, 상단 골목 사진을 한 줄의 동선으로 맞추고, 그다음 외부 사진과 공식 아카이브를 겹쳐서 어느 구간이 실제 능선이고 어디서 골목이 꺾였는지 퍼즐처럼 복원합니다.</p>
+          </div>
+          <div class="stack">
+            <div class="item">
+              <b>Step 1</b>
+              <strong>골목 축 고정</strong>
+              <span>아현초 정문, 메인 골목 입구, 메인 오르막, 상단 골목 축을 한 동선으로 고정합니다.</span>
+            </div>
+            <div class="item">
+              <b>Step 2</b>
+              <strong>외부 사진 대조</strong>
+              <span>기사 사진과 아카이브를 대조해 경사, 계단, 담장선, 주거 밀도를 맞춥니다.</span>
+            </div>
+            <div class="item">
+              <b>Step 3</b>
+              <strong>3D 주거 매스 보정</strong>
+              <span>사진에서 읽히는 높이감과 비탈 폭을 기준으로 입체 매스를 다시 손봅니다.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">3D terrain viewer for nostalgic Ahyeon photo archive</div>
+  </footer>
+
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script>
+    const memoryPoints = {
+      alley: {
+        center: [126.9558, 37.5566],
+        zoom: 15.5,
+        pitch: 77,
+        bearing: 4,
+        type: '주 동선',
+        era: '2009 기준',
+        state: '사진 확보',
+        title: '메인 골목 입구',
+        copy: '사용자가 짚은 핵심 장면입니다. 학교 담장 바깥길과 상가 간판선이 이어지며 오르막 메인 골목이 시작됩니다. 박물관 첫 동선은 여기서 시작하는 게 맞습니다.',
+        want: '입구 장면 3장',
+        format: '메인 동선',
+        status: '노션 사진 확인',
+        archive: [
+          { era: '2009', title: '메인 골목 입구 장면', note: '상가줄, 담장선, 중앙 황색선이 같이 잡히는 기준 컷' },
+          { era: 'Notion', title: 'AHYUN PJ 사진 묶음', note: '노션 페이지에 이 축을 따라 이어지는 골목 사진 다수 확인' }
+        ],
+        links: [
+          { label: 'AHYUN PJ 노션', href: 'https://everlasting-season-7d8.notion.site/AHYUN-PJ-114c999644708168bb77c6ff223bd1ef?pvs=74' }
+        ]
+      },
+      slope: {
+        center: [126.9546, 37.5579],
+        zoom: 15.8,
+        pitch: 79,
+        bearing: 16,
+        type: '오르막',
+        era: '2009 기준',
+        state: '사진 확보',
+        title: '메인 오르막',
+        copy: '메인 골목이 위쪽 생활축으로 본격적으로 올라붙는 구간입니다. 길폭이 좁아지고 경사가 강해지면서 이 동네의 오르막 감각이 가장 직접적으로 드러납니다.',
+        want: '오르막 장면 4장',
+        format: '핵심 경사축',
+        status: '노션 사진 확인',
+        archive: [
+          { era: '2009', title: '메인 오르막 연속 장면', note: '골목에서 위쪽 생활축으로 이어지는 경사 변화가 뚜렷한 장면' },
+          { era: 'Notion', title: '오르막 생활축 사진', note: '노션 수집본 기준으로 상단 방향까지 이어지는 연속 컷' }
+        ],
+        links: [
+          { label: 'AHYUN PJ 노션', href: 'https://everlasting-season-7d8.notion.site/AHYUN-PJ-114c999644708168bb77c6ff223bd1ef?pvs=74' }
+        ]
+      },
+      pass: {
+        center: [126.9558, 37.5559],
+        zoom: 14.6,
+        pitch: 76,
+        bearing: -26,
+        type: '능선',
+        era: '1999 우선',
+        state: '사진 대기',
+        title: '아현고개 능선',
+        copy: '몸으로는 분명 오르막이 기억나는데, 평면 지도만 보면 사라지는 지점입니다. 이 자리에 1999년 항공 컷과 골목 사진이 같이 들어오면 박물관의 중심이 됩니다.',
+        want: '항공 전경 1장',
+        format: '메인 3D 축',
+        status: '직접 수집 대기',
+        archive: [
+          { era: '1999 전후', title: '아현동 전체 항공 전경', note: '능선과 주택 밀집을 한 장에 담는 메인 오버레이 후보' },
+          { era: '1930s 후보', title: '1930년대 전반 아현 일대 전경', note: '더 이른 고개 윤곽을 읽는 비교 기록' }
+        ],
+        links: [
+          { label: 'Google Earth', href: 'https://earth.google.com/web/' },
+          { label: '아현·염리동 아카이브', href: 'https://museum.seoul.go.kr/archive/archiveNew/NR_archiveList.do?ctgryId=CTGRY453&type=A' },
+          { label: '아현·염리동 e-book', href: 'https://museum.seoul.go.kr/CHM_HOME/ebook/ecatalog.jsp?Dir=356&catimage=' }
+        ]
+      },
+      stairs: {
+        center: [126.9546, 37.5568],
+        zoom: 15.2,
+        pitch: 78,
+        bearing: 34,
+        type: '골목',
+        era: '1987~1999',
+        state: '사진 대기',
+        title: '골목 계단 추정 구역',
+        copy: '오르막 계단, 전신주, 담장이 이어졌을 것 같은 기억 지점입니다. 생활 사진이 들어오면 항공사진보다 더 직접적으로 향수를 건드립니다.',
+        want: '계단 사진 2장',
+        format: '계단 3D 축',
+        status: '직접 수집 대기',
+        archive: [
+          { era: '1987~1999', title: '골목 계단 생활 사진', note: '담장, 전신주, 오르막 감각을 직접 복원하는 보조 패널' },
+          { era: '1930s 후보', title: '178번지 일대 마루보시 주택', note: '주거 경사면의 오래된 생활 조직을 읽는 참고 기록' }
+        ],
+        links: [
+          { label: '아현·염리동 아카이브', href: 'https://museum.seoul.go.kr/archive/archiveNew/NR_archiveList.do?ctgryId=CTGRY453&type=A' },
+          { label: '아현·염리동 e-book', href: 'https://museum.seoul.go.kr/CHM_HOME/ebook/ecatalog.jsp?Dir=356&catimage=' }
+        ]
+      },
+      station: {
+        center: [126.9569, 37.5576],
+        zoom: 14.8,
+        pitch: 74,
+        bearing: -4,
+        type: '저지대',
+        era: '1990년대',
+        state: '사진 대기',
+        title: '아현역 주변 저지대',
+        copy: '언덕에서 내려와 길이 열리던 감각을 붙잡을 수 있는 지점입니다. 버스길이나 동네 어귀 사진이 들어오면 기억의 입구가 됩니다.',
+        want: '거리 풍경 1장',
+        format: '입구 3D 축',
+        status: '직접 수집 대기',
+        archive: [
+          { era: '1990s', title: '아현역 주변 거리 풍경', note: '동네 입구와 저지대의 넓어지는 감각을 보여주는 장면' },
+          { era: '시정사진', title: '버스길 또는 어귀 풍경', note: '생활 흐름을 설명하는 진입부 자료 후보' }
+        ],
+        links: [
+          { label: '근현대서울사진 소개', href: 'https://museum.seoul.go.kr/archive/recentSeoul/recentSeoulPhotoBsnsIntrcn.jsp' },
+          { label: '서울시정사진 소개', href: 'https://museum.seoul.go.kr/archive/seoulAdminist/seoulAdministBsnsIntrcn.jsp' }
+        ]
+      },
+      school: {
+        center: [126.95518, 37.55530],
+        zoom: 15.3,
+        pitch: 76,
+        bearing: -12,
+        type: '생활축',
+        era: '1930s 후보',
+        state: '기록 확인',
+        title: '아현초 정문 교차로',
+        copy: '지금은 이 장면을 아현동 3D 박물관의 기준점으로 잡습니다. 학교 정문, 횡단보도, 담장선, 진입 도로가 한 화면에 잡혀서 이후 골목과 능선을 연결하는 출발점이 됩니다.',
+        want: '학교 정문 장면 1장',
+        format: '기준 앵커',
+        status: '공식 목록 확인',
+        archive: [
+          { era: '2009', title: '아현초 정문 교차로', note: '현재 확보된 기준 장면. 학교 담장선과 진입 방향을 고정하는 출발 컷' },
+          { era: '1930s', title: '1930년대 전반 아현초등학교 앞', note: '생활 동선과 골목 폭을 재구성할 수 있는 핵심 후보' },
+          { era: 'e-book', title: '아현·염리동 조사 e-book', note: '주변 설명과 위치 맥락을 함께 확인할 수 있는 보조 자료' }
+        ],
+        links: [
+          { label: '아현·염리동 아카이브', href: 'https://museum.seoul.go.kr/archive/archiveNew/NR_archiveList.do?ctgryId=CTGRY453&type=A' },
+          { label: '아현·염리동 e-book', href: 'https://museum.seoul.go.kr/CHM_HOME/ebook/ecatalog.jsp?Dir=356&catimage=' }
+        ]
+      },
+      terrace: {
+        center: [126.95495, 37.55835],
+        zoom: 15.9,
+        pitch: 80,
+        bearing: 24,
+        type: '비탈',
+        era: '2009 기준',
+        state: '사진 확보',
+        title: '상단 골목 축',
+        copy: '메인 오르막 끝에서 상단 생활권으로 이어지는 구간입니다. 길 방향과 상승 흐름이 가장 또렷하게 읽혀서 상부 지형축을 잡는 기준점이 됩니다.',
+        want: '상단 장면 3장',
+        format: '상부 생활축',
+        status: '노션 사진 확인',
+        archive: [
+          { era: '2009', title: '상단 골목 연속 장면', note: '오르막 끝에서 위쪽 생활축으로 이어지는 장면' },
+          { era: 'Notion', title: '연속 오르막 사진', note: '오르막 끝에서 상단 골목으로 이어지는 사진 다수 확인' }
+        ],
+        links: [
+          { label: 'AHYUN PJ 노션', href: 'https://everlasting-season-7d8.notion.site/AHYUN-PJ-114c999644708168bb77c6ff223bd1ef?pvs=74' }
+        ]
+      }
+    };
+
+    const walkScenes = [
+      {
+        title: '메인 골목 입구',
+        copy: '학교 담장 바깥길과 상가줄이 맞붙는 출발점입니다. 여기서부터 오르막 메인 골목이 시작됩니다.',
+        segment: '입구',
+        move: '전진 가능',
+        clue: '완만한 상승',
+        image: '/ah/ah-walk/scene-1.jpg'
+      },
+      {
+        title: '상가 골목 중간',
+        copy: '중앙선이 휘어지고 상가 간판이 조밀해지는 구간입니다. 담장선과 차도 폭이 같이 읽혀서 실제 생활 골목의 밀도가 보입니다.',
+        segment: '중간',
+        move: '전진 가능',
+        clue: '곡선 골목축',
+        image: '/ah/ah-walk/scene-2.jpg'
+      },
+      {
+        title: '오르막 분기점',
+        copy: '학교 옆에서 골목이 갈라지고, 왼편으로 비탈과 위쪽 주거축이 열리는 지점입니다. 여기서 동네의 고도가 확실히 드러납니다.',
+        segment: '분기',
+        move: '좌측 오르막',
+        clue: '경사 급상승',
+        image: '/ah/ah-walk/scene-4.jpg'
+      },
+      {
+        title: '메인 오르막',
+        copy: '길폭이 좁아지고 상승이 분명해지는 핵심 오르막 구간입니다. 메인 골목의 높이 변화가 가장 직접적으로 읽힙니다.',
+        segment: '오르막',
+        move: '계속 전진',
+        clue: '경사 강화',
+        image: '/ah/ah-walk/scene-7.jpg'
+      },
+      {
+        title: '상단 골목 축',
+        copy: '가장 위쪽 장면입니다. 오르막이 상단 생활축으로 연결되며 길이 어떻게 능선 방향으로 이어지는지 읽을 수 있습니다.',
+        segment: '상단',
+        move: '끝 지점',
+        clue: '능선 접근',
+        image: '/ah/ah-walk/scene-10.jpg'
+      }
+    ];
+
+    const titleNode = document.getElementById('memory-title');
+    const copyNode = document.getElementById('memory-copy');
+    const typeNode = document.getElementById('memory-type');
+    const eraNode = document.getElementById('memory-era');
+    const stateNode = document.getElementById('memory-state');
+    const wantNode = document.getElementById('memory-want');
+    const formatNode = document.getElementById('memory-format');
+    const statusNode = document.getElementById('memory-status');
+    const linksNode = document.getElementById('memory-links');
+    const archiveNode = document.getElementById('memory-archive');
+    const walkViewport = document.getElementById('walk-viewport');
+    const walkSceneNode = document.getElementById('walk-scene');
+    const walkTitleNode = document.getElementById('walk-title');
+    const walkCopyNode = document.getElementById('walk-copy');
+    const walkSegmentNode = document.getElementById('walk-segment');
+    const walkMoveNode = document.getElementById('walk-move');
+    const walkClueNode = document.getElementById('walk-clue');
+    const walkCounterNode = document.getElementById('walk-counter');
+    const walkTrackNode = document.getElementById('walk-track');
+    const walkProgressNode = document.getElementById('walk-progress');
+    const walkNextNode = document.getElementById('walk-next');
+    const walkPrevNode = document.getElementById('walk-prev');
+    const walkResetNode = document.getElementById('walk-reset');
+    const hudTitleNode = document.getElementById('hud-title');
+    const hudCopyNode = document.getElementById('hud-copy');
+    const hudEraNode = document.getElementById('hud-era');
+    const hudTypeNode = document.getElementById('hud-type');
+    const hudStateNode = document.getElementById('hud-state');
+    const hudCameraNode = document.getElementById('hud-camera');
+    const hudClueNode = document.getElementById('hud-clue');
+    const hudStatusNode = document.getElementById('hud-status');
+    const tourPlayNode = document.getElementById('tour-play');
+    const tourStopNode = document.getElementById('tour-stop');
+    const tourProgressNode = document.getElementById('tour-progress');
+
+    let activeSceneIndex = 0;
+    let walkPanX = 0;
+    let walkPanY = 0;
+    let walkDragging = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let dragBaseX = 0;
+    let dragBaseY = 0;
+    let activeCameraMode = 'cinematic';
+    let autoTourTimer = null;
+
+    const cameraModes = {
+      cinematic: { label: '시네마틱', pitch: 78, zoomDelta: 0, bearingDelta: 0 },
+      topo: { label: '지형 판독', pitch: 60, zoomDelta: 0.25, bearingDelta: -14 },
+      route: { label: '골목 추적', pitch: 82, zoomDelta: 0.15, bearingDelta: 18 }
+    };
+
+    function renderMemory(point) {
+      titleNode.textContent = point.title;
+      copyNode.textContent = point.copy;
+      typeNode.textContent = point.type;
+      eraNode.textContent = point.era;
+      stateNode.textContent = point.state;
+      wantNode.textContent = point.want;
+      formatNode.textContent = point.format;
+      statusNode.textContent = point.status;
+      linksNode.innerHTML = point.links.map((link) => (
+        '<a href="' + link.href + '" target="_blank" rel="noreferrer">' + link.label + '</a>'
+      )).join('');
+      archiveNode.innerHTML = (point.archive || []).map((item) => (
+        '<article class="archive-item"><b>' + item.era + '</b><strong>' + item.title + '</strong><span>' + item.note + '</span></article>'
+      )).join('');
+      if (hudTitleNode) {
+        hudTitleNode.textContent = point.title;
+        hudCopyNode.textContent = point.copy;
+        hudEraNode.textContent = point.era;
+        hudTypeNode.textContent = point.type;
+        hudStateNode.textContent = point.state;
+        hudClueNode.textContent = point.want;
+        hudStatusNode.textContent = point.status;
+      }
+    }
+
+    function clamp(value, min, max) {
+      return Math.max(min, Math.min(max, value));
+    }
+
+    function applyWalkTransform() {
+      const sceneDepth = activeSceneIndex * 0.012;
+      walkSceneNode.style.transform =
+        'translate3d(' + walkPanX + 'px,' + walkPanY + 'px,0) scale(' + (1.02 + sceneDepth) + ')';
+    }
+
+    function renderWalkScene(index) {
+      activeSceneIndex = clamp(index, 0, walkScenes.length - 1);
+      const scene = walkScenes[activeSceneIndex];
+      walkSceneNode.style.opacity = '0.28';
+      window.setTimeout(() => {
+        walkSceneNode.src = scene.image;
+        walkSceneNode.alt = scene.title;
+        walkSceneNode.style.opacity = '1';
+      }, 120);
+      walkTitleNode.textContent = scene.title;
+      walkCopyNode.textContent = scene.copy;
+      walkSegmentNode.textContent = scene.segment;
+      walkMoveNode.textContent = scene.move;
+      walkClueNode.textContent = scene.clue;
+      walkCounterNode.textContent = 'scene ' + (activeSceneIndex + 1) + ' / ' + walkScenes.length;
+      walkProgressNode.style.width = (((activeSceneIndex + 1) / walkScenes.length) * 100) + '%';
+      walkTrackNode.querySelectorAll('.walk-node').forEach((node, nodeIndex) => {
+        node.classList.toggle('is-active', nodeIndex === activeSceneIndex);
+      });
+      walkPanX = 0;
+      walkPanY = 0;
+      applyWalkTransform();
+    }
+
+    function buildWalkTrack() {
+      walkTrackNode.innerHTML = walkScenes.map((scene, index) => (
+        '<button class="walk-node' + (index === 0 ? ' is-active' : '') + '" type="button" data-scene="' + index + '">' +
+        '<b>scene ' + (index + 1) + '</b><strong>' + scene.title + '</strong></button>'
+      )).join('');
+      walkTrackNode.querySelectorAll('[data-scene]').forEach((node) => {
+        node.addEventListener('click', () => renderWalkScene(Number(node.getAttribute('data-scene'))));
+      });
+    }
+
+    function bindWalkControls() {
+      if (!walkViewport) return;
+      walkNextNode.addEventListener('click', () => renderWalkScene(activeSceneIndex + 1));
+      walkPrevNode.addEventListener('click', () => renderWalkScene(activeSceneIndex - 1));
+      walkResetNode.addEventListener('click', () => {
+        walkPanX = 0;
+        walkPanY = 0;
+        applyWalkTransform();
+      });
+
+      walkViewport.addEventListener('mousemove', (event) => {
+        if (walkDragging) {
+          walkPanX = clamp(dragBaseX + (event.clientX - dragStartX) * 0.16, -120, 120);
+          walkPanY = clamp(dragBaseY + (event.clientY - dragStartY) * 0.08, -60, 60);
+        } else {
+          const rect = walkViewport.getBoundingClientRect();
+          const ratioX = ((event.clientX - rect.left) / rect.width) - 0.5;
+          const ratioY = ((event.clientY - rect.top) / rect.height) - 0.5;
+          walkPanX = clamp(ratioX * -38, -38, 38);
+          walkPanY = clamp(ratioY * -16, -16, 16);
+        }
+        applyWalkTransform();
+      });
+
+      walkViewport.addEventListener('mouseleave', () => {
+        if (!walkDragging) {
+          walkPanX = 0;
+          walkPanY = 0;
+          applyWalkTransform();
+        }
+      });
+
+      walkViewport.addEventListener('mousedown', (event) => {
+        walkDragging = true;
+        dragStartX = event.clientX;
+        dragStartY = event.clientY;
+        dragBaseX = walkPanX;
+        dragBaseY = walkPanY;
+        walkViewport.classList.add('is-dragging');
+      });
+
+      window.addEventListener('mouseup', () => {
+        walkDragging = false;
+        walkViewport.classList.remove('is-dragging');
+      });
+
+      window.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowRight') renderWalkScene(activeSceneIndex + 1);
+        if (event.key === 'ArrowLeft') renderWalkScene(activeSceneIndex - 1);
+      });
+    }
+
+    const terrainSource = {
+      type: 'raster-dem',
+      tiles: ['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'],
+      tileSize: 256,
+      encoding: 'terrarium',
+      maxzoom: 15
+    };
+
+    const focusGeojson = {
+      type: 'FeatureCollection',
+      features: [
+        {
+          type: 'Feature',
+          properties: { kind: 'area' },
+          geometry: {
+            type: 'Polygon',
+            coordinates: [[
+              [126.9522, 37.5545],
+              [126.9604, 37.5545],
+              [126.9604, 37.5599],
+              [126.9522, 37.5599],
+              [126.9522, 37.5545]
+            ]]
+          }
+        },
+        {
+          type: 'Feature',
+          properties: { kind: 'ridge', name: '아현고개 축' },
+          geometry: {
+            type: 'LineString',
+            coordinates: [
+              [126.9537, 37.5569],
+              [126.9554, 37.5562],
+              [126.9574, 37.5556],
+              [126.9590, 37.5550]
+            ]
+          }
+        },
+        {
+          type: 'Feature',
+          properties: { kind: 'old-road', name: '고개 진입길' },
+          geometry: {
+            type: 'LineString',
+            coordinates: [
+              [126.9533, 37.5554],
+              [126.9540, 37.5559],
+              [126.9550, 37.5563],
+              [126.9562, 37.5568],
+              [126.9571, 37.5571]
+            ]
+          }
+        },
+        {
+          type: 'Feature',
+          properties: { kind: 'route-main', name: '메인 골목 동선' },
+          geometry: {
+            type: 'LineString',
+            coordinates: [
+              [126.95618, 37.55538],
+              [126.95602, 37.55572],
+              [126.95590, 37.55608],
+              [126.95582, 37.55634],
+              [126.95575, 37.55658],
+              [126.95564, 37.55684],
+              [126.95552, 37.55710],
+              [126.95534, 37.55734],
+              [126.95508, 37.55752]
+            ]
+          }
+        },
+        {
+          type: 'Feature',
+          properties: { kind: 'route-slope', name: '메인 오르막 동선' },
+          geometry: {
+            type: 'LineString',
+            coordinates: [
+              [126.95502, 37.55755],
+              [126.95488, 37.55772],
+              [126.95480, 37.55792],
+              [126.95479, 37.55812],
+              [126.95486, 37.55832],
+              [126.95500, 37.55848],
+              [126.95518, 37.55860]
+            ]
+          }
+        },
+        {
+          type: 'Feature',
+          properties: { kind: 'route-slope-glow', name: '상단 골목 동선' },
+          geometry: {
+            type: 'LineString',
+            coordinates: [
+              [126.95486, 37.55804],
+              [126.95502, 37.55820],
+              [126.95516, 37.55838],
+              [126.95528, 37.55856]
+            ]
+          }
+        },
+        {
+          type: 'Feature',
+          properties: { kind: 'contour', level: 'low' },
+          geometry: {
+            type: 'LineString',
+            coordinates: [
+              [126.95432, 37.55582],
+              [126.95488, 37.55598],
+              [126.95546, 37.55606],
+              [126.95602, 37.55604],
+              [126.95656, 37.55594]
+            ]
+          }
+        },
+        {
+          type: 'Feature',
+          properties: { kind: 'contour', level: 'mid' },
+          geometry: {
+            type: 'LineString',
+            coordinates: [
+              [126.95418, 37.55642],
+              [126.95472, 37.55658],
+              [126.95528, 37.55668],
+              [126.95584, 37.55666],
+              [126.95634, 37.55652]
+            ]
+          }
+        },
+        {
+          type: 'Feature',
+          properties: { kind: 'contour', level: 'high' },
+          geometry: {
+            type: 'LineString',
+            coordinates: [
+              [126.95410, 37.55708],
+              [126.95458, 37.55724],
+              [126.95502, 37.55736],
+              [126.95540, 37.55750],
+              [126.95574, 37.55768]
+            ]
+          }
+        },
+        {
+          type: 'Feature',
+          properties: { kind: 'wall', name: '학교 담장선' },
+          geometry: {
+            type: 'LineString',
+            coordinates: [
+              [126.95614, 37.55572],
+              [126.95628, 37.55578],
+              [126.95646, 37.55590],
+              [126.95666, 37.55606],
+              [126.95682, 37.55622]
+            ]
+          }
+        },
+        {
+          type: 'Feature',
+          properties: { kind: 'wall', name: '상단 경계선' },
+          geometry: {
+            type: 'LineString',
+            coordinates: [
+              [126.95482, 37.55792],
+              [126.95510, 37.55798],
+              [126.95536, 37.55814],
+              [126.95554, 37.55834]
+            ]
+          }
+        },
+        {
+          type: 'Feature',
+          properties: { kind: 'old-road', name: '골목 계단축' },
+          geometry: {
+            type: 'LineString',
+            coordinates: [
+              [126.9540, 37.5579],
+              [126.9546, 37.5572],
+              [126.9551, 37.5567],
+              [126.9556, 37.5561]
+            ]
+          }
+        },
+        {
+          type: 'Feature',
+          properties: { kind: 'historic-zone', name: '산동네 주거 경사면' },
+          geometry: {
+            type: 'Polygon',
+            coordinates: [[
+              [126.9540, 37.5558],
+              [126.9564, 37.5557],
+              [126.9574, 37.5570],
+              [126.9556, 37.5584],
+              [126.9537, 37.5573],
+              [126.9540, 37.5558]
+            ]]
+          }
+        },
+        {
+          type: 'Feature',
+          properties: { kind: 'mass', height: 32, base: 0, color: '#a76e42', name: '능선 주거 덩어리 A' },
+          geometry: {
+            type: 'Polygon',
+            coordinates: [[
+              [126.9550, 37.5558],
+              [126.9558, 37.5558],
+              [126.9560, 37.5564],
+              [126.9552, 37.5564],
+              [126.9550, 37.5558]
+            ]]
+          }
+        },
+        {
+          type: 'Feature',
+          properties: { kind: 'mass', height: 24, base: 0, color: '#9d6339', name: '능선 주거 덩어리 B' },
+          geometry: {
+            type: 'Polygon',
+            coordinates: [[
+              [126.9543, 37.5562],
+              [126.9550, 37.5562],
+              [126.9552, 37.5568],
+              [126.9545, 37.5568],
+              [126.9543, 37.5562]
+            ]]
+          }
+        },
+        {
+          type: 'Feature',
+          properties: { kind: 'mass', height: 20, base: 0, color: '#b17747', name: '계단 골목 덩어리' },
+          geometry: {
+            type: 'Polygon',
+            coordinates: [[
+              [126.9546, 37.5569],
+              [126.9554, 37.5569],
+              [126.9556, 37.5576],
+              [126.9548, 37.5576],
+              [126.9546, 37.5569]
+            ]]
+          }
+        },
+        {
+          type: 'Feature',
+          properties: { kind: 'mass', height: 12, base: 0, color: '#7c93a5', name: '아현초교 매스' },
+          geometry: {
+            type: 'Polygon',
+            coordinates: [[
+              [126.9549, 37.5570],
+              [126.9554, 37.5570],
+              [126.9554, 37.5574],
+              [126.9549, 37.5574],
+              [126.9549, 37.5570]
+            ]]
+          }
+        },
+        {
+          type: 'Feature',
+          properties: { kind: 'mass', height: 10, base: 0, color: '#6a8193', name: '로터리 관문 매스' },
+          geometry: {
+            type: 'Polygon',
+            coordinates: [[
+              [126.9537, 37.5557],
+              [126.9541, 37.5557],
+              [126.9542, 37.5560],
+              [126.9538, 37.5560],
+              [126.9537, 37.5557]
+            ]]
+          }
+        },
+        {
+          type: 'Feature',
+          properties: { kind: 'mass', height: 18, base: 0, color: '#8d5632', name: '메인 골목 상가 덩어리' },
+          geometry: {
+            type: 'Polygon',
+            coordinates: [[
+              [126.95554, 37.55602],
+              [126.95614, 37.55604],
+              [126.95606, 37.55686],
+              [126.95546, 37.55682],
+              [126.95554, 37.55602]
+            ]]
+          }
+        },
+        {
+          type: 'Feature',
+          properties: { kind: 'mass', height: 14, base: 0, color: '#6d7f8e', name: '학교 담장 매스' },
+          geometry: {
+            type: 'Polygon',
+            coordinates: [[
+              [126.95612, 37.55564],
+              [126.95696, 37.55572],
+              [126.95692, 37.55656],
+              [126.95610, 37.55650],
+              [126.95612, 37.55564]
+            ]]
+          }
+        },
+        {
+          type: 'Feature',
+          properties: { kind: 'mass', height: 26, base: 0, color: '#b16f3d', name: '상단 경사 주거 덩어리' },
+          geometry: {
+            type: 'Polygon',
+            coordinates: [[
+              [126.95474, 37.55794],
+              [126.95542, 37.55802],
+              [126.95560, 37.55852],
+              [126.95496, 37.55860],
+              [126.95474, 37.55794]
+            ]]
+          }
+        },
+        {
+          type: 'Feature',
+          properties: { kind: 'mass', height: 16, base: 0, color: '#9b6438', name: '중단 주거 덩어리' },
+          geometry: {
+            type: 'Polygon',
+            coordinates: [[
+              [126.95508, 37.55686],
+              [126.95552, 37.55694],
+              [126.95544, 37.55734],
+              [126.95502, 37.55728],
+              [126.95508, 37.55686]
+            ]]
+          }
+        },
+        {
+          type: 'Feature',
+          properties: { kind: 'mass', height: 11, base: 0, color: '#6f8291', name: '학교 앞 저층 덩어리' },
+          geometry: {
+            type: 'Polygon',
+            coordinates: [[
+              [126.95588, 37.55554],
+              [126.95618, 37.55556],
+              [126.95614, 37.55596],
+              [126.95584, 37.55592],
+              [126.95588, 37.55554]
+            ]]
+          }
+        },
+        {
+          type: 'Feature',
+          properties: { kind: 'label', name: '아현고개' },
+          geometry: { type: 'Point', coordinates: [126.9556, 37.5561] }
+        },
+        {
+          type: 'Feature',
+          properties: { kind: 'label', name: '아현역' },
+          geometry: { type: 'Point', coordinates: [126.9568, 37.5574] }
+        },
+        {
+          type: 'Feature',
+          properties: { kind: 'label', name: '애오개 방면' },
+          geometry: { type: 'Point', coordinates: [126.9544, 37.5580] }
+        },
+        {
+          type: 'Feature',
+          properties: { kind: 'label', name: '아현초 정문' },
+          geometry: { type: 'Point', coordinates: [126.9551, 37.5572] }
+        },
+        {
+          type: 'Feature',
+          properties: { kind: 'label', name: '메인 골목' },
+          geometry: { type: 'Point', coordinates: [126.9557, 37.5566] }
+        },
+        {
+          type: 'Feature',
+          properties: { kind: 'label', name: '메인 오르막' },
+          geometry: { type: 'Point', coordinates: [126.9548, 37.5580] }
+        }
+      ]
+    };
+
+    async function initMap() {
+      const style = {
+        version: 8,
+        sources: {
+          terrain: terrainSource,
+          hillshade: terrainSource
+        },
+        layers: [
+          { id: 'background', type: 'background', paint: { 'background-color': '#d8e1e8' } },
+          {
+            id: 'terrain-tint',
+            type: 'hillshade',
+            source: 'hillshade',
+            paint: {
+              'hillshade-shadow-color': '#5d6a54',
+              'hillshade-highlight-color': '#e0d1a8',
+              'hillshade-accent-color': '#a6b493',
+              'hillshade-illumination-direction': 210,
+              'hillshade-exaggeration': 0.55
+            }
+          },
+          {
+            id: 'hillshade',
+            type: 'hillshade',
+            source: 'hillshade',
+            paint: {
+              'hillshade-shadow-color': '#122132',
+              'hillshade-highlight-color': '#f3ecd7',
+              'hillshade-accent-color': '#7b8fa1',
+              'hillshade-illumination-direction': 325,
+              'hillshade-exaggeration': 1
+            }
+          }
+        ],
+        terrain: { source: 'terrain', exaggeration: 2.35 },
+      };
+
+      const map = new maplibregl.Map({
+        container: 'terrain-map',
+        style,
+        center: memoryPoints.alley.center,
+        zoom: memoryPoints.alley.zoom,
+        pitch: memoryPoints.alley.pitch,
+        bearing: memoryPoints.alley.bearing,
+        antialias: true
+      });
+
+        map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'top-right');
+
+      function getPointByKey(key) {
+        return memoryPoints[key];
+      }
+
+      function updateTourProgress(key) {
+        const order = ['school', 'alley', 'slope', 'terrace', 'pass'];
+        const index = order.indexOf(key);
+        const progress = index === -1 ? 0 : ((index + 1) / order.length) * 100;
+        if (tourProgressNode) tourProgressNode.style.width = progress + '%';
+      }
+
+      function flyToPoint(key, options = {}) {
+        const point = getPointByKey(key);
+        if (!point) return;
+        const camera = cameraModes[activeCameraMode];
+        renderMemory(point);
+        updateTourProgress(key);
+        if (hudCameraNode) hudCameraNode.textContent = camera.label;
+        map.flyTo({
+          center: point.center,
+          zoom: point.zoom + (camera.zoomDelta || 0),
+          pitch: camera.pitch,
+          bearing: point.bearing + (camera.bearingDelta || 0),
+          speed: options.speed || 0.72,
+          curve: options.curve || 1.38,
+          essential: true
+        });
+      }
+
+      function setCameraMode(mode) {
+        if (!cameraModes[mode]) return;
+        activeCameraMode = mode;
+        document.querySelectorAll('[data-camera]').forEach((node) => {
+          node.classList.toggle('is-active', node.getAttribute('data-camera') === mode);
+        });
+        if (hudCameraNode) hudCameraNode.textContent = cameraModes[mode].label;
+      }
+
+      function stopAutoTour() {
+        if (autoTourTimer) {
+          window.clearInterval(autoTourTimer);
+          autoTourTimer = null;
+        }
+      }
+
+      function startAutoTour() {
+        stopAutoTour();
+        const order = ['school', 'alley', 'slope', 'terrace', 'pass'];
+        let index = 0;
+        flyToPoint(order[index], { speed: 0.65, curve: 1.28 });
+        autoTourTimer = window.setInterval(() => {
+          index = (index + 1) % order.length;
+          flyToPoint(order[index], { speed: 0.62, curve: 1.26 });
+        }, 4200);
+      }
+
+      map.on('load', () => {
+        try {
+          map.addSource('ahyun-focus', { type: 'geojson', data: focusGeojson });
+          map.addLayer({
+            id: 'ahyun-area-fill',
+            type: 'fill',
+            source: 'ahyun-focus',
+            filter: ['==', ['get', 'kind'], 'area'],
+            paint: { 'fill-color': '#7eb9a8', 'fill-opacity': 0.08 }
+          });
+          map.addLayer({
+            id: 'ahyun-area-outline',
+            type: 'line',
+            source: 'ahyun-focus',
+            filter: ['==', ['get', 'kind'], 'area'],
+            paint: { 'line-color': '#0f7f7b', 'line-width': 2.4, 'line-opacity': 0.8 }
+          });
+          map.addLayer({
+            id: 'ahyun-historic-zone',
+            type: 'fill',
+            source: 'ahyun-focus',
+            filter: ['==', ['get', 'kind'], 'historic-zone'],
+            paint: { 'fill-color': '#c48e48', 'fill-opacity': 0.16 }
+          });
+          map.addLayer({
+            id: 'ahyun-masses',
+            type: 'fill-extrusion',
+            source: 'ahyun-focus',
+            filter: ['==', ['get', 'kind'], 'mass'],
+            paint: {
+              'fill-extrusion-color': ['get', 'color'],
+              'fill-extrusion-height': ['get', 'height'],
+              'fill-extrusion-base': ['get', 'base'],
+              'fill-extrusion-opacity': 0.88
+            }
+          });
+          map.addLayer({
+            id: 'ahyun-contour-glow',
+            type: 'line',
+            source: 'ahyun-focus',
+            filter: ['==', ['get', 'kind'], 'contour'],
+            paint: {
+              'line-color': '#f2e0bb',
+              'line-width': 7,
+              'line-opacity': 0.22
+            }
+          });
+          map.addLayer({
+            id: 'ahyun-contour-lines',
+            type: 'line',
+            source: 'ahyun-focus',
+            filter: ['==', ['get', 'kind'], 'contour'],
+            paint: {
+              'line-color': '#7f623e',
+              'line-width': 1.8,
+              'line-opacity': 0.72,
+              'line-dasharray': [1.4, 1.1]
+            }
+          });
+          map.addLayer({
+            id: 'ahyun-wall-lines',
+            type: 'line',
+            source: 'ahyun-focus',
+            filter: ['==', ['get', 'kind'], 'wall'],
+            paint: {
+              'line-color': '#d7eef1',
+              'line-width': 3.2,
+              'line-opacity': 0.84
+            }
+          });
+          map.addLayer({
+            id: 'ahyun-ridge-line',
+            type: 'line',
+            source: 'ahyun-focus',
+            filter: ['==', ['get', 'kind'], 'ridge'],
+            paint: { 'line-color': '#7b4e1e', 'line-width': 5, 'line-opacity': 0.86 }
+          });
+          map.addLayer({
+            id: 'ahyun-ridge-glow',
+            type: 'line',
+            source: 'ahyun-focus',
+            filter: ['==', ['get', 'kind'], 'ridge'],
+            paint: { 'line-color': '#ead7a9', 'line-width': 9, 'line-opacity': 0.35 }
+          }, 'ahyun-ridge-line');
+          map.addLayer({
+            id: 'ahyun-old-roads',
+            type: 'line',
+            source: 'ahyun-focus',
+            filter: ['==', ['get', 'kind'], 'old-road'],
+            paint: {
+              'line-color': '#3e6281',
+              'line-width': 4.2,
+              'line-opacity': 0.8,
+              'line-dasharray': [1.8, 1.2]
+            }
+          });
+          map.addLayer({
+            id: 'ahyun-main-route-glow',
+            type: 'line',
+            source: 'ahyun-focus',
+            filter: ['==', ['get', 'kind'], 'route-main'],
+            paint: {
+              'line-color': '#f3deb2',
+              'line-width': 12,
+              'line-opacity': 0.34
+            }
+          });
+          map.addLayer({
+            id: 'ahyun-main-route',
+            type: 'line',
+            source: 'ahyun-focus',
+            filter: ['==', ['get', 'kind'], 'route-main'],
+            paint: {
+              'line-color': '#173a5a',
+              'line-width': 4.8,
+              'line-opacity': 0.92
+            }
+          });
+          map.addLayer({
+            id: 'ahyun-slope-route-glow',
+            type: 'line',
+            source: 'ahyun-focus',
+            filter: ['in', ['get', 'kind'], ['literal', ['route-slope', 'route-slope-glow']]],
+            paint: {
+              'line-color': '#ecd0a0',
+              'line-width': 10,
+              'line-opacity': 0.24
+            }
+          });
+          map.addLayer({
+            id: 'ahyun-slope-route',
+            type: 'line',
+            source: 'ahyun-focus',
+            filter: ['in', ['get', 'kind'], ['literal', ['route-slope', 'route-slope-glow']]],
+            paint: {
+              'line-color': '#8d4f25',
+              'line-width': 4.4,
+              'line-opacity': 0.9,
+              'line-dasharray': [0.8, 0.5]
+            }
+          });
+        } catch (error) {
+          console.error('3D overlay setup failed', error);
+        }
+
+        focusGeojson.features
+          .filter((feature) => feature.properties.kind === 'label')
+          .forEach((feature) => {
+            const marker = document.createElement('div');
+            marker.className = 'label-marker';
+            marker.innerHTML = '<i></i><span>' + feature.properties.name + '</span>';
+            new maplibregl.Marker({ element: marker, anchor: 'bottom' })
+              .setLngLat(feature.geometry.coordinates)
+              .addTo(map);
+          });
+
+        Object.entries(memoryPoints).forEach(([key, point]) => {
+          const marker = document.createElement('button');
+          marker.className = 'memory-marker';
+          marker.type = 'button';
+          marker.setAttribute('aria-label', point.title);
+          marker.addEventListener('click', () => {
+            flyToPoint(key);
+          });
+          new maplibregl.Marker({ element: marker, anchor: 'center' })
+            .setLngLat(point.center)
+            .addTo(map);
+        });
+
+        document.querySelectorAll('[data-camera]').forEach((node) => {
+          node.addEventListener('click', () => setCameraMode(node.getAttribute('data-camera')));
+        });
+        if (tourPlayNode) tourPlayNode.addEventListener('click', startAutoTour);
+        if (tourStopNode) tourStopNode.addEventListener('click', stopAutoTour);
+      });
+
+      document.querySelectorAll('[data-jump]').forEach((button) => {
+        button.addEventListener('click', () => {
+          stopAutoTour();
+          flyToPoint(button.getAttribute('data-jump'));
+        });
+      });
+
+      map.on('error', (event) => {
+        console.error('map error', event && event.error ? event.error : event);
+      });
+    }
+
+    renderMemory(memoryPoints.alley);
+    if (hudCameraNode) hudCameraNode.textContent = cameraModes[activeCameraMode].label;
+    if (tourProgressNode) tourProgressNode.style.width = '40%';
+    buildWalkTrack();
+    bindWalkControls();
+    renderWalkScene(0);
+    initMap().catch((error) => {
+      console.error(error);
+      copyNode.textContent = '지도를 불러오지 못했습니다. 잠시 후 다시 열어 주세요.';
+    });
+  </script>
+</body>
+</html>

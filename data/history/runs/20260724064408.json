@@ -1,0 +1,132 @@
+{
+  "runId": "20260724064408",
+  "generatedAt": "2026-07-24T06:45:03.213Z",
+  "success": true,
+  "previousBundlePath": "/var/folders/wd/_rxfwh1913z9jb7_58zqvn280000gn/T/datahub-bundle-20260724064408.json",
+  "steps": [
+    {
+      "name": "procurement",
+      "sourceName": "ProcurementAdapter",
+      "command": "/usr/local/bin/node",
+      "args": [
+        "--import",
+        "tsx",
+        "scripts/collect-procurement.ts"
+      ],
+      "optional": true,
+      "startedAt": "2026-07-24T06:44:08.385Z",
+      "finishedAt": "2026-07-24T06:44:57.580Z",
+      "durationMs": 49202,
+      "success": true,
+      "status": "success",
+      "stdout": "Procurement query: 주식회사\nProcurement query: 유한회사\nProcurement query: 산업\nProcurement query: 테크\nSaved 13062 procurement rows to /Users/kimhyun/project/data/raw/procurement-2026-07-24.json (fallback)\n",
+      "stderr": "Procurement query failed: 주식회사\nProcurement query failed: 유한회사\nProcurement query failed: 산업\nProcurement query failed: 테크\nProcurement fetch failed. Reused fallback dataset from procurement-2026-07-24.json into procurement-2026-07-24.json\n",
+      "outputFile": "data/raw/procurement-2026-07-24.json",
+      "fetchedCount": 13062,
+      "insertedCount": 13062,
+      "changedCount": 0,
+      "errorCount": 0,
+      "errorSummary": null
+    },
+    {
+      "name": "build-public",
+      "sourceName": "PublicDataBuilder",
+      "command": "/usr/local/bin/node",
+      "args": [
+        "--import",
+        "tsx",
+        "scripts/build-public-data.ts"
+      ],
+      "optional": false,
+      "startedAt": "2026-07-24T06:44:57.589Z",
+      "finishedAt": "2026-07-24T06:45:02.276Z",
+      "durationMs": 4687,
+      "success": true,
+      "status": "success",
+      "stdout": "Public data written to /Users/kimhyun/project/data/public (real procurement mode, products=13062)\n",
+      "stderr": "",
+      "outputFile": "data/public/bundle.json",
+      "fetchedCount": 0,
+      "insertedCount": 13062,
+      "changedCount": 0,
+      "errorCount": 0,
+      "errorSummary": null
+    },
+    {
+      "name": "detect-changes",
+      "sourceName": "ChangeDetector",
+      "command": "/usr/local/bin/node",
+      "args": [
+        "--import",
+        "tsx",
+        "scripts/detect-changes.ts",
+        "--run-id",
+        "20260724064408",
+        "--previous",
+        "/var/folders/wd/_rxfwh1913z9jb7_58zqvn280000gn/T/datahub-bundle-20260724064408.json",
+        "--current",
+        "/Users/kimhyun/project/data/public/bundle.json"
+      ],
+      "optional": true,
+      "startedAt": "2026-07-24T06:45:02.278Z",
+      "finishedAt": "2026-07-24T06:45:02.801Z",
+      "durationMs": 523,
+      "success": true,
+      "status": "success",
+      "stdout": "{\n  \"newProducts\": 0,\n  \"removedProducts\": 0,\n  \"priceIncreased\": 0,\n  \"priceDecreased\": 0,\n  \"companyChanged\": 0,\n  \"specificationChanged\": 0\n}\n",
+      "stderr": "",
+      "outputFile": "data/analytics/change-summary.json",
+      "fetchedCount": 0,
+      "insertedCount": 0,
+      "changedCount": 0,
+      "errorCount": 0,
+      "errorSummary": null
+    },
+    {
+      "name": "analyze",
+      "sourceName": "AnalyticsEngine",
+      "command": "python3",
+      "args": [
+        "scripts/analyze-data.py"
+      ],
+      "optional": true,
+      "startedAt": "2026-07-24T06:45:02.808Z",
+      "finishedAt": "2026-07-24T06:45:03.108Z",
+      "durationMs": 300,
+      "success": true,
+      "status": "success",
+      "stdout": "Wrote /Users/kimhyun/project/data/analytics/python-analysis.json\n",
+      "stderr": "",
+      "outputFile": "data/analytics/python-analysis.json",
+      "fetchedCount": 0,
+      "insertedCount": 0,
+      "changedCount": 0,
+      "errorCount": 0,
+      "errorSummary": null
+    },
+    {
+      "name": "sync-notion",
+      "sourceName": "NotionSync",
+      "command": "/usr/local/bin/node",
+      "args": [
+        "--import",
+        "tsx",
+        "scripts/sync-notion.ts"
+      ],
+      "optional": true,
+      "startedAt": "2026-07-24T06:45:03.108Z",
+      "finishedAt": "2026-07-24T06:45:03.210Z",
+      "durationMs": 102,
+      "success": true,
+      "status": "success",
+      "stdout": "Dry run: NOTION_TOKEN or NOTION_PRODUCTS_DATABASE_ID missing\n",
+      "stderr": "",
+      "outputFile": null,
+      "fetchedCount": 0,
+      "insertedCount": 0,
+      "changedCount": 0,
+      "errorCount": 0,
+      "errorSummary": null
+    }
+  ]
+}

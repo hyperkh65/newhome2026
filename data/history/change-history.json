@@ -1,0 +1,82 @@
+[
+  {
+    "runId": "20260724064408",
+    "generatedAt": "2026-07-24T06:45:02.792Z",
+    "previousGeneratedAt": "2026-07-24T06:39:18.696Z",
+    "currentGeneratedAt": "2026-07-24T06:44:58.410Z",
+    "newProducts": [],
+    "removedProducts": [],
+    "priceIncreased": [],
+    "priceDecreased": [],
+    "companyChanged": [],
+    "specificationChanged": [],
+    "summary": {
+      "newProducts": 0,
+      "removedProducts": 0,
+      "priceIncreased": 0,
+      "priceDecreased": 0,
+      "companyChanged": 0,
+      "specificationChanged": 0
+    }
+  },
+  {
+    "runId": "20260724063826",
+    "generatedAt": "2026-07-24T06:39:25.801Z",
+    "previousGeneratedAt": "2026-07-24T06:25:29.348Z",
+    "currentGeneratedAt": "2026-07-24T06:39:18.696Z",
+    "newProducts": [],
+    "removedProducts": [],
+    "priceIncreased": [],
+    "priceDecreased": [],
+    "companyChanged": [],
+    "specificationChanged": [],
+    "summary": {
+      "newProducts": 0,
+      "removedProducts": 0,
+      "priceIncreased": 0,
+      "priceDecreased": 0,
+      "companyChanged": 0,
+      "specificationChanged": 0
+    }
+  },
+  {
+    "runId": "20260724062526",
+    "generatedAt": "2026-07-24T06:25:34.087Z",
+    "previousGeneratedAt": "2026-07-21T13:11:56.418Z",
+    "currentGeneratedAt": "2026-07-24T06:25:29.348Z",
+    "newProducts": [],
+    "removedProducts": [],
+    "priceIncreased": [],
+    "priceDecreased": [],
+    "companyChanged": [],
+    "specificationChanged": [],
+    "summary": {
+      "newProducts": 0,
+      "removedProducts": 0,
+      "priceIncreased": 0,
+      "priceDecreased": 0,
+      "companyChanged": 0,
+      "specificationChanged": 0
+    }
+  },
+  {
+    "runId": "20260721131151",
+    "generatedAt": "2026-07-21T13:12:06.920Z",
+    "previousGeneratedAt": "2026-07-21T12:41:11.975Z",
+    "currentGeneratedAt": "2026-07-21T13:11:56.418Z",
+    "newProducts": [],
+    "removedProducts": [],
+    "priceIncreased": [],
+    "priceDecreased": [],
+    "companyChanged": [],
+    "specificationChanged": [],
+    "summary": {
+      "newProducts": 0,
+      "removedProducts": 0,
+      "priceIncreased": 0,
+      "priceDecreased": 0,
+      "companyChanged": 0,
+      "specificationChanged": 0
+    }
+  }
+]

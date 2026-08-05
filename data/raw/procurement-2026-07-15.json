@@ -1,0 +1,95 @@
+[
+  {
+    "sourceId": "procurement-demo",
+    "sourceName": "ProcurementAdapter",
+    "marketType": "procurement",
+    "productId": "prd-ufo-150",
+    "displayName": "LED 공장등 UFO-AM6-150W 5700K",
+    "brand": "YNK",
+    "category": "공장등",
+    "specifications": {
+      "wattage": 150,
+      "luminousFlux": 21000,
+      "efficacy": 140,
+      "colorTemperature": 5700,
+      "cri": 80,
+      "powerFactor": 0.95,
+      "inputVoltage": "AC220V",
+      "beamAngle": 90,
+      "ipRating": "IP65",
+      "dimensions": "320x320x180",
+      "weight": "3.8kg",
+      "material": "알루미늄",
+      "installationType": "천장형",
+      "hsCode": "9405110000",
+      "countryOfOrigin": "대한민국"
+    },
+    "certifications": [
+      {
+        "type": "고효율기자재",
+        "number": "HE-2026-00111",
+        "issuer": "한국에너지공단",
+        "status": "유효",
+        "issuedAt": "2026-01-10"
+      },
+      {
+        "type": "KC",
+        "number": "SU11329-22001",
+        "issuer": "국가기술표준원",
+        "status": "유효",
+        "issuedAt": "2025-12-18"
+      }
+    ],
+    "updatedAt": "2026-07-15T09:30:00+09:00"
+  },
+  {
+    "sourceId": "procurement-demo",
+    "sourceName": "ProcurementAdapter",
+    "marketType": "procurement",
+    "productId": "prd-flood-100",
+    "displayName": "LED 투광등 FL-100W 5700K",
+    "brand": "씨피엔텍",
+    "category": "투광등",
+    "specifications": {
+      "wattage": 100,
+      "efficacy": 115,
+      "colorTemperature": 5700,
+      "inputVoltage": "AC220V",
+      "ipRating": "IP66",
+      "installationType": "브라켓형"
+    },
+    "certifications": [
+      {
+        "type": "사회적가치실현기업",
+        "number": "R24SL00001125",
+        "status": "유효"
+      }
+    ],
+    "updatedAt": "2026-07-15T09:30:00+09:00"
+  },
+  {
+    "sourceId": "procurement-demo",
+    "sourceName": "ProcurementAdapter",
+    "marketType": "procurement",
+    "productId": "prd-street-120",
+    "displayName": "LED 가로등 SL-120W 5000K",
+    "brand": "에코루멘",
+    "category": "가로등",
+    "specifications": {
+      "wattage": 120,
+      "luminousFlux": 16800,
+      "efficacy": 140,
+      "colorTemperature": 5000,
+      "ipRating": "IP66",
+      "inputVoltage": "AC220V"
+    },
+    "certifications": [
+      {
+        "type": "고효율기자재",
+        "number": "HE-2026-00088",
+        "status": "유효"
+      }
+    ],
+    "updatedAt": "2026-07-15T09:30:00+09:00"
+  }
+]

@@ -440,7 +440,6 @@ ${productRows}
         <button onClick={downloadExcel} style={{ padding: '7px 14px', background: '#0e7490', color: '#fff', border: 'none', borderRadius: 8, fontWeight: 700, fontSize: 12, cursor: 'pointer' }}>📊 Excel</button>
         <button onClick={downloadWord} style={{ padding: '7px 14px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: 8, fontWeight: 700, fontSize: 12, cursor: 'pointer' }}>📝 Word</button>
         <button onClick={() => window.print()} style={{ padding: '7px 14px', background: '#10b981', color: '#fff', border: 'none', borderRadius: 8, fontWeight: 700, fontSize: 12, cursor: 'pointer' }}>🖨️ PDF</button>
-        <a href="/admin" style={{ padding: '7px 14px', background: 'rgba(255,255,255,0.1)', color: '#fff', borderRadius: 8, fontWeight: 700, fontSize: 12, textDecoration: 'none' }}>← 관리자</a>
       </div>
 
       {/* 저장 목록 패널 */}

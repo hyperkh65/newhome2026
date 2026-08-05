@@ -1,8 +1,8 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 import { useAdminStore } from '@/lib/store';
+import QuotationContent from '@/components/QuotationContent';
 import CloudinaryUpload from '@/components/CloudinaryUpload';
 import PdfUpload from '@/components/PdfUpload';
 import RichEditor from '@/components/RichEditor';
@@ -154,7 +154,7 @@ export default function AdminPage() {
   const isLoggedIn = useAdminStore(s => s.isLoggedIn);
   const logout     = useAdminStore(s => s.logout);
 
-  const [tab, setTab]   = useState<'dashboard' | 'products' | 'report' | 'board' | 'blog' | 'settings' | 'faq' | 'contact_mgr' | 'install' | 'as_mgr' | 'catalog'>('dashboard');
+  const [tab, setTab]   = useState<'dashboard' | 'products' | 'report' | 'board' | 'blog' | 'settings' | 'faq' | 'contact_mgr' | 'install' | 'as_mgr' | 'catalog' | 'quotation'>('dashboard');
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState<Post[]>([]);
   const [editPost, setEditPost] = useState<Post | null>(null);
@@ -238,6 +238,20 @@ export default function AdminPage() {
   }
 
   if (!isLoggedIn) return null;
+
+  if (tab === 'quotation') {
+    return (
+      <div style={{ position: 'fixed', inset: 0, zIndex: 1000, background: '#fff' }}>
+        <div style={{ position: 'fixed', top: 10, left: 10, zIndex: 1100 }}>
+          <button onClick={() => setTab('dashboard')}
+            style={{ padding: '6px 14px', background: '#0f172a', color: '#fff', border: 'none', borderRadius: 8, fontWeight: 700, fontSize: 12, cursor: 'pointer' }}>
+            ← 관리자
+          </button>
+        </div>
+        <QuotationContent />
+      </div>
+    );
+  }
 
   // ── 핸들러 ──────────────────────────────────────────────────────────
   const handleEditProduct = (prod: any) => {
@@ -420,7 +434,7 @@ export default function AdminPage() {
     { key: 'install',    label: '설치가이드', icon: '🎬', badge: installGuides.length },
     { key: 'as_mgr',     label: 'A/S 관리',  icon: '🔧', badge: inquiries.filter(i=>i.type==='as' && i.status==='pending').length },
     { key: 'catalog',    label: '전자카탈로그', icon: '📚', badge: catalogItems.length },
-    { key: 'quotation',  label: '견적 의뢰서',  icon: '📄', badge: null, href: '/admin/quotation' },
+    { key: 'quotation',  label: '견적 의뢰서',  icon: '📄', badge: null },
   ];
 
   const filteredProducts = dbProducts.filter(p => {
@@ -462,31 +476,21 @@ export default function AdminPage() {
         </div>
 
         <nav style={{ padding: '16px 10px', flex: 1 }}>
-          {NAV_ITEMS.map(item => {
-            const navStyle: React.CSSProperties = {
-              width: '100%', padding: '10px 12px', borderRadius: 10, border: 'none',
-              display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', marginBottom: 3,
-              transition: 'all 0.18s', fontFamily: 'inherit', textDecoration: 'none',
-              background: tab === item.key ? 'rgba(59,130,246,0.15)' : 'transparent',
-              color: tab === item.key ? '#60a5fa' : 'rgba(255,255,255,0.45)',
-              fontWeight: tab === item.key ? 700 : 400, fontSize: 13,
-              borderLeft: `2px solid ${tab === item.key ? '#3b82f6' : 'transparent'}`,
-            };
-            const inner = (
-              <>
-                <span>{item.icon}</span>
-                <span style={{ flex: 1, textAlign: 'left' }}>{item.label}</span>
-                {item.badge !== null && (item.badge as number) > 0 && (
-                  <span style={{ fontSize: 10, background: tab === item.key ? '#3b82f6' : 'rgba(255,255,255,0.1)', color: tab === item.key ? '#fff' : 'rgba(255,255,255,0.5)', padding: '1px 6px', borderRadius: 10, fontWeight: 700 }}>{item.badge}</span>
-                )}
-              </>
-            );
-            return 'href' in item && item.href ? (
-              <Link key={item.key} href={item.href} style={navStyle}>{inner}</Link>
-            ) : (
-              <button key={item.key} onClick={() => setTab(item.key as any)} style={navStyle}>{inner}</button>
-            );
-          })}
+          {NAV_ITEMS.map(item => (
+            <button key={item.key} onClick={() => setTab(item.key as any)}
+              style={{ width: '100%', padding: '10px 12px', borderRadius: 10, border: 'none', display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', marginBottom: 3, transition: 'all 0.18s', fontFamily: 'inherit',
+                background: tab === item.key ? 'rgba(59,130,246,0.15)' : 'transparent',
+                color: tab === item.key ? '#60a5fa' : 'rgba(255,255,255,0.45)',
+                fontWeight: tab === item.key ? 700 : 400, fontSize: 13,
+                borderLeft: `2px solid ${tab === item.key ? '#3b82f6' : 'transparent'}`,
+              }}>
+              <span>{item.icon}</span>
+              <span style={{ flex: 1, textAlign: 'left' }}>{item.label}</span>
+              {item.badge !== null && (item.badge as number) > 0 && (
+                <span style={{ fontSize: 10, background: tab === item.key ? '#3b82f6' : 'rgba(255,255,255,0.1)', color: tab === item.key ? '#fff' : 'rgba(255,255,255,0.5)', padding: '1px 6px', borderRadius: 10, fontWeight: 700 }}>{item.badge}</span>
+              )}
+            </button>
+          ))}
         </nav>
 
         <div style={{ padding: '12px 10px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>

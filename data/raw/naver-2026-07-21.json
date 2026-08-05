@@ -1,0 +1,62 @@
+[
+  {
+    "sourceId": "naver-demo",
+    "sourceName": "NaverShoppingAdapter",
+    "marketType": "consumer",
+    "productId": "prd-ufo-150",
+    "title": "LED 공장등 UFO-AM6-150W 5700K",
+    "sellerName": "YNK 공식몰",
+    "price": 118000,
+    "shippingFee": 0,
+    "totalPrice": 118000,
+    "productUrl": "https://example.com/store/ufo-am6-150w",
+    "brand": "YNK 공식몰",
+    "category": "공장등",
+    "updatedAt": "2026-07-15T09:30:00+09:00"
+  },
+  {
+    "sourceId": "naver-demo",
+    "sourceName": "NaverShoppingAdapter",
+    "marketType": "consumer",
+    "productId": "prd-ufo-150",
+    "title": "UFO 하이베이 150W 5700K",
+    "sellerName": "산업조명몰",
+    "price": 121000,
+    "shippingFee": 3000,
+    "totalPrice": 124000,
+    "productUrl": "https://example.com/store/ufo-highbay-150",
+    "brand": "산업조명몰",
+    "category": "공장등",
+    "updatedAt": "2026-07-15T09:30:00+09:00"
+  },
+  {
+    "sourceId": "naver-demo",
+    "sourceName": "NaverShoppingAdapter",
+    "marketType": "consumer",
+    "productId": "prd-panel-50",
+    "title": "LED 평판등 PL-50W 6500K",
+    "sellerName": "루미스몰",
+    "price": 42000,
+    "shippingFee": 3000,
+    "totalPrice": 45000,
+    "productUrl": "https://example.com/store/pl-50w",
+    "brand": "루미스몰",
+    "category": "실내조명",
+    "updatedAt": "2026-07-15T09:30:00+09:00"
+  },
+  {
+    "sourceId": "naver-demo",
+    "sourceName": "NaverShoppingAdapter",
+    "marketType": "consumer",
+    "productId": "prd-street-120",
+    "title": "LED 가로등 SL-120W 5000K",
+    "sellerName": "에코루멘 온라인",
+    "price": 268000,
+    "shippingFee": 0,
+    "totalPrice": 268000,
+    "productUrl": "https://example.com/store/sl-120w",
+    "brand": "에코루멘 온라인",
+    "category": "가로등",
+    "updatedAt": "2026-07-15T09:30:00+09:00"
+  }
+]
