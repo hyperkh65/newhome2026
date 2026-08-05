@@ -725,11 +725,25 @@ export default function AdminPage() {
                         style={{ color: '#f87171', background: 'none', border: 'none', cursor: 'pointer', fontSize: 16 }}>×</button>
                     </div>
                   ))}
-                  <CloudinaryUpload label="+ 파일 업로드" folder="led-documents"
-                    onSuccess={url => {
-                      const name = decodeURIComponent(url.split('/').pop()?.split('?')[0] || '문서');
-                      setEditProduct({ ...editProduct, documents: [...editProduct.documents, { name, url, type: 'datasheet' }] });
-                    }} />
+                  <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                    <CloudinaryUpload label="+ 파일 업로드" folder="led-documents"
+                      onSuccess={url => {
+                        const name = decodeURIComponent(url.split('/').pop()?.split('?')[0] || '문서');
+                        setEditProduct({ ...editProduct, documents: [...editProduct.documents, { name, url, type: 'datasheet' }] });
+                      }} />
+                    <button type="button" onClick={() => {
+                      const url = prompt('파일 URL을 입력하세요 (예: /downloads/파일명.pdf)');
+                      if (!url) return;
+                      const rawName = url.split('/').pop() || '문서';
+                      const name = prompt('파일명 (표시될 이름)', decodeURIComponent(rawName)) || rawName;
+                      setEditProduct({ ...editProduct, documents: [...editProduct.documents, { name, url, type: 'drawing' }] });
+                    }} style={{ padding: '8px 14px', background: 'rgba(168,85,247,0.12)', color: '#c084fc', border: '1px solid rgba(168,85,247,0.2)', borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>
+                      🔗 URL 입력
+                    </button>
+                  </div>
+                  <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.25)', marginTop: 8 }}>
+                    칼선 등 사이트 내부 파일: /downloads/파일명.pdf 형식으로 URL 입력
+                  </p>
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
