@@ -29,6 +29,7 @@ const TitleSequence: React.FC<{ logoShort?: string; companyName?: string }> = ({
         display: 'flex', flexDirection: 'column', alignItems: 'center',
         justifyContent: 'center', textAlign: 'center', width: '100%',
         maxWidth: 1200, gap: 'clamp(24px, 4vh, 48px)',
+        marginTop: 'clamp(60px, 8vh, 100px)',
       }}>
         <div style={{ opacity: phase1, transform: `translateY(${translateY(phase1)}px)`, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20 }}>
           <div style={{
