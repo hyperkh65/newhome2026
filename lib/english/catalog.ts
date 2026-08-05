@@ -2045,6 +2045,220 @@ function createBaseExpressions(): BaseExpression[] {
         { en: "It's worth bearing in mind that exchange rates can affect your total cost.", kr: "환율이 총 비용에 영향을 미칠 수 있다는 점을 명심할 만합니다." },
       ]
     ],
+
+    // ── Batch 7: 핵심 비즈니스 구동사 ────────────────────────────────────────
+    ["put-off", "put off", "미루다, 연기하다", "intermediate", "phrasal-verb", "put off + meeting / decision / deadline", "일정이나 결정을 나중으로 미룰 때 씁니다.", "회의 연기, 결정 유보, 출시 연기에 씁니다.", "postpone 과 같지만 더 구어적입니다.", ["planning", "communication"], ["the meeting", "the decision", "the deadline"],
+      [
+        { en: "Can we put off the decision until we have more data?", kr: "데이터가 더 모일 때까지 결정을 미룰 수 있을까요?" },
+        { en: "We had to put off the factory visit due to the holiday.", kr: "명절로 인해 공장 방문을 연기해야 했습니다." },
+        { en: "Please don't put off responding — the client needs an answer today.", kr: "회신을 미루지 마세요 — 고객이 오늘 답변을 기다리고 있습니다." },
+      ]
+    ],
+    ["put-forward", "put forward", "제안하다, 제출하다", "intermediate", "phrasal-verb", "put forward + idea / proposal / candidate", "아이디어나 제안을 공식적으로 제시할 때 씁니다.", "전략 제안, 후보 추천, 의제 제출에 씁니다.", "suggest 보다 더 공식적이고 능동적인 뉘앙스입니다.", ["communication", "management"], ["a proposal", "an alternative approach", "a new timeline"],
+      [
+        { en: "I'd like to put forward a proposal for reducing our packaging costs.", kr: "포장 비용 절감에 대한 제안을 드리고 싶습니다." },
+        { en: "She put forward the idea of using a local warehouse to cut freight costs.", kr: "그녀는 운송비 절감을 위해 현지 창고를 활용하자는 아이디어를 제안했습니다." },
+        { en: "We can put forward an alternative timeline if the original one is not feasible.", kr: "원래 일정이 실현 불가능하다면 대안 일정을 제시할 수 있습니다." },
+      ]
+    ],
+    ["sign-off-on", "sign off on", "최종 승인하다", "intermediate", "phrasal-verb", "sign off on + proposal / purchase / design", "최종 결재나 공식 승인을 할 때 씁니다.", "발주 승인, 설계 확정, 계약서 결재에 씁니다.", "approve 와 같지만 더 절차적인 마무리 뉘앙스입니다.", ["approval", "management"], ["the purchase order", "the design", "the budget"],
+      [
+        { en: "Can you sign off on the purchase order before end of day?", kr: "오늘 중으로 발주서에 결재해주실 수 있나요?" },
+        { en: "The project cannot start until the director signs off on the budget.", kr: "이사가 예산을 최종 승인하기 전까지 프로젝트를 시작할 수 없습니다." },
+        { en: "We need the client to sign off on the final design before production begins.", kr: "생산 시작 전에 고객이 최종 디자인을 승인해야 합니다." },
+      ]
+    ],
+    ["take-on", "take on", "맡다, 수락하다", "intermediate", "phrasal-verb", "take on + responsibility / project / new client", "새로운 업무나 책임을 맡을 때 씁니다.", "신규 프로젝트 담당, 업무 추가 수락, 고객 온보딩에 씁니다.", "accept 보다 더 능동적으로 책임을 떠안는다는 뉘앙스입니다.", ["management", "hr"], ["the project", "the new account", "extra responsibility"],
+      [
+        { en: "Are you able to take on the new account starting next month?", kr: "다음 달부터 신규 거래처를 맡을 수 있나요?" },
+        { en: "We can take on the additional order if you can extend the deadline by one week.", kr: "납기를 1주일 연장해주시면 추가 주문을 맡을 수 있습니다." },
+        { en: "She took on full responsibility for managing the key account.", kr: "그녀가 핵심 거래처 관리 책임을 전적으로 맡았습니다." },
+      ]
+    ],
+    ["break-down", "break down", "세분화하다, 분석하다", "intermediate", "phrasal-verb", "break down + cost / process / data", "복잡한 정보를 항목별로 나눠 설명할 때 씁니다.", "견적 내역 설명, 비용 항목 분류, 절차 설명에 씁니다.", "명사형 breakdown 도 자주 씁니다.", ["analysis", "communication"], ["the cost structure", "the process steps", "the data by region"],
+      [
+        { en: "Could you break down the quotation by material, labor, and freight?", kr: "견적을 자재, 인건비, 운송비로 나눠서 보여주실 수 있나요?" },
+        { en: "Let me break down the process so everyone is clear on their responsibilities.", kr: "각자의 역할이 명확해지도록 프로세스를 단계별로 설명하겠습니다." },
+        { en: "Please break down the sales figures by region for the Q3 report.", kr: "3분기 보고서를 위해 지역별로 매출 수치를 분류해주세요." },
+      ]
+    ],
+    ["come-up-with", "come up with", "생각해내다, 마련하다", "intermediate", "phrasal-verb", "come up with + solution / idea / plan", "해결책이나 아이디어를 제시할 때 씁니다.", "문제 해결, 대안 제시, 전략 개발에 씁니다.", "think of 보다 더 창의적 과정이 강조됩니다.", ["communication", "strategy"], ["a solution", "a better approach", "an alternative plan"],
+      [
+        { en: "Can you come up with an alternative delivery route to avoid the port delay?", kr: "항구 지연을 피할 대체 배송 경로를 제안해줄 수 있나요?" },
+        { en: "The team came up with a creative way to reduce packaging waste by 30%.", kr: "팀이 포장 폐기물을 30% 줄이는 창의적인 방법을 생각해냈습니다." },
+        { en: "We need to come up with a contingency plan before the meeting on Friday.", kr: "금요일 회의 전에 비상 계획을 마련해야 합니다." },
+      ]
+    ],
+    ["look-into", "look into", "조사하다, 알아보다", "intermediate", "phrasal-verb", "look into + issue / complaint / option", "문제나 가능성을 조사하거나 검토할 때 씁니다.", "클레임 조사, 비용 절감 가능성 검토, 공급사 조사에 씁니다.", "investigate 와 같지만 더 구어적입니다.", ["operations", "communication"], ["the complaint", "the pricing options", "the delivery issue"],
+      [
+        { en: "I'll look into the missing shipment and get back to you by noon.", kr: "누락된 선적 건을 조사해 정오까지 다시 연락드리겠습니다." },
+        { en: "Could you look into whether we can consolidate the two shipments?", kr: "두 선적 건을 합칠 수 있는지 알아봐 주시겠어요?" },
+        { en: "We are looking into the root cause of the recurring defect.", kr: "반복되는 불량의 근본 원인을 조사하고 있습니다." },
+      ]
+    ],
+    ["bear-with", "bear with", "잠깐 기다려주다", "intermediate", "phrasal-verb", "bear with me / us + while", "확인이나 처리가 필요할 때 정중하게 기다림을 요청할 때 씁니다.", "정보 확인, 시스템 조회, 담당자 연결 대기에 씁니다.", "please hold 보다 더 자연스럽고 정중한 영어 표현입니다.", ["communication", "email"], ["me a moment", "us while we check", "us a little longer"],
+      [
+        { en: "Bear with me while I pull up the shipment details.", kr: "선적 내역을 확인하는 동안 잠시 기다려주세요." },
+        { en: "Please bear with us — we're currently experiencing a high volume of inquiries.", kr: "잠시 기다려주세요 — 현재 문의가 많이 접수되고 있습니다." },
+        { en: "Bear with me one moment while I transfer you to the right team.", kr: "담당 팀으로 연결해드릴 테니 잠시만 기다려주세요." },
+      ]
+    ],
+    ["carry-over", "carry over", "이월하다, 넘기다", "intermediate", "phrasal-verb", "carry over + balance / stock / budget", "잔량이나 금액을 다음 기간으로 넘길 때 씁니다.", "재고 이월, 예산 이월, 계약 조건 연장에 씁니다.", "roll over 와 비슷하지만 재무·재고 맥락에서 더 자주 씁니다.", ["finance", "operations"], ["unused budget", "remaining stock", "the balance"],
+      [
+        { en: "The unused budget will carry over to Q1 of next year.", kr: "미사용 예산은 내년 1분기로 이월됩니다." },
+        { en: "Can we carry over the remaining 500 units to the next purchase order?", kr: "나머지 500개를 다음 발주서로 이월할 수 있나요?" },
+        { en: "Any outstanding balance will be carried over to the next invoice.", kr: "잔여 미결 금액은 다음 인보이스로 이월됩니다." },
+      ]
+    ],
+    ["follow-through", "follow through", "끝까지 실행하다, 후속 조치하다", "intermediate", "phrasal-verb", "follow through on + commitment / plan / promise", "약속이나 계획을 중간에 포기하지 않고 완수할 때 씁니다.", "납기 이행, 약속 이행, 계획 완수 상황에 씁니다.", "follow up 은 확인, follow through 는 완수에 초점이 있습니다.", ["management", "communication"], ["the commitment", "the action plan", "the delivery promise"],
+      [
+        { en: "We expect the supplier to follow through on every commitment made in the meeting.", kr: "회의에서 한 모든 약속을 공급사가 끝까지 이행해주길 바랍니다." },
+        { en: "It's important to follow through on quality improvements, not just promise them.", kr: "품질 개선은 약속에서 그치지 않고 끝까지 실행하는 것이 중요합니다." },
+        { en: "The team followed through on every action item from last week's meeting.", kr: "팀이 지난주 회의의 모든 액션 아이템을 끝까지 실행했습니다." },
+      ]
+    ],
+    ["iron-out", "iron out", "해결하다, 조율하다", "intermediate", "phrasal-verb", "iron out + issues / differences / details", "사소한 문제나 의견 차이를 정리해 마무리할 때 씁니다.", "계약 최종 조율, 이견 해소, 세부 사항 정리에 씁니다.", "resolve 보다 더 마무리하는 과정의 뉘앙스가 강합니다.", ["negotiation", "communication"], ["the remaining issues", "the pricing differences", "the contract details"],
+      [
+        { en: "Let's iron out the remaining contract details before the signing.", kr: "서명 전에 나머지 계약 세부 사항을 정리합시다." },
+        { en: "We need to iron out the differences on the payment terms.", kr: "결제 조건의 이견을 조율해야 합니다." },
+        { en: "There are a few logistical issues to iron out before the shipment.", kr: "선적 전에 정리해야 할 물류 문제가 몇 가지 있습니다." },
+      ]
+    ],
+    ["factor-in", "factor in", "감안하다, 포함시키다", "intermediate", "phrasal-verb", "factor in + cost / risk / time", "계획이나 계산에 특정 요소를 포함시킬 때 씁니다.", "원가 산정, 납기 계획, 리스크 평가에 씁니다.", "take into account 와 같은 뜻이지만 더 간결합니다.", ["analysis", "planning"], ["the freight cost", "the inspection time", "exchange rate risk"],
+      [
+        { en: "Please factor in the freight cost when preparing the final quotation.", kr: "최종 견적 작성 시 운송비를 반드시 포함시켜주세요." },
+        { en: "We need to factor in at least five extra days for customs clearance.", kr: "통관을 위해 최소 5일을 추가로 감안해야 합니다." },
+        { en: "Have you factored in the exchange rate risk in your price projection?", kr: "가격 전망에 환율 리스크를 감안했나요?" },
+      ]
+    ],
+    ["phase-out", "phase out", "단계적으로 폐지하다", "advanced", "phrasal-verb", "phase out + product / process / supplier", "특정 제품·공급사·프로세스를 점차적으로 없앨 때 씁니다.", "구형 제품 단종, 공급사 교체, 구 시스템 전환에 씁니다.", "discontinue 보다 더 점진적인 과정을 강조합니다.", ["strategy", "operations"], ["the old product line", "the legacy process", "the underperforming supplier"],
+      [
+        { en: "We plan to phase out the old LED model by the end of this year.", kr: "구형 LED 모델은 올해 말까지 단계적으로 단종할 계획입니다." },
+        { en: "The company is phasing out manual inspection in favor of automated testing.", kr: "회사는 자동화 검사로의 전환을 위해 수동 검사를 단계적으로 폐지하고 있습니다." },
+        { en: "We will phase out the current supplier over the next two quarters.", kr: "향후 2분기에 걸쳐 현재 공급사를 단계적으로 교체할 것입니다." },
+      ]
+    ],
+    ["map-out", "map out", "계획을 세우다, 상세히 짜다", "intermediate", "phrasal-verb", "map out + plan / process / timeline", "단계적 계획이나 일정을 구체적으로 정리할 때 씁니다.", "프로젝트 일정 수립, 출시 계획 작성, 물류 경로 기획에 씁니다.", "plan 보다 더 시각적이고 체계적인 뉘앙스입니다.", ["planning", "management"], ["the project timeline", "the supply chain process", "the go-to-market plan"],
+      [
+        { en: "Let's map out the entire production schedule for the next six months.", kr: "향후 6개월 생산 일정 전체를 상세히 짜봅시다." },
+        { en: "Can you map out the key milestones for the new product launch?", kr: "신제품 출시의 주요 마일스톤을 정리해주시겠어요?" },
+        { en: "We need to map out the supply chain process before we start production.", kr: "생산 시작 전에 공급망 프로세스를 체계적으로 정리해야 합니다." },
+      ]
+    ],
+    ["fall-through", "fall through", "무산되다, 성사되지 않다", "intermediate", "phrasal-verb", "deal / plan / order fell through", "합의나 계획이 마지막에 무산될 때 씁니다.", "계약 실패, 주문 취소, 협상 결렬 상황에 씁니다.", "fall apart 보다 더 계획·거래 맥락에 한정됩니다.", ["negotiation", "sales"], ["the deal", "the order", "the partnership"],
+      [
+        { en: "The deal fell through at the last minute due to pricing disagreements.", kr: "가격 이견으로 막판에 계약이 무산되었습니다." },
+        { en: "If this supplier falls through, we'll need a backup option ready.", kr: "이 공급사가 무산될 경우 대안을 미리 준비해야 합니다." },
+        { en: "The partnership fell through after the compliance audit revealed several gaps.", kr: "컴플라이언스 감사에서 여러 문제가 드러난 후 파트너십이 무산되었습니다." },
+      ]
+    ],
+    ["stand-by", "stand by", "대기하다, 지지하다", "intermediate", "phrasal-verb", "stand by + decision / team / for update", "대기하거나 결정·입장을 유지할 때 씁니다.", "업데이트 대기 요청, 결정 고수, 팀 지원 표명에 씁니다.", "wait 보다 더 준비된 상태에서의 대기를 뜻합니다.", ["communication", "management"], ["for an update", "by the original decision", "the team"],
+      [
+        { en: "Please stand by — I'm confirming the shipment status with the freight forwarder.", kr: "잠시 대기해주세요 — 포워더에게 선적 현황을 확인 중입니다." },
+        { en: "We stand by our original delivery commitment of June 15.", kr: "당사는 6월 15일 원래 납기 약속을 고수합니다." },
+        { en: "Stand by for a full update once the factory inspection is complete.", kr: "공장 검사가 완료되는 즉시 전체 현황을 알려드리겠습니다." },
+      ]
+    ],
+    ["weigh-up", "weigh up", "따져보다, 비교검토하다", "intermediate", "phrasal-verb", "weigh up + options / risks / pros and cons", "여러 선택지를 비교해 장단점을 평가할 때 씁니다.", "공급사 선정, 투자 결정, 전략 선택에 씁니다.", "consider 보다 더 비교·균형의 과정이 강조됩니다.", ["analysis", "decision"], ["the options", "the risks and benefits", "the cost vs. quality tradeoff"],
+      [
+        { en: "Let's weigh up the options before we commit to a single supplier.", kr: "단일 공급사를 결정하기 전에 선택지를 꼼꼼히 따져봅시다." },
+        { en: "We need to weigh up the cost savings against the quality risk.", kr: "비용 절감 효과와 품질 리스크를 함께 따져봐야 합니다." },
+        { en: "Have you weighed up all the options, including local sourcing?", kr: "현지 소싱을 포함한 모든 선택지를 검토해보셨나요?" },
+      ]
+    ],
+
+    // ── Batch 7: 비즈니스 회화 필수 패턴 ──────────────────────────────────────
+    ["whats-the-status", "What's the status on", "~은 현재 어떻게 되고 있나요?", "intermediate", "pattern", "What's the status on + project / order / approval?", "진행 상황을 간결하게 물어볼 때 씁니다.", "선적 진행 확인, 승인 현황 문의, 프로젝트 진도 확인에 씁니다.", "How is X going? 보다 더 업무적이고 직접적입니다.", ["communication", "meeting"], ["the shipment", "the sample approval", "the contract review"],
+      [
+        { en: "What's the status on the shipment? The client is asking for an ETA.", kr: "선적은 현재 어떻게 되고 있나요? 고객이 예상 도착일을 묻고 있습니다." },
+        { en: "What's the status on the sample approval? We've been waiting for two weeks.", kr: "샘플 승인은 어떻게 됐나요? 2주째 기다리고 있습니다." },
+        { en: "Quick update — what's the status on the contract review?", kr: "간단히 확인드립니다 — 계약 검토는 어떻게 진행되고 있나요?" },
+      ]
+    ],
+    ["circle-back-on", "circle back on", "다시 논의하다, 재확인하다", "intermediate", "pattern", "circle back on + topic / question / issue", "잠시 보류했던 주제로 다시 돌아올 때 씁니다.", "미뤄뒀던 안건 재논의, 답변 재확인, 팔로업에 씁니다.", "get back to 와 비슷하지만 더 자연스러운 비즈니스 구어체입니다.", ["communication", "meeting"], ["the pricing", "the pending question", "the delivery schedule"],
+      [
+        { en: "I wanted to circle back on the pricing discussion from last week.", kr: "지난주 가격 논의 건을 다시 확인하고 싶었습니다." },
+        { en: "Can we circle back on this after we receive the updated spec sheet?", kr: "업데이트된 사양서를 받은 후 이 건을 다시 논의할 수 있을까요?" },
+        { en: "Let's circle back on the payment terms once the sample is approved.", kr: "샘플이 승인된 후 결제 조건을 다시 논의합시다." },
+      ]
+    ],
+    ["just-to-confirm", "just to confirm", "확인 차 말씀드리면", "intermediate", "pattern", "just to confirm + what was agreed / the details", "기존 합의나 이해를 명확히 재확인할 때 씁니다.", "이메일 요약, 통화 후 확인, 오해 방지에 씁니다.", "just to make sure 와 같은 뜻입니다.", ["email", "communication"], ["the order quantity", "the delivery date", "our agreement"],
+      [
+        { en: "Just to confirm — the order quantity is 2,000 units at $8.50 each, correct?", kr: "확인 차 말씀드리면 — 주문 수량은 2,000개에 개당 $8.50이 맞나요?" },
+        { en: "Just to confirm, you'd like us to ship via sea freight on FOB terms.", kr: "확인 차 말씀드리면, FOB 조건으로 해상 운송을 원하시는 것 맞죠?" },
+        { en: "Just to confirm our next steps: we'll send the revised quote by Thursday.", kr: "다음 단계를 확인하면: 수정 견적서를 목요일까지 보내드리겠습니다." },
+      ]
+    ],
+    ["moving-forward", "moving forward", "앞으로는, 향후에는", "intermediate", "pattern", "moving forward, + plan or change", "현재 문제를 인정하고 앞으로의 방향을 제시할 때 씁니다.", "문제 해결 후 재발 방지, 새 프로세스 도입, 방향 전환에 씁니다.", "from now on 과 같지만 더 비즈니스 어조에 자연스럽습니다.", ["communication", "management"], ["all orders must be confirmed in writing", "we will use dual suppliers", "reports are due every Monday"],
+      [
+        { en: "Moving forward, all order changes must be confirmed in writing.", kr: "앞으로는 모든 주문 변경 사항을 서면으로 확인해야 합니다." },
+        { en: "Moving forward, we will source from two suppliers to reduce risk.", kr: "향후에는 리스크 감소를 위해 두 공급사에서 소싱할 것입니다." },
+        { en: "Moving forward, please include me in all client-facing communications.", kr: "앞으로는 모든 고객 대면 커뮤니케이션에 저를 포함시켜주세요." },
+      ]
+    ],
+    ["i-wanted-to-touch-base", "I wanted to touch base", "간단히 연락드리고 싶었습니다", "intermediate", "pattern", "I wanted to touch base + regarding / on", "가볍고 친근하게 현황을 확인하거나 연락을 취할 때 씁니다.", "진행 상황 점검, 관계 유지, 후속 확인에 씁니다.", "check in 과 비슷하지만 더 자연스러운 비즈니스 표현입니다.", ["communication", "email"], ["the pending quote", "the upcoming delivery", "our partnership"],
+      [
+        { en: "I wanted to touch base regarding the sample we sent last week.", kr: "지난주 보내드린 샘플 관련해서 간단히 연락드리고 싶었습니다." },
+        { en: "Just touching base — have you had a chance to review the proposal?", kr: "간단히 확인드립니다 — 제안서 검토하셨나요?" },
+        { en: "I wanted to touch base before the end of the month to discuss the next order.", kr: "이달 말 전에 다음 주문 논의를 위해 연락드리고 싶었습니다." },
+      ]
+    ],
+    ["ill-keep-you-posted", "I'll keep you posted", "계속 업데이트해 드리겠습니다", "intermediate", "pattern", "I'll keep you posted + on the progress", "진행 상황을 계속 알려주겠다고 약속할 때 씁니다.", "조사 중인 클레임, 확인 중인 재고, 협상 진행 상황 공유에 씁니다.", "I'll update you 보다 더 구어적이고 자연스럽습니다.", ["communication", "email"], ["the investigation", "the shipment status", "the negotiation progress"],
+      [
+        { en: "I'll keep you posted on the shipment status as it develops.", kr: "선적 현황이 업데이트되는 대로 계속 알려드리겠습니다." },
+        { en: "I'm still waiting for the factory's response — I'll keep you posted.", kr: "공장 답변을 기다리는 중입니다 — 업데이트되는 대로 바로 알려드리겠습니다." },
+        { en: "The inspection is ongoing; I'll keep you posted with daily updates.", kr: "검사가 진행 중입니다. 매일 현황을 공유해 드리겠습니다." },
+      ]
+    ],
+    ["can-we-jump-on-a-call", "Can we jump on a call?", "통화 가능하신가요?", "intermediate", "pattern", "Can we jump on a call + to discuss / this week?", "빠른 전화 통화를 제안할 때 씁니다.", "복잡한 사안, 긴급 이슈, 이메일로 해결하기 어려운 상황에 씁니다.", "이메일보다 통화가 더 효율적일 때 쓰는 구어적 표현입니다.", ["communication", "meeting"], ["this issue", "the delivery update", "the contract terms"],
+      [
+        { en: "Can we jump on a call this afternoon to discuss the delivery issue?", kr: "납품 문제를 논의하기 위해 오늘 오후에 통화 가능하신가요?" },
+        { en: "Rather than going back and forth over email, can we jump on a quick call?", kr: "이메일로 계속 주고받는 것보다 간단히 통화하는 게 어떨까요?" },
+        { en: "Can we jump on a call tomorrow morning to go over the contract terms?", kr: "계약 조건을 검토하기 위해 내일 오전에 통화 가능하신가요?" },
+      ]
+    ],
+    ["i-appreciate-your-patience", "I appreciate your patience", "기다려 주셔서 감사합니다", "intermediate", "pattern", "I appreciate your patience + while / on this matter", "지연이나 불편에 대해 정중히 감사를 표할 때 씁니다.", "처리 지연, 답변 늦어짐, 장기 대기 상황에서 씁니다.", "thank you for waiting 보다 더 격식 있고 진심이 담긴 표현입니다.", ["email", "communication"], ["on this matter", "while we resolve the issue", "during the investigation"],
+      [
+        { en: "I appreciate your patience while we look into the quality issue.", kr: "품질 문제를 조사하는 동안 기다려 주셔서 감사합니다." },
+        { en: "Thank you for your continued patience — we are finalizing the quotation now.", kr: "계속 기다려 주셔서 감사합니다 — 지금 견적서를 마무리하고 있습니다." },
+        { en: "I appreciate your patience on this matter; we will respond by end of day.", kr: "이 건에 대해 기다려 주셔서 감사합니다. 오늘 중으로 답변드리겠습니다." },
+      ]
+    ],
+    ["i-need-to-push-back-on", "I need to push back on", "~에 대해 이의를 제기해야 합니다", "advanced", "pattern", "I need to push back on + that / the timeline / the price", "상대방의 제안에 정중하지만 단호하게 이의를 제기할 때 씁니다.", "가격 협상, 무리한 납기 요청, 불합리한 조건 거절에 씁니다.", "I disagree 보다 더 전문적이고 건설적인 어조입니다.", ["negotiation", "communication"], ["the proposed timeline", "the pricing", "the responsibility clause"],
+      [
+        { en: "I need to push back on the 15-day lead time — it simply isn't achievable.", kr: "15일 납기에 대해 이의를 제기해야 합니다 — 실현이 불가능합니다." },
+        { en: "I need to push back on the pricing — a 5% reduction is the maximum we can offer.", kr: "가격에 대해 이의가 있습니다 — 5% 인하가 당사가 제시할 수 있는 최대치입니다." },
+        { en: "I have to push back on who bears responsibility for the customs delay.", kr: "통관 지연의 책임 주체에 대해 이의를 제기해야 합니다." },
+      ]
+    ],
+    ["on-our-radar", "on our radar", "우리가 주목하고 있는", "intermediate", "pattern", "on our radar + for this quarter / as a priority", "인지하고 있거나 주시 중인 사안을 말할 때 씁니다.", "신규 시장 검토, 공급사 모니터링, 잠재 리스크 추적에 씁니다.", "being watched 보다 더 긍정적이고 전략적인 뉘앙스입니다.", ["strategy", "communication"], ["the new regulation", "the potential supplier", "the market opportunity"],
+      [
+        { en: "This supplier has been on our radar for potential dual-sourcing.", kr: "이 공급사는 이중 소싱 가능성으로 우리가 주목해온 곳입니다." },
+        { en: "The new import regulation is on our radar — we're monitoring closely.", kr: "새 수입 규정이 주목 대상입니다 — 면밀히 모니터링하고 있습니다." },
+        { en: "Your company has been on our radar as a potential long-term partner.", kr: "귀사는 잠재적인 장기 파트너로 우리가 주목해온 곳입니다." },
+      ]
+    ],
+    ["please-find-attached", "Please find attached", "첨부 파일을 확인해주세요", "intermediate", "pattern", "Please find attached + the document / invoice / report", "이메일에서 첨부 파일을 안내할 때 씁니다.", "견적서, 인보이스, 계약서, 보고서 전송 이메일에 씁니다.", "영미권 이메일에서 가장 많이 쓰이는 표현 중 하나입니다.", ["email", "documents"], ["the quotation", "the signed contract", "the revised proposal"],
+      [
+        { en: "Please find attached our updated quotation for 5,000 units.", kr: "5,000개 주문에 대한 업데이트된 견적서를 첨부합니다." },
+        { en: "Please find attached the signed contract for your records.", kr: "귀사 기록을 위해 서명된 계약서를 첨부합니다." },
+        { en: "Please find attached the quality inspection report from last week's audit.", kr: "지난주 감사의 품질 검사 보고서를 첨부합니다." },
+      ]
+    ],
+    ["as-discussed", "as discussed", "논의한 대로", "intermediate", "pattern", "as discussed + in our meeting / on the call", "이전 대화나 회의에서 합의한 내용을 재확인할 때 씁니다.", "회의 후속 이메일, 계약 조건 재확인, 합의 사항 이행에 씁니다.", "as agreed 와 비슷하지만 더 구어체적입니다.", ["email", "communication"], ["the revised quotation", "the delivery terms", "the next steps"],
+      [
+        { en: "As discussed in our call yesterday, we will proceed with a trial order of 500 units.", kr: "어제 통화에서 논의한 대로, 500개 시험 주문을 진행하겠습니다." },
+        { en: "As discussed, the payment terms will be 30% deposit and 70% against B/L copy.", kr: "논의한 대로, 결제 조건은 계약금 30%에 선하증권 사본 수령 시 잔금 70%로 합니다." },
+        { en: "Please find attached the revised quotation as discussed in our meeting on Monday.", kr: "월요일 회의에서 논의한 대로 수정된 견적서를 첨부합니다." },
+      ]
+    ],
+    ["i-look-forward-to", "I look forward to", "기대하겠습니다", "intermediate", "pattern", "I look forward to + hearing from you / working with you", "이메일 마무리나 협력에 대한 기대를 표현할 때 씁니다.", "이메일 마무리, 파트너십 시작, 회의 예고에 씁니다.", "I'm looking forward to 도 같은 뜻이며 둘 다 자연스럽습니다.", ["email", "formal"], ["hearing from you", "your confirmation", "working together"],
+      [
+        { en: "I look forward to hearing from you and hope we can move forward quickly.", kr: "답변을 기다리겠습니다. 빠르게 진행되길 바랍니다." },
+        { en: "I look forward to a successful partnership and a long-term business relationship.", kr: "성공적인 파트너십과 장기적인 비즈니스 관계를 기대합니다." },
+        { en: "I look forward to your confirmation so we can finalize the shipping schedule.", kr: "선적 일정을 확정할 수 있도록 귀사의 확인을 기다리겠습니다." },
+      ]
+    ],
   ];
 
   return raw.map(
