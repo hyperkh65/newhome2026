@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import dynamic from "next/dynamic";
 
 import "./globals.css";
-
-const PortCongestionWidget = dynamic(() => import('@/components/PortCongestionWidget'), { ssr: false });
+import ClientWidgets from '@/components/ClientWidgets';
 
 export const metadata: Metadata = {
   title: "LED 제품 시장 데이터",
@@ -24,7 +22,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="ko">
       <body>
         {children}
-        <PortCongestionWidget />
+        <ClientWidgets />
       </body>
     </html>
   );
