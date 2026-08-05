@@ -468,10 +468,12 @@ function CostCalculator() {
 // ── 인천항 혼잡도 ─────────────────────────────────────────────────────
 interface PortData {
   level: 'smooth' | 'normal' | 'busy' | 'very_busy';
-  waiting: number; berthed: number; berthRate: number; departed: number;
+  terminals: { code: string; name: string; status: string; label: string; level: string; updatedAt?: string }[];
   updatedAt: string; demo?: boolean;
-  vessels: { name: string; flag: string; status: string; eta?: string; etd?: string }[];
 }
+const PORT_LV = { smooth: { label:'원활', color:'#34d399', bg:'rgba(52,211,153,0.1)', icon:'🟢' }, normal: { label:'보통', color:'#60a5fa', bg:'rgba(96,165,250,0.1)', icon:'🔵' }, busy: { label:'혼잡', color:'#f59e0b', bg:'rgba(245,158,11,0.1)', icon:'🟡' }, very_busy: { label:'매우혼잡', color:'#ef4444', bg:'rgba(239,68,68,0.1)', icon:'🔴' } };
+const STATUS_CLR: Record<string, string> = { A:'#34d399', B:'#60a5fa', C:'#f59e0b', D:'#ef4444' };
+
 function PortCongestion() {
   const [data, setData] = useState<PortData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -500,48 +502,28 @@ function PortCongestion() {
       <button onClick={fetchData} style={{ display: 'block', margin: '14px auto 0', padding: '8px 16px', background: 'rgba(239,68,68,0.1)', color: '#f87171', border: '1px solid rgba(239,68,68,0.2)', borderRadius: 8, cursor: 'pointer', fontSize: 12 }}>재시도</button>
     </div>
   );
-  const LV = { smooth: { label:'원활', color:'#34d399', bg:'rgba(52,211,153,0.1)', icon:'🟢' }, normal: { label:'보통', color:'#60a5fa', bg:'rgba(96,165,250,0.1)', icon:'🔵' }, busy: { label:'혼잡', color:'#f59e0b', bg:'rgba(245,158,11,0.1)', icon:'🟡' }, very_busy: { label:'매우혼잡', color:'#ef4444', bg:'rgba(239,68,68,0.1)', icon:'🔴' } };
-  const lv = LV[data.level];
+  const lv = PORT_LV[data.level];
   return (
     <div>
       <div style={{ background: lv.bg, borderRadius: 16, padding: '18px', border: `1px solid ${lv.color}30`, marginBottom: 14, textAlign: 'center' }}>
         <div style={{ fontSize: 32, marginBottom: 6 }}>{lv.icon}</div>
         <div style={{ fontSize: 20, fontWeight: 900, color: lv.color }}>{lv.label}</div>
-        <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', marginTop: 2 }}>인천항 현재 혼잡도</div>
-        {data.demo && <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.25)', marginTop: 6 }}>※ 시뮬레이션 데이터</div>}
+        <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', marginTop: 2 }}>인천항 전체 혼잡도</div>
+        {data.demo && <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.25)', marginTop: 6 }}>※ 추정 데이터</div>}
+        {!data.demo && <div style={{ fontSize: 10, color: 'rgba(52,211,153,0.6)', marginTop: 6 }}>인천항만공사 실시간</div>}
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8, marginBottom: 14 }}>
-        {[{label:'대기 선박',value:data.waiting,color:'#f59e0b'},{label:'접안 중',value:data.berthed,color:'#34d399'},{label:'출항 예정',value:data.departed,color:'#60a5fa'}].map(s=>(
-          <div key={s.label} style={{ background:'rgba(255,255,255,0.04)', borderRadius:10, padding:'10px', textAlign:'center', border:'1px solid rgba(255,255,255,0.06)' }}>
-            <div style={{ fontSize:20, fontWeight:900, color:s.color }}>{s.value}</div>
-            <div style={{ fontSize:9, color:'rgba(255,255,255,0.3)', marginTop:3 }}>{s.label}</div>
+      <div style={{ marginBottom: 14 }}>
+        <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 8 }}>터미널별 현황</div>
+        {(data.terminals ?? []).map((t) => (
+          <div key={t.code} style={{ display:'flex', alignItems:'center', justifyContent:'space-between', padding:'8px 10px', background:'rgba(255,255,255,0.025)', borderRadius:8, marginBottom:5, border:'1px solid rgba(255,255,255,0.05)' }}>
+            <div style={{ flex:1, minWidth:0 }}>
+              <div style={{ fontSize:12, fontWeight:600, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{t.name}</div>
+              {t.updatedAt && <div style={{ fontSize:9, color:'rgba(255,255,255,0.25)' }}>{t.updatedAt} 기준</div>}
+            </div>
+            <span style={{ fontSize:10, padding:'2px 8px', borderRadius:5, fontWeight:700, flexShrink:0, marginLeft:8, color: STATUS_CLR[t.status]??'#60a5fa', background:`${STATUS_CLR[t.status]??'#60a5fa'}18`, border:`1px solid ${STATUS_CLR[t.status]??'#60a5fa'}30` }}>{t.label}</span>
           </div>
         ))}
       </div>
-      <div style={{ background:'rgba(255,255,255,0.03)', borderRadius:10, padding:'12px', marginBottom:14, border:'1px solid rgba(255,255,255,0.06)' }}>
-        <div style={{ display:'flex', justifyContent:'space-between', marginBottom:6, fontSize:11 }}>
-          <span style={{ color:'rgba(255,255,255,0.45)' }}>선석 점유율</span>
-          <span style={{ color:'#fff', fontWeight:700 }}>{data.berthRate}%</span>
-        </div>
-        <div style={{ height:5, background:'rgba(255,255,255,0.07)', borderRadius:3 }}>
-          <div style={{ height:'100%', width:`${data.berthRate}%`, background: data.berthRate>80?'#ef4444':data.berthRate>60?'#f59e0b':'#34d399', borderRadius:3 }} />
-        </div>
-      </div>
-      {data.vessels.length > 0 && (
-        <div>
-          <div style={{ fontSize:10, color:'rgba(255,255,255,0.3)', fontWeight:700, textTransform:'uppercase', letterSpacing:0.5, marginBottom:7 }}>입출항 선박 현황</div>
-          {data.vessels.map((v,i)=>(
-            <div key={i} style={{ display:'flex', alignItems:'center', gap:8, padding:'8px 10px', background:'rgba(255,255,255,0.025)', borderRadius:8, marginBottom:5, border:'1px solid rgba(255,255,255,0.05)' }}>
-              <span style={{ fontSize:16 }}>{v.flag}</span>
-              <div style={{ flex:1, minWidth:0 }}>
-                <div style={{ fontSize:12, fontWeight:600, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{v.name}</div>
-                <div style={{ fontSize:10, color:'rgba(255,255,255,0.3)' }}>{v.eta?`ETA ${v.eta}`:''}{v.etd?`ETD ${v.etd}`:''}</div>
-              </div>
-              <span style={{ fontSize:10, padding:'2px 7px', borderRadius:5, fontWeight:700, flexShrink:0, background:v.status==='접안'?'rgba(52,211,153,0.15)':v.status==='대기'?'rgba(245,158,11,0.15)':'rgba(96,165,250,0.15)', color:v.status==='접안'?'#34d399':v.status==='대기'?'#f59e0b':'#60a5fa' }}>{v.status}</span>
-            </div>
-          ))}
-        </div>
-      )}
       <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginTop:10 }}>
         <span style={{ fontSize:10, color:'rgba(255,255,255,0.2)' }}>업데이트: {data.updatedAt}</span>
         <button onClick={fetchData} style={{ padding:'5px 10px', background:'rgba(14,165,233,0.1)', color:'#0ea5e9', border:'1px solid rgba(14,165,233,0.2)', borderRadius:7, cursor:'pointer', fontSize:11, fontFamily:'inherit' }}>🔄 새로고침</button>
