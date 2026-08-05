@@ -241,7 +241,7 @@ export default function AdminPage() {
 
   if (tab === 'quotation') {
     return (
-      <div style={{ position: 'fixed', inset: 0, zIndex: 1000, background: '#fff' }}>
+      <div style={{ position: 'fixed', inset: 0, zIndex: 1000, background: '#fff', overflowY: 'auto' }}>
         <div style={{ position: 'fixed', top: 10, left: 10, zIndex: 1100 }}>
           <button onClick={() => setTab('dashboard')}
             style={{ padding: '6px 14px', background: '#0f172a', color: '#fff', border: 'none', borderRadius: 8, fontWeight: 700, fontSize: 12, cursor: 'pointer' }}>
