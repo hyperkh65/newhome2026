@@ -55,7 +55,7 @@ export default function ManualSidebar() {
         <span style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', letterSpacing: '2px', fontWeight: 700, fontSize: '14px' }}>
           콘텐츠
         </span>
-        <span style={{ transform: isHovered ? 'rotate(180deg)' : 'none', transition: '0.3s' }}>👉</span>
+        <span style={{ transform: isHovered ? 'scaleX(-1)' : 'none', transition: '0.3s', display: 'inline-block' }}>👉</span>
       </div>
 
       {/* 펼침 상태 시 보이는 메뉴 영역 */}

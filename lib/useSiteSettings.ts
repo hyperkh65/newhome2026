@@ -12,6 +12,12 @@ export interface SiteSettings {
     business_id: string;
     about_text: string;
   };
+  site: {
+    site_name: string;
+    logo_url: string;
+    description: string;
+    logo_short: string;
+  };
   menus: { label: string; href: string }[];
 }
 
@@ -24,8 +30,9 @@ export function useSiteSettings() {
       if (data) {
         const company = data.find(d => d.category === 'company')?.config;
         const menus = data.find(d => d.category === 'menu')?.config;
+        const site = data.find(d => d.category === 'site')?.config || {};
         if (company && menus) {
-          setSettings({ company, menus });
+          setSettings({ company, site, menus });
         }
       }
     }

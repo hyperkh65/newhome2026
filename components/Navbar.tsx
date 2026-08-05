@@ -97,7 +97,7 @@ export default function Navbar() {
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               transform: scrolled ? 'scale(0.92)' : 'scale(1)', transition: 'transform 0.3s',
             }}>
-              <span style={{ color: '#fff', fontWeight: 950, fontSize: 16 }}>YnK</span>
+              <span style={{ color: '#fff', fontWeight: 950, fontSize: 16 }}>{settings?.site?.logo_short || 'YnK'}</span>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <span style={{ fontSize: 22, fontWeight: 900, letterSpacing: '-0.04em', color: '#ffffff', lineHeight: 1 }}>

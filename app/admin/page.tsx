@@ -16,7 +16,7 @@ interface Post {
 interface SiteSettings {
   company: { name: string; address: string; tel: string; fax: string; email: string; business_id: string; about_text: string };
   menus: { label: string; href: string }[];
-  site: { site_name: string; logo_url: string; description: string };
+  site: { site_name: string; logo_url: string; description: string; logo_short: string };
   payment: { bank_name: string; account_number: string; account_holder: string; notice: string };
 }
 interface DocFile { name: string; url: string; type: 'datasheet' | 'manual' | 'cert' | 'drawing' | 'other' }
@@ -39,6 +39,75 @@ const EMPTY_PRODUCT: EditableProduct = {
   image: '', images: [], specs: {}, documents: [], featured: false,
 };
 const EMPTY_POST: Post = { type: 'board', title: '', content: '', author: 'YNK Admin', attachments: [], is_locked: false, password: '', cover_image: '' };
+
+// ── SVG 로고 생성기 ────────────────────────────────────────────────────────
+function makeSvgDataUri(text: string, color1: string, color2: string, size: number): string {
+  const fontSize = Math.max(10, Math.floor(size * 0.34));
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="${color1}"/><stop offset="100%" stop-color="${color2}"/></linearGradient></defs><rect width="${size}" height="${size}" rx="${Math.floor(size * 0.27)}" fill="url(#g)"/><text x="${size / 2}" y="${Math.floor(size * 0.66)}" text-anchor="middle" dominant-baseline="middle" fill="white" font-weight="900" font-size="${fontSize}" font-family="system-ui,-apple-system,sans-serif">${text}</text></svg>`;
+  try { return 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg))); } catch { return ''; }
+}
+
+function SvgLogoGenerator({ defaultText, onApply }: { defaultText: string; onApply: (uri: string) => void }) {
+  const [text, setText] = useState(defaultText);
+  const [color1, setColor1] = useState('#D4AF37');
+  const [color2, setColor2] = useState('#0ea5e9');
+  const [size, setSize] = useState(44);
+  const uri = makeSvgDataUri(text || 'YnK', color1, color2, size);
+
+  return (
+    <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap', alignItems: 'flex-start' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1, minWidth: 200 }}>
+        <div>
+          <label style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', fontWeight: 700 }}>텍스트</label>
+          <input value={text} onChange={e => setText(e.target.value)} placeholder="YnK" maxLength={6}
+            style={{ width: '100%', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 7, padding: '7px 10px', color: '#fff', fontSize: 14, fontFamily: 'inherit', boxSizing: 'border-box' as const, marginTop: 4 }} />
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10 }}>
+          <div>
+            <label style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', fontWeight: 700 }}>색상1</label>
+            <div style={{ display: 'flex', gap: 6, alignItems: 'center', marginTop: 4 }}>
+              <input type="color" value={color1} onChange={e => setColor1(e.target.value)} style={{ width: 32, height: 32, border: 'none', borderRadius: 6, cursor: 'pointer', background: 'none', padding: 0 }} />
+              <input value={color1} onChange={e => setColor1(e.target.value)} style={{ flex: 1, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 6, padding: '5px 6px', color: '#fff', fontSize: 11, fontFamily: 'inherit' }} />
+            </div>
+          </div>
+          <div>
+            <label style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', fontWeight: 700 }}>색상2</label>
+            <div style={{ display: 'flex', gap: 6, alignItems: 'center', marginTop: 4 }}>
+              <input type="color" value={color2} onChange={e => setColor2(e.target.value)} style={{ width: 32, height: 32, border: 'none', borderRadius: 6, cursor: 'pointer', background: 'none', padding: 0 }} />
+              <input value={color2} onChange={e => setColor2(e.target.value)} style={{ flex: 1, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 6, padding: '5px 6px', color: '#fff', fontSize: 11, fontFamily: 'inherit' }} />
+            </div>
+          </div>
+          <div>
+            <label style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', fontWeight: 700 }}>크기 (px)</label>
+            <input type="number" value={size} onChange={e => setSize(Math.max(24, Math.min(256, Number(e.target.value))))} min={24} max={256}
+              style={{ width: '100%', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 6, padding: '5px 8px', color: '#fff', fontSize: 12, fontFamily: 'inherit', marginTop: 4 }} />
+          </div>
+        </div>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          {[['#D4AF37','#0ea5e9'],['#7c3aed','#06b6d4'],['#dc2626','#f97316'],['#059669','#10b981'],['#0f172a','#334155']].map(([c1,c2]) => (
+            <button key={c1+c2} onClick={() => { setColor1(c1); setColor2(c2); }}
+              title={`${c1} → ${c2}`}
+              style={{ width: 28, height: 28, borderRadius: 6, border: color1===c1&&color2===c2 ? '2px solid #fff' : '2px solid transparent', cursor: 'pointer', background: `linear-gradient(135deg, ${c1}, ${c2})`, padding: 0 }} />
+          ))}
+        </div>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
+        <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', fontWeight: 700 }}>미리보기</div>
+        <img src={uri} alt="svg preview" width={size} height={size} style={{ borderRadius: Math.floor(size * 0.27), imageRendering: 'pixelated' }} />
+        <div style={{ display: 'flex', gap: 8 }}>
+          <button onClick={() => onApply(uri)}
+            style={{ padding: '8px 14px', background: 'linear-gradient(135deg, #7c3aed, #0ea5e9)', color: '#fff', border: 'none', borderRadius: 8, fontWeight: 700, fontSize: 12, cursor: 'pointer', fontFamily: 'inherit' }}>
+            ✅ 로고 URL로 설정
+          </button>
+          <a href={uri} download={`logo-${text}.svg`}
+            style={{ padding: '8px 14px', background: 'rgba(255,255,255,0.07)', color: '#fff', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 8, fontWeight: 700, fontSize: 12, cursor: 'pointer', textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
+            ⬇️ SVG 다운로드
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 const CATEGORIES = [
   { value: 'smart', label: '스마트조명', icon: '☁️' }, { value: 'indoor', label: '실내조명', icon: '🏢' },
@@ -1135,7 +1204,7 @@ export default function AdminPage() {
             {/* 사이트 기본 정보 */}
             <div style={sectionCard}>
               <h3 style={{ fontSize: 13, fontWeight: 800, color: '#a78bfa', marginBottom: 6, textTransform: 'uppercase' }}>🌐 사이트 기본 정보</h3>
-              <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)', marginBottom: 18 }}>브라우저 탭 제목과 파비콘(아이콘)을 설정합니다</p>
+              <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)', marginBottom: 18 }}>브라우저 탭 제목, 네비게이션 로고, 파비콘을 설정합니다</p>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
                 <div>
                   <label style={labelStyle}>사이트 이름 (브라우저 탭 제목)</label>
@@ -1161,6 +1230,41 @@ export default function AdminPage() {
               </div>
               <div style={{ marginTop: 16, padding: '12px 16px', background: 'rgba(167,139,250,0.08)', borderRadius: 8, border: '1px solid rgba(167,139,250,0.2)', fontSize: 12, color: 'rgba(255,255,255,0.4)', lineHeight: 1.7 }}>
                 💡 저장 후 페이지 새로고침 시 브라우저 탭에 반영됩니다. 로고는 정사각형 이미지(PNG/SVG)를 권장합니다.
+              </div>
+            </div>
+
+            {/* 네비게이션 로고 텍스트 + SVG 생성기 */}
+            <div style={sectionCard}>
+              <h3 style={{ fontSize: 13, fontWeight: 800, color: '#34d399', marginBottom: 6, textTransform: 'uppercase' }}>🏷️ 네비게이션 로고 텍스트</h3>
+              <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)', marginBottom: 18 }}>좌측 상단 로고 박스 안의 짧은 텍스트와 히어로 섹션의 회사명을 설정합니다</p>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 20 }}>
+                <div>
+                  <label style={labelStyle}>로고 짧은 텍스트 (예: YnK)</label>
+                  <input value={settings.site?.logo_short || ''} onChange={e => setSettings({ ...settings, site: { ...settings.site, logo_short: e.target.value } })} placeholder="YnK" style={inputStyle} />
+                  <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.25)', marginTop: 4 }}>네비게이션 좌측 그라디언트 박스 + 히어로 배지에 표시됩니다</p>
+                </div>
+                <div>
+                  <label style={labelStyle}>미리보기</label>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 4 }}>
+                    <div style={{ width: 44, height: 44, borderRadius: 12, background: 'linear-gradient(135deg, #D4AF37, #0ea5e9)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <span style={{ color: '#fff', fontWeight: 950, fontSize: 15 }}>{settings.site?.logo_short || 'YnK'}</span>
+                    </div>
+                    <div>
+                      <div style={{ fontSize: 17, fontWeight: 900, color: '#D4AF37' }}>{settings.company?.name || '(주)와이앤케이'}</div>
+                      <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.4)', letterSpacing: 1.5 }}>GLOBAL LED TRADING</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* SVG 생성기 */}
+              <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', paddingTop: 16 }}>
+                <div style={{ fontSize: 12, fontWeight: 700, color: '#a78bfa', marginBottom: 12 }}>✨ SVG 로고 자동 생성</div>
+                <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', marginBottom: 14 }}>텍스트를 입력하면 SVG 로고가 자동 생성됩니다. 이미지 업로드 없이 바로 사용 가능합니다.</p>
+                <SvgLogoGenerator
+                  defaultText={settings.site?.logo_short || 'YnK'}
+                  onApply={(dataUri) => setSettings({ ...settings, site: { ...settings.site, logo_url: dataUri } })}
+                />
               </div>
             </div>
 

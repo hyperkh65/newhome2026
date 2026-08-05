@@ -2,6 +2,7 @@
 import dynamic from 'next/dynamic';
 import { AbsoluteFill, useCurrentFrame, interpolate, Sequence, Easing } from 'remotion';
 import React, { useState, useEffect, useRef } from 'react';
+import { useSiteSettings } from '@/lib/useSiteSettings';
 
 const Player = dynamic(
   () => import('@remotion/player').then((m) => ({ default: m.Player })),
@@ -9,7 +10,9 @@ const Player = dynamic(
 );
 
 // ─── 텍스트 애니메이션만 담당 ─────────────────────────────────────────────────
-const TitleSequence = () => {
+const TitleSequence: React.FC<{ logoShort?: string; companyName?: string }> = ({
+  logoShort = 'YnK', companyName = '(주)와이앤케이',
+}) => {
   const frame = useCurrentFrame();
 
   const phase1 = interpolate(frame, [10, 60],  [0, 1], { easing: Easing.bezier(0.2, 0.8, 0.4, 1), extrapolateRight: 'clamp' });
@@ -35,9 +38,9 @@ const TitleSequence = () => {
             border: '1px solid rgba(255,255,255,0.15)',
             boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
           }}>
-            <span style={{ fontSize: 'clamp(12px, 1.2vw, 14px)', fontWeight: 900, color: '#38bdf8', letterSpacing: 2.5 }}>YnK</span>
+            <span style={{ fontSize: 'clamp(12px, 1.2vw, 14px)', fontWeight: 900, color: '#38bdf8', letterSpacing: 2.5 }}>{logoShort}</span>
             <div style={{ width: 1, height: 14, background: 'rgba(255,255,255,0.2)' }} />
-            <span style={{ fontSize: 'clamp(10px, 1vw, 12px)', fontWeight: 700, color: '#38bdf8', letterSpacing: 1.5 }}>(주)와이앤케이</span>
+            <span style={{ fontSize: 'clamp(10px, 1vw, 12px)', fontWeight: 700, color: '#38bdf8', letterSpacing: 1.5 }}>{companyName}</span>
           </div>
         </div>
 
@@ -119,9 +122,9 @@ const TitleSequence = () => {
 };
 
 // 텍스트만 있는 투명 컴포지션
-export const LuminaComposition: React.FC = () => (
+export const LuminaComposition: React.FC<{ logoShort?: string; companyName?: string }> = ({ logoShort, companyName }) => (
   <AbsoluteFill style={{ background: 'rgba(0,0,0,0)', overflow: 'hidden' }}>
-    <Sequence from={0}><TitleSequence /></Sequence>
+    <Sequence from={0}><TitleSequence logoShort={logoShort} companyName={companyName} /></Sequence>
   </AbsoluteFill>
 );
 
@@ -176,6 +179,7 @@ function BackgroundVideo() {
 export default function RemotionHero() {
   const [dim, setDim] = useState({ w: 1920, h: 1080 });
   const [mounted, setMounted] = useState(false);
+  const siteSettings = useSiteSettings();
 
   useEffect(() => {
     setMounted(true);
@@ -186,6 +190,9 @@ export default function RemotionHero() {
   }, []);
 
   if (!mounted) return <div style={{ width: '100%', height: '100vh', background: '#020617' }} />;
+
+  const logoShort = siteSettings?.site?.logo_short || 'YnK';
+  const companyName = siteSettings?.company?.name || '(주)와이앤케이';
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden', background: '#020617' }}>
@@ -198,6 +205,7 @@ export default function RemotionHero() {
         compositionWidth={dim.w}
         compositionHeight={dim.h}
         fps={60}
+        inputProps={{ logoShort, companyName }}
         style={{
           position: 'absolute', inset: 0, width: '100%', height: '100%',
           background: 'transparent', zIndex: 10,
