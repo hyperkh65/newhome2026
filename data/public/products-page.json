@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-07T03:21:15.163Z",
+  "generatedAt": "2026-08-13T02:51:40.069Z",
   "demo": false,
   "total": 13062,
   "categories": [
@@ -883,7 +883,7 @@
           "sourceType": "procurement",
           "originalId": "25898091",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25898091",
-          "collectedAt": "2026-08-07T03:21:15.508Z",
+          "collectedAt": "2026-08-13T02:51:40.314Z",
           "updatedAt": "2026-07-21T00:20:13.015Z",
           "fetchStatus": "success",
           "rawHash": "e3393dbc753768d2966208ddd434a5122f9795f6"
@@ -935,7 +935,7 @@
           "sourceType": "procurement",
           "originalId": "24969169",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24969169",
-          "collectedAt": "2026-08-07T03:21:15.508Z",
+          "collectedAt": "2026-08-13T02:51:40.314Z",
           "updatedAt": "2026-07-21T00:20:13.015Z",
           "fetchStatus": "success",
           "rawHash": "6ef93ed7986570490a104e0b2f18394bdd24c6d4"
@@ -987,7 +987,7 @@
           "sourceType": "procurement",
           "originalId": "25517016",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25517016",
-          "collectedAt": "2026-08-07T03:21:15.509Z",
+          "collectedAt": "2026-08-13T02:51:40.314Z",
           "updatedAt": "2026-07-21T00:20:13.015Z",
           "fetchStatus": "success",
           "rawHash": "a9c384f2cc509da8f031e0d94b3ddac7897f85a2"
@@ -1039,7 +1039,7 @@
           "sourceType": "procurement",
           "originalId": "25810815",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25810815",
-          "collectedAt": "2026-08-07T03:21:15.509Z",
+          "collectedAt": "2026-08-13T02:51:40.314Z",
           "updatedAt": "2026-07-21T00:20:13.015Z",
           "fetchStatus": "success",
           "rawHash": "4e11449fd3733ca433e4f092d8e377e7fef9040b"
@@ -1091,7 +1091,7 @@
           "sourceType": "procurement",
           "originalId": "23474212",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=23474212",
-          "collectedAt": "2026-08-07T03:21:15.509Z",
+          "collectedAt": "2026-08-13T02:51:40.314Z",
           "updatedAt": "2026-07-21T00:20:13.015Z",
           "fetchStatus": "success",
           "rawHash": "28b3727766b400dbc6639f5c444fec6fd0addfcf"
@@ -1143,7 +1143,7 @@
           "sourceType": "procurement",
           "originalId": "25336428",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25336428",
-          "collectedAt": "2026-08-07T03:21:15.509Z",
+          "collectedAt": "2026-08-13T02:51:40.314Z",
           "updatedAt": "2026-07-21T00:20:13.015Z",
           "fetchStatus": "success",
           "rawHash": "77b89070214618cc8ee84c1bfa58877b8c232ade"
@@ -1195,7 +1195,7 @@
           "sourceType": "procurement",
           "originalId": "25153267",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25153267",
-          "collectedAt": "2026-08-07T03:21:15.509Z",
+          "collectedAt": "2026-08-13T02:51:40.314Z",
           "updatedAt": "2026-07-21T00:20:13.015Z",
           "fetchStatus": "success",
           "rawHash": "c072818a57f87c8a0adab280528a8b0595aaa4a9"
@@ -1247,7 +1247,7 @@
           "sourceType": "procurement",
           "originalId": "24291324",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24291324",
-          "collectedAt": "2026-08-07T03:21:15.509Z",
+          "collectedAt": "2026-08-13T02:51:40.315Z",
           "updatedAt": "2026-07-21T00:20:13.015Z",
           "fetchStatus": "success",
           "rawHash": "44ed09fd827d97c4161042f53b53f2ed5da375fd"
@@ -1299,7 +1299,7 @@
           "sourceType": "procurement",
           "originalId": "24551373",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24551373",
-          "collectedAt": "2026-08-07T03:21:15.509Z",
+          "collectedAt": "2026-08-13T02:51:40.315Z",
           "updatedAt": "2026-07-21T00:20:13.015Z",
           "fetchStatus": "success",
           "rawHash": "2d8e1a35ecea0d698b5bc2ddf419b29923fe1221"
@@ -1351,7 +1351,7 @@
           "sourceType": "procurement",
           "originalId": "25681908",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25681908",
-          "collectedAt": "2026-08-07T03:21:15.510Z",
+          "collectedAt": "2026-08-13T02:51:40.315Z",
           "updatedAt": "2026-07-21T00:20:13.015Z",
           "fetchStatus": "success",
           "rawHash": "fc5af3491ef2cf38755fade7fd7907f455cd93d3"
@@ -1403,7 +1403,7 @@
           "sourceType": "procurement",
           "originalId": "24886739",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24886739",
-          "collectedAt": "2026-08-07T03:21:15.510Z",
+          "collectedAt": "2026-08-13T02:51:40.315Z",
           "updatedAt": "2026-07-21T00:20:13.015Z",
           "fetchStatus": "success",
           "rawHash": "1af6a593b9365125b7f3b9d84ee1d9b902eba3b9"
@@ -1455,7 +1455,7 @@
           "sourceType": "procurement",
           "originalId": "24754059",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24754059",
-          "collectedAt": "2026-08-07T03:21:15.510Z",
+          "collectedAt": "2026-08-13T02:51:40.315Z",
           "updatedAt": "2026-07-21T00:20:13.015Z",
           "fetchStatus": "success",
           "rawHash": "f2c78492818aa7ad60266e6493665db5d4839d88"
@@ -1507,7 +1507,7 @@
           "sourceType": "procurement",
           "originalId": "25406637",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25406637",
-          "collectedAt": "2026-08-07T03:21:15.506Z",
+          "collectedAt": "2026-08-13T02:51:40.312Z",
           "updatedAt": "2026-07-21T00:20:13.014Z",
           "fetchStatus": "success",
           "rawHash": "3a6f2efa79612466c398f91b267653aa9edba660"
@@ -1559,7 +1559,7 @@
           "sourceType": "procurement",
           "originalId": "24976768",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24976768",
-          "collectedAt": "2026-08-07T03:21:15.507Z",
+          "collectedAt": "2026-08-13T02:51:40.312Z",
           "updatedAt": "2026-07-21T00:20:13.014Z",
           "fetchStatus": "success",
           "rawHash": "fc8adc974084be6e64f3a611dda4787ec961316a"
@@ -1611,7 +1611,7 @@
           "sourceType": "procurement",
           "originalId": "25184828",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25184828",
-          "collectedAt": "2026-08-07T03:21:15.507Z",
+          "collectedAt": "2026-08-13T02:51:40.313Z",
           "updatedAt": "2026-07-21T00:20:13.014Z",
           "fetchStatus": "success",
           "rawHash": "6c77e0bf171d337120511a08be59c40dec2424b3"
@@ -1663,7 +1663,7 @@
           "sourceType": "procurement",
           "originalId": "25290660",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25290660",
-          "collectedAt": "2026-08-07T03:21:15.507Z",
+          "collectedAt": "2026-08-13T02:51:40.313Z",
           "updatedAt": "2026-07-21T00:20:13.014Z",
           "fetchStatus": "success",
           "rawHash": "f2db6f5c56ee2c7ae726ac1d94f0d85e4d40aadc"
@@ -1715,7 +1715,7 @@
           "sourceType": "procurement",
           "originalId": "24217815",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24217815",
-          "collectedAt": "2026-08-07T03:21:15.507Z",
+          "collectedAt": "2026-08-13T02:51:40.313Z",
           "updatedAt": "2026-07-21T00:20:13.014Z",
           "fetchStatus": "success",
           "rawHash": "6d35abaa0848119e5d7ea3d65ae455a76d72c330"
@@ -1767,7 +1767,7 @@
           "sourceType": "procurement",
           "originalId": "24543976",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24543976",
-          "collectedAt": "2026-08-07T03:21:15.507Z",
+          "collectedAt": "2026-08-13T02:51:40.313Z",
           "updatedAt": "2026-07-21T00:20:13.014Z",
           "fetchStatus": "success",
           "rawHash": "0c284e7efc85c5773010572a54c07f2fc89da127"
@@ -1819,7 +1819,7 @@
           "sourceType": "procurement",
           "originalId": "24542477",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24542477",
-          "collectedAt": "2026-08-07T03:21:15.508Z",
+          "collectedAt": "2026-08-13T02:51:40.313Z",
           "updatedAt": "2026-07-21T00:20:13.014Z",
           "fetchStatus": "success",
           "rawHash": "d06d23c25dab1e1cc53728144ec0e784b25a4468"
@@ -1871,7 +1871,7 @@
           "sourceType": "procurement",
           "originalId": "25959612",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25959612",
-          "collectedAt": "2026-08-07T03:21:15.508Z",
+          "collectedAt": "2026-08-13T02:51:40.314Z",
           "updatedAt": "2026-07-21T00:20:13.014Z",
           "fetchStatus": "success",
           "rawHash": "43bbbd33dd2ba6c81f0d4f4efcc98535d9c974be"
@@ -1923,7 +1923,7 @@
           "sourceType": "procurement",
           "originalId": "24818704",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24818704",
-          "collectedAt": "2026-08-07T03:21:15.508Z",
+          "collectedAt": "2026-08-13T02:51:40.314Z",
           "updatedAt": "2026-07-21T00:20:13.014Z",
           "fetchStatus": "success",
           "rawHash": "55c2e6d87ccff2e0687c2ad850d170167878c809"
@@ -1975,7 +1975,7 @@
           "sourceType": "procurement",
           "originalId": "24551381",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24551381",
-          "collectedAt": "2026-08-07T03:21:15.508Z",
+          "collectedAt": "2026-08-13T02:51:40.314Z",
           "updatedAt": "2026-07-21T00:20:13.014Z",
           "fetchStatus": "success",
           "rawHash": "6553ca99674992a1bba8d342bf6d3633a6466a4e"
@@ -2027,7 +2027,7 @@
           "sourceType": "procurement",
           "originalId": "25264789",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25264789",
-          "collectedAt": "2026-08-07T03:21:15.504Z",
+          "collectedAt": "2026-08-13T02:51:40.311Z",
           "updatedAt": "2026-07-21T00:20:13.013Z",
           "fetchStatus": "success",
           "rawHash": "893f46ed4c79cc810a0ad6ced7b1417b1b30d375"
@@ -2079,7 +2079,7 @@
           "sourceType": "procurement",
           "originalId": "24498055",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24498055",
-          "collectedAt": "2026-08-07T03:21:15.504Z",
+          "collectedAt": "2026-08-13T02:51:40.311Z",
           "updatedAt": "2026-07-21T00:20:13.013Z",
           "fetchStatus": "success",
           "rawHash": "b542287601fc4f0fe5f30809ee897953dad1a5b4"
@@ -2131,7 +2131,7 @@
           "sourceType": "procurement",
           "originalId": "26063532",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26063532",
-          "collectedAt": "2026-08-07T03:21:15.505Z",
+          "collectedAt": "2026-08-13T02:51:40.311Z",
           "updatedAt": "2026-07-21T00:20:13.013Z",
           "fetchStatus": "success",
           "rawHash": "c6b50e2dbf9a2fb640e01d641e2b0be4b3f132a3"
@@ -2183,7 +2183,7 @@
           "sourceType": "procurement",
           "originalId": "25959589",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25959589",
-          "collectedAt": "2026-08-07T03:21:15.505Z",
+          "collectedAt": "2026-08-13T02:51:40.311Z",
           "updatedAt": "2026-07-21T00:20:13.013Z",
           "fetchStatus": "success",
           "rawHash": "de3d0a3857768199e9a101c98ecfb660c5b8a2bc"
@@ -2235,7 +2235,7 @@
           "sourceType": "procurement",
           "originalId": "24822391",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24822391",
-          "collectedAt": "2026-08-07T03:21:15.505Z",
+          "collectedAt": "2026-08-13T02:51:40.311Z",
           "updatedAt": "2026-07-21T00:20:13.013Z",
           "fetchStatus": "success",
           "rawHash": "84f82c9e1c7bce9241199e0946c5a97a71b73844"
@@ -2287,7 +2287,7 @@
           "sourceType": "procurement",
           "originalId": "25681936",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25681936",
-          "collectedAt": "2026-08-07T03:21:15.505Z",
+          "collectedAt": "2026-08-13T02:51:40.311Z",
           "updatedAt": "2026-07-21T00:20:13.013Z",
           "fetchStatus": "success",
           "rawHash": "7744c2354a5eff925ce180a84454c5c99a6b2688"
@@ -2339,7 +2339,7 @@
           "sourceType": "procurement",
           "originalId": "26043965",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26043965",
-          "collectedAt": "2026-08-07T03:21:15.505Z",
+          "collectedAt": "2026-08-13T02:51:40.311Z",
           "updatedAt": "2026-07-21T00:20:13.013Z",
           "fetchStatus": "success",
           "rawHash": "96c21ab4444421234590b0bcc5505797c34205c1"
@@ -2391,7 +2391,7 @@
           "sourceType": "procurement",
           "originalId": "25959600",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25959600",
-          "collectedAt": "2026-08-07T03:21:15.505Z",
+          "collectedAt": "2026-08-13T02:51:40.311Z",
           "updatedAt": "2026-07-21T00:20:13.013Z",
           "fetchStatus": "success",
           "rawHash": "341927299307cb79657344930d31689af9f829c5"
@@ -2443,7 +2443,7 @@
           "sourceType": "procurement",
           "originalId": "24102585",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24102585",
-          "collectedAt": "2026-08-07T03:21:15.505Z",
+          "collectedAt": "2026-08-13T02:51:40.312Z",
           "updatedAt": "2026-07-21T00:20:13.013Z",
           "fetchStatus": "success",
           "rawHash": "45eb3ce68da83ab8563ecfbb34a9e88bd911328f"
@@ -2495,7 +2495,7 @@
           "sourceType": "procurement",
           "originalId": "24443985",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24443985",
-          "collectedAt": "2026-08-07T03:21:15.506Z",
+          "collectedAt": "2026-08-13T02:51:40.312Z",
           "updatedAt": "2026-07-21T00:20:13.013Z",
           "fetchStatus": "success",
           "rawHash": "6013b4e0fcf8f710bd593506b4a9e237ccbbdcc3"
@@ -2547,7 +2547,7 @@
           "sourceType": "procurement",
           "originalId": "25902569",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25902569",
-          "collectedAt": "2026-08-07T03:21:15.506Z",
+          "collectedAt": "2026-08-13T02:51:40.312Z",
           "updatedAt": "2026-07-21T00:20:13.013Z",
           "fetchStatus": "success",
           "rawHash": "91d2daa61f8b89f501ab8ccf8434abb40b4957ac"
@@ -2599,7 +2599,7 @@
           "sourceType": "procurement",
           "originalId": "25709410",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25709410",
-          "collectedAt": "2026-08-07T03:21:15.506Z",
+          "collectedAt": "2026-08-13T02:51:40.312Z",
           "updatedAt": "2026-07-21T00:20:13.013Z",
           "fetchStatus": "success",
           "rawHash": "af7a2339b134f2ee1336b12de8a474663c7cc9cc"
@@ -2651,7 +2651,7 @@
           "sourceType": "procurement",
           "originalId": "25590931",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25590931",
-          "collectedAt": "2026-08-07T03:21:15.506Z",
+          "collectedAt": "2026-08-13T02:51:40.312Z",
           "updatedAt": "2026-07-21T00:20:13.013Z",
           "fetchStatus": "success",
           "rawHash": "c81a669581491a877cb5e0226adb9cd5f319f937"
@@ -2703,7 +2703,7 @@
           "sourceType": "procurement",
           "originalId": "25757278",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25757278",
-          "collectedAt": "2026-08-07T03:21:15.506Z",
+          "collectedAt": "2026-08-13T02:51:40.312Z",
           "updatedAt": "2026-07-21T00:20:13.013Z",
           "fetchStatus": "success",
           "rawHash": "a1706918fe3807ec270ed0914269f0dd42eeef22"
@@ -2755,7 +2755,7 @@
           "sourceType": "procurement",
           "originalId": "25959594",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25959594",
-          "collectedAt": "2026-08-07T03:21:15.506Z",
+          "collectedAt": "2026-08-13T02:51:40.312Z",
           "updatedAt": "2026-07-21T00:20:13.013Z",
           "fetchStatus": "success",
           "rawHash": "7bebacd3f5683362f536f9c48f9818d695285037"
@@ -2807,7 +2807,7 @@
           "sourceType": "procurement",
           "originalId": "25162854",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25162854",
-          "collectedAt": "2026-08-07T03:21:15.503Z",
+          "collectedAt": "2026-08-13T02:51:40.309Z",
           "updatedAt": "2026-07-21T00:20:13.012Z",
           "fetchStatus": "success",
           "rawHash": "2955d9dfa10901457ba92815bc3c385d37df01ed"
@@ -2859,7 +2859,7 @@
           "sourceType": "procurement",
           "originalId": "26220007",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26220007",
-          "collectedAt": "2026-08-07T03:21:15.503Z",
+          "collectedAt": "2026-08-13T02:51:40.309Z",
           "updatedAt": "2026-07-21T00:20:13.012Z",
           "fetchStatus": "success",
           "rawHash": "5166f27b24ac68142cbd7fcbf3c0f77ed3658f56"
@@ -2911,7 +2911,7 @@
           "sourceType": "procurement",
           "originalId": "24940241",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24940241",
-          "collectedAt": "2026-08-07T03:21:15.503Z",
+          "collectedAt": "2026-08-13T02:51:40.309Z",
           "updatedAt": "2026-07-21T00:20:13.012Z",
           "fetchStatus": "success",
           "rawHash": "d0783f65661534c5004d7d582bf20b3388518f33"
@@ -2963,7 +2963,7 @@
           "sourceType": "procurement",
           "originalId": "24458598",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24458598",
-          "collectedAt": "2026-08-07T03:21:15.503Z",
+          "collectedAt": "2026-08-13T02:51:40.310Z",
           "updatedAt": "2026-07-21T00:20:13.012Z",
           "fetchStatus": "success",
           "rawHash": "27f53d6b4fd18edf83d4f09bd11239ff6232d400"
@@ -3015,7 +3015,7 @@
           "sourceType": "procurement",
           "originalId": "26044007",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26044007",
-          "collectedAt": "2026-08-07T03:21:15.503Z",
+          "collectedAt": "2026-08-13T02:51:40.310Z",
           "updatedAt": "2026-07-21T00:20:13.012Z",
           "fetchStatus": "success",
           "rawHash": "09670cce424c22ed817a647f78421ca7c08b650d"
@@ -3067,7 +3067,7 @@
           "sourceType": "procurement",
           "originalId": "25959607",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25959607",
-          "collectedAt": "2026-08-07T03:21:15.503Z",
+          "collectedAt": "2026-08-13T02:51:40.310Z",
           "updatedAt": "2026-07-21T00:20:13.012Z",
           "fetchStatus": "success",
           "rawHash": "9228d078edd47dadf3a168ef760808fe2250f8a8"
@@ -3119,7 +3119,7 @@
           "sourceType": "procurement",
           "originalId": "25898078",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25898078",
-          "collectedAt": "2026-08-07T03:21:15.503Z",
+          "collectedAt": "2026-08-13T02:51:40.310Z",
           "updatedAt": "2026-07-21T00:20:13.012Z",
           "fetchStatus": "success",
           "rawHash": "b0cc010d00bdffffdd522b12bbfac4461c95b0c7"
@@ -3171,7 +3171,7 @@
           "sourceType": "procurement",
           "originalId": "25559494",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25559494",
-          "collectedAt": "2026-08-07T03:21:15.504Z",
+          "collectedAt": "2026-08-13T02:51:40.310Z",
           "updatedAt": "2026-07-21T00:20:13.012Z",
           "fetchStatus": "success",
           "rawHash": "f19a18c1dc8aaa17c10da441019384ba879c00b1"
@@ -3223,7 +3223,7 @@
           "sourceType": "procurement",
           "originalId": "26103876",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26103876",
-          "collectedAt": "2026-08-07T03:21:15.504Z",
+          "collectedAt": "2026-08-13T02:51:40.310Z",
           "updatedAt": "2026-07-21T00:20:13.012Z",
           "fetchStatus": "success",
           "rawHash": "64eac52817315877c1118e571dd5827cccd7f4ce"
@@ -3275,7 +3275,7 @@
           "sourceType": "procurement",
           "originalId": "24684343",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24684343",
-          "collectedAt": "2026-08-07T03:21:15.504Z",
+          "collectedAt": "2026-08-13T02:51:40.310Z",
           "updatedAt": "2026-07-21T00:20:13.012Z",
           "fetchStatus": "success",
           "rawHash": "f88d3d8c9f22f8f2cbcb312084d3ff39aaf60bf5"
@@ -3327,7 +3327,7 @@
           "sourceType": "procurement",
           "originalId": "25530074",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25530074",
-          "collectedAt": "2026-08-07T03:21:15.504Z",
+          "collectedAt": "2026-08-13T02:51:40.310Z",
           "updatedAt": "2026-07-21T00:20:13.012Z",
           "fetchStatus": "success",
           "rawHash": "e81cfe7d70ac908e267948b058915f27277bfcfe"
@@ -3379,7 +3379,7 @@
           "sourceType": "procurement",
           "originalId": "24822392",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24822392",
-          "collectedAt": "2026-08-07T03:21:15.501Z",
+          "collectedAt": "2026-08-13T02:51:40.308Z",
           "updatedAt": "2026-07-21T00:20:13.011Z",
           "fetchStatus": "success",
           "rawHash": "b7efd85bbb4154620437cf0669952d7579f217e6"
@@ -3431,7 +3431,7 @@
           "sourceType": "procurement",
           "originalId": "24454764",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24454764",
-          "collectedAt": "2026-08-07T03:21:15.501Z",
+          "collectedAt": "2026-08-13T02:51:40.308Z",
           "updatedAt": "2026-07-21T00:20:13.011Z",
           "fetchStatus": "success",
           "rawHash": "345612479cdfc70b50a6a1e57a911b876456b56c"
@@ -3483,7 +3483,7 @@
           "sourceType": "procurement",
           "originalId": "24738249",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24738249",
-          "collectedAt": "2026-08-07T03:21:15.501Z",
+          "collectedAt": "2026-08-13T02:51:40.308Z",
           "updatedAt": "2026-07-21T00:20:13.011Z",
           "fetchStatus": "success",
           "rawHash": "6731fd06b4326ecb78323fe3d061dd776e12a50a"
@@ -3535,7 +3535,7 @@
           "sourceType": "procurement",
           "originalId": "25959605",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25959605",
-          "collectedAt": "2026-08-07T03:21:15.502Z",
+          "collectedAt": "2026-08-13T02:51:40.308Z",
           "updatedAt": "2026-07-21T00:20:13.011Z",
           "fetchStatus": "success",
           "rawHash": "b8155300739d63b76761367855cb1a1473afa55d"
@@ -3587,7 +3587,7 @@
           "sourceType": "procurement",
           "originalId": "26043962",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26043962",
-          "collectedAt": "2026-08-07T03:21:15.502Z",
+          "collectedAt": "2026-08-13T02:51:40.308Z",
           "updatedAt": "2026-07-21T00:20:13.011Z",
           "fetchStatus": "success",
           "rawHash": "3f897d413269aafbc6774893ed86b19ee6e25918"
@@ -3639,7 +3639,7 @@
           "sourceType": "procurement",
           "originalId": "25898096",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25898096",
-          "collectedAt": "2026-08-07T03:21:15.502Z",
+          "collectedAt": "2026-08-13T02:51:40.309Z",
           "updatedAt": "2026-07-21T00:20:13.011Z",
           "fetchStatus": "success",
           "rawHash": "96e930440a1829ec96c316f73f95463dbbfe845e"
@@ -3691,7 +3691,7 @@
           "sourceType": "procurement",
           "originalId": "25959617",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25959617",
-          "collectedAt": "2026-08-07T03:21:15.502Z",
+          "collectedAt": "2026-08-13T02:51:40.309Z",
           "updatedAt": "2026-07-21T00:20:13.011Z",
           "fetchStatus": "success",
           "rawHash": "18d8bc53d2dd067e592d9fdb23af7f81f5a27fa0"
@@ -3743,7 +3743,7 @@
           "sourceType": "procurement",
           "originalId": "25681909",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25681909",
-          "collectedAt": "2026-08-07T03:21:15.502Z",
+          "collectedAt": "2026-08-13T02:51:40.309Z",
           "updatedAt": "2026-07-21T00:20:13.011Z",
           "fetchStatus": "success",
           "rawHash": "2faafa4357bb3dc59e8bb9497e14bd1e679afa54"
@@ -3795,7 +3795,7 @@
           "sourceType": "procurement",
           "originalId": "25959595",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25959595",
-          "collectedAt": "2026-08-07T03:21:15.499Z",
+          "collectedAt": "2026-08-13T02:51:40.307Z",
           "updatedAt": "2026-07-21T00:20:13.010Z",
           "fetchStatus": "success",
           "rawHash": "c0e2fff6fac0b7f2c70eb1303cdf601ee073ad7e"
@@ -3847,7 +3847,7 @@
           "sourceType": "procurement",
           "originalId": "25681937",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25681937",
-          "collectedAt": "2026-08-07T03:21:15.500Z",
+          "collectedAt": "2026-08-13T02:51:40.307Z",
           "updatedAt": "2026-07-21T00:20:13.010Z",
           "fetchStatus": "success",
           "rawHash": "8a60d23609fd2c2544c1c29d198e57e329629dd0"
@@ -3899,7 +3899,7 @@
           "sourceType": "procurement",
           "originalId": "24403854",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24403854",
-          "collectedAt": "2026-08-07T03:21:15.500Z",
+          "collectedAt": "2026-08-13T02:51:40.307Z",
           "updatedAt": "2026-07-21T00:20:13.010Z",
           "fetchStatus": "success",
           "rawHash": "e0f0ad8a3a752c8ddf32cbecc2b9c4bd465e3d00"
@@ -3951,7 +3951,7 @@
           "sourceType": "procurement",
           "originalId": "25959608",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25959608",
-          "collectedAt": "2026-08-07T03:21:15.500Z",
+          "collectedAt": "2026-08-13T02:51:40.307Z",
           "updatedAt": "2026-07-21T00:20:13.010Z",
           "fetchStatus": "success",
           "rawHash": "9437ad21ad787e11b11509f56acd0db5bd0eb89c"
@@ -4003,7 +4003,7 @@
           "sourceType": "procurement",
           "originalId": "25584704",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25584704",
-          "collectedAt": "2026-08-07T03:21:15.500Z",
+          "collectedAt": "2026-08-13T02:51:40.307Z",
           "updatedAt": "2026-07-21T00:20:13.010Z",
           "fetchStatus": "success",
           "rawHash": "7b578d0fd87c1ac47c3d36fc49a06952eba3538c"
@@ -4055,7 +4055,7 @@
           "sourceType": "procurement",
           "originalId": "24291323",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24291323",
-          "collectedAt": "2026-08-07T03:21:15.500Z",
+          "collectedAt": "2026-08-13T02:51:40.307Z",
           "updatedAt": "2026-07-21T00:20:13.010Z",
           "fetchStatus": "success",
           "rawHash": "23ea94f0cda009efe602f61ace9dc9e572c5073c"
@@ -4107,7 +4107,7 @@
           "sourceType": "procurement",
           "originalId": "25681910",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25681910",
-          "collectedAt": "2026-08-07T03:21:15.498Z",
+          "collectedAt": "2026-08-13T02:51:40.306Z",
           "updatedAt": "2026-07-21T00:20:13.009Z",
           "fetchStatus": "success",
           "rawHash": "762f7b8d97777d061fb9d793ebc36508c6e20988"
@@ -4159,7 +4159,7 @@
           "sourceType": "procurement",
           "originalId": "25874233",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25874233",
-          "collectedAt": "2026-08-07T03:21:15.498Z",
+          "collectedAt": "2026-08-13T02:51:40.306Z",
           "updatedAt": "2026-07-21T00:20:13.009Z",
           "fetchStatus": "success",
           "rawHash": "20825363e6179d6786a765a3d6a1821c4d3c7c37"
@@ -4211,7 +4211,7 @@
           "sourceType": "procurement",
           "originalId": "24069757",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24069757",
-          "collectedAt": "2026-08-07T03:21:15.498Z",
+          "collectedAt": "2026-08-13T02:51:40.306Z",
           "updatedAt": "2026-07-21T00:20:13.009Z",
           "fetchStatus": "success",
           "rawHash": "e82f4f8722256bf3289cc2b90afd7b78fa70a516"
@@ -4263,7 +4263,7 @@
           "sourceType": "procurement",
           "originalId": "25959622",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25959622",
-          "collectedAt": "2026-08-07T03:21:15.499Z",
+          "collectedAt": "2026-08-13T02:51:40.306Z",
           "updatedAt": "2026-07-21T00:20:13.009Z",
           "fetchStatus": "success",
           "rawHash": "fa9df91ba516f6c387d2386a96406e31fec6f4bf"
@@ -4315,7 +4315,7 @@
           "sourceType": "procurement",
           "originalId": "25959598",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25959598",
-          "collectedAt": "2026-08-07T03:21:15.499Z",
+          "collectedAt": "2026-08-13T02:51:40.306Z",
           "updatedAt": "2026-07-21T00:20:13.009Z",
           "fetchStatus": "success",
           "rawHash": "6bf55ac3a38e416665e8208cba87de5d1165c5ba"
@@ -4367,7 +4367,7 @@
           "sourceType": "procurement",
           "originalId": "24542468",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24542468",
-          "collectedAt": "2026-08-07T03:21:15.499Z",
+          "collectedAt": "2026-08-13T02:51:40.307Z",
           "updatedAt": "2026-07-21T00:20:13.009Z",
           "fetchStatus": "success",
           "rawHash": "40e0ce13d02b14aeed7b7ec5a657b812c3cd092f"
@@ -4419,7 +4419,7 @@
           "sourceType": "procurement",
           "originalId": "25530051",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25530051",
-          "collectedAt": "2026-08-07T03:21:15.499Z",
+          "collectedAt": "2026-08-13T02:51:40.307Z",
           "updatedAt": "2026-07-21T00:20:13.009Z",
           "fetchStatus": "success",
           "rawHash": "945b44f31048889d2611397dd60e5e5737e08c4b"
@@ -4471,7 +4471,7 @@
           "sourceType": "procurement",
           "originalId": "25959601",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25959601",
-          "collectedAt": "2026-08-07T03:21:15.497Z",
+          "collectedAt": "2026-08-13T02:51:40.305Z",
           "updatedAt": "2026-07-21T00:20:13.008Z",
           "fetchStatus": "success",
           "rawHash": "674fc14552f69041eb8bf48260a597171450d6d7"
@@ -4523,7 +4523,7 @@
           "sourceType": "procurement",
           "originalId": "25075744",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25075744",
-          "collectedAt": "2026-08-07T03:21:15.497Z",
+          "collectedAt": "2026-08-13T02:51:40.305Z",
           "updatedAt": "2026-07-21T00:20:13.008Z",
           "fetchStatus": "success",
           "rawHash": "466676dce98aa2f16dd514c68a65b2139f387850"
@@ -4575,7 +4575,7 @@
           "sourceType": "procurement",
           "originalId": "25757283",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25757283",
-          "collectedAt": "2026-08-07T03:21:15.497Z",
+          "collectedAt": "2026-08-13T02:51:40.305Z",
           "updatedAt": "2026-07-21T00:20:13.008Z",
           "fetchStatus": "success",
           "rawHash": "5ef340458e0bb3d799b73dfbec7cb0ed9e670a28"
@@ -4627,7 +4627,7 @@
           "sourceType": "procurement",
           "originalId": "25797983",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25797983",
-          "collectedAt": "2026-08-07T03:21:15.498Z",
+          "collectedAt": "2026-08-13T02:51:40.306Z",
           "updatedAt": "2026-07-21T00:20:13.008Z",
           "fetchStatus": "success",
           "rawHash": "9da0927eb350eb7ac4efc17f86378e453ff808ab"
@@ -4679,7 +4679,7 @@
           "sourceType": "procurement",
           "originalId": "24976769",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24976769",
-          "collectedAt": "2026-08-07T03:21:15.497Z",
+          "collectedAt": "2026-08-13T02:51:40.305Z",
           "updatedAt": "2026-07-21T00:20:10.274Z",
           "fetchStatus": "success",
           "rawHash": "b2c13ec2bf8b71ee0a5adfee4a16dc0e31ce9b49"
@@ -4731,7 +4731,7 @@
           "sourceType": "procurement",
           "originalId": "25636401",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25636401",
-          "collectedAt": "2026-08-07T03:21:15.497Z",
+          "collectedAt": "2026-08-13T02:51:40.305Z",
           "updatedAt": "2026-07-21T00:20:10.274Z",
           "fetchStatus": "success",
           "rawHash": "6e607741be3d14ea1fb5ebf4f3d13cd0076700d9"
@@ -4783,7 +4783,7 @@
           "sourceType": "procurement",
           "originalId": "25435181",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25435181",
-          "collectedAt": "2026-08-07T03:21:15.497Z",
+          "collectedAt": "2026-08-13T02:51:40.305Z",
           "updatedAt": "2026-07-21T00:20:10.274Z",
           "fetchStatus": "success",
           "rawHash": "1f114b6979ea1d545c9b42d31deb58de385732f1"
@@ -4835,7 +4835,7 @@
           "sourceType": "procurement",
           "originalId": "26043961",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26043961",
-          "collectedAt": "2026-08-07T03:21:15.497Z",
+          "collectedAt": "2026-08-13T02:51:40.305Z",
           "updatedAt": "2026-07-21T00:20:10.274Z",
           "fetchStatus": "success",
           "rawHash": "76055c94b444741b67155cf3130247686ecde303"
@@ -4887,7 +4887,7 @@
           "sourceType": "procurement",
           "originalId": "24553844",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24553844",
-          "collectedAt": "2026-08-07T03:21:15.495Z",
+          "collectedAt": "2026-08-13T02:51:40.303Z",
           "updatedAt": "2026-07-21T00:20:10.273Z",
           "fetchStatus": "success",
           "rawHash": "43b87ab0bd01632b8291d65e192044370315983d"
@@ -4939,7 +4939,7 @@
           "sourceType": "procurement",
           "originalId": "25543537",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25543537",
-          "collectedAt": "2026-08-07T03:21:15.496Z",
+          "collectedAt": "2026-08-13T02:51:40.304Z",
           "updatedAt": "2026-07-21T00:20:10.273Z",
           "fetchStatus": "success",
           "rawHash": "5bee8c42b62321319417ff5affba02673ac4321f"
@@ -4991,7 +4991,7 @@
           "sourceType": "procurement",
           "originalId": "25017550",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25017550",
-          "collectedAt": "2026-08-07T03:21:15.496Z",
+          "collectedAt": "2026-08-13T02:51:40.304Z",
           "updatedAt": "2026-07-21T00:20:10.273Z",
           "fetchStatus": "success",
           "rawHash": "8aff02a1b6644c069e9118a26470504a61e84f54"
@@ -5043,7 +5043,7 @@
           "sourceType": "procurement",
           "originalId": "24650131",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24650131",
-          "collectedAt": "2026-08-07T03:21:15.496Z",
+          "collectedAt": "2026-08-13T02:51:40.304Z",
           "updatedAt": "2026-07-21T00:20:10.273Z",
           "fetchStatus": "success",
           "rawHash": "97b60cc6c15717804cf117fe266fd9f71594afc3"
@@ -5095,7 +5095,7 @@
           "sourceType": "procurement",
           "originalId": "24650132",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24650132",
-          "collectedAt": "2026-08-07T03:21:15.496Z",
+          "collectedAt": "2026-08-13T02:51:40.304Z",
           "updatedAt": "2026-07-21T00:20:10.273Z",
           "fetchStatus": "success",
           "rawHash": "760c075f7e884ff632411024edb4c5c9e15c03d1"
@@ -5147,7 +5147,7 @@
           "sourceType": "procurement",
           "originalId": "23470441",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=23470441",
-          "collectedAt": "2026-08-07T03:21:15.491Z",
+          "collectedAt": "2026-08-13T02:51:40.301Z",
           "updatedAt": "2026-07-21T00:20:10.272Z",
           "fetchStatus": "success",
           "rawHash": "3e90bd4dd5e440f1d8bdf02c2a008dcfdb7e3e41"
@@ -5199,7 +5199,7 @@
           "sourceType": "procurement",
           "originalId": "26043959",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26043959",
-          "collectedAt": "2026-08-07T03:21:15.491Z",
+          "collectedAt": "2026-08-13T02:51:40.301Z",
           "updatedAt": "2026-07-21T00:20:10.272Z",
           "fetchStatus": "success",
           "rawHash": "354ef41901aef467c3b201a1fc8a2da5fbcff4ba"
@@ -5251,7 +5251,7 @@
           "sourceType": "procurement",
           "originalId": "24217816",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24217816",
-          "collectedAt": "2026-08-07T03:21:15.491Z",
+          "collectedAt": "2026-08-13T02:51:40.302Z",
           "updatedAt": "2026-07-21T00:20:10.272Z",
           "fetchStatus": "success",
           "rawHash": "cd68ec957dd9723d79b4aeaccd185f49339f2f45"
@@ -5303,7 +5303,7 @@
           "sourceType": "procurement",
           "originalId": "25675298",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25675298",
-          "collectedAt": "2026-08-07T03:21:15.491Z",
+          "collectedAt": "2026-08-13T02:51:40.302Z",
           "updatedAt": "2026-07-21T00:20:10.272Z",
           "fetchStatus": "success",
           "rawHash": "5b30f6ebc607e4f119153b393a895b70988a4789"
@@ -5355,7 +5355,7 @@
           "sourceType": "procurement",
           "originalId": "25428059",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25428059",
-          "collectedAt": "2026-08-07T03:21:15.492Z",
+          "collectedAt": "2026-08-13T02:51:40.302Z",
           "updatedAt": "2026-07-21T00:20:10.272Z",
           "fetchStatus": "success",
           "rawHash": "c00820c918ee60c02045e89d5e9e2ef8c4a15400"
@@ -5407,7 +5407,7 @@
           "sourceType": "procurement",
           "originalId": "25681938",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25681938",
-          "collectedAt": "2026-08-07T03:21:15.494Z",
+          "collectedAt": "2026-08-13T02:51:40.302Z",
           "updatedAt": "2026-07-21T00:20:10.272Z",
           "fetchStatus": "success",
           "rawHash": "cebc26a42178a4746d58ef4cc1f0a26142cfc38b"
@@ -5459,7 +5459,7 @@
           "sourceType": "procurement",
           "originalId": "24542466",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24542466",
-          "collectedAt": "2026-08-07T03:21:15.494Z",
+          "collectedAt": "2026-08-13T02:51:40.302Z",
           "updatedAt": "2026-07-21T00:20:10.272Z",
           "fetchStatus": "success",
           "rawHash": "86976296f78ea041bd73f4939214613f29dadd01"
@@ -5511,7 +5511,7 @@
           "sourceType": "procurement",
           "originalId": "25975827",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25975827",
-          "collectedAt": "2026-08-07T03:21:15.494Z",
+          "collectedAt": "2026-08-13T02:51:40.303Z",
           "updatedAt": "2026-07-21T00:20:10.272Z",
           "fetchStatus": "success",
           "rawHash": "57dded2620383d2dbfdd02d6593b96ee9f2183b5"
@@ -5563,7 +5563,7 @@
           "sourceType": "procurement",
           "originalId": "24542460",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24542460",
-          "collectedAt": "2026-08-07T03:21:15.487Z",
+          "collectedAt": "2026-08-13T02:51:40.299Z",
           "updatedAt": "2026-07-21T00:20:10.271Z",
           "fetchStatus": "success",
           "rawHash": "197cb2ce6be7a58391aa44752dc0088c1af60c8c"
@@ -5615,7 +5615,7 @@
           "sourceType": "procurement",
           "originalId": "24542456",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24542456",
-          "collectedAt": "2026-08-07T03:21:15.488Z",
+          "collectedAt": "2026-08-13T02:51:40.299Z",
           "updatedAt": "2026-07-21T00:20:10.271Z",
           "fetchStatus": "success",
           "rawHash": "124c623c226a7b3236900875db675c29301f9e18"
@@ -5667,7 +5667,7 @@
           "sourceType": "procurement",
           "originalId": "25959606",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25959606",
-          "collectedAt": "2026-08-07T03:21:15.488Z",
+          "collectedAt": "2026-08-13T02:51:40.299Z",
           "updatedAt": "2026-07-21T00:20:10.271Z",
           "fetchStatus": "success",
           "rawHash": "fb9cfccc6461c480681ad63dc3c11b906e78ded0"
@@ -5719,7 +5719,7 @@
           "sourceType": "procurement",
           "originalId": "24542467",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24542467",
-          "collectedAt": "2026-08-07T03:21:15.488Z",
+          "collectedAt": "2026-08-13T02:51:40.300Z",
           "updatedAt": "2026-07-21T00:20:10.271Z",
           "fetchStatus": "success",
           "rawHash": "02cf4c6cab328141ceb5439f72facab4209e443c"
@@ -5771,7 +5771,7 @@
           "sourceType": "procurement",
           "originalId": "25681911",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25681911",
-          "collectedAt": "2026-08-07T03:21:15.488Z",
+          "collectedAt": "2026-08-13T02:51:40.300Z",
           "updatedAt": "2026-07-21T00:20:10.271Z",
           "fetchStatus": "success",
           "rawHash": "5efd714a8e2864348fc954a0e84d309c1fba0212"
@@ -5823,7 +5823,7 @@
           "sourceType": "procurement",
           "originalId": "26087816",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26087816",
-          "collectedAt": "2026-08-07T03:21:15.489Z",
+          "collectedAt": "2026-08-13T02:51:40.300Z",
           "updatedAt": "2026-07-21T00:20:10.271Z",
           "fetchStatus": "success",
           "rawHash": "ceb28a70d881483c4ffdaf9027b3dd393ecb61ae"
@@ -5875,7 +5875,7 @@
           "sourceType": "procurement",
           "originalId": "25863159",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25863159",
-          "collectedAt": "2026-08-07T03:21:15.489Z",
+          "collectedAt": "2026-08-13T02:51:40.300Z",
           "updatedAt": "2026-07-21T00:20:10.271Z",
           "fetchStatus": "success",
           "rawHash": "58061150b327978f4522022e4757a4f92df27bce"
@@ -5927,7 +5927,7 @@
           "sourceType": "procurement",
           "originalId": "24217817",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24217817",
-          "collectedAt": "2026-08-07T03:21:15.489Z",
+          "collectedAt": "2026-08-13T02:51:40.300Z",
           "updatedAt": "2026-07-21T00:20:10.271Z",
           "fetchStatus": "success",
           "rawHash": "2554650744b9f2545cde940ac27508b83c49ba0d"
@@ -5979,7 +5979,7 @@
           "sourceType": "procurement",
           "originalId": "25530075",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25530075",
-          "collectedAt": "2026-08-07T03:21:15.490Z",
+          "collectedAt": "2026-08-13T02:51:40.301Z",
           "updatedAt": "2026-07-21T00:20:10.271Z",
           "fetchStatus": "success",
           "rawHash": "72fa80bf31a89832404aaa9c3d46ea2473728982"
@@ -6031,7 +6031,7 @@
           "sourceType": "procurement",
           "originalId": "25959609",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25959609",
-          "collectedAt": "2026-08-07T03:21:15.490Z",
+          "collectedAt": "2026-08-13T02:51:40.301Z",
           "updatedAt": "2026-07-21T00:20:10.271Z",
           "fetchStatus": "success",
           "rawHash": "044cccce4ddeb9607529de626eef39bba5c3af75"
@@ -6083,7 +6083,7 @@
           "sourceType": "procurement",
           "originalId": "24291315",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24291315",
-          "collectedAt": "2026-08-07T03:21:15.490Z",
+          "collectedAt": "2026-08-13T02:51:40.301Z",
           "updatedAt": "2026-07-21T00:20:10.271Z",
           "fetchStatus": "success",
           "rawHash": "9f1b31f1605d2d9c8a85f0567843a62163a02daf"
@@ -6135,7 +6135,7 @@
           "sourceType": "procurement",
           "originalId": "25590934",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25590934",
-          "collectedAt": "2026-08-07T03:21:15.485Z",
+          "collectedAt": "2026-08-13T02:51:40.297Z",
           "updatedAt": "2026-07-21T00:20:10.270Z",
           "fetchStatus": "success",
           "rawHash": "a81dc33d40377c56b1f8c4aa2b000e47e9a720c7"
@@ -6187,7 +6187,7 @@
           "sourceType": "procurement",
           "originalId": "24542476",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24542476",
-          "collectedAt": "2026-08-07T03:21:15.485Z",
+          "collectedAt": "2026-08-13T02:51:40.298Z",
           "updatedAt": "2026-07-21T00:20:10.270Z",
           "fetchStatus": "success",
           "rawHash": "5c06b52a3753d379f7d6a35604dc7da24ed2e7ad"
@@ -6239,7 +6239,7 @@
           "sourceType": "procurement",
           "originalId": "25584705",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25584705",
-          "collectedAt": "2026-08-07T03:21:15.485Z",
+          "collectedAt": "2026-08-13T02:51:40.298Z",
           "updatedAt": "2026-07-21T00:20:10.270Z",
           "fetchStatus": "success",
           "rawHash": "bc701011893ee87a2f8be891308c668251738115"
@@ -6291,7 +6291,7 @@
           "sourceType": "procurement",
           "originalId": "24818705",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24818705",
-          "collectedAt": "2026-08-07T03:21:15.485Z",
+          "collectedAt": "2026-08-13T02:51:40.298Z",
           "updatedAt": "2026-07-21T00:20:10.270Z",
           "fetchStatus": "success",
           "rawHash": "452d035b3fef067d1132d464f5bbb38b5aee8177"
@@ -6343,7 +6343,7 @@
           "sourceType": "procurement",
           "originalId": "25959602",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25959602",
-          "collectedAt": "2026-08-07T03:21:15.485Z",
+          "collectedAt": "2026-08-13T02:51:40.298Z",
           "updatedAt": "2026-07-21T00:20:10.270Z",
           "fetchStatus": "success",
           "rawHash": "96dc07fcb2f1fee6ec2b901fd0f0622a35b6ae19"
@@ -6395,7 +6395,7 @@
           "sourceType": "procurement",
           "originalId": "24551380",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24551380",
-          "collectedAt": "2026-08-07T03:21:15.486Z",
+          "collectedAt": "2026-08-13T02:51:40.298Z",
           "updatedAt": "2026-07-21T00:20:10.270Z",
           "fetchStatus": "success",
           "rawHash": "3867202ebc78541648b96685ef0ee1e898dd6230"
@@ -6447,7 +6447,7 @@
           "sourceType": "procurement",
           "originalId": "25503270",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25503270",
-          "collectedAt": "2026-08-07T03:21:15.486Z",
+          "collectedAt": "2026-08-13T02:51:40.298Z",
           "updatedAt": "2026-07-21T00:20:10.270Z",
           "fetchStatus": "success",
           "rawHash": "a027a0f7b51fc7b036f73b92ca2906241e2fa534"
@@ -6499,7 +6499,7 @@
           "sourceType": "procurement",
           "originalId": "25959613",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25959613",
-          "collectedAt": "2026-08-07T03:21:15.486Z",
+          "collectedAt": "2026-08-13T02:51:40.298Z",
           "updatedAt": "2026-07-21T00:20:10.270Z",
           "fetchStatus": "success",
           "rawHash": "f10df49a0dabfc794c6028f2623de3d72a1ca36e"
@@ -6551,7 +6551,7 @@
           "sourceType": "procurement",
           "originalId": "23982457",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=23982457",
-          "collectedAt": "2026-08-07T03:21:15.486Z",
+          "collectedAt": "2026-08-13T02:51:40.299Z",
           "updatedAt": "2026-07-21T00:20:10.270Z",
           "fetchStatus": "success",
           "rawHash": "8edf9a1b2a7d48dd20dcba887f3569301cd84de5"
@@ -6603,7 +6603,7 @@
           "sourceType": "procurement",
           "originalId": "26001045",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26001045",
-          "collectedAt": "2026-08-07T03:21:15.487Z",
+          "collectedAt": "2026-08-13T02:51:40.299Z",
           "updatedAt": "2026-07-21T00:20:10.270Z",
           "fetchStatus": "success",
           "rawHash": "1fe3bef30e21d440af44e52af789879121bf355d"
@@ -6655,7 +6655,7 @@
           "sourceType": "procurement",
           "originalId": "25336424",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25336424",
-          "collectedAt": "2026-08-07T03:21:15.487Z",
+          "collectedAt": "2026-08-13T02:51:40.299Z",
           "updatedAt": "2026-07-21T00:20:10.270Z",
           "fetchStatus": "success",
           "rawHash": "de3322e187313c1a6e69e7f4f26e34570cd0df11"
@@ -6707,7 +6707,7 @@
           "sourceType": "procurement",
           "originalId": "25336423",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25336423",
-          "collectedAt": "2026-08-07T03:21:15.487Z",
+          "collectedAt": "2026-08-13T02:51:40.299Z",
           "updatedAt": "2026-07-21T00:20:10.270Z",
           "fetchStatus": "success",
           "rawHash": "768a53ecaba861cf0572aebf6a87ca1d167822ca"
@@ -6759,7 +6759,7 @@
           "sourceType": "procurement",
           "originalId": "24406011",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24406011",
-          "collectedAt": "2026-08-07T03:21:15.483Z",
+          "collectedAt": "2026-08-13T02:51:40.296Z",
           "updatedAt": "2026-07-21T00:20:10.269Z",
           "fetchStatus": "success",
           "rawHash": "b66c4e1252c5a341f5cfdc851634e456da6048ab"
@@ -6811,7 +6811,7 @@
           "sourceType": "procurement",
           "originalId": "24542465",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24542465",
-          "collectedAt": "2026-08-07T03:21:15.483Z",
+          "collectedAt": "2026-08-13T02:51:40.296Z",
           "updatedAt": "2026-07-21T00:20:10.269Z",
           "fetchStatus": "success",
           "rawHash": "0d70db36f457d36970a039b866f1cb75369cda4e"
@@ -6863,7 +6863,7 @@
           "sourceType": "procurement",
           "originalId": "25975828",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25975828",
-          "collectedAt": "2026-08-07T03:21:15.483Z",
+          "collectedAt": "2026-08-13T02:51:40.297Z",
           "updatedAt": "2026-07-21T00:20:10.269Z",
           "fetchStatus": "success",
           "rawHash": "d588b7dd963d935adee3f5afbd8d7b3ab3a0e133"
@@ -6915,7 +6915,7 @@
           "sourceType": "procurement",
           "originalId": "23673051",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=23673051",
-          "collectedAt": "2026-08-07T03:21:15.483Z",
+          "collectedAt": "2026-08-13T02:51:40.297Z",
           "updatedAt": "2026-07-21T00:20:10.269Z",
           "fetchStatus": "success",
           "rawHash": "468635f1ef90ff782990a31bd8bcb71f42f0623f"
@@ -6967,7 +6967,7 @@
           "sourceType": "procurement",
           "originalId": "25215504",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25215504",
-          "collectedAt": "2026-08-07T03:21:15.484Z",
+          "collectedAt": "2026-08-13T02:51:40.297Z",
           "updatedAt": "2026-07-21T00:20:10.269Z",
           "fetchStatus": "success",
           "rawHash": "d1670e35bff5fef9d69158a61c8b69d8f90e1cb2"
@@ -7019,7 +7019,7 @@
           "sourceType": "procurement",
           "originalId": "25530052",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25530052",
-          "collectedAt": "2026-08-07T03:21:15.484Z",
+          "collectedAt": "2026-08-13T02:51:40.297Z",
           "updatedAt": "2026-07-21T00:20:10.269Z",
           "fetchStatus": "success",
           "rawHash": "438fe0eb37d8b8b2cf62ef438fb188fb2141abaf"
@@ -7071,7 +7071,7 @@
           "sourceType": "procurement",
           "originalId": "25530056",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25530056",
-          "collectedAt": "2026-08-07T03:21:15.484Z",
+          "collectedAt": "2026-08-13T02:51:40.297Z",
           "updatedAt": "2026-07-21T00:20:10.269Z",
           "fetchStatus": "success",
           "rawHash": "823f903ff00527c1fdd2d29edd7790d302ceab5b"
@@ -7123,7 +7123,7 @@
           "sourceType": "procurement",
           "originalId": "24130126",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24130126",
-          "collectedAt": "2026-08-07T03:21:15.484Z",
+          "collectedAt": "2026-08-13T02:51:40.297Z",
           "updatedAt": "2026-07-21T00:20:10.269Z",
           "fetchStatus": "success",
           "rawHash": "f90e72957b2be2db83d42b63bdb8f6facece92d2"
@@ -7175,7 +7175,7 @@
           "sourceType": "procurement",
           "originalId": "25898097",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25898097",
-          "collectedAt": "2026-08-07T03:21:15.484Z",
+          "collectedAt": "2026-08-13T02:51:40.297Z",
           "updatedAt": "2026-07-21T00:20:10.269Z",
           "fetchStatus": "success",
           "rawHash": "11399803dd2422a4bab828b946fbfa1b7a44fe14"
@@ -7227,7 +7227,7 @@
           "sourceType": "procurement",
           "originalId": "25983221",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25983221",
-          "collectedAt": "2026-08-07T03:21:15.484Z",
+          "collectedAt": "2026-08-13T02:51:40.297Z",
           "updatedAt": "2026-07-21T00:20:10.269Z",
           "fetchStatus": "success",
           "rawHash": "ed132436d8b14d0c5389ab1440ff8082d6024c9f"
@@ -7279,7 +7279,7 @@
           "sourceType": "procurement",
           "originalId": "25097674",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25097674",
-          "collectedAt": "2026-08-07T03:21:15.484Z",
+          "collectedAt": "2026-08-13T02:51:40.297Z",
           "updatedAt": "2026-07-21T00:20:10.269Z",
           "fetchStatus": "success",
           "rawHash": "37fb3848449f6b9cd8878714b9fba444a29d6ab2"
@@ -7331,7 +7331,7 @@
           "sourceType": "procurement",
           "originalId": "25683096",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25683096",
-          "collectedAt": "2026-08-07T03:21:15.484Z",
+          "collectedAt": "2026-08-13T02:51:40.297Z",
           "updatedAt": "2026-07-21T00:20:10.269Z",
           "fetchStatus": "success",
           "rawHash": "b8feb1cde6775713f7f0146195336cb7cd32c323"
@@ -7383,7 +7383,7 @@
           "sourceType": "procurement",
           "originalId": "25590933",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25590933",
-          "collectedAt": "2026-08-07T03:21:15.485Z",
+          "collectedAt": "2026-08-13T02:51:40.297Z",
           "updatedAt": "2026-07-21T00:20:10.269Z",
           "fetchStatus": "success",
           "rawHash": "8ec7fbeeeccfea48005556697c107e1aa22f5fd2"
@@ -7435,7 +7435,7 @@
           "sourceType": "procurement",
           "originalId": "25198642",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25198642",
-          "collectedAt": "2026-08-07T03:21:15.481Z",
+          "collectedAt": "2026-08-13T02:51:40.295Z",
           "updatedAt": "2026-07-21T00:20:10.268Z",
           "fetchStatus": "success",
           "rawHash": "11ae3551cb4ddc646f18cde63086a24d10dc4eec"
@@ -7487,7 +7487,7 @@
           "sourceType": "procurement",
           "originalId": "26198725",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26198725",
-          "collectedAt": "2026-08-07T03:21:15.482Z",
+          "collectedAt": "2026-08-13T02:51:40.295Z",
           "updatedAt": "2026-07-21T00:20:10.268Z",
           "fetchStatus": "success",
           "rawHash": "baadd9e3c1a328afc227df194f1e1ee9f5def813"
@@ -7539,7 +7539,7 @@
           "sourceType": "procurement",
           "originalId": "25090060",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25090060",
-          "collectedAt": "2026-08-07T03:21:15.482Z",
+          "collectedAt": "2026-08-13T02:51:40.296Z",
           "updatedAt": "2026-07-21T00:20:10.268Z",
           "fetchStatus": "success",
           "rawHash": "5fc20ab9ff56026f99f154e74146c789e9c40e73"
@@ -7591,7 +7591,7 @@
           "sourceType": "procurement",
           "originalId": "26043979",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26043979",
-          "collectedAt": "2026-08-07T03:21:15.482Z",
+          "collectedAt": "2026-08-13T02:51:40.296Z",
           "updatedAt": "2026-07-21T00:20:10.268Z",
           "fetchStatus": "success",
           "rawHash": "b4622163e2b60f2dbc76306116ae52d546b23cd1"
@@ -7643,7 +7643,7 @@
           "sourceType": "procurement",
           "originalId": "26044008",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26044008",
-          "collectedAt": "2026-08-07T03:21:15.482Z",
+          "collectedAt": "2026-08-13T02:51:40.296Z",
           "updatedAt": "2026-07-21T00:20:10.268Z",
           "fetchStatus": "success",
           "rawHash": "8488ad5f98bef9c692bcbccc70f3cec6d8c8ab3c"
@@ -7695,7 +7695,7 @@
           "sourceType": "procurement",
           "originalId": "25959618",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25959618",
-          "collectedAt": "2026-08-07T03:21:15.482Z",
+          "collectedAt": "2026-08-13T02:51:40.296Z",
           "updatedAt": "2026-07-21T00:20:10.268Z",
           "fetchStatus": "success",
           "rawHash": "6b4a7f9d321459f7ace64c38b7a9891a11b07ec7"
@@ -7747,7 +7747,7 @@
           "sourceType": "procurement",
           "originalId": "25810816",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25810816",
-          "collectedAt": "2026-08-07T03:21:15.480Z",
+          "collectedAt": "2026-08-13T02:51:40.294Z",
           "updatedAt": "2026-07-21T00:20:10.267Z",
           "fetchStatus": "success",
           "rawHash": "66ce1c0a88f53d2b71f52a800f4add4311e4c022"
@@ -7799,7 +7799,7 @@
           "sourceType": "procurement",
           "originalId": "26116976",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26116976",
-          "collectedAt": "2026-08-07T03:21:15.480Z",
+          "collectedAt": "2026-08-13T02:51:40.294Z",
           "updatedAt": "2026-07-21T00:20:10.267Z",
           "fetchStatus": "success",
           "rawHash": "2bf54aad73b4b8efd4f9472cedff9d87ca50b562"
@@ -7851,7 +7851,7 @@
           "sourceType": "procurement",
           "originalId": "25601919",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25601919",
-          "collectedAt": "2026-08-07T03:21:15.480Z",
+          "collectedAt": "2026-08-13T02:51:40.294Z",
           "updatedAt": "2026-07-21T00:20:10.267Z",
           "fetchStatus": "success",
           "rawHash": "1849d1ebf0e45d2ece37d870187881b4ae241bd5"
@@ -7903,7 +7903,7 @@
           "sourceType": "procurement",
           "originalId": "25681912",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25681912",
-          "collectedAt": "2026-08-07T03:21:15.480Z",
+          "collectedAt": "2026-08-13T02:51:40.294Z",
           "updatedAt": "2026-07-21T00:20:10.267Z",
           "fetchStatus": "success",
           "rawHash": "fab9f480f15eedddb7f42c2a888f187db48144b2"
@@ -7955,7 +7955,7 @@
           "sourceType": "procurement",
           "originalId": "25302169",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25302169",
-          "collectedAt": "2026-08-07T03:21:15.480Z",
+          "collectedAt": "2026-08-13T02:51:40.295Z",
           "updatedAt": "2026-07-21T00:20:10.267Z",
           "fetchStatus": "success",
           "rawHash": "66622efdc337454a5e01cd21cefac4a1b0003d22"
@@ -8007,7 +8007,7 @@
           "sourceType": "procurement",
           "originalId": "24098674",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24098674",
-          "collectedAt": "2026-08-07T03:21:15.480Z",
+          "collectedAt": "2026-08-13T02:51:40.295Z",
           "updatedAt": "2026-07-21T00:20:10.267Z",
           "fetchStatus": "success",
           "rawHash": "c60e3d6cea19963a2adddca615327a7fa369f7c9"
@@ -8059,7 +8059,7 @@
           "sourceType": "procurement",
           "originalId": "26247982",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26247982",
-          "collectedAt": "2026-08-07T03:21:15.481Z",
+          "collectedAt": "2026-08-13T02:51:40.295Z",
           "updatedAt": "2026-07-21T00:20:10.267Z",
           "fetchStatus": "success",
           "rawHash": "dde110123144c641d9cfaad2fbc533862e167e0b"
@@ -8111,7 +8111,7 @@
           "sourceType": "procurement",
           "originalId": "23894725",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=23894725",
-          "collectedAt": "2026-08-07T03:21:15.481Z",
+          "collectedAt": "2026-08-13T02:51:40.295Z",
           "updatedAt": "2026-07-21T00:20:10.267Z",
           "fetchStatus": "success",
           "rawHash": "9b442a310045406d356bfcb3832fadad72643d4b"
@@ -8163,7 +8163,7 @@
           "sourceType": "procurement",
           "originalId": "25017558",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25017558",
-          "collectedAt": "2026-08-07T03:21:15.481Z",
+          "collectedAt": "2026-08-13T02:51:40.295Z",
           "updatedAt": "2026-07-21T00:20:10.267Z",
           "fetchStatus": "success",
           "rawHash": "82c2db3ed8758ebf0375e3fb8ed10234b4868a13"
@@ -8215,7 +8215,7 @@
           "sourceType": "procurement",
           "originalId": "24871817",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24871817",
-          "collectedAt": "2026-08-07T03:21:15.479Z",
+          "collectedAt": "2026-08-13T02:51:40.293Z",
           "updatedAt": "2026-07-21T00:20:07.896Z",
           "fetchStatus": "success",
           "rawHash": "b0888e4f01b89b478a4b4b334fb2ec7a22ab2f8b"
@@ -8267,7 +8267,7 @@
           "sourceType": "procurement",
           "originalId": "25959610",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25959610",
-          "collectedAt": "2026-08-07T03:21:15.479Z",
+          "collectedAt": "2026-08-13T02:51:40.293Z",
           "updatedAt": "2026-07-21T00:20:07.896Z",
           "fetchStatus": "success",
           "rawHash": "9af73c4f72dc71586ace492c5c3019b1bf6645a5"
@@ -8319,7 +8319,7 @@
           "sourceType": "procurement",
           "originalId": "24291316",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24291316",
-          "collectedAt": "2026-08-07T03:21:15.479Z",
+          "collectedAt": "2026-08-13T02:51:40.294Z",
           "updatedAt": "2026-07-21T00:20:07.896Z",
           "fetchStatus": "success",
           "rawHash": "473750162dcf5a7598fc8faf9f062277cd5b25d3"
@@ -8371,7 +8371,7 @@
           "sourceType": "procurement",
           "originalId": "24824226",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24824226",
-          "collectedAt": "2026-08-07T03:21:15.479Z",
+          "collectedAt": "2026-08-13T02:51:40.294Z",
           "updatedAt": "2026-07-21T00:20:07.896Z",
           "fetchStatus": "success",
           "rawHash": "d2547b71794de55d9a9ec1f197cf79cc4101fd10"
@@ -8423,7 +8423,7 @@
           "sourceType": "procurement",
           "originalId": "26124243",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26124243",
-          "collectedAt": "2026-08-07T03:21:15.479Z",
+          "collectedAt": "2026-08-13T02:51:40.294Z",
           "updatedAt": "2026-07-21T00:20:07.896Z",
           "fetchStatus": "success",
           "rawHash": "20a9190e5003baacdef7873cd8ffae614f05ee26"
@@ -8475,7 +8475,7 @@
           "sourceType": "procurement",
           "originalId": "26043975",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26043975",
-          "collectedAt": "2026-08-07T03:21:15.477Z",
+          "collectedAt": "2026-08-13T02:51:40.292Z",
           "updatedAt": "2026-07-21T00:20:07.895Z",
           "fetchStatus": "success",
           "rawHash": "adababc6a0a90b9eb549ab238ac2b8789480f0a7"
@@ -8527,7 +8527,7 @@
           "sourceType": "procurement",
           "originalId": "24588181",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24588181",
-          "collectedAt": "2026-08-07T03:21:15.477Z",
+          "collectedAt": "2026-08-13T02:51:40.292Z",
           "updatedAt": "2026-07-21T00:20:07.895Z",
           "fetchStatus": "success",
           "rawHash": "a3ea853e373bb10732da3d6d7038f2cb8bac2110"
@@ -8579,7 +8579,7 @@
           "sourceType": "procurement",
           "originalId": "24684344",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24684344",
-          "collectedAt": "2026-08-07T03:21:15.477Z",
+          "collectedAt": "2026-08-13T02:51:40.292Z",
           "updatedAt": "2026-07-21T00:20:07.895Z",
           "fetchStatus": "success",
           "rawHash": "929748ab7a24ce8ebe5b075101287dd7004dd287"
@@ -8631,7 +8631,7 @@
           "sourceType": "procurement",
           "originalId": "25530076",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25530076",
-          "collectedAt": "2026-08-07T03:21:15.477Z",
+          "collectedAt": "2026-08-13T02:51:40.292Z",
           "updatedAt": "2026-07-21T00:20:07.895Z",
           "fetchStatus": "success",
           "rawHash": "abf268be37eba2144c4ee18f5eaacec9af4bd55b"
@@ -8683,7 +8683,7 @@
           "sourceType": "procurement",
           "originalId": "25530080",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25530080",
-          "collectedAt": "2026-08-07T03:21:15.477Z",
+          "collectedAt": "2026-08-13T02:51:40.292Z",
           "updatedAt": "2026-07-21T00:20:07.895Z",
           "fetchStatus": "success",
           "rawHash": "cb11ca17f9c9476a6e25634653a0ef89b3a2af4b"
@@ -8735,7 +8735,7 @@
           "sourceType": "procurement",
           "originalId": "24130123",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24130123",
-          "collectedAt": "2026-08-07T03:21:15.477Z",
+          "collectedAt": "2026-08-13T02:51:40.293Z",
           "updatedAt": "2026-07-21T00:20:07.895Z",
           "fetchStatus": "success",
           "rawHash": "7f7ce93a198fda08d5b7c5fbb64405603fcfb0e5"
@@ -8787,7 +8787,7 @@
           "sourceType": "procurement",
           "originalId": "25959623",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25959623",
-          "collectedAt": "2026-08-07T03:21:15.478Z",
+          "collectedAt": "2026-08-13T02:51:40.293Z",
           "updatedAt": "2026-07-21T00:20:07.895Z",
           "fetchStatus": "success",
           "rawHash": "56136392614837fe161733906ac7913aa7833310"
@@ -8839,7 +8839,7 @@
           "sourceType": "procurement",
           "originalId": "26190388",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26190388",
-          "collectedAt": "2026-08-07T03:21:15.478Z",
+          "collectedAt": "2026-08-13T02:51:40.293Z",
           "updatedAt": "2026-07-21T00:20:07.895Z",
           "fetchStatus": "success",
           "rawHash": "101548cfbfc72055ca9af0e2aea91d8b4929d00a"
@@ -8891,7 +8891,7 @@
           "sourceType": "procurement",
           "originalId": "25681939",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25681939",
-          "collectedAt": "2026-08-07T03:21:15.478Z",
+          "collectedAt": "2026-08-13T02:51:40.293Z",
           "updatedAt": "2026-07-21T00:20:07.895Z",
           "fetchStatus": "success",
           "rawHash": "7383f7227a394cca77dbc42687a33a6c848deb6d"
@@ -8943,7 +8943,7 @@
           "sourceType": "procurement",
           "originalId": "24291322",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24291322",
-          "collectedAt": "2026-08-07T03:21:15.478Z",
+          "collectedAt": "2026-08-13T02:51:40.293Z",
           "updatedAt": "2026-07-21T00:20:07.895Z",
           "fetchStatus": "success",
           "rawHash": "12872b5860bb7f6483fd8d5a97e1fbcbbb46327e"
@@ -8995,7 +8995,7 @@
           "sourceType": "procurement",
           "originalId": "24498053",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24498053",
-          "collectedAt": "2026-08-07T03:21:15.478Z",
+          "collectedAt": "2026-08-13T02:51:40.293Z",
           "updatedAt": "2026-07-21T00:20:07.895Z",
           "fetchStatus": "success",
           "rawHash": "dfa4bca69c9a1181fbf3aa9a3762af31d02b62f2"
@@ -9047,7 +9047,7 @@
           "sourceType": "procurement",
           "originalId": "24086776",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24086776",
-          "collectedAt": "2026-08-07T03:21:15.475Z",
+          "collectedAt": "2026-08-13T02:51:40.290Z",
           "updatedAt": "2026-07-21T00:20:07.894Z",
           "fetchStatus": "success",
           "rawHash": "0d7361557fe73aa9dc4dad947a530a24d771a571"
@@ -9099,7 +9099,7 @@
           "sourceType": "procurement",
           "originalId": "24754058",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24754058",
-          "collectedAt": "2026-08-07T03:21:15.475Z",
+          "collectedAt": "2026-08-13T02:51:40.290Z",
           "updatedAt": "2026-07-21T00:20:07.894Z",
           "fetchStatus": "success",
           "rawHash": "7077f61248bd3f6d3056ac1eb90ee8b3c7be1c95"
@@ -9151,7 +9151,7 @@
           "sourceType": "procurement",
           "originalId": "25643628",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25643628",
-          "collectedAt": "2026-08-07T03:21:15.475Z",
+          "collectedAt": "2026-08-13T02:51:40.290Z",
           "updatedAt": "2026-07-21T00:20:07.894Z",
           "fetchStatus": "success",
           "rawHash": "5b78f5c4388c9a3bc0c8779b999cd2380d3f00de"
@@ -9203,7 +9203,7 @@
           "sourceType": "procurement",
           "originalId": "24240294",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24240294",
-          "collectedAt": "2026-08-07T03:21:15.475Z",
+          "collectedAt": "2026-08-13T02:51:40.290Z",
           "updatedAt": "2026-07-21T00:20:07.894Z",
           "fetchStatus": "success",
           "rawHash": "68a5a4f761861c00f38c2fa6b486fcf81284c95c"
@@ -9255,7 +9255,7 @@
           "sourceType": "procurement",
           "originalId": "25557009",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25557009",
-          "collectedAt": "2026-08-07T03:21:15.475Z",
+          "collectedAt": "2026-08-13T02:51:40.290Z",
           "updatedAt": "2026-07-21T00:20:07.894Z",
           "fetchStatus": "success",
           "rawHash": "9e5fd7b870cba27d19c188e0798c220273145065"
@@ -9307,7 +9307,7 @@
           "sourceType": "procurement",
           "originalId": "25017533",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25017533",
-          "collectedAt": "2026-08-07T03:21:15.476Z",
+          "collectedAt": "2026-08-13T02:51:40.291Z",
           "updatedAt": "2026-07-21T00:20:07.894Z",
           "fetchStatus": "success",
           "rawHash": "574ae288a3da1325dbec8f29e986f32dbc330df0"
@@ -9359,7 +9359,7 @@
           "sourceType": "procurement",
           "originalId": "25011163",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25011163",
-          "collectedAt": "2026-08-07T03:21:15.476Z",
+          "collectedAt": "2026-08-13T02:51:40.291Z",
           "updatedAt": "2026-07-21T00:20:07.894Z",
           "fetchStatus": "success",
           "rawHash": "af335259baca5b8923ce5ebe5950c73d423dbdca"
@@ -9411,7 +9411,7 @@
           "sourceType": "procurement",
           "originalId": "26167901",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26167901",
-          "collectedAt": "2026-08-07T03:21:15.476Z",
+          "collectedAt": "2026-08-13T02:51:40.292Z",
           "updatedAt": "2026-07-21T00:20:07.894Z",
           "fetchStatus": "success",
           "rawHash": "3776ecd2e5b2c3dfcc26e2269a95fbdedf290d80"
@@ -9463,7 +9463,7 @@
           "sourceType": "procurement",
           "originalId": "24626234",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24626234",
-          "collectedAt": "2026-08-07T03:21:15.476Z",
+          "collectedAt": "2026-08-13T02:51:40.292Z",
           "updatedAt": "2026-07-21T00:20:07.894Z",
           "fetchStatus": "success",
           "rawHash": "cd94b7d04134f3ea6bfc1fd1828411f57495589a"
@@ -9515,7 +9515,7 @@
           "sourceType": "procurement",
           "originalId": "25681913",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25681913",
-          "collectedAt": "2026-08-07T03:21:15.476Z",
+          "collectedAt": "2026-08-13T02:51:40.292Z",
           "updatedAt": "2026-07-21T00:20:07.894Z",
           "fetchStatus": "success",
           "rawHash": "cd35f1baf49b989700579f802f8e81bf133f3fd7"
@@ -9567,7 +9567,7 @@
           "sourceType": "procurement",
           "originalId": "24086777",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24086777",
-          "collectedAt": "2026-08-07T03:21:15.476Z",
+          "collectedAt": "2026-08-13T02:51:40.292Z",
           "updatedAt": "2026-07-21T00:20:07.894Z",
           "fetchStatus": "success",
           "rawHash": "7d2c67ee68269eaf75a162ee08aea2dd9c9d3f8f"
@@ -9619,7 +9619,7 @@
           "sourceType": "procurement",
           "originalId": "25959614",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25959614",
-          "collectedAt": "2026-08-07T03:21:15.476Z",
+          "collectedAt": "2026-08-13T02:51:40.292Z",
           "updatedAt": "2026-07-21T00:20:07.894Z",
           "fetchStatus": "success",
           "rawHash": "c6a26464b904eaa82eda3c0f075351f044810a3a"
@@ -9671,7 +9671,7 @@
           "sourceType": "procurement",
           "originalId": "25376107",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25376107",
-          "collectedAt": "2026-08-07T03:21:15.473Z",
+          "collectedAt": "2026-08-13T02:51:40.289Z",
           "updatedAt": "2026-07-21T00:20:07.893Z",
           "fetchStatus": "success",
           "rawHash": "ea496729c276b8222672390e3ae603230127a571"
@@ -9723,7 +9723,7 @@
           "sourceType": "procurement",
           "originalId": "25376108",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25376108",
-          "collectedAt": "2026-08-07T03:21:15.473Z",
+          "collectedAt": "2026-08-13T02:51:40.289Z",
           "updatedAt": "2026-07-21T00:20:07.893Z",
           "fetchStatus": "success",
           "rawHash": "774c92cbcd07430a45f96f6feeb014f5956f5516"
@@ -9775,7 +9775,7 @@
           "sourceType": "procurement",
           "originalId": "25090062",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25090062",
-          "collectedAt": "2026-08-07T03:21:15.474Z",
+          "collectedAt": "2026-08-13T02:51:40.289Z",
           "updatedAt": "2026-07-21T00:20:07.893Z",
           "fetchStatus": "success",
           "rawHash": "ba9740baeb7575c20c523e72ea96a3e43f37da90"
@@ -9827,7 +9827,7 @@
           "sourceType": "procurement",
           "originalId": "25413125",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25413125",
-          "collectedAt": "2026-08-07T03:21:15.474Z",
+          "collectedAt": "2026-08-13T02:51:40.289Z",
           "updatedAt": "2026-07-21T00:20:07.893Z",
           "fetchStatus": "success",
           "rawHash": "ff356b2761340c7106d4cd7e81b6b80aad408f9d"
@@ -9879,7 +9879,7 @@
           "sourceType": "procurement",
           "originalId": "25413130",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25413130",
-          "collectedAt": "2026-08-07T03:21:15.474Z",
+          "collectedAt": "2026-08-13T02:51:40.289Z",
           "updatedAt": "2026-07-21T00:20:07.893Z",
           "fetchStatus": "success",
           "rawHash": "7232b89a8f26b76181fa8629437a4ace6b39540f"
@@ -9931,7 +9931,7 @@
           "sourceType": "procurement",
           "originalId": "25934160",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25934160",
-          "collectedAt": "2026-08-07T03:21:15.474Z",
+          "collectedAt": "2026-08-13T02:51:40.289Z",
           "updatedAt": "2026-07-21T00:20:07.893Z",
           "fetchStatus": "success",
           "rawHash": "94420c2231577384cd0797801a4bf092fed5b569"
@@ -9983,7 +9983,7 @@
           "sourceType": "procurement",
           "originalId": "26043978",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26043978",
-          "collectedAt": "2026-08-07T03:21:15.474Z",
+          "collectedAt": "2026-08-13T02:51:40.290Z",
           "updatedAt": "2026-07-21T00:20:07.893Z",
           "fetchStatus": "success",
           "rawHash": "c182ede771d8d1b3104b7a894d81c1bcdef95d96"
@@ -10035,7 +10035,7 @@
           "sourceType": "procurement",
           "originalId": "25636412",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25636412",
-          "collectedAt": "2026-08-07T03:21:15.474Z",
+          "collectedAt": "2026-08-13T02:51:40.290Z",
           "updatedAt": "2026-07-21T00:20:07.893Z",
           "fetchStatus": "success",
           "rawHash": "2cf626970d46897fe716227d25075503246056dc"
@@ -10087,7 +10087,7 @@
           "sourceType": "procurement",
           "originalId": "24865465",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24865465",
-          "collectedAt": "2026-08-07T03:21:15.475Z",
+          "collectedAt": "2026-08-13T02:51:40.290Z",
           "updatedAt": "2026-07-21T00:20:07.893Z",
           "fetchStatus": "success",
           "rawHash": "bf5d137d26202197b37b17470a8662b39e76f6d3"
@@ -10139,7 +10139,7 @@
           "sourceType": "procurement",
           "originalId": "25530053",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25530053",
-          "collectedAt": "2026-08-07T03:21:15.475Z",
+          "collectedAt": "2026-08-13T02:51:40.290Z",
           "updatedAt": "2026-07-21T00:20:07.893Z",
           "fetchStatus": "success",
           "rawHash": "d915c8129d2b77482337c482190cfa80bacb70ba"
@@ -10191,7 +10191,7 @@
           "sourceType": "procurement",
           "originalId": "24612676",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24612676",
-          "collectedAt": "2026-08-07T03:21:15.475Z",
+          "collectedAt": "2026-08-13T02:51:40.290Z",
           "updatedAt": "2026-07-21T00:20:07.893Z",
           "fetchStatus": "success",
           "rawHash": "e81ac5ecb542eadb9127329a34e500e672bcc538"
@@ -10243,7 +10243,7 @@
           "sourceType": "procurement",
           "originalId": "25405460",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25405460",
-          "collectedAt": "2026-08-07T03:21:15.471Z",
+          "collectedAt": "2026-08-13T02:51:40.288Z",
           "updatedAt": "2026-07-21T00:20:07.892Z",
           "fetchStatus": "success",
           "rawHash": "ddc516f6f43d19e371c20c498a52995e6a52bd33"
@@ -10295,7 +10295,7 @@
           "sourceType": "procurement",
           "originalId": "24392334",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24392334",
-          "collectedAt": "2026-08-07T03:21:15.472Z",
+          "collectedAt": "2026-08-13T02:51:40.288Z",
           "updatedAt": "2026-07-21T00:20:07.892Z",
           "fetchStatus": "success",
           "rawHash": "c1519a3e4818fcaa62d9de71792e1be3199f72b3"
@@ -10347,7 +10347,7 @@
           "sourceType": "procurement",
           "originalId": "24719305",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24719305",
-          "collectedAt": "2026-08-07T03:21:15.472Z",
+          "collectedAt": "2026-08-13T02:51:40.288Z",
           "updatedAt": "2026-07-21T00:20:07.892Z",
           "fetchStatus": "success",
           "rawHash": "bda1c52865d530b2bf6bf7feecc955423c796049"
@@ -10399,7 +10399,7 @@
           "sourceType": "procurement",
           "originalId": "25511709",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25511709",
-          "collectedAt": "2026-08-07T03:21:15.472Z",
+          "collectedAt": "2026-08-13T02:51:40.288Z",
           "updatedAt": "2026-07-21T00:20:07.892Z",
           "fetchStatus": "success",
           "rawHash": "8610f87efa0a86d4b61eefe6e8d17c1becdf0775"
@@ -10451,7 +10451,7 @@
           "sourceType": "procurement",
           "originalId": "26090489",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26090489",
-          "collectedAt": "2026-08-07T03:21:15.472Z",
+          "collectedAt": "2026-08-13T02:51:40.288Z",
           "updatedAt": "2026-07-21T00:20:07.892Z",
           "fetchStatus": "success",
           "rawHash": "83b00682ae480aa23540f92df041f0272cb4d646"
@@ -10503,7 +10503,7 @@
           "sourceType": "procurement",
           "originalId": "26090490",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26090490",
-          "collectedAt": "2026-08-07T03:21:15.472Z",
+          "collectedAt": "2026-08-13T02:51:40.288Z",
           "updatedAt": "2026-07-21T00:20:07.892Z",
           "fetchStatus": "success",
           "rawHash": "f2ac83b3d3c5c7162a5e8a98ba0a54a1072b58ac"
@@ -10555,7 +10555,7 @@
           "sourceType": "procurement",
           "originalId": "25511706",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25511706",
-          "collectedAt": "2026-08-07T03:21:15.472Z",
+          "collectedAt": "2026-08-13T02:51:40.288Z",
           "updatedAt": "2026-07-21T00:20:07.892Z",
           "fetchStatus": "success",
           "rawHash": "825f1cead90ab9d808208dc31a26537701d28497"
@@ -10607,7 +10607,7 @@
           "sourceType": "procurement",
           "originalId": "25872944",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25872944",
-          "collectedAt": "2026-08-07T03:21:15.472Z",
+          "collectedAt": "2026-08-13T02:51:40.288Z",
           "updatedAt": "2026-07-21T00:20:07.892Z",
           "fetchStatus": "success",
           "rawHash": "a88c5eb19c73b0a717cbc52aa47c3e8134538c73"
@@ -10659,7 +10659,7 @@
           "sourceType": "procurement",
           "originalId": "26045071",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26045071",
-          "collectedAt": "2026-08-07T03:21:15.473Z",
+          "collectedAt": "2026-08-13T02:51:40.289Z",
           "updatedAt": "2026-07-21T00:20:07.892Z",
           "fetchStatus": "success",
           "rawHash": "d07ac1a774b9e6add4b68306fce8072dc5a97c92"
@@ -10711,7 +10711,7 @@
           "sourceType": "procurement",
           "originalId": "24204977",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24204977",
-          "collectedAt": "2026-08-07T03:21:15.473Z",
+          "collectedAt": "2026-08-13T02:51:40.289Z",
           "updatedAt": "2026-07-21T00:20:07.892Z",
           "fetchStatus": "success",
           "rawHash": "17bc1ab4f08e51f3b03b973c3bd5560439f22022"
@@ -10763,7 +10763,7 @@
           "sourceType": "procurement",
           "originalId": "25681940",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25681940",
-          "collectedAt": "2026-08-07T03:21:15.470Z",
+          "collectedAt": "2026-08-13T02:51:40.286Z",
           "updatedAt": "2026-07-21T00:20:07.891Z",
           "fetchStatus": "success",
           "rawHash": "c01c9a24cab7c2625265a4a1cf1a03e1b0278a93"
@@ -10815,7 +10815,7 @@
           "sourceType": "procurement",
           "originalId": "25215502",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25215502",
-          "collectedAt": "2026-08-07T03:21:15.470Z",
+          "collectedAt": "2026-08-13T02:51:40.286Z",
           "updatedAt": "2026-07-21T00:20:07.891Z",
           "fetchStatus": "success",
           "rawHash": "a4f6f3aeeeed70e2b82c7f0c724f48fa96068081"
@@ -10867,7 +10867,7 @@
           "sourceType": "procurement",
           "originalId": "24909182",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24909182",
-          "collectedAt": "2026-08-07T03:21:15.470Z",
+          "collectedAt": "2026-08-13T02:51:40.287Z",
           "updatedAt": "2026-07-21T00:20:07.891Z",
           "fetchStatus": "success",
           "rawHash": "4b5e51679c5a3968169ec42c5a2a5d018538930d"
@@ -10919,7 +10919,7 @@
           "sourceType": "procurement",
           "originalId": "25215507",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25215507",
-          "collectedAt": "2026-08-07T03:21:15.470Z",
+          "collectedAt": "2026-08-13T02:51:40.287Z",
           "updatedAt": "2026-07-21T00:20:07.891Z",
           "fetchStatus": "success",
           "rawHash": "231ed8ffc92504cc06cddfaf4bbebf1cb52e663f"
@@ -10971,7 +10971,7 @@
           "sourceType": "procurement",
           "originalId": "25959619",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25959619",
-          "collectedAt": "2026-08-07T03:21:15.470Z",
+          "collectedAt": "2026-08-13T02:51:40.287Z",
           "updatedAt": "2026-07-21T00:20:07.891Z",
           "fetchStatus": "success",
           "rawHash": "1191ed983ef965a308fce81986a64309224b59ce"
@@ -11023,7 +11023,7 @@
           "sourceType": "procurement",
           "originalId": "24086775",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24086775",
-          "collectedAt": "2026-08-07T03:21:15.470Z",
+          "collectedAt": "2026-08-13T02:51:40.287Z",
           "updatedAt": "2026-07-21T00:20:07.891Z",
           "fetchStatus": "success",
           "rawHash": "1eadbe3e049e7139d13424df4f4961cb95a961cb"
@@ -11075,7 +11075,7 @@
           "sourceType": "procurement",
           "originalId": "24274632",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24274632",
-          "collectedAt": "2026-08-07T03:21:15.470Z",
+          "collectedAt": "2026-08-13T02:51:40.287Z",
           "updatedAt": "2026-07-21T00:20:07.891Z",
           "fetchStatus": "success",
           "rawHash": "ab00eeefae792325ded06e42138362e7f6c2d465"
@@ -11127,7 +11127,7 @@
           "sourceType": "procurement",
           "originalId": "25201921",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25201921",
-          "collectedAt": "2026-08-07T03:21:15.470Z",
+          "collectedAt": "2026-08-13T02:51:40.287Z",
           "updatedAt": "2026-07-21T00:20:07.891Z",
           "fetchStatus": "success",
           "rawHash": "d3a55a578c08ff6f13610b509f0b6b5a0f99f1aa"
@@ -11179,7 +11179,7 @@
           "sourceType": "procurement",
           "originalId": "24849007",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24849007",
-          "collectedAt": "2026-08-07T03:21:15.471Z",
+          "collectedAt": "2026-08-13T02:51:40.287Z",
           "updatedAt": "2026-07-21T00:20:07.891Z",
           "fetchStatus": "success",
           "rawHash": "3fbc10569a5ebb44e171909f5b2bc7aaff18d15b"
@@ -11231,7 +11231,7 @@
           "sourceType": "procurement",
           "originalId": "25405462",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25405462",
-          "collectedAt": "2026-08-07T03:21:15.471Z",
+          "collectedAt": "2026-08-13T02:51:40.288Z",
           "updatedAt": "2026-07-21T00:20:07.891Z",
           "fetchStatus": "success",
           "rawHash": "23b3a41074ba657f7208f8724a71e4e7bcaa98f3"
@@ -11283,7 +11283,7 @@
           "sourceType": "procurement",
           "originalId": "25405461",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25405461",
-          "collectedAt": "2026-08-07T03:21:15.471Z",
+          "collectedAt": "2026-08-13T02:51:40.288Z",
           "updatedAt": "2026-07-21T00:20:07.891Z",
           "fetchStatus": "success",
           "rawHash": "28efa39d02af029f295b29b849282e8f20b1d9e7"
@@ -11335,7 +11335,7 @@
           "sourceType": "procurement",
           "originalId": "26044002",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26044002",
-          "collectedAt": "2026-08-07T03:21:15.468Z",
+          "collectedAt": "2026-08-13T02:51:40.285Z",
           "updatedAt": "2026-07-21T00:20:07.890Z",
           "fetchStatus": "success",
           "rawHash": "e83dca6b784876cbbf8dba1c98080c938b00aa4a"
@@ -11387,7 +11387,7 @@
           "sourceType": "procurement",
           "originalId": "25959624",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25959624",
-          "collectedAt": "2026-08-07T03:21:15.468Z",
+          "collectedAt": "2026-08-13T02:51:40.285Z",
           "updatedAt": "2026-07-21T00:20:07.890Z",
           "fetchStatus": "success",
           "rawHash": "00e10bdc038b9925ff42d48fdf22bda96b750775"
@@ -11439,7 +11439,7 @@
           "sourceType": "procurement",
           "originalId": "25923685",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25923685",
-          "collectedAt": "2026-08-07T03:21:15.468Z",
+          "collectedAt": "2026-08-13T02:51:40.285Z",
           "updatedAt": "2026-07-21T00:20:07.890Z",
           "fetchStatus": "success",
           "rawHash": "75105a7573ecbfa2e54bd422734e90c592f1a9ea"
@@ -11491,7 +11491,7 @@
           "sourceType": "procurement",
           "originalId": "25863156",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25863156",
-          "collectedAt": "2026-08-07T03:21:15.468Z",
+          "collectedAt": "2026-08-13T02:51:40.285Z",
           "updatedAt": "2026-07-21T00:20:07.890Z",
           "fetchStatus": "success",
           "rawHash": "3fe590633a019911ea9606b564585339c26cfbb5"
@@ -11543,7 +11543,7 @@
           "sourceType": "procurement",
           "originalId": "24498050",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24498050",
-          "collectedAt": "2026-08-07T03:21:15.468Z",
+          "collectedAt": "2026-08-13T02:51:40.285Z",
           "updatedAt": "2026-07-21T00:20:07.890Z",
           "fetchStatus": "success",
           "rawHash": "415db98c35844f8416f8029290d2f0a26b30e6f7"
@@ -11595,7 +11595,7 @@
           "sourceType": "procurement",
           "originalId": "25530096",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25530096",
-          "collectedAt": "2026-08-07T03:21:15.469Z",
+          "collectedAt": "2026-08-13T02:51:40.286Z",
           "updatedAt": "2026-07-21T00:20:07.890Z",
           "fetchStatus": "success",
           "rawHash": "40e15c4fa77a126ca75de9e173694ad41633f38d"
@@ -11647,7 +11647,7 @@
           "sourceType": "procurement",
           "originalId": "25636409",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25636409",
-          "collectedAt": "2026-08-07T03:21:15.469Z",
+          "collectedAt": "2026-08-13T02:51:40.286Z",
           "updatedAt": "2026-07-21T00:20:07.890Z",
           "fetchStatus": "success",
           "rawHash": "34931ac6bccc848e504bc533e44757a742301e5f"
@@ -11699,7 +11699,7 @@
           "sourceType": "procurement",
           "originalId": "25017553",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25017553",
-          "collectedAt": "2026-08-07T03:21:15.469Z",
+          "collectedAt": "2026-08-13T02:51:40.286Z",
           "updatedAt": "2026-07-21T00:20:07.890Z",
           "fetchStatus": "success",
           "rawHash": "77acde76628b17bb7a3abd062b996d253b0ec571"
@@ -11751,7 +11751,7 @@
           "sourceType": "procurement",
           "originalId": "25072762",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25072762",
-          "collectedAt": "2026-08-07T03:21:15.469Z",
+          "collectedAt": "2026-08-13T02:51:40.286Z",
           "updatedAt": "2026-07-21T00:20:07.890Z",
           "fetchStatus": "success",
           "rawHash": "f7a807fa8c71e01708158c8274c0dd33a93cb691"
@@ -11803,7 +11803,7 @@
           "sourceType": "procurement",
           "originalId": "24169765",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24169765",
-          "collectedAt": "2026-08-07T03:21:15.467Z",
+          "collectedAt": "2026-08-13T02:51:40.285Z",
           "updatedAt": "2026-07-21T00:20:07.889Z",
           "fetchStatus": "success",
           "rawHash": "bd8280aa859d91a7e3908c5240339e6657b87575"
@@ -11855,7 +11855,7 @@
           "sourceType": "procurement",
           "originalId": "25506523",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25506523",
-          "collectedAt": "2026-08-07T03:21:15.467Z",
+          "collectedAt": "2026-08-13T02:51:40.285Z",
           "updatedAt": "2026-07-21T00:20:07.889Z",
           "fetchStatus": "success",
           "rawHash": "b5914f9df11b9353c5114fabff6ac1fa64aa9969"
@@ -11907,7 +11907,7 @@
           "sourceType": "procurement",
           "originalId": "25402843",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25402843",
-          "collectedAt": "2026-08-07T03:21:15.468Z",
+          "collectedAt": "2026-08-13T02:51:40.285Z",
           "updatedAt": "2026-07-21T00:20:07.889Z",
           "fetchStatus": "success",
           "rawHash": "39acdf3a4906c4bb66890b975fde9c9a4d60eacb"
@@ -11959,7 +11959,7 @@
           "sourceType": "procurement",
           "originalId": "25530077",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25530077",
-          "collectedAt": "2026-08-07T03:21:15.468Z",
+          "collectedAt": "2026-08-13T02:51:40.285Z",
           "updatedAt": "2026-07-21T00:20:07.889Z",
           "fetchStatus": "success",
           "rawHash": "3f5c8e8ffb00c50f7471d03248581fb340869b1b"
@@ -12011,7 +12011,7 @@
           "sourceType": "procurement",
           "originalId": "25636410",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25636410",
-          "collectedAt": "2026-08-07T03:21:15.466Z",
+          "collectedAt": "2026-08-13T02:51:40.284Z",
           "updatedAt": "2026-07-21T00:20:05.567Z",
           "fetchStatus": "success",
           "rawHash": "8828719611c8be54f74ff1cc3797150b7736c3da"
@@ -12063,7 +12063,7 @@
           "sourceType": "procurement",
           "originalId": "25341621",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25341621",
-          "collectedAt": "2026-08-07T03:21:15.466Z",
+          "collectedAt": "2026-08-13T02:51:40.284Z",
           "updatedAt": "2026-07-21T00:20:05.567Z",
           "fetchStatus": "success",
           "rawHash": "3dc848c0ecafb9be89cdc9ff796012886c93b18a"
@@ -12115,7 +12115,7 @@
           "sourceType": "procurement",
           "originalId": "24392332",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24392332",
-          "collectedAt": "2026-08-07T03:21:15.466Z",
+          "collectedAt": "2026-08-13T02:51:40.284Z",
           "updatedAt": "2026-07-21T00:20:05.567Z",
           "fetchStatus": "success",
           "rawHash": "37a90ace89555064cfaab60383cfaad0cf987d93"
@@ -12167,7 +12167,7 @@
           "sourceType": "procurement",
           "originalId": "25530054",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25530054",
-          "collectedAt": "2026-08-07T03:21:15.466Z",
+          "collectedAt": "2026-08-13T02:51:40.284Z",
           "updatedAt": "2026-07-21T00:20:05.567Z",
           "fetchStatus": "success",
           "rawHash": "9738733944690a8853929e2ea025385388eb111e"
@@ -12219,7 +12219,7 @@
           "sourceType": "procurement",
           "originalId": "25530057",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25530057",
-          "collectedAt": "2026-08-07T03:21:15.466Z",
+          "collectedAt": "2026-08-13T02:51:40.284Z",
           "updatedAt": "2026-07-21T00:20:05.567Z",
           "fetchStatus": "success",
           "rawHash": "3bc1ccf9c12f992c9f1a3d20930dd5bdca219924"
@@ -12271,7 +12271,7 @@
           "sourceType": "procurement",
           "originalId": "25341620",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25341620",
-          "collectedAt": "2026-08-07T03:21:15.466Z",
+          "collectedAt": "2026-08-13T02:51:40.284Z",
           "updatedAt": "2026-07-21T00:20:05.567Z",
           "fetchStatus": "success",
           "rawHash": "8f6bf35cbcc2f4967bf4739e3b09bcd43b7b7d58"
@@ -12323,7 +12323,7 @@
           "sourceType": "procurement",
           "originalId": "26043958",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26043958",
-          "collectedAt": "2026-08-07T03:21:15.467Z",
+          "collectedAt": "2026-08-13T02:51:40.284Z",
           "updatedAt": "2026-07-21T00:20:05.567Z",
           "fetchStatus": "success",
           "rawHash": "3aaab03c68eb6f95a7cbe89fb0a213f44c3e144d"
@@ -12375,7 +12375,7 @@
           "sourceType": "procurement",
           "originalId": "25681914",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25681914",
-          "collectedAt": "2026-08-07T03:21:15.467Z",
+          "collectedAt": "2026-08-13T02:51:40.284Z",
           "updatedAt": "2026-07-21T00:20:05.567Z",
           "fetchStatus": "success",
           "rawHash": "515df3e31170399ee5a769e724226bc1760d56a5"
@@ -12427,7 +12427,7 @@
           "sourceType": "procurement",
           "originalId": "25916289",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25916289",
-          "collectedAt": "2026-08-07T03:21:15.467Z",
+          "collectedAt": "2026-08-13T02:51:40.284Z",
           "updatedAt": "2026-07-21T00:20:05.567Z",
           "fetchStatus": "success",
           "rawHash": "101c70109345d8d16082879f488221f2ac77fe4d"
@@ -12479,7 +12479,7 @@
           "sourceType": "procurement",
           "originalId": "24475272",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24475272",
-          "collectedAt": "2026-08-07T03:21:15.467Z",
+          "collectedAt": "2026-08-13T02:51:40.284Z",
           "updatedAt": "2026-07-21T00:20:05.567Z",
           "fetchStatus": "success",
           "rawHash": "bb2a1836c9fe4a97c99d624867993f52f6e165fc"
@@ -12531,7 +12531,7 @@
           "sourceType": "procurement",
           "originalId": "25097675",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25097675",
-          "collectedAt": "2026-08-07T03:21:15.467Z",
+          "collectedAt": "2026-08-13T02:51:40.285Z",
           "updatedAt": "2026-07-21T00:20:05.567Z",
           "fetchStatus": "success",
           "rawHash": "20a58b66a34a67f03264dce21d3a66c3e792ca0d"
@@ -12583,7 +12583,7 @@
           "sourceType": "procurement",
           "originalId": "25303416",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25303416",
-          "collectedAt": "2026-08-07T03:21:15.467Z",
+          "collectedAt": "2026-08-13T02:51:40.285Z",
           "updatedAt": "2026-07-21T00:20:05.567Z",
           "fetchStatus": "success",
           "rawHash": "a56b480af3fee09e13ea7e9f6d3c0a3dff8f3e2f"
@@ -12635,7 +12635,7 @@
           "sourceType": "procurement",
           "originalId": "25992221",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25992221",
-          "collectedAt": "2026-08-07T03:21:15.462Z",
+          "collectedAt": "2026-08-13T02:51:40.281Z",
           "updatedAt": "2026-07-21T00:20:05.566Z",
           "fetchStatus": "success",
           "rawHash": "fb229fa8a2d1400978911da27dcd3cd7c4f5237d"
@@ -12687,7 +12687,7 @@
           "sourceType": "procurement",
           "originalId": "25636408",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25636408",
-          "collectedAt": "2026-08-07T03:21:15.462Z",
+          "collectedAt": "2026-08-13T02:51:40.281Z",
           "updatedAt": "2026-07-21T00:20:05.566Z",
           "fetchStatus": "success",
           "rawHash": "7e8f2d3580bf42d4df24cdfcebd6ec395011ccca"
@@ -12739,7 +12739,7 @@
           "sourceType": "procurement",
           "originalId": "24086782",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24086782",
-          "collectedAt": "2026-08-07T03:21:15.462Z",
+          "collectedAt": "2026-08-13T02:51:40.281Z",
           "updatedAt": "2026-07-21T00:20:05.566Z",
           "fetchStatus": "success",
           "rawHash": "11d7bc0675fca7ecbd175663a0d63beb27f16abf"
@@ -12791,7 +12791,7 @@
           "sourceType": "procurement",
           "originalId": "23982458",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=23982458",
-          "collectedAt": "2026-08-07T03:21:15.462Z",
+          "collectedAt": "2026-08-13T02:51:40.281Z",
           "updatedAt": "2026-07-21T00:20:05.566Z",
           "fetchStatus": "success",
           "rawHash": "9e024e3b0476a88198e2570553f205f993a1d4f8"
@@ -12843,7 +12843,7 @@
           "sourceType": "procurement",
           "originalId": "24086780",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24086780",
-          "collectedAt": "2026-08-07T03:21:15.462Z",
+          "collectedAt": "2026-08-13T02:51:40.281Z",
           "updatedAt": "2026-07-21T00:20:05.566Z",
           "fetchStatus": "success",
           "rawHash": "ba2caf251d5e94bff85cdc46b7872f1fab103499"
@@ -12895,7 +12895,7 @@
           "sourceType": "procurement",
           "originalId": "25030428",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25030428",
-          "collectedAt": "2026-08-07T03:21:15.462Z",
+          "collectedAt": "2026-08-13T02:51:40.281Z",
           "updatedAt": "2026-07-21T00:20:05.566Z",
           "fetchStatus": "success",
           "rawHash": "956fc9eba30ddcdb343a78eb750169b45f22aabf"
@@ -12947,7 +12947,7 @@
           "sourceType": "procurement",
           "originalId": "25052553",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25052553",
-          "collectedAt": "2026-08-07T03:21:15.463Z",
+          "collectedAt": "2026-08-13T02:51:40.281Z",
           "updatedAt": "2026-07-21T00:20:05.566Z",
           "fetchStatus": "success",
           "rawHash": "4ce2202e8df2e958a4a3db07210f09994a1fdf41"
@@ -12999,7 +12999,7 @@
           "sourceType": "procurement",
           "originalId": "25681941",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25681941",
-          "collectedAt": "2026-08-07T03:21:15.463Z",
+          "collectedAt": "2026-08-13T02:51:40.281Z",
           "updatedAt": "2026-07-21T00:20:05.566Z",
           "fetchStatus": "success",
           "rawHash": "232ec44f90076b4a2d020378cce65b256b9680c7"
@@ -13051,7 +13051,7 @@
           "sourceType": "procurement",
           "originalId": "24684345",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24684345",
-          "collectedAt": "2026-08-07T03:21:15.463Z",
+          "collectedAt": "2026-08-13T02:51:40.281Z",
           "updatedAt": "2026-07-21T00:20:05.566Z",
           "fetchStatus": "success",
           "rawHash": "78122fa93d377d4a0fac2a4f20ce9f6cd0b7dcd3"
@@ -13103,7 +13103,7 @@
           "sourceType": "procurement",
           "originalId": "24086774",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24086774",
-          "collectedAt": "2026-08-07T03:21:15.463Z",
+          "collectedAt": "2026-08-13T02:51:40.282Z",
           "updatedAt": "2026-07-21T00:20:05.566Z",
           "fetchStatus": "success",
           "rawHash": "7eafaf231f27ff9bde102038bfba12d7cbc22ff7"
@@ -13155,7 +13155,7 @@
           "sourceType": "procurement",
           "originalId": "24086778",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24086778",
-          "collectedAt": "2026-08-07T03:21:15.463Z",
+          "collectedAt": "2026-08-13T02:51:40.282Z",
           "updatedAt": "2026-07-21T00:20:05.566Z",
           "fetchStatus": "success",
           "rawHash": "252b1b5e224951e2dc8416298e018a287389ec5c"
@@ -13207,7 +13207,7 @@
           "sourceType": "procurement",
           "originalId": "25898098",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25898098",
-          "collectedAt": "2026-08-07T03:21:15.464Z",
+          "collectedAt": "2026-08-13T02:51:40.282Z",
           "updatedAt": "2026-07-21T00:20:05.566Z",
           "fetchStatus": "success",
           "rawHash": "32acd6543e061be1e2d90a156dd6d97ce36e0c3e"
@@ -13259,7 +13259,7 @@
           "sourceType": "procurement",
           "originalId": "24086779",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24086779",
-          "collectedAt": "2026-08-07T03:21:15.464Z",
+          "collectedAt": "2026-08-13T02:51:40.282Z",
           "updatedAt": "2026-07-21T00:20:05.566Z",
           "fetchStatus": "success",
           "rawHash": "4596dd98b017533a743fd453d0a9ba37dd3edbf1"
@@ -13311,7 +13311,7 @@
           "sourceType": "procurement",
           "originalId": "24130124",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24130124",
-          "collectedAt": "2026-08-07T03:21:15.464Z",
+          "collectedAt": "2026-08-13T02:51:40.282Z",
           "updatedAt": "2026-07-21T00:20:05.566Z",
           "fetchStatus": "success",
           "rawHash": "9b2bbfe293d37e01ab747cf360ef833abd2cc9cb"
@@ -13363,7 +13363,7 @@
           "sourceType": "procurement",
           "originalId": "25863158",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25863158",
-          "collectedAt": "2026-08-07T03:21:15.465Z",
+          "collectedAt": "2026-08-13T02:51:40.283Z",
           "updatedAt": "2026-07-21T00:20:05.566Z",
           "fetchStatus": "success",
           "rawHash": "00270872a54b5e549f8f390ebe5b0d8356eb7787"
@@ -13415,7 +13415,7 @@
           "sourceType": "procurement",
           "originalId": "24822394",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24822394",
-          "collectedAt": "2026-08-07T03:21:15.465Z",
+          "collectedAt": "2026-08-13T02:51:40.283Z",
           "updatedAt": "2026-07-21T00:20:05.566Z",
           "fetchStatus": "success",
           "rawHash": "c00e4a7584ebd6444371df61b7595e32367ba9f3"
@@ -13467,7 +13467,7 @@
           "sourceType": "procurement",
           "originalId": "25068349",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25068349",
-          "collectedAt": "2026-08-07T03:21:15.465Z",
+          "collectedAt": "2026-08-13T02:51:40.283Z",
           "updatedAt": "2026-07-21T00:20:05.566Z",
           "fetchStatus": "success",
           "rawHash": "0587c41c94c88423e8517d61a722959489b44b71"
@@ -13519,7 +13519,7 @@
           "sourceType": "procurement",
           "originalId": "24822393",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24822393",
-          "collectedAt": "2026-08-07T03:21:15.466Z",
+          "collectedAt": "2026-08-13T02:51:40.284Z",
           "updatedAt": "2026-07-21T00:20:05.566Z",
           "fetchStatus": "success",
           "rawHash": "133206364be811660dd1ff1970c2560827147077"
@@ -13571,7 +13571,7 @@
           "sourceType": "procurement",
           "originalId": "26043977",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26043977",
-          "collectedAt": "2026-08-07T03:21:15.466Z",
+          "collectedAt": "2026-08-13T02:51:40.284Z",
           "updatedAt": "2026-07-21T00:20:05.566Z",
           "fetchStatus": "success",
           "rawHash": "45912df390a89779d0b195c2b71880081f1a0147"
@@ -13623,7 +13623,7 @@
           "sourceType": "procurement",
           "originalId": "25215505",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25215505",
-          "collectedAt": "2026-08-07T03:21:15.458Z",
+          "collectedAt": "2026-08-13T02:51:40.278Z",
           "updatedAt": "2026-07-21T00:20:05.565Z",
           "fetchStatus": "success",
           "rawHash": "c790557a9465d987290febda48b035218b0191ce"
@@ -13675,7 +13675,7 @@
           "sourceType": "procurement",
           "originalId": "25757285",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25757285",
-          "collectedAt": "2026-08-07T03:21:15.458Z",
+          "collectedAt": "2026-08-13T02:51:40.278Z",
           "updatedAt": "2026-07-21T00:20:05.565Z",
           "fetchStatus": "success",
           "rawHash": "009002ecfc80b35f0022163051e33e215d6c22d0"
@@ -13727,7 +13727,7 @@
           "sourceType": "procurement",
           "originalId": "25201878",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25201878",
-          "collectedAt": "2026-08-07T03:21:15.458Z",
+          "collectedAt": "2026-08-13T02:51:40.278Z",
           "updatedAt": "2026-07-21T00:20:05.565Z",
           "fetchStatus": "success",
           "rawHash": "0cec3436472b48f1c7afdfed6f10b7a4150e62eb"
@@ -13779,7 +13779,7 @@
           "sourceType": "procurement",
           "originalId": "25636415",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25636415",
-          "collectedAt": "2026-08-07T03:21:15.458Z",
+          "collectedAt": "2026-08-13T02:51:40.279Z",
           "updatedAt": "2026-07-21T00:20:05.565Z",
           "fetchStatus": "success",
           "rawHash": "637e6c93fb34fe20fc84b4053fd9295d066c6db1"
@@ -13831,7 +13831,7 @@
           "sourceType": "procurement",
           "originalId": "24291310",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24291310",
-          "collectedAt": "2026-08-07T03:21:15.458Z",
+          "collectedAt": "2026-08-13T02:51:40.279Z",
           "updatedAt": "2026-07-21T00:20:05.565Z",
           "fetchStatus": "success",
           "rawHash": "7139be14ba9521b125576b5322d4554ad352c526"
@@ -13883,7 +13883,7 @@
           "sourceType": "procurement",
           "originalId": "24086785",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24086785",
-          "collectedAt": "2026-08-07T03:21:15.459Z",
+          "collectedAt": "2026-08-13T02:51:40.279Z",
           "updatedAt": "2026-07-21T00:20:05.565Z",
           "fetchStatus": "success",
           "rawHash": "563cea6508db94dbbcff75ad3b7ef7a7f45a67a4"
@@ -13935,7 +13935,7 @@
           "sourceType": "procurement",
           "originalId": "25757279",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25757279",
-          "collectedAt": "2026-08-07T03:21:15.459Z",
+          "collectedAt": "2026-08-13T02:51:40.279Z",
           "updatedAt": "2026-07-21T00:20:05.565Z",
           "fetchStatus": "success",
           "rawHash": "b3462510e014a4a59a23ac55118e9b6bb01eebdc"
@@ -13987,7 +13987,7 @@
           "sourceType": "procurement",
           "originalId": "25201922",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25201922",
-          "collectedAt": "2026-08-07T03:21:15.459Z",
+          "collectedAt": "2026-08-13T02:51:40.279Z",
           "updatedAt": "2026-07-21T00:20:05.565Z",
           "fetchStatus": "success",
           "rawHash": "79e0f0d3d74cc22ac7bb092227a429f89465ff7c"
@@ -14039,7 +14039,7 @@
           "sourceType": "procurement",
           "originalId": "25681915",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25681915",
-          "collectedAt": "2026-08-07T03:21:15.460Z",
+          "collectedAt": "2026-08-13T02:51:40.279Z",
           "updatedAt": "2026-07-21T00:20:05.565Z",
           "fetchStatus": "success",
           "rawHash": "0a2ac61b4547edd273c5f454033b2ac65a6f3972"
@@ -14091,7 +14091,7 @@
           "sourceType": "procurement",
           "originalId": "25569311",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25569311",
-          "collectedAt": "2026-08-07T03:21:15.460Z",
+          "collectedAt": "2026-08-13T02:51:40.279Z",
           "updatedAt": "2026-07-21T00:20:05.565Z",
           "fetchStatus": "success",
           "rawHash": "c8b6cd4ef91f0e2e86c98de5442e693342de186d"
@@ -14143,7 +14143,7 @@
           "sourceType": "procurement",
           "originalId": "26078984",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26078984",
-          "collectedAt": "2026-08-07T03:21:15.460Z",
+          "collectedAt": "2026-08-13T02:51:40.279Z",
           "updatedAt": "2026-07-21T00:20:05.565Z",
           "fetchStatus": "success",
           "rawHash": "0211f2cec0d2a7c01a689d8021424a2b700a0409"
@@ -14195,7 +14195,7 @@
           "sourceType": "procurement",
           "originalId": "26043974",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26043974",
-          "collectedAt": "2026-08-07T03:21:15.460Z",
+          "collectedAt": "2026-08-13T02:51:40.280Z",
           "updatedAt": "2026-07-21T00:20:05.565Z",
           "fetchStatus": "success",
           "rawHash": "d0be0648cfc28c2041257f36f1f805ac81d89c9d"
@@ -14247,7 +14247,7 @@
           "sourceType": "procurement",
           "originalId": "26043957",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26043957",
-          "collectedAt": "2026-08-07T03:21:15.460Z",
+          "collectedAt": "2026-08-13T02:51:40.280Z",
           "updatedAt": "2026-07-21T00:20:05.565Z",
           "fetchStatus": "success",
           "rawHash": "4595081b76b71bd1eafe6b1f55372ef31a4464af"
@@ -14299,7 +14299,7 @@
           "sourceType": "procurement",
           "originalId": "25530055",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25530055",
-          "collectedAt": "2026-08-07T03:21:15.460Z",
+          "collectedAt": "2026-08-13T02:51:40.280Z",
           "updatedAt": "2026-07-21T00:20:05.565Z",
           "fetchStatus": "success",
           "rawHash": "21c860030105d43e3624bcee3ffe1d500f20b90c"
@@ -14351,7 +14351,7 @@
           "sourceType": "procurement",
           "originalId": "26043976",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26043976",
-          "collectedAt": "2026-08-07T03:21:15.460Z",
+          "collectedAt": "2026-08-13T02:51:40.280Z",
           "updatedAt": "2026-07-21T00:20:05.565Z",
           "fetchStatus": "success",
           "rawHash": "dbd5d810fd1e9fbf98ad4e9ca65ef142d1729935"
@@ -14403,7 +14403,7 @@
           "sourceType": "procurement",
           "originalId": "26043954",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26043954",
-          "collectedAt": "2026-08-07T03:21:15.461Z",
+          "collectedAt": "2026-08-13T02:51:40.280Z",
           "updatedAt": "2026-07-21T00:20:05.565Z",
           "fetchStatus": "success",
           "rawHash": "c6070d38b77e74ecd4769359d518084a7669fb1d"
@@ -14455,7 +14455,7 @@
           "sourceType": "procurement",
           "originalId": "24392333",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24392333",
-          "collectedAt": "2026-08-07T03:21:15.461Z",
+          "collectedAt": "2026-08-13T02:51:40.280Z",
           "updatedAt": "2026-07-21T00:20:05.565Z",
           "fetchStatus": "success",
           "rawHash": "bb191b9d7373fdd2afac76fc501d3ec210e08ca4"
@@ -14507,7 +14507,7 @@
           "sourceType": "procurement",
           "originalId": "25932506",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25932506",
-          "collectedAt": "2026-08-07T03:21:15.461Z",
+          "collectedAt": "2026-08-13T02:51:40.280Z",
           "updatedAt": "2026-07-21T00:20:05.565Z",
           "fetchStatus": "success",
           "rawHash": "6f55515a33b99f5ec76fcd22841b10d36c619feb"
@@ -14559,7 +14559,7 @@
           "sourceType": "procurement",
           "originalId": "25530078",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25530078",
-          "collectedAt": "2026-08-07T03:21:15.461Z",
+          "collectedAt": "2026-08-13T02:51:40.280Z",
           "updatedAt": "2026-07-21T00:20:05.565Z",
           "fetchStatus": "success",
           "rawHash": "46f0e006dad5c4aac98fbe7e3826bc649c211a4e"
@@ -14611,7 +14611,7 @@
           "sourceType": "procurement",
           "originalId": "25530081",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25530081",
-          "collectedAt": "2026-08-07T03:21:15.461Z",
+          "collectedAt": "2026-08-13T02:51:40.280Z",
           "updatedAt": "2026-07-21T00:20:05.565Z",
           "fetchStatus": "success",
           "rawHash": "15ec83cc045ce5da548a86d13b1f1a218003a4d3"
@@ -14663,7 +14663,7 @@
           "sourceType": "procurement",
           "originalId": "26043973",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26043973",
-          "collectedAt": "2026-08-07T03:21:15.454Z",
+          "collectedAt": "2026-08-13T02:51:40.276Z",
           "updatedAt": "2026-07-21T00:20:05.564Z",
           "fetchStatus": "success",
           "rawHash": "c5e4f44302de0674d033f55e3874ee28e3cc4bea"
@@ -14715,7 +14715,7 @@
           "sourceType": "procurement",
           "originalId": "24952440",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24952440",
-          "collectedAt": "2026-08-07T03:21:15.454Z",
+          "collectedAt": "2026-08-13T02:51:40.276Z",
           "updatedAt": "2026-07-21T00:20:05.564Z",
           "fetchStatus": "success",
           "rawHash": "087a236eb3d1f7500600afe79f09f5c354d82bc8"
@@ -14767,7 +14767,7 @@
           "sourceType": "procurement",
           "originalId": "24197056",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24197056",
-          "collectedAt": "2026-08-07T03:21:15.454Z",
+          "collectedAt": "2026-08-13T02:51:40.276Z",
           "updatedAt": "2026-07-21T00:20:05.564Z",
           "fetchStatus": "success",
           "rawHash": "ac6badb2a2008505b334c3a3dc8fc05c197a2a26"
@@ -14819,7 +14819,7 @@
           "sourceType": "procurement",
           "originalId": "24197058",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24197058",
-          "collectedAt": "2026-08-07T03:21:15.455Z",
+          "collectedAt": "2026-08-13T02:51:40.276Z",
           "updatedAt": "2026-07-21T00:20:05.564Z",
           "fetchStatus": "success",
           "rawHash": "803cbac4726ded8443b79302bc511ae0cd85165c"
@@ -14871,7 +14871,7 @@
           "sourceType": "procurement",
           "originalId": "25530058",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25530058",
-          "collectedAt": "2026-08-07T03:21:15.455Z",
+          "collectedAt": "2026-08-13T02:51:40.276Z",
           "updatedAt": "2026-07-21T00:20:05.564Z",
           "fetchStatus": "success",
           "rawHash": "bfe8da583192e86387dc5ee15cb255f57d62e8f9"
@@ -14923,7 +14923,7 @@
           "sourceType": "procurement",
           "originalId": "25530064",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25530064",
-          "collectedAt": "2026-08-07T03:21:15.455Z",
+          "collectedAt": "2026-08-13T02:51:40.277Z",
           "updatedAt": "2026-07-21T00:20:05.564Z",
           "fetchStatus": "success",
           "rawHash": "08cb1d644b126eb834e2f7567f32161f06c93a1d"
@@ -14975,7 +14975,7 @@
           "sourceType": "procurement",
           "originalId": "25530079",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25530079",
-          "collectedAt": "2026-08-07T03:21:15.455Z",
+          "collectedAt": "2026-08-13T02:51:40.277Z",
           "updatedAt": "2026-07-21T00:20:05.564Z",
           "fetchStatus": "success",
           "rawHash": "9ca9cd97a117690b96bbf9b38e328bb4499ddae6"
@@ -15027,7 +15027,7 @@
           "sourceType": "procurement",
           "originalId": "24405744",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24405744",
-          "collectedAt": "2026-08-07T03:21:15.455Z",
+          "collectedAt": "2026-08-13T02:51:40.277Z",
           "updatedAt": "2026-07-21T00:20:05.564Z",
           "fetchStatus": "success",
           "rawHash": "b52a5ca783aba2bbd97b6ee963c422369d564d44"
@@ -15079,7 +15079,7 @@
           "sourceType": "procurement",
           "originalId": "24240295",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24240295",
-          "collectedAt": "2026-08-07T03:21:15.456Z",
+          "collectedAt": "2026-08-13T02:51:40.277Z",
           "updatedAt": "2026-07-21T00:20:05.564Z",
           "fetchStatus": "success",
           "rawHash": "22d9dc6110e1fec97d9d82ec33c2ddf04202507a"
@@ -15131,7 +15131,7 @@
           "sourceType": "procurement",
           "originalId": "25269402",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25269402",
-          "collectedAt": "2026-08-07T03:21:15.456Z",
+          "collectedAt": "2026-08-13T02:51:40.277Z",
           "updatedAt": "2026-07-21T00:20:05.564Z",
           "fetchStatus": "success",
           "rawHash": "7c1cb87059f0081653ccd796de9922388d966311"
@@ -15183,7 +15183,7 @@
           "sourceType": "procurement",
           "originalId": "26033343",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26033343",
-          "collectedAt": "2026-08-07T03:21:15.456Z",
+          "collectedAt": "2026-08-13T02:51:40.277Z",
           "updatedAt": "2026-07-21T00:20:05.564Z",
           "fetchStatus": "success",
           "rawHash": "5ce28b9f741d08b6214e03c1fc1d2cf70b37358c"
@@ -15235,7 +15235,7 @@
           "sourceType": "procurement",
           "originalId": "25530097",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25530097",
-          "collectedAt": "2026-08-07T03:21:15.456Z",
+          "collectedAt": "2026-08-13T02:51:40.277Z",
           "updatedAt": "2026-07-21T00:20:05.564Z",
           "fetchStatus": "success",
           "rawHash": "f4fbdef1c5d08062a613545d237c9771cff61496"
@@ -15287,7 +15287,7 @@
           "sourceType": "procurement",
           "originalId": "24139724",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24139724",
-          "collectedAt": "2026-08-07T03:21:15.456Z",
+          "collectedAt": "2026-08-13T02:51:40.277Z",
           "updatedAt": "2026-07-21T00:20:05.564Z",
           "fetchStatus": "success",
           "rawHash": "18bd93beb59a1576c0ede08500cc0a2ec1c6afd3"
@@ -15339,7 +15339,7 @@
           "sourceType": "procurement",
           "originalId": "25215500",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25215500",
-          "collectedAt": "2026-08-07T03:21:15.457Z",
+          "collectedAt": "2026-08-13T02:51:40.278Z",
           "updatedAt": "2026-07-21T00:20:05.564Z",
           "fetchStatus": "success",
           "rawHash": "e2e91e6277db7b68a548202a808843f0c6729098"
@@ -15391,7 +15391,7 @@
           "sourceType": "procurement",
           "originalId": "24130125",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24130125",
-          "collectedAt": "2026-08-07T03:21:15.457Z",
+          "collectedAt": "2026-08-13T02:51:40.278Z",
           "updatedAt": "2026-07-21T00:20:05.564Z",
           "fetchStatus": "success",
           "rawHash": "5359bf860b65e431f51a0487987cbf9b23dfd8e6"
@@ -15443,7 +15443,7 @@
           "sourceType": "procurement",
           "originalId": "25681942",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25681942",
-          "collectedAt": "2026-08-07T03:21:15.454Z",
+          "collectedAt": "2026-08-13T02:51:40.276Z",
           "updatedAt": "2026-07-21T00:20:05.563Z",
           "fetchStatus": "success",
           "rawHash": "038029118bdcb5a29dd4adc31e680263280cf368"
@@ -15495,7 +15495,7 @@
           "sourceType": "procurement",
           "originalId": "25853515",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25853515",
-          "collectedAt": "2026-08-07T03:21:15.453Z",
+          "collectedAt": "2026-08-13T02:51:40.275Z",
           "updatedAt": "2026-07-21T00:20:03.152Z",
           "fetchStatus": "success",
           "rawHash": "b2694f660491f4ea62e5324c57426bd305af689d"
@@ -15547,7 +15547,7 @@
           "sourceType": "procurement",
           "originalId": "26044006",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26044006",
-          "collectedAt": "2026-08-07T03:21:15.453Z",
+          "collectedAt": "2026-08-13T02:51:40.275Z",
           "updatedAt": "2026-07-21T00:20:03.152Z",
           "fetchStatus": "success",
           "rawHash": "9462f5766134542a54bba767868f29ad131bf2c3"
@@ -15599,7 +15599,7 @@
           "sourceType": "procurement",
           "originalId": "25076195",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25076195",
-          "collectedAt": "2026-08-07T03:21:15.453Z",
+          "collectedAt": "2026-08-13T02:51:40.276Z",
           "updatedAt": "2026-07-21T00:20:03.152Z",
           "fetchStatus": "success",
           "rawHash": "65af78522b41af53aed81dd6bb8e8800f4a03d5e"
@@ -15651,7 +15651,7 @@
           "sourceType": "procurement",
           "originalId": "24291321",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24291321",
-          "collectedAt": "2026-08-07T03:21:15.451Z",
+          "collectedAt": "2026-08-13T02:51:40.274Z",
           "updatedAt": "2026-07-21T00:20:03.151Z",
           "fetchStatus": "success",
           "rawHash": "834a806f4fba37171387bf86b04bec0c7317d313"
@@ -15703,7 +15703,7 @@
           "sourceType": "procurement",
           "originalId": "25804198",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25804198",
-          "collectedAt": "2026-08-07T03:21:15.451Z",
+          "collectedAt": "2026-08-13T02:51:40.274Z",
           "updatedAt": "2026-07-21T00:20:03.151Z",
           "fetchStatus": "success",
           "rawHash": "1d5f54e1c90ca650ba71234194ab9985263a9567"
@@ -15755,7 +15755,7 @@
           "sourceType": "procurement",
           "originalId": "26090491",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26090491",
-          "collectedAt": "2026-08-07T03:21:15.451Z",
+          "collectedAt": "2026-08-13T02:51:40.274Z",
           "updatedAt": "2026-07-21T00:20:03.151Z",
           "fetchStatus": "success",
           "rawHash": "3d121127935aab4c4089ab2fdc669577059d22d8"
@@ -15807,7 +15807,7 @@
           "sourceType": "procurement",
           "originalId": "26090488",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26090488",
-          "collectedAt": "2026-08-07T03:21:15.452Z",
+          "collectedAt": "2026-08-13T02:51:40.274Z",
           "updatedAt": "2026-07-21T00:20:03.151Z",
           "fetchStatus": "success",
           "rawHash": "4218a051556ebefeee52f03ab98b03d9f2eb4ce1"
@@ -15859,7 +15859,7 @@
           "sourceType": "procurement",
           "originalId": "26090483",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26090483",
-          "collectedAt": "2026-08-07T03:21:15.452Z",
+          "collectedAt": "2026-08-13T02:51:40.274Z",
           "updatedAt": "2026-07-21T00:20:03.151Z",
           "fetchStatus": "success",
           "rawHash": "5385c051f8b7fda711bc852788f23fcda319d040"
@@ -15911,7 +15911,7 @@
           "sourceType": "procurement",
           "originalId": "26166163",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26166163",
-          "collectedAt": "2026-08-07T03:21:15.452Z",
+          "collectedAt": "2026-08-13T02:51:40.275Z",
           "updatedAt": "2026-07-21T00:20:03.151Z",
           "fetchStatus": "success",
           "rawHash": "fe4a1fe0a9eedf14b492627655b1f6b5eaf0080c"
@@ -15963,7 +15963,7 @@
           "sourceType": "procurement",
           "originalId": "25097470",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25097470",
-          "collectedAt": "2026-08-07T03:21:15.452Z",
+          "collectedAt": "2026-08-13T02:51:40.275Z",
           "updatedAt": "2026-07-21T00:20:03.151Z",
           "fetchStatus": "success",
           "rawHash": "74b9c34b60ddc4b4878c02698703f899fbb59af2"
@@ -16015,7 +16015,7 @@
           "sourceType": "procurement",
           "originalId": "25201923",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25201923",
-          "collectedAt": "2026-08-07T03:21:15.452Z",
+          "collectedAt": "2026-08-13T02:51:40.275Z",
           "updatedAt": "2026-07-21T00:20:03.151Z",
           "fetchStatus": "success",
           "rawHash": "cb5641dd48f863282bf203bb7a1ab6d163870ed7"
@@ -16067,7 +16067,7 @@
           "sourceType": "procurement",
           "originalId": "26043956",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26043956",
-          "collectedAt": "2026-08-07T03:21:15.453Z",
+          "collectedAt": "2026-08-13T02:51:40.275Z",
           "updatedAt": "2026-07-21T00:20:03.151Z",
           "fetchStatus": "success",
           "rawHash": "e15ed9ab8da382a23ddc1f0469b2ad69542a99e9"
@@ -16119,7 +16119,7 @@
           "sourceType": "procurement",
           "originalId": "24650133",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24650133",
-          "collectedAt": "2026-08-07T03:21:15.449Z",
+          "collectedAt": "2026-08-13T02:51:40.273Z",
           "updatedAt": "2026-07-21T00:20:03.150Z",
           "fetchStatus": "success",
           "rawHash": "e2149e5b99c123959ecaf1590387538fc7af047e"
@@ -16171,7 +16171,7 @@
           "sourceType": "procurement",
           "originalId": "24650127",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24650127",
-          "collectedAt": "2026-08-07T03:21:15.449Z",
+          "collectedAt": "2026-08-13T02:51:40.273Z",
           "updatedAt": "2026-07-21T00:20:03.150Z",
           "fetchStatus": "success",
           "rawHash": "1ce982d57b1056ca3c40d3ef708f44b561315ebe"
@@ -16223,7 +16223,7 @@
           "sourceType": "procurement",
           "originalId": "24676860",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=24676860",
-          "collectedAt": "2026-08-07T03:21:15.450Z",
+          "collectedAt": "2026-08-13T02:51:40.273Z",
           "updatedAt": "2026-07-21T00:20:03.150Z",
           "fetchStatus": "success",
           "rawHash": "79a12323341481524805073627587e3d40657713"
@@ -16275,7 +16275,7 @@
           "sourceType": "procurement",
           "originalId": "25757284",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25757284",
-          "collectedAt": "2026-08-07T03:21:15.450Z",
+          "collectedAt": "2026-08-13T02:51:40.273Z",
           "updatedAt": "2026-07-21T00:20:03.150Z",
           "fetchStatus": "success",
           "rawHash": "2cbc05599f4eee580197739f6e824e06a6b78325"
@@ -16327,7 +16327,7 @@
           "sourceType": "procurement",
           "originalId": "25530088",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25530088",
-          "collectedAt": "2026-08-07T03:21:15.450Z",
+          "collectedAt": "2026-08-13T02:51:40.273Z",
           "updatedAt": "2026-07-21T00:20:03.150Z",
           "fetchStatus": "success",
           "rawHash": "87d61e175cf4eb60ccd5555bb9e1cc1675e6bfc0"
@@ -16379,7 +16379,7 @@
           "sourceType": "procurement",
           "originalId": "25530082",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=25530082",
-          "collectedAt": "2026-08-07T03:21:15.450Z",
+          "collectedAt": "2026-08-13T02:51:40.273Z",
           "updatedAt": "2026-07-21T00:20:03.150Z",
           "fetchStatus": "success",
           "rawHash": "69631f1a7c1f2d95676d871bcaa4745508d103d4"
@@ -16431,7 +16431,7 @@
           "sourceType": "procurement",
           "originalId": "26232112",
           "originalUrl": "https://shop.g2b.go.kr/sv/ps/psd/goodsInfo.do?goodsIdntfcNo=26232112",
-          "collectedAt": "2026-08-07T03:21:15.450Z",
+          "collectedAt": "2026-08-13T02:51:40.273Z",
           "updatedAt": "2026-07-21T00:20:03.150Z",
           "fetchStatus": "success",
           "rawHash": "be2e2a804789861888c9902824b03bb7e2744b7c"

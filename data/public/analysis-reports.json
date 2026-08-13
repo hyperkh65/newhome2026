@@ -1,9 +1,9 @@
 [
   {
     "id": "analysis-procurement-latest",
-    "createdAt": "2026-08-07T03:21:15.163Z",
+    "createdAt": "2026-08-13T02:51:40.069Z",
     "title": "조달 실데이터 요약",
-    "periodLabel": "2026-08-07",
+    "periodLabel": "2026-08-13",
     "dataPoints": 13062,
     "confidenceLabel": "실수집",
     "summary": "조달 실데이터 13062건을 반영했습니다. 중앙 등록가는 457,000원입니다.",
