@@ -5,8 +5,12 @@ import "./globals.css";
 import ClientWidgets from '@/components/ClientWidgets';
 
 export const metadata: Metadata = {
-  title: "LED 제품 시장 데이터",
+  title: "(주)와이앤케이",
   description: "조달 등록정보와 민수 판매정보를 검색하고 비교합니다.",
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+  },
   keywords: [
     "LED",
     "조달시장",
