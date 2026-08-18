@@ -5,7 +5,7 @@ import "./globals.css";
 import ClientWidgets from '@/components/ClientWidgets';
 
 export const metadata: Metadata = {
-  title: "(주)와이앤케이",
+  title: "YNK 홈페이지",
   description: "조달 등록정보와 민수 판매정보를 검색하고 비교합니다.",
   icons: {
     icon: "/icon.svg",
