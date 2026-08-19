@@ -251,7 +251,7 @@ export default function Home() {
       <ManualSidebar />
 
       {/* ERP 좌측 고정 배너 */}
-      <a
+      <a className="home-erp-banner"
         href="https://erp.ynk2014.com"
         target="_blank"
         rel="noopener noreferrer"
