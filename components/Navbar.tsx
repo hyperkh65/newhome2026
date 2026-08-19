@@ -18,10 +18,10 @@ const PRODUCT_CATEGORIES = [
 ];
 
 const SUPPORT_ITEMS = [
-  { href: '/support/faq', label: 'FAQ', icon: '❓', desc: '자주 묻는 질문 모음' },
-  { href: '/support/contact', label: '고객문의', icon: '📧', desc: '제품 문의 및 견적 요청' },
-  { href: '/support/install-guide', label: '설치가이드', icon: '🎬', desc: '제품 설치 영상 가이드' },
-  { href: '/support/as', label: 'A/S 신청', icon: '🔧', desc: '수리 및 교체 접수' },
+  { href: '/support/faq', labelKey: 'faq', descKey: 'faq_desc', icon: '❓' },
+  { href: '/support/contact', labelKey: 'inquiries', descKey: 'contact_desc', icon: '📧' },
+  { href: '/support/install-guide', labelKey: 'install_guide', descKey: 'install_desc', icon: '🎬' },
+  { href: '/support/as', labelKey: 'as_request', descKey: 'as_desc', icon: '🔧' },
 ];
 
 export default function Navbar() {
@@ -149,11 +149,11 @@ export default function Navbar() {
               )}
             </div>
 
-            <Link href="/#market" style={navItemStyle()}>시장현황</Link>
-            <Link href="/hscode" style={navItemStyle(pathname==='/hscode')}>HS코드</Link>
+            <Link href="/#market" style={navItemStyle()}>{t('market')}</Link>
+            <Link href="/hscode" style={navItemStyle(pathname==='/hscode')}>{t('hscode')}</Link>
             <Link href="/trade-info" style={navItemStyle()}>{t('trade')}</Link>
             <Link href="/tracking" style={navItemStyle()}>{t('logistics')}</Link>
-            <Link href="/market-report" style={navItemStyle(pathname==='/market-report')}>시장보고서</Link>
+            <Link href="/market-report" style={navItemStyle(pathname==='/market-report')}>{t('market_report')}</Link>
             <Link href="/board" style={navItemStyle()}>{t('board')}</Link>
             <Link href="/blog" style={navItemStyle()}>{t('blog')}</Link>
 
@@ -161,7 +161,7 @@ export default function Navbar() {
             <div ref={supportMenuRef} style={{ position: 'relative' }}>
               <button onClick={() => { setSupportMenuOpen(!supportMenuOpen); setProductMenuOpen(false); }}
                 style={navItemStyle(supportMenuOpen || isSupport)}>
-                고객센터
+                {t('support')}
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"
                   style={{ transform: supportMenuOpen ? 'rotate(180deg)' : '0', transition: '0.3s' }}>
                   <path d="M6 9l6 6 6-6"/>
@@ -180,8 +180,8 @@ export default function Navbar() {
                         background: pathname === item.href ? 'rgba(255,255,255,0.07)' : 'transparent' }}>
                       <div style={{ fontSize: 24, width: 44, height: 44, borderRadius: '12px', background: 'rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{item.icon}</div>
                       <div>
-                        <div style={{ fontSize: 14, fontWeight: 800, color: '#ffffff', marginBottom: 2 }}>{item.label}</div>
-                        <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.45)', fontWeight: 500 }}>{item.desc}</div>
+                        <div style={{ fontSize: 14, fontWeight: 800, color: '#ffffff', marginBottom: 2 }}>{t(item.labelKey)}</div>
+                        <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.45)', fontWeight: 500 }}>{t(item.descKey)}</div>
                       </div>
                     </Link>
                   ))}
@@ -227,7 +227,7 @@ export default function Navbar() {
               onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(139,92,246,0.35)'; (e.currentTarget as HTMLAnchorElement).style.color = '#fff'; }}
               onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(139,92,246,0.18)'; (e.currentTarget as HTMLAnchorElement).style.color = '#c4b5fd'; }}
             >
-              📖 학습실
+              📖 {t('learning')}
             </a>
 
             <button onClick={() => setMenuOpen(!menuOpen)} className="mobile-menu-btn" style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#ffffff', display: 'none' }}>
@@ -242,18 +242,18 @@ export default function Navbar() {
           <div className="site-mobile-menu" style={{ position: 'absolute', top: '100%', left: 0, right: 0, background: 'var(--bg-dark)', padding: '24px', borderTop: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 20px 40px rgba(0,0,0,0.5)', display: 'flex', flexDirection: 'column', gap: 10 }}>
             <Link href="/about" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', color: '#ffffff', textDecoration: 'none', fontWeight: 700 }}>{t('company')}</Link>
             <Link href="/shop" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', color: '#ffffff', textDecoration: 'none', fontWeight: 700 }}>{t('products')}</Link>
-            <Link href="/hscode" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', color: '#ffffff', textDecoration: 'none', fontWeight: 700 }}>HS코드</Link>
-            <Link href="/market" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', color: '#ffffff', textDecoration: 'none', fontWeight: 700 }}>시장현황</Link>
+            <Link href="/hscode" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', color: '#ffffff', textDecoration: 'none', fontWeight: 700 }}>{t('hscode')}</Link>
+            <Link href="/market" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', color: '#ffffff', textDecoration: 'none', fontWeight: 700 }}>{t('market')}</Link>
             <Link href="/trade-info" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', color: '#ffffff', textDecoration: 'none', fontWeight: 700 }}>{t('trade')}</Link>
             <Link href="/tracking" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', color: '#ffffff', textDecoration: 'none', fontWeight: 700 }}>{t('logistics')}</Link>
-            <Link href="/market-report" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', color: '#ffffff', textDecoration: 'none', fontWeight: 700 }}>시장보고서</Link>
+            <Link href="/market-report" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', color: '#ffffff', textDecoration: 'none', fontWeight: 700 }}>{t('market_report')}</Link>
             <Link href="/board" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', color: '#ffffff', textDecoration: 'none', fontWeight: 700 }}>{t('board')}</Link>
             <Link href="/blog" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', color: '#ffffff', textDecoration: 'none', fontWeight: 700 }}>{t('blog')}</Link>
-            <div style={{ padding: '8px 16px', fontSize: 11, fontWeight: 700, color: 'rgba(255,255,255,0.25)', letterSpacing: 1.5, textTransform: 'uppercase' }}>고객센터</div>
+            <div style={{ padding: '8px 16px', fontSize: 11, fontWeight: 700, color: 'rgba(255,255,255,0.25)', letterSpacing: 1.5, textTransform: 'uppercase' }}>{t('support')}</div>
             {SUPPORT_ITEMS.map(item => (
               <Link key={item.href} href={item.href} onClick={()=>setMenuOpen(false)}
                 style={{ padding: '16px', borderRadius: '12px', background: 'rgba(14,165,233,0.05)', color: '#ffffff', textDecoration: 'none', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 10, border: '1px solid rgba(14,165,233,0.1)' }}>
-                <span>{item.icon}</span> {item.label}
+                <span>{item.icon}</span> {t(item.labelKey)}
               </Link>
             ))}
           </div>

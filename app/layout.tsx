@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 
 import "./globals.css";
 import ClientWidgets from '@/components/ClientWidgets';
+import GlobalLocalizer from '@/components/GlobalLocalizer';
 
 export const metadata: Metadata = {
   title: "YNK 홈페이지",
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="ko">
       <body>
         {children}
+        <GlobalLocalizer />
         <ClientWidgets />
       </body>
     </html>
