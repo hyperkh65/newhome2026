@@ -844,10 +844,6 @@ img {
     white-space: nowrap;
   }
 
-  .home-erp-banner {
-    display: none !important;
-  }
-
   .port-congestion-widget {
     display: none !important;
   }
