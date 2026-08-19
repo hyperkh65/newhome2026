@@ -67,7 +67,7 @@ export default function TrackingPage() {
   const sc = statusColor(currentStatus);
 
   return (
-    <main style={{ minHeight: '100vh', background: '#f8fafc' }}>
+    <main className="tracking-page" style={{ minHeight: '100vh', background: '#f8fafc' }}>
       <Navbar />
 
       {/* Header */}
@@ -84,7 +84,7 @@ export default function TrackingPage() {
           </p>
 
           {/* 검색창 */}
-          <div style={{ display: 'flex', gap: 10, background: '#fff', padding: 8, borderRadius: 14, boxShadow: '0 20px 60px rgba(0,0,0,0.3)', marginBottom: 0 }}>
+          <div className="tracking-search-row" style={{ display: 'flex', gap: 10, background: '#fff', padding: 8, borderRadius: 14, boxShadow: '0 20px 60px rgba(0,0,0,0.3)', marginBottom: 0 }}>
             <input
               ref={inputRef}
               type="text"

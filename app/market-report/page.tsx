@@ -79,7 +79,7 @@ export default function BoardPage() {
       <Navbar />
       <style>{PROSE}</style>
 
-      <main style={{ maxWidth: 960, margin: '0 auto', padding: '100px 24px 80px' }}>
+      <main className="market-report-page" style={{ maxWidth: 960, margin: '0 auto', padding: '100px 24px 80px' }}>
 
         {/* 헤더 */}
         {!selected && (
@@ -99,7 +99,7 @@ export default function BoardPage() {
         {!selected && (
           <div style={{ background: '#fff', borderRadius: 20, overflow: 'hidden', border: '1px solid #e2e8f0', boxShadow: '0 4px 24px rgba(0,0,0,0.04)' }}>
             {/* 헤더 행 */}
-            <div style={{ display: 'grid', gridTemplateColumns: '60px 1fr 110px 130px', padding: '13px 24px', background: '#f8fafc', borderBottom: '2px solid #e2e8f0' }}>
+            <div className="market-list-row" style={{ display: 'grid', gridTemplateColumns: '60px 1fr 110px 130px', padding: '13px 24px', background: '#f8fafc', borderBottom: '2px solid #e2e8f0' }}>
               {['번호', '제목', '작성자', '날짜'].map((h, i) => (
                 <div key={h} style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 0.5, textAlign: i >= 2 ? 'center' : 'left' }}>{h}</div>
               ))}
@@ -118,6 +118,7 @@ export default function BoardPage() {
               </div>
             ) : posts.map((post, i) => (
               <div key={post.id} onClick={() => openPost(post)}
+                className="market-list-row"
                 style={{ display: 'grid', gridTemplateColumns: '60px 1fr 110px 130px', padding: '17px 24px', borderBottom: i < posts.length - 1 ? '1px solid #f1f5f9' : 'none', cursor: 'pointer', transition: '0.13s', alignItems: 'center' }}
                 onMouseEnter={e => (e.currentTarget as HTMLDivElement).style.background = '#f8fafc'}
                 onMouseLeave={e => (e.currentTarget as HTMLDivElement).style.background = '#fff'}>
@@ -247,4 +248,3 @@ export default function BoardPage() {
     </div>
   );
 }
-

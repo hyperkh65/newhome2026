@@ -67,7 +67,7 @@ export default function TradeInfoPage() {
   const [activeTab, setActiveTab] = useState('overview');
 
   return (
-    <main style={{ minHeight: '100vh', background: 'var(--gray-50)' }}>
+    <main className="trade-info-page" style={{ minHeight: '100vh', background: 'var(--gray-50)' }}>
       <Navbar />
 
       <div style={{ paddingTop: 100 }}>
@@ -88,7 +88,7 @@ export default function TradeInfoPage() {
             </ScrollReveal>
 
             {/* Tabs */}
-            <div style={{ display: 'flex', gap: 4, justifyContent: 'center', flexWrap: 'wrap', paddingBottom: 0 }}>
+            <div className="trade-info-tabs" style={{ display: 'flex', gap: 4, justifyContent: 'center', flexWrap: 'wrap', paddingBottom: 0 }}>
               {TABS.map(tab => (
                 <button key={tab.id} onClick={() => setActiveTab(tab.id)}
                   style={{

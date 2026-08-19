@@ -113,7 +113,7 @@ export default function HsCodePage() {
   return (
     <div style={{ background: '#f8fafc', minHeight: '100vh' }}>
       <Navbar />
-      <main style={{ maxWidth: 1000, margin: '0 auto', padding: '100px 24px 80px' }}>
+      <main className="hscode-page" style={{ maxWidth: 1000, margin: '0 auto', padding: '100px 24px 80px' }}>
 
         {/* 헤더 */}
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
@@ -133,7 +133,7 @@ export default function HsCodePage() {
               </button>
             ))}
           </div>
-          <div style={{ display: 'flex', gap: 10 }}>
+          <div className="hscode-search-row" style={{ display: 'flex', gap: 10 }}>
             <input ref={inputRef} value={input}
               onChange={e => handleInput(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && search()}

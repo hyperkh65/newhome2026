@@ -879,6 +879,79 @@ img {
   }
 }
 
+@media (max-width: 640px) {
+  .hscode-page,
+  .board-page,
+  .market-report-page {
+    padding: 88px 16px 48px !important;
+  }
+
+  .hscode-page h1,
+  .board-page h1,
+  .market-report-page h1 {
+    font-size: 28px !important;
+    line-height: 1.25 !important;
+    word-break: keep-all;
+  }
+
+  .hscode-search-row,
+  .tracking-search-row {
+    flex-direction: column !important;
+  }
+
+  .hscode-search-row button,
+  .tracking-search-row button {
+    width: 100%;
+  }
+
+  .board-list-row,
+  .market-list-row {
+    grid-template-columns: 34px minmax(0, 1fr) 72px !important;
+    padding: 13px 12px !important;
+    gap: 6px;
+  }
+
+  .board-list-row > div:nth-child(3),
+  .market-list-row > div:nth-child(3) {
+    display: none !important;
+  }
+
+  .board-list-row > div:nth-child(2),
+  .market-list-row > div:nth-child(2) {
+    min-width: 0;
+  }
+
+  .board-list-row > div:nth-child(2) span,
+  .market-list-row > div:nth-child(2) span {
+    overflow-wrap: anywhere;
+  }
+
+  .trade-info-tabs {
+    justify-content: flex-start !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    padding: 0 4px !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .trade-info-tabs button {
+    flex: 0 0 auto;
+    padding: 10px 13px !important;
+    font-size: 12px !important;
+    white-space: nowrap;
+  }
+
+  .trade-info-page section {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .trade-info-page .container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
 @media print {
   .quotation-overlay {
     position: static !important;
