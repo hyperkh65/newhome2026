@@ -821,6 +821,16 @@ img {
 }
 
 @media (max-width: 640px) {
+  .datahub-promo-popup {
+    display: none !important;
+  }
+
+  /* 모바일 진입 시 카드가 순차적으로 밀려 보이는 현상 방지 */
+  .product-card {
+    animation: none !important;
+    transform: none !important;
+  }
+
   .product-card {
     border-radius: 14px !important;
   }

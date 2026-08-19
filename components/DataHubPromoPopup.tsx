@@ -151,7 +151,7 @@ export default function DataHubPromoPopup() {
   const close = (id: string) => setClosedIds(prev => new Set([...prev, id]));
 
   return (
-    <div style={{ position: 'fixed', bottom: 24, left: 24, zIndex: 1200, display: 'flex', flexDirection: 'column', gap: 12 }}>
+    <div className="datahub-promo-popup" style={{ position: 'fixed', bottom: 24, left: 24, zIndex: 1200, display: 'flex', flexDirection: 'column', gap: 12 }}>
       {visible.map(b => <BannerCard key={b.id} b={b} onClose={() => close(b.id)} />)}
     </div>
   );

@@ -266,6 +266,7 @@ export default function Navbar() {
           .mobile-menu-btn { display: block !important; }
         }
         @media (max-width: 640px) {
+          .site-navbar { transition: none !important; }
           .site-navbar-inner { padding: 0 16px !important; }
           .site-navbar-brand { gap: 8px !important; }
           .site-navbar-brand > div:first-child { width: 38px !important; height: 38px !important; border-radius: 10px !important; }
@@ -274,7 +275,8 @@ export default function Navbar() {
           .site-navbar-actions { gap: 7px !important; }
           .site-navbar-language, .site-navbar-learning { display: none !important; }
           .site-navbar-cart { width: 38px !important; height: 38px !important; }
-          .site-mobile-menu { padding: 16px !important; max-height: calc(100vh - 72px); overflow-y: auto; }
+          .site-mobile-menu { padding: 16px !important; max-height: calc(100vh - 72px); overflow-y: auto; background: #0a0a0b !important; }
+          .site-mobile-menu a { color: #ffffff !important; opacity: 1 !important; visibility: visible !important; }
         }
       `}</style>
     </>
