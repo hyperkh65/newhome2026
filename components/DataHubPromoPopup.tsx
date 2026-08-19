@@ -33,7 +33,7 @@ const FALLBACK: Banner = {
 };
 
 function storageKey(id: string) {
-  return `ynk-banner-hide-${id}`;
+  return `ynk-banner-hide-v2-${id}`;
 }
 function isHidden(id: string) {
   try {
