@@ -55,6 +55,7 @@ export default function GlobalLocalizer() {
   const pathname = usePathname() || '/';
 
   useEffect(() => {
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang;
     if (isProductPath(pathname)) return;
     const translate = () => {
       const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
