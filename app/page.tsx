@@ -104,8 +104,8 @@ export default function Home() {
       </section>
 
       {/* STATS SECTION */}
-      <section style={{ padding: '80px 24px', background: 'var(--white)', borderBottom: '1px solid var(--gray-100)', position: 'relative', zIndex: 5 }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 40, textAlign: 'center' }}>
+      <section className="home-stats-section" style={{ padding: '80px 24px', background: 'var(--white)', borderBottom: '1px solid var(--gray-100)', position: 'relative', zIndex: 5 }}>
+        <div className="home-stats-grid" style={{ maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 40, textAlign: 'center' }}>
           {[
             { value: 100, suffix: '+', label: t('stat_partners') },
             { value: 98, suffix: '%', label: t('stat_cert') },
@@ -114,10 +114,10 @@ export default function Home() {
           ].map((stat) => (
             <ScrollReveal key={stat.label}>
               <div>
-                <div style={{ fontSize: 'clamp(36px, 4vw, 56px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 8, color: 'var(--primary)' }}>
+                <div className="home-stat-value" style={{ fontSize: 'clamp(36px, 4vw, 56px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 8, color: 'var(--primary)' }}>
                   <AnimatedCounter target={stat.value} suffix={stat.suffix} />
                 </div>
-                <div style={{ fontSize: 15, color: 'var(--gray-600)', fontWeight: 600 }}>{stat.label}</div>
+                <div className="home-stat-label" style={{ fontSize: 15, color: 'var(--gray-600)', fontWeight: 600 }}>{stat.label}</div>
               </div>
             </ScrollReveal>
           ))}
@@ -251,7 +251,7 @@ export default function Home() {
       <ManualSidebar />
 
       {/* ERP 좌측 고정 배너 */}
-      <a
+      <a className="home-erp-banner"
         href="https://erp.ynk2014.com"
         target="_blank"
         rel="noopener noreferrer"

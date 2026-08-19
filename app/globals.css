@@ -821,6 +821,31 @@ img {
 }
 
 @media (max-width: 640px) {
+  .home-stats-section {
+    padding: 40px 16px !important;
+  }
+
+  .home-stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 28px 12px !important;
+  }
+
+  .home-stat-value {
+    font-size: 32px !important;
+    line-height: 1 !important;
+    margin-bottom: 7px !important;
+  }
+
+  .home-stat-label {
+    font-size: 12px !important;
+    line-height: 1.35 !important;
+    white-space: nowrap;
+  }
+
+  .home-erp-banner {
+    display: none !important;
+  }
+
   .port-congestion-widget {
     display: none !important;
   }
