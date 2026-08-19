@@ -44,7 +44,7 @@ export default function PortCongestionWidget() {
 
   if (!open) {
     return (
-      <button onClick={() => setOpen(true)} title="인천항 혼잡도"
+      <button className="port-congestion-widget" onClick={() => setOpen(true)} title="인천항 혼잡도"
         style={{
           position: 'fixed', bottom: 24, right: 24, zIndex: 900,
           width: 52, height: 52, borderRadius: '50%',
@@ -63,7 +63,7 @@ export default function PortCongestionWidget() {
   }
 
   return (
-    <div style={{
+    <div className="port-congestion-widget" style={{
       position: 'fixed', bottom: 24, right: 24, zIndex: 900, width: 300,
       background: 'rgba(10,10,14,0.95)', backdropFilter: 'blur(20px)',
       border: '1px solid rgba(255,255,255,0.1)', borderRadius: 20,

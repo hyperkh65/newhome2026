@@ -821,6 +821,10 @@ img {
 }
 
 @media (max-width: 640px) {
+  .port-congestion-widget {
+    display: none !important;
+  }
+
   .datahub-promo-popup {
     display: none !important;
   }
