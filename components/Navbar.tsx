@@ -78,7 +78,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav style={{
+      <nav className="site-navbar" style={{
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000,
         transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
         padding: scrolled ? '12px 0' : '20px 0',
@@ -87,9 +87,9 @@ export default function Navbar() {
         borderBottom: scrolled ? '1px solid rgba(255,255,255,0.08)' : '1px solid transparent',
         boxShadow: (scrolled || !isHome) ? '0 10px 40px rgba(0,0,0,0.5)' : 'none',
       }}>
-        <div style={{ maxWidth: 1400, margin: '0 auto', padding: '0 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div className="site-navbar-inner" style={{ maxWidth: 1400, margin: '0 auto', padding: '0 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
 
-          <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0 }}>
+          <Link className="site-navbar-brand" href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0 }}>
             <div style={{
               width: 44, height: 44, borderRadius: '12px',
               background: 'linear-gradient(135deg, var(--primary), var(--accent))',
@@ -191,8 +191,8 @@ export default function Navbar() {
 
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <div style={{ position: 'relative' }}>
+          <div className="site-navbar-actions" style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <div className="site-navbar-language" style={{ position: 'relative' }}>
               <button onClick={() => setLangMenuOpen(!langMenuOpen)}
                 style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.1)', cursor: 'pointer', height: 44, padding: '0 12px', borderRadius: '22px', color: '#ffffff', display: 'flex', alignItems: 'center', gap: 6, transition: '0.3s' }}>
                 <span style={{ fontSize: 20 }}>{FLAG_ICONS[lang]}</span>
@@ -214,14 +214,14 @@ export default function Navbar() {
             </div>
 
 
-            <Link href="/cart" style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.1)', cursor: 'pointer', width: 44, height: 44, borderRadius: '50%', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', transition: '0.3s', textDecoration: 'none' }}>
+            <Link className="site-navbar-cart" href="/cart" style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.1)', cursor: 'pointer', width: 44, height: 44, borderRadius: '50%', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', transition: '0.3s', textDecoration: 'none' }}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>
               </svg>
               {cartCount > 0 && <span style={{ position: 'absolute', top: -4, right: -4, background: '#ef4444', color: 'white', fontSize: 10, fontWeight: 900, width: 18, height: 18, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid white' }}>{cartCount}</span>}
             </Link>
 
-            <a href="https://www.ynk2014.com/english" target="_blank" rel="noopener noreferrer"
+            <a className="site-navbar-learning" href="https://www.ynk2014.com/english" target="_blank" rel="noopener noreferrer"
               style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '9px 16px', borderRadius: 22, textDecoration: 'none', fontWeight: 700, fontSize: 13, whiteSpace: 'nowrap', flexShrink: 0,
                 background: 'rgba(139,92,246,0.18)', border: '1px solid rgba(139,92,246,0.4)', color: '#c4b5fd', transition: 'all 0.2s' }}
               onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(139,92,246,0.35)'; (e.currentTarget as HTMLAnchorElement).style.color = '#fff'; }}
@@ -239,7 +239,7 @@ export default function Navbar() {
         </div>
 
         {menuOpen && (
-          <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, background: 'var(--bg-dark)', padding: '24px', borderTop: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 20px 40px rgba(0,0,0,0.5)', display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <div className="site-mobile-menu" style={{ position: 'absolute', top: '100%', left: 0, right: 0, background: 'var(--bg-dark)', padding: '24px', borderTop: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 20px 40px rgba(0,0,0,0.5)', display: 'flex', flexDirection: 'column', gap: 10 }}>
             <Link href="/about" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', color: '#ffffff', textDecoration: 'none', fontWeight: 700 }}>{t('company')}</Link>
             <Link href="/shop" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', color: '#ffffff', textDecoration: 'none', fontWeight: 700 }}>{t('products')}</Link>
             <Link href="/hscode" onClick={()=>setMenuOpen(false)} style={{ padding: '16px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', color: '#ffffff', textDecoration: 'none', fontWeight: 700 }}>HS코드</Link>
@@ -264,6 +264,17 @@ export default function Navbar() {
         @media (max-width: 1024px) {
           .desktop-nav { display: none !important; }
           .mobile-menu-btn { display: block !important; }
+        }
+        @media (max-width: 640px) {
+          .site-navbar-inner { padding: 0 16px !important; }
+          .site-navbar-brand { gap: 8px !important; }
+          .site-navbar-brand > div:first-child { width: 38px !important; height: 38px !important; border-radius: 10px !important; }
+          .site-navbar-brand > div:last-child > span:first-child { font-size: 17px !important; }
+          .site-navbar-brand > div:last-child > span:last-child { font-size: 7px !important; letter-spacing: 1px !important; }
+          .site-navbar-actions { gap: 7px !important; }
+          .site-navbar-language, .site-navbar-learning { display: none !important; }
+          .site-navbar-cart { width: 38px !important; height: 38px !important; }
+          .site-mobile-menu { padding: 16px !important; max-height: calc(100vh - 72px); overflow-y: auto; }
         }
       `}</style>
     </>

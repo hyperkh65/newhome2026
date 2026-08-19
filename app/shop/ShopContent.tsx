@@ -101,7 +101,7 @@ export default function ShopContent() {
   return (
     <main style={{ background: '#f9fafb', minHeight: '100vh', color: '#111827', paddingTop: 64 }}>
       <Navbar />
-      <div style={{ padding: '60px 24px 40px', borderBottom: '1px solid #e5e7eb', background: '#fff' }}>
+      <div className="shop-heading" style={{ padding: '60px 24px 40px', borderBottom: '1px solid #e5e7eb', background: '#fff' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
           <p style={{ fontSize: 13, letterSpacing: 2, fontWeight: 700, color: 'var(--primary)', marginBottom: 12 }}>SHOP LOGISTICS</p>
           <h1 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: 20 }}>
@@ -113,8 +113,8 @@ export default function ShopContent() {
         </div>
       </div>
 
-      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '40px 24px 80px', display: 'flex', gap: 40, alignItems: 'flex-start' }}>
-        <aside style={{ width: 220, flexShrink: 0, position: 'sticky', top: 84 }}>
+      <div className="shop-content-shell" style={{ maxWidth: 1200, margin: '0 auto', padding: '40px 24px 80px', display: 'flex', gap: 40, alignItems: 'flex-start' }}>
+        <aside className="shop-filters" style={{ width: 220, flexShrink: 0, position: 'sticky', top: 84 }}>
           <div style={{ marginBottom: 32 }}>
             <label style={{ fontSize: 13, fontWeight: 700, color: '#374151', display: 'block', marginBottom: 12 }}>{t('searchPlaceholder')}</label>
             <div style={{ position: 'relative' }}>

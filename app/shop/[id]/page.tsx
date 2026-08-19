@@ -170,7 +170,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
 
       {/* 브레드크럼 */}
       <div style={{ paddingTop: 80, background: '#fff', borderBottom: '1px solid #e2e8f0' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '14px 24px', display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: '#94a3b8' }}>
+        <div className="product-breadcrumb" style={{ maxWidth: 1200, margin: '0 auto', padding: '14px 24px', display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: '#94a3b8' }}>
           <Link href="/" style={{ color: 'inherit', textDecoration: 'none' }}>홈</Link>
           <span>›</span>
           <Link href="/shop" style={{ color: 'inherit', textDecoration: 'none' }}>제품소개</Link>
@@ -182,11 +182,11 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
       </div>
 
       {/* 메인 컨텐츠 */}
-      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '48px 24px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'flex-start' }}>
+      <div className="product-detail-shell" style={{ maxWidth: 1200, margin: '0 auto', padding: '48px 24px' }}>
+        <div className="product-detail-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'flex-start' }}>
 
           {/* ── 왼쪽: 이미지 갤러리 ── */}
-          <div style={{ position: 'sticky', top: 96 }}>
+          <div className="product-detail-gallery" style={{ position: 'sticky', top: 96 }}>
             {/* 메인 이미지 */}
             <div style={{ borderRadius: 24, overflow: 'hidden', background: '#fff', aspectRatio: '1', position: 'relative', border: '1px solid #e2e8f0', boxShadow: '0 8px 32px rgba(0,0,0,0.06)', marginBottom: 12 }}>
               {images.length > 0 ? (
@@ -221,7 +221,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
 
           {/* ── 오른쪽: 제품 정보 ── */}
           <ScrollReveal direction="right">
-            <div>
+            <div className="product-detail-info">
               {/* 카테고리 + 위시리스트 */}
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
                 <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: '#e0f2fe', color: '#0369a1', padding: '5px 12px', borderRadius: 20, fontSize: 13, fontWeight: 700 }}>
@@ -261,7 +261,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
                     <div style={{ width: 3, height: 18, background: '#0ea5e9', borderRadius: 2 }} />
                     <h3 style={{ fontSize: 13, fontWeight: 800, letterSpacing: 1.5, textTransform: 'uppercase', color: '#475569' }}>SPECIFICATION</h3>
                   </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+                  <div className="product-spec-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
                     {specEntries.map(([key, value]) => {
                       const meta = SPEC_META[key] || { label: key, icon: '•', unit: '' };
                       return (
@@ -292,7 +292,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                     {documents.map((doc, i) => (
-                      <a key={i} href={doc.url} target="_blank" rel="noopener noreferrer" download
+                      <a className="product-document-link" key={i} href={doc.url} target="_blank" rel="noopener noreferrer" download
                         style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '14px 16px', background: '#fff', borderRadius: 12, border: '1px solid #e2e8f0', textDecoration: 'none', color: '#0f172a', transition: 'all 0.2s', boxShadow: '0 2px 6px rgba(0,0,0,0.03)' }}
                         onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = '#0ea5e9'; (e.currentTarget as HTMLAnchorElement).style.background = '#f0f9ff'; }}
                         onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = '#e2e8f0'; (e.currentTarget as HTMLAnchorElement).style.background = '#fff'; }}>
@@ -343,7 +343,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
             <h2 style={{ fontSize: 26, fontWeight: 800, marginBottom: 32, color: '#0f172a' }}>
               {cat.icon} 같은 카테고리 제품
             </h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, minmax(0, 1fr))', gap: 16 }}>
+            <div className="related-products-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(5, minmax(0, 1fr))', gap: 16 }}>
               {related.map((p, i) => {
                 const pImg = p.images?.[0] || p.image;
                 return (

@@ -751,6 +751,120 @@ img {
   .products-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
 }
 
+/* 모바일 레이아웃 보정: 데스크톱 스타일은 변경하지 않음 */
+@media (max-width: 1024px) {
+  .shop-content-shell {
+    flex-direction: column;
+    gap: 24px !important;
+  }
+
+  .shop-filters {
+    width: 100% !important;
+    position: static !important;
+  }
+
+  .shop-filters > div:nth-child(2) > div {
+    flex-direction: row !important;
+    overflow-x: auto;
+    gap: 6px !important;
+    padding-bottom: 4px;
+  }
+
+  .shop-filters > div:nth-child(2) button {
+    min-width: max-content;
+  }
+}
+
+@media (max-width: 768px) {
+  .shop-heading {
+    padding: 40px 16px 28px !important;
+  }
+
+  .shop-content-shell {
+    padding: 24px 16px 56px !important;
+  }
+
+  .product-breadcrumb {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .product-detail-shell {
+    padding: 28px 16px !important;
+  }
+
+  .product-detail-grid {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+
+  .product-detail-gallery {
+    position: relative !important;
+    top: auto !important;
+  }
+
+  .product-spec-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .related-products-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+  }
+
+  .product-document-link {
+    min-height: 56px;
+    padding: 12px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .product-card {
+    border-radius: 14px !important;
+  }
+
+  .product-card-image {
+    aspect-ratio: 1 / 1 !important;
+  }
+
+  .product-card-info {
+    padding: 12px 12px 10px !important;
+  }
+
+  .product-card-info h3 {
+    font-size: 14px !important;
+    min-height: 36px;
+    margin-bottom: 7px !important;
+  }
+
+  .product-card-info p {
+    font-size: 12px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .product-card-info > div:last-child span {
+    font-size: 15px !important;
+  }
+
+  .product-card-cart {
+    padding: 0 12px 12px !important;
+  }
+
+  .product-card-cart button {
+    padding: 10px 6px !important;
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .products-grid,
+  .related-products-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
 @media print {
   .quotation-overlay {
     position: static !important;

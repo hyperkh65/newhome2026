@@ -32,7 +32,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
   };
 
   return (
-    <div
+    <div className="product-card"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       style={{
@@ -50,7 +50,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
     >
       <Link href={`/shop/${product.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
         {/* Image */}
-        <div style={{ position: 'relative', aspectRatio: '4/3', overflow: 'hidden', background: '#0a0a0a' }}>
+        <div className="product-card-image" style={{ position: 'relative', aspectRatio: '4/3', overflow: 'hidden', background: '#0a0a0a' }}>
           <img
             src={image}
             alt={product.name}
@@ -110,7 +110,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
         </div>
 
         {/* Info */}
-        <div style={{ padding: '20px 20px 16px' }}>
+        <div className="product-card-info" style={{ padding: '20px 20px 16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 8 }}>
             <span style={{ fontSize: 11, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 1 }}>
               {product.category}
@@ -147,7 +147,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
       </Link>
 
       {/* Add to cart */}
-      <div style={{ padding: '0 20px 20px' }}>
+      <div className="product-card-cart" style={{ padding: '0 20px 20px' }}>
         <button
           onClick={handleAddToCart}
           style={{
