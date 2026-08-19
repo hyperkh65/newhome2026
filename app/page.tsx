@@ -12,6 +12,7 @@ import { supabase } from '@/lib/supabase';
 import ToolDock from '@/components/ToolDock';
 import ManualSidebar from '@/components/ManualSidebar';
 import DataHubPromoPopup from '@/components/DataHubPromoPopup';
+import ProductShowcasePopup from '@/components/ProductShowcasePopup';
 
 const CATEGORIES = [
   { id: 'smart', labelKey: 'smart', icon: '☁️', descKey: 'desc_smart' },
@@ -78,6 +79,7 @@ export default function Home() {
   return (
     <main style={{ minHeight: '100vh' }}>
       <DataHubPromoPopup />
+      <ProductShowcasePopup />
       <Navbar />
 
       {/* HERO SECTION */}
