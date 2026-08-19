@@ -7,6 +7,7 @@ import CloudinaryUpload from '@/components/CloudinaryUpload';
 import PdfUpload from '@/components/PdfUpload';
 import RichEditor from '@/components/RichEditor';
 import { supabase } from '@/lib/supabase';
+import ShowcaseManager from '@/components/admin/ShowcaseManager';
 
 interface Post {
   id?: string; type: 'board' | 'blog' | 'report'; title: string; content: string;
@@ -223,7 +224,7 @@ export default function AdminPage() {
   const isLoggedIn = useAdminStore(s => s.isLoggedIn);
   const logout     = useAdminStore(s => s.logout);
 
-  const [tab, setTab]   = useState<'dashboard' | 'products' | 'report' | 'board' | 'blog' | 'settings' | 'faq' | 'contact_mgr' | 'install' | 'as_mgr' | 'catalog' | 'quotation'>('dashboard');
+  const [tab, setTab]   = useState<'dashboard' | 'products' | 'report' | 'board' | 'blog' | 'settings' | 'faq' | 'contact_mgr' | 'install' | 'as_mgr' | 'catalog' | 'quotation' | 'showcase'>('dashboard');
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState<Post[]>([]);
   const [editPost, setEditPost] = useState<Post | null>(null);
@@ -494,6 +495,7 @@ export default function AdminPage() {
   const NAV_ITEMS = [
     { key: 'dashboard', label: '대시보드',   icon: '📊', badge: null },
     { key: 'products',  label: '제품 관리',  icon: '💡', badge: dbProducts.length },
+    { key: 'showcase',  label: '제품 쇼케이스', icon: '🖼️', badge: null },
     { key: 'report',    label: '시장보고서', icon: '📈', badge: posts.filter(p=>p.type==='report').length },
     { key: 'board',     label: '게시판',     icon: '📝', badge: posts.filter(p=>p.type==='board').length },
     { key: 'blog',      label: '블로그',     icon: '✍️', badge: posts.filter(p=>p.type==='blog').length },
@@ -1379,6 +1381,8 @@ export default function AdminPage() {
             </div>
           </div>
         )}
+
+        {tab === 'showcase' && <ShowcaseManager />}
 
         {/* ─────── 전자카탈로그 관리 ─────── */}
         {tab === 'catalog' && !editCatalog && (
