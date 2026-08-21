@@ -33,7 +33,8 @@ const FALLBACK: Banner = {
 };
 
 function storageKey(id: string) {
-  return `ynk-banner-hide-v2-${id}`;
+  // 배너 구성 변경 시 이전에 닫아 둔 상태가 새 배너를 영구적으로 가리지 않도록 버전을 올린다.
+  return `ynk-banner-hide-v3-${id}`;
 }
 function isHidden(id: string) {
   try {
@@ -138,7 +139,9 @@ export default function DataHubPromoPopup() {
       try {
         const { data } = await supabase.from('banners').select('*').eq('is_active', true)
           .order('created_at', { ascending: false });
-        if (data && data.length > 0) setBanners(data as Banner[]);
+        // 관리자 배너가 등록되어 있어도 기본 Hub 진입점은 항상 남겨 둔다.
+        // 기존 배너를 닫았거나 잘못된 설정이 있어도 좌측 하단 Hub가 사라지지 않는다.
+        if (data && data.length > 0) setBanners([...(data as Banner[]), FALLBACK]);
       } catch {}
     })();
   }, []);
@@ -151,7 +154,7 @@ export default function DataHubPromoPopup() {
   const close = (id: string) => setClosedIds(prev => new Set([...prev, id]));
 
   return (
-    <div style={{ position: 'fixed', bottom: 24, left: 24, zIndex: 1200, display: 'flex', flexDirection: 'column', gap: 12 }}>
+    <div className="datahub-promo-popup" style={{ position: 'fixed', bottom: 24, left: 24, zIndex: 1200, display: 'flex', flexDirection: 'column', gap: 12 }}>
       {visible.map(b => <BannerCard key={b.id} b={b} onClose={() => close(b.id)} />)}
     </div>
   );
