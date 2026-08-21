@@ -139,16 +139,17 @@ export default function DataHubPromoPopup() {
       try {
         const { data } = await supabase.from('banners').select('*').eq('is_active', true)
           .order('created_at', { ascending: false });
-        // 관리자 배너가 등록되어 있어도 기본 Hub 진입점은 항상 남겨 둔다.
-        // 기존 배너를 닫았거나 잘못된 설정이 있어도 좌측 하단 Hub가 사라지지 않는다.
-        if (data && data.length > 0) setBanners([...(data as Banner[]), FALLBACK]);
+        // 관리자 배너가 있으면 그것을 우선 사용하고, 없을 때만 기본 Hub를 사용한다.
+        if (data && data.length > 0) setBanners(data as Banner[]);
       } catch {}
     })();
   }, []);
 
   if (!mounted) return null;
 
-  const visible = banners.filter(b => !isHidden(b.id) && !closedIds.has(b.id));
+  const candidates = banners.filter(b => !isHidden(b.id) && !closedIds.has(b.id));
+  // 활성 배너가 여러 개여도 좌측 하단에는 항상 한 장만 표시한다.
+  const visible = candidates.length > 0 ? [candidates[0]] : (!isHidden(FALLBACK.id) ? [FALLBACK] : []);
   if (visible.length === 0) return null;
 
   const close = (id: string) => setClosedIds(prev => new Set([...prev, id]));
