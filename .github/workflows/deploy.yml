@@ -72,14 +72,15 @@ jobs:
             done
             SUPEOF
             chmod +x /volume1/web/newhome2026/supervisor.sh
-            OLD_PID=$(cat /tmp/newhome.pid 2>/dev/null)
-            [ -n "$OLD_PID" ] && kill $OLD_PID 2>/dev/null || true
+            # pkill로 이름 매칭된 슈퍼바이저를 전부 잡는다 — pid 파일 하나만 믿으면
+            # (예: 수동으로 띄운 별도 인스턴스가 있는 경우) 놓치는 인스턴스가 남아
+            # 새 슈퍼바이저와 포트를 두고 계속 충돌하는 문제가 실제로 있었다.
+            pkill -f '/volume1/web/newhome2026/supervisor.sh' 2>/dev/null || true
             sleep 1
             PORT_PID=$(netstat -tlnp 2>/dev/null | grep ':3102 ' | awk '{print $NF}' | cut -d'/' -f1)
             [ -n "$PORT_PID" ] && kill $PORT_PID 2>/dev/null || true
             sleep 1
             ICPA_API_KEY="${{ secrets.ICPA_API_KEY }}" setsid /volume1/web/newhome2026/supervisor.sh < /dev/null > /dev/null 2>&1 &
-            sleep 1
-            SUP_PID=$(pgrep -f 'supervisor.sh' | head -1)
+            SUP_PID=$!
             echo "$SUP_PID" > /tmp/newhome.pid
             echo "Started supervisor PID=$SUP_PID on port 3102 (heap 3072MB, auto-restart on crash)"
