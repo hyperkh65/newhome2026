@@ -61,11 +61,25 @@ jobs:
             rm -rf /volume1/web/newhome2026/.next/standalone/.next/static
             cp -r /volume1/web/newhome2026/.next/static /volume1/web/newhome2026/.next/standalone/.next/static
             cp -rp /volume1/web/newhome2026/public/. /volume1/web/newhome2026/.next/standalone/public/ 2>/dev/null || true
+            cat > /volume1/web/newhome2026/supervisor.sh << 'SUPEOF'
+            #!/bin/bash
+            NODE=/volume1/homes/urjent/runtime/node-v22.16.0-linux-x64/bin/node
+            while true; do
+              echo "[supervisor] starting newhome2026 at $(date)" >> /tmp/newhome.log
+              NODE_OPTIONS=--max-old-space-size=3072 PORT=3102 "$NODE" /volume1/web/newhome2026/.next/standalone/server.js >> /tmp/newhome.log 2>&1
+              echo "[supervisor] newhome2026 exited (code $?) at $(date), restarting in 3s..." >> /tmp/newhome.log
+              sleep 3
+            done
+            SUPEOF
+            chmod +x /volume1/web/newhome2026/supervisor.sh
             OLD_PID=$(cat /tmp/newhome.pid 2>/dev/null)
             [ -n "$OLD_PID" ] && kill $OLD_PID 2>/dev/null || true
+            sleep 1
             PORT_PID=$(netstat -tlnp 2>/dev/null | grep ':3102 ' | awk '{print $NF}' | cut -d'/' -f1)
             [ -n "$PORT_PID" ] && kill $PORT_PID 2>/dev/null || true
             sleep 1
-            PORT=3102 ICPA_API_KEY="${{ secrets.ICPA_API_KEY }}" $NODE /volume1/web/newhome2026/.next/standalone/server.js >> /tmp/newhome.log 2>&1 &
-            echo $! > /tmp/newhome.pid
-            echo "Started PID=$(cat /tmp/newhome.pid) on port 3102"
+            ICPA_API_KEY="${{ secrets.ICPA_API_KEY }}" setsid /volume1/web/newhome2026/supervisor.sh < /dev/null > /dev/null 2>&1 &
+            sleep 1
+            SUP_PID=$(pgrep -f 'supervisor.sh' | head -1)
+            echo "$SUP_PID" > /tmp/newhome.pid
+            echo "Started supervisor PID=$SUP_PID on port 3102 (heap 3072MB, auto-restart on crash)"
