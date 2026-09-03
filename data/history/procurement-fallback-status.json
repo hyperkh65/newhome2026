@@ -1,7 +1,7 @@
 {
   "usedFallback": true,
-  "updatedAt": "2026-08-29T07:08:12.006Z",
-  "targetFile": "procurement-2026-08-29.json",
+  "updatedAt": "2026-09-03T04:26:04.024Z",
+  "targetFile": "procurement-2026-09-03.json",
   "sourceFile": "procurement-2026-07-24.json",
   "rowCount": 13062,
   "reason": "주식회사:조달 실데이터 수집 실패: itemIdnfNm:주식회사:1:shop.g2b network failure: The operation was aborted due to timeout | etpsNm:주식회사:1:shop.g2b network failure: The operation was aborted due to timeout | venture:itemIdnfNm:주식회사:1:shop.g2b network failure: The operation was aborted due to timeout | 유한회사:조달 실데이터 수집 실패: itemIdnfNm:유한회사:1:shop.g2b network failure: The operation was aborted due to timeout | etpsNm:유한회사:1:shop.g2b network failure: The operation was aborted due to timeout | venture:itemIdnfNm:유한회사:1:shop.g2b network failure: The operation was aborted due to timeout | 산업:조달 실데이터 수집 실패: itemIdnfNm:산업:1:shop.g2b network failure: The operation was aborted due to timeout | etpsNm:산업:1:shop.g2b network failure: The operation was aborted due to timeout | venture:itemIdnfNm:산업:1:shop.g2b network failure: The operation was aborted due to timeout | 테크:조달 실데이터 수집 실패: itemIdnfNm:테크:1:shop.g2b network failure: The operation was aborted due to timeout | etpsNm:테크:1:shop.g2b network failure: The operation was aborted due to timeout | venture:itemIdnfNm:테크:1:shop.g2b network failure: The operation was aborted due to timeout"
