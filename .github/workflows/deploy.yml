@@ -56,7 +56,7 @@ jobs:
           port: 79
           username: urjent
           key: ${{ secrets.NAS_SSH_PRIVATE_KEY }}
-          command_timeout: 2m
+          command_timeout: 4m
           script: |
             NODE=/volume1/homes/urjent/runtime/node-v22.16.0-linux-x64/bin/node
             mkdir -p /volume1/web/newhome2026/.next/standalone/.next
@@ -81,7 +81,7 @@ jobs:
             pkill -f '/volume1/web/newhome2026/supervisor.sh' 2>/dev/null || true
             sleep 1
             PORT_PID=$(netstat -tlnp 2>/dev/null | grep ':3102 ' | awk '{print $NF}' | cut -d'/' -f1)
-            [ -n "$PORT_PID" ] && kill $PORT_PID 2>/dev/null || true
+            [ -n "$PORT_PID" ] && kill -9 $PORT_PID 2>/dev/null || true
             sleep 1
             ICPA_API_KEY="${{ secrets.ICPA_API_KEY }}" setsid /volume1/web/newhome2026/supervisor.sh < /dev/null > /dev/null 2>&1 &
             SUP_PID=$!
