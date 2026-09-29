@@ -33,6 +33,7 @@ jobs:
         uses: appleboy/ssh-action@v1
         with:
           host: hy64.synology.me
+          port: 79
           username: urjent
           key: ${{ secrets.NAS_SSH_PRIVATE_KEY }}
           script: |
@@ -42,6 +43,7 @@ jobs:
         uses: appleboy/scp-action@v0.1.7
         with:
           host: hy64.synology.me
+          port: 79
           username: urjent
           key: ${{ secrets.NAS_SSH_PRIVATE_KEY }}
           source: ".next/standalone/,.next/static/,public/"
@@ -51,6 +53,7 @@ jobs:
         uses: appleboy/ssh-action@v1
         with:
           host: hy64.synology.me
+          port: 79
           username: urjent
           key: ${{ secrets.NAS_SSH_PRIVATE_KEY }}
           command_timeout: 2m
